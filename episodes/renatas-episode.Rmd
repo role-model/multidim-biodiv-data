@@ -1,5 +1,5 @@
 ---
-title: "Using RMarkdown"
+title: "Sandbox episode - Renata"
 teaching: 10
 exercises: 2
 ---
