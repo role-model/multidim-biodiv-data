@@ -60,6 +60,11 @@ contact: 'team@carpentries.org'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
+- renatas-episode.Rmd 
+- connor-episode.Rmd
+- jacobs-episode.Rmd
+- isaac-sandbox-episode.Rmd
+- andys-laser-cat.Rmd
 
 # Information for Learners
 learners: 
