@@ -14,10 +14,9 @@ exercises: 2
 
 After following this episode, participants should be able to...
 
-1. Identify the format of your raw data
-2. Import abundance and trait data in a CSV format into R environment
-3. Import sequence alignments from FASTA files into a GENO format
-4. Import phylogenetic data from Phyllip files into PHYLO format
+1. Import abundance and trait data in a CSV format into R environment
+2. Import sequence alignments from FASTA files into a GENO format
+3. Import phylogenetic data from Phyllip files into PHYLO format
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
