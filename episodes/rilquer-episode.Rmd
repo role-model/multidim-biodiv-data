@@ -1,20 +1,26 @@
 ---
-title: "Using RMarkdown"
+title: "Data Importing"
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How do import multi-dimensional data??
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+After following this episode, participants should be able to...
+
+1. Identify the format of your raw data
+2. Import abundance and trait data in a CSV format into R environment
+3. Import sequence alignments from FASTA files into a GENO format
+4. Import phylogenetic data from Phyllip files into PHYLO format
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-TODO
+1. Introduction
+
+
