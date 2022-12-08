@@ -37,14 +37,14 @@ TODO
 
 Modify this code so it calculates Simpson evenness on the vector called `species_abundances`:
 
-```
+```r
 library(vegan)
 diversity(species_abundances)
 ```
 
 :::::::::::::::: solution
 
-```
+```r
 diversity(species_abundances, index = "simpson")
 ```
 
