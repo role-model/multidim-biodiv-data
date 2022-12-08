@@ -29,3 +29,24 @@ exercises: 2
 ## Introduction
 
 TODO
+
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Assumptions of vegan
+
+Modify this code so it calculates Simpson evenness on the vector called `species_abundances`:
+
+```
+library(vegan)
+diversity(species_abundances)
+```
+
+:::::::::::::::: solution
+
+```
+diversity(species_abundances, index = "simpson")
+```
+
+:::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
