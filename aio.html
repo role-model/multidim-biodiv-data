@@ -577,7 +577,7 @@ called <code>species_abundances</code>:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -635,8 +635,8 @@ colored according to their trait values</li>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="trait-histogram" class="callout-inner">
-<h3 class="callout-title">Trait histogram<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
 </h3>
 <div class="callout-content">
 <p>Now that you have read in <code>trait.csv</code> as the R object
@@ -673,23 +673,48 @@ Your code:</p>
 </div>
 </div>
 </div>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="coloring-branches-based-on-trait-values" class="callout-inner">
+<h3 class="callout-title">Coloring branches based on trait values<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<blockquote>
+<p>You are interested in how the wing length phenotypic variable you
+measured maps onto the phylogeny. You decided to color the tips
+according to wing length using a continuous scale. However, you get
+wonky results when you run your code. How do you fix it to correctly map
+the colors? Assume your data is sorted by wing length.<br>
+Your code:</p>
+</blockquote>
+<pre><code><span><span class="va">wing_color</span> <span class="op">&lt;-</span> <span class="fu">colorRampPalette</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">birds</span><span class="op">$</span><span class="va">edge</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">birds</span>, tip.color <span class="op">=</span> <span class="va">wing_color</span><span class="op">)</span></span></code></pre>
+<p>Answer:<br>
+::: solution</p>
+<pre><code><span><span class="va">wing_color</span> <span class="op">&lt;-</span> <span class="fu">colorRampPalette</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">birds</span><span class="op">$</span><span class="va">wing.length</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">birds</span>, tip.color <span class="op">=</span> <span class="va">wing_color</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+<p>::::</p>
 <div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="adding-color-to-your-histogram" class="callout-inner">
-<h3 class="callout-title">Adding color to your histogram<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+<div id="rank-ordering-abundances" class="callout-inner">
+<h3 class="callout-title">Rank ordering abundances<a class="anchor" aria-label="anchor" href="#challenge2"></a>
 </h3>
 <div class="callout-content">
-<p>You want to make your histogram more aesthetically pleasing by
-changing the color of the bars, but something isn’t working. Fix your
-code so your plot is a beautiful shade of green. Your code:</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">trait</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></code></pre>
-</div>
+<p>Generating a <em>rank</em> abundance plot requires ordering the
+abunances from greatest to least. Your raw data will typically not be
+ordered this way by default. Assume that <code>abunds</code> is a vector
+of abundances.</p>
+<p>Fill in the blank below to sort the abunance values prior to
+plotting.</p>
+<pre><code>sorted &lt;- sort(abunds, decreasing=______)
+barplot(sorted)</code></pre>
 </div>
 </div>
 </div>
@@ -702,101 +727,8 @@ code so your plot is a beautiful shade of green. Your code:</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">trait</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge3" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="coloring-branches-based-on-trait-values" class="callout-inner">
-<h3 class="callout-title">Coloring branches based on trait values<a class="anchor" aria-label="anchor" href="#challenge3"></a>
-</h3>
-<div class="callout-content">
-<blockquote>
-<p>You are interested in how the wing length phenotypic variable you
-measured maps onto the phylogeny. You decided to color the tips
-according to wing length using a continuous scale. However, you get
-wonky results when you run your code. How do you fix it to correctly map
-the colors? Assume your data is sorted by wing length.<br>
-Your code:</p>
-</blockquote>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wing_color</span> <span class="op">&lt;-</span> <span class="fu">colorRampPalette</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">birds</span><span class="op">$</span><span class="va">edge</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">birds</span>, tip.color <span class="op">=</span> <span class="va">wing_color</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wing_color</span> <span class="op">&lt;-</span> <span class="fu">colorRampPalette</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">birds</span><span class="op">$</span><span class="va">wing.length</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">birds</span>, tip.color <span class="op">=</span> <span class="va">wing_color</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge4" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="rank-ordering-abundances" class="callout-inner">
-<h3 class="callout-title">Rank ordering abundances<a class="anchor" aria-label="anchor" href="#challenge4"></a>
-</h3>
-<div class="callout-content">
-<p>Generating a <em>rank</em> abundance plot requires ordering the
-abunances from greatest to least. Your raw data will typically not be
-ordered this way by default. Assume that <code>abunds</code> is a vector
-of abundances.</p>
-<p>Fill in the blank below to sort the abunance values prior to
-plotting.</p>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sorted <span class="ot">&lt;-</span> <span class="fu">sort</span>(abunds, <span class="at">decreasing=</span>______)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(sorted)</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sorted</span> <span class="op">&lt;-</span> <span class="fu">sort</span><span class="op">(</span><span class="va">abunds</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<pre><code><span><span class="va">sorted</span> <span class="op">&lt;-</span> <span class="fu">sort</span><span class="op">(</span><span class="va">abunds</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">barplot</span><span class="op">(</span><span class="va">sorted</span><span class="op">)</span></span></code></pre>
-</div>
 </div>
 </div>
 </div>
