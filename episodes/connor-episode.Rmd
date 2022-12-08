@@ -40,3 +40,40 @@ hist(traits$trait)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::: challenge
+### Coloring branches based on trait values
+>You are interested in how the wing length phenotypic variable you measured maps onto the phylogeny. You decided to color the tips according to wing length using a continuous scale. However, you get wonky results when you run your code. How do you fix it to correctly map the colors? Assume your data is sorted by wing length.  
+> Your code:  
+```
+wing_color <- colorRampPalette(c("blue", "red"))(length(birds$edge))
+plot(birds, tip.color = wing_color)
+```
+
+Answer:  
+::: solution
+```
+wing_color <- colorRampPalette(c("blue", "red"))(length(birds$wing.length))
+plot(birds, tip.color = wing_color)
+```
+:::
+::::
+
+
+:::: challenge
+### Rank ordering abundances
+Generating a *rank* abundance plot requires ordering the abunances from greatest to least. Your raw data will typically not be ordered this way by default. Assume that `abunds` is a vector of abundances.
+
+Fill in the blank below to sort the abunance values prior to plotting.
+```
+sorted <- sort(abunds, decreasing=______)
+barplot(sorted)
+```
+::: solution
+```
+sorted <- sort(abunds, decreasing=TRUE)
+barplot(sorted)
+```
+:::
+
+::::
+
