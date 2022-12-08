@@ -313,7 +313,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Using RMarkdown</a></p>
 <hr>
-<p> Last updated on 2022-12-06 | 
+<p> Last updated on 2022-12-08 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -378,7 +378,7 @@ reinforce the objectives.</li>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -412,7 +412,7 @@ View”</p>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -443,7 +443,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge2"></a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -608,57 +608,6 @@ called <code>species_abundances</code>:</p>
 </div>
 </div>
 </div>
-<div id="challenge2" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="creating-hill-numbers-with-hillr" class="callout-inner">
-<h3 class="callout-title">Creating Hill numbers with hillR<a class="anchor" aria-label="anchor" href="#challenge2"></a>
-</h3>
-<div class="callout-content">
-<p>Fill in the blanks so that the code below creates a vector of Hill
-numbers for community taxonomic richness as the ‘hn’ object.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>comm <span class="ot">&lt;-</span> FD<span class="sc">::</span>dummy<span class="sc">$</span>abun</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> FD<span class="sc">::</span>dummy<span class="sc">$</span>trait</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>hn <span class="ot">&lt;-</span> hillR<span class="sc">::</span><span class="fu">hill_taxa</span>(__,<span class="at">q=</span>__)</span></code></pre>
-</div>
-<p>Blank 1 = ? Blank 2 = ?</p>
-</div>
-</div>
-</div>
-<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
-  <h4 class="accordion-header" id="headingHint1">
-  HINT (hint)
-  </h4>
-</button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
-<div class="accordion-body">
-<p>HINT accordions are created with the <code>hint</code> tag and nested
-within <code>challenge</code> callouts. These offer more context for the
-challenge that can help the learner find the solution.</p>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
-  SOLUTION (solution)
-  </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<p>Blank 1 = comm Blank 2 = 0</p>
-</div>
-</div>
-</div>
-</div>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
@@ -732,7 +681,7 @@ Your code:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -771,7 +720,7 @@ code so your plot is a beautiful shade of green. Your code:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -816,7 +765,7 @@ Your code:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -859,7 +808,7 @@ plotting.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -873,7 +822,7 @@ plotting.</p>
 </div>
 </div></section><section id="aio-jacobs-episode"><p>Content from <a href="jacobs-episode.html">Sandbox episode - Jacob</a></p>
 <hr>
-<p> Last updated on 2022-12-06 | 
+<p> Last updated on 2022-12-08 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/jacobs-episode.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -906,7 +855,7 @@ plotting.</p>
 </div>
 </div></section><section id="aio-isaac-sandbox-episode"><p>Content from <a href="isaac-sandbox-episode.html">Haxx</a></p>
 <hr>
-<p> Last updated on 2022-12-06 | 
+<p> Last updated on 2022-12-08 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/isaac-sandbox-episode.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -968,7 +917,7 @@ reinforce the objectives.</li>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -1002,7 +951,7 @@ View”</p>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1033,7 +982,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge2"></a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1096,7 +1045,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-andys-laser-cat"><p>Content from <a href="andys-laser-cat.html">Laser Cats</a></p>
 <hr>
-<p> Last updated on 2022-12-06 | 
+<p> Last updated on 2022-12-08 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/andys-laser-cat.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1167,42 +1116,7 @@ environment</li>
 </div>
 <ol style="list-style-type: decimal">
 <li>Introduction</li>
-</ol>
-<p>Imagine here a lot of content about importing different formats of
-biological data into an R environment</p>
-<div id="challenge1" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="exercise-1-importing-and-visualizing-species-abundance-distribution" class="callout-inner">
-<h3 class="callout-title">Exercise 1: Importing and visualizing species
-abundance distribution<a class="anchor" aria-label="anchor" href="#challenge1"></a>
-</h3>
-<div class="callout-content">
-<p>Fill the blanks so that the code belows performs the following tasks:
-1) import a CSV table names “species_records.csv”; 2) plot a histogram
-of the abundance distribution of the species, based on the content in
-the column “species”</p>
-<pre><code>data &lt;- ______ ('species_records.csv')
-hist(________)</code></pre>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
-<div class="accordion-body">
-<pre><code>data &lt;- ______ ('species_records.csv')
-hist(________)</code></pre>
-</div>
-</div>
-</div>
-</div></section>
+</ol></section>
 </div>
     </main>
 </div>
