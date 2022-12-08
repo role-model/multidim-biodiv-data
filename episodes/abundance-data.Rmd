@@ -44,7 +44,7 @@ foo bar
 
 Rearrange these lines of code to import and clean an abundance dataset
 
-```{r abund-import}
+```{r abund-import, eval = FALSE}
 names(cleanTax) <- c('sp', 'clean_name')
 
 cleanTax <- gnr_resolve(abund$sp, 
@@ -67,7 +67,7 @@ abund <- merge(abund, cleanTax)
 
 :::::: solution
 
-```{r abund-import-sol}
+```{r abund-import-sol, eval = FALSE}
 library(taxize)
 
 abund <- read.csv('data/abund.csv')
