@@ -9,6 +9,7 @@ exercises: 2
 - What are summary statistics and why do we use them?
 - What are the common summary metrics used for different data types and how are they calculated?
 - How do Hill numbers unify multiple data types into the same framework?
+- What do Hill numbers tell you? 
 - How do I calculate Hill numbers for different data types?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -104,4 +105,5 @@ Blank 2 = 0
 :::::: keypoints
  - Domain-specific summary statistics include evenness, diversity, ....
  - Hill numbers provide a general framework for comparing diversity and community structure in different contexts.
+ - The q order of a Hill number defines what it means
 ::::::
