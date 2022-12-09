@@ -99,3 +99,9 @@ Blank 2 = 0
 
 
 :::::::::::::::::::::::::::::::::::::::::::
+
+
+:::::: keypoints
+ - Domain-specific summary statistics include evenness, diversity, ....
+ - Hill numbers provide a general framework for comparing diversity and community structure in different contexts.
+::::::
