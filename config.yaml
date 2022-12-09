@@ -58,9 +58,10 @@ contact: 'team@carpentries.org'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
 - introduction.Rmd
-- summary-statistics.Rmd 
+- abundance-data.Rmd
+- summary-statistics.Rmd
 - connor-episode.Rmd
 - jacobs-episode.Rmd
 - isaac-sandbox-episode.Rmd
@@ -68,13 +69,13 @@ episodes:
 - rilquer-episode.Rmd
 
 # Information for Learners
-learners: 
+learners:
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #

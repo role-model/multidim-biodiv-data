@@ -518,7 +518,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-abundance-data"><p>Content from <a href="abundance-data.html">Abundance Data</a></p>
 <hr>
-<p> Last updated on 2022-12-08 | 
+<p> Last updated on 2022-12-09 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -548,7 +548,7 @@ any links that you are not going to use.
 <p>After following this episode, participants should be able to…</p>
 <ol style="list-style-type: decimal">
 <li>Import abundance data in a CSV format into R environment</li>
-<li>Clean taxonomic names using the <em>taxize</em> package</li>
+<li>Clean taxonomic names using the <code>taxize</code> package</li>
 <li>Aggregate abundances</li>
 <li>Calculate Hill numbers</li>
 <li>Interpret Hill numbers</li>
@@ -568,7 +568,18 @@ any links that you are not going to use.
 </section><section id="abndance-data-import"><h2 class="section-heading">Abndance data import<a class="anchor" aria-label="anchor" href="#abndance-data-import"></a>
 </h2>
 <hr class="half-width">
-<p>foo bar</p>
+<div class="section level3">
+<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h3>
+<p>The example will need to show:</p>
+<ul>
+<li>how to load csv data</li>
+<li>different formats we might expect for abundance</li>
+<li>summing abundances by species and dealing with 0s</li>
+<li>argument options and output of <code>taxize::gnr_resolve</code>
+</li>
+<li>how to manipulate and combine different data.frames</li>
+</ul>
 <div id="challenge1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -641,6 +652,7 @@ dataset</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
+</div>
 </section></section><section id="aio-summary-statistics"><p>Content from <a href="summary-statistics.html">Summary statistics</a></p>
 <hr>
 <p> Last updated on 2022-12-08 | 
@@ -733,7 +745,7 @@ called <code>species_abundances</code>:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -773,7 +785,7 @@ numbers for community taxonomic richness as the ‘hn’ object.</p>
   HINT (hint)
   </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>HINT accordions are created with the <code>hint</code> tag and nested
 within <code>challenge</code> callouts. These offer more context for the
@@ -789,7 +801,7 @@ challenge that can help the learner find the solution.</p>
   SOLUTION (solution)
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Blank 1 = comm Blank 2 = 0</p>
 </div>
@@ -869,7 +881,7 @@ Your code:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -908,7 +920,7 @@ code so your plot is a beautiful shade of green. Your code:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -953,7 +965,7 @@ Your code:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -996,7 +1008,7 @@ plotting.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1388,9 +1400,9 @@ hist(________)</code></pre>
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
-  "dateCreated": "2022-12-08",
-  "dateModified": "2022-12-08",
-  "datePublished": "2022-12-08"
+  "dateCreated": "2022-12-09",
+  "dateModified": "2022-12-09",
+  "datePublished": "2022-12-09"
 }
 
   </script><script>
