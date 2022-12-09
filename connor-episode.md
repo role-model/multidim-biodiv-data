@@ -6,7 +6,9 @@ exercises: 5
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-TODO
+* How do we graphically represent information in a useful way?
+* How do I manipulate plots to make them look more like how I want?
+* How can I combine multiple datatypes into one plot?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -20,7 +22,13 @@ TODO
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: keypoints
 
+* Histograms are useful for visualize distributions of a single data type
+* Bar plots are useful for viewing data that has a particular order, like abundances and genetic diversities
+* Phylogenetic trees can include many data dimensions
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 :::: challenge 
