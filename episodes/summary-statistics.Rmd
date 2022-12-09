@@ -30,6 +30,18 @@ exercises: 2
 
 TODO
 
+## Leadup to challenge
+### Intro/refresher on different common summary statistics for species abundance
+
+  - Why do we use summary stats?
+  - What do richness, diversity, evenness capture
+  - Link to references for further reading, equations
+  
+### Tour of calculating these metrics with `vegan`
+  
+  - Loading the `vegan` package
+  - Looking at `diversity` and its arguments
+  - Live-coded example calculating Shannon diversity, Simpson, invSimpson by changing arguments
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
