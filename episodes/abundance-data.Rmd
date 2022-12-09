@@ -46,6 +46,14 @@ The example will need to show:
 - how to manipulate and combine different data.frames
 
 
+::: instructor
+
+Here's a test of an instructor note
+
+::::::::::::::
+
+
+
 ::: challenge
 
 ### Import and clean abundance data
