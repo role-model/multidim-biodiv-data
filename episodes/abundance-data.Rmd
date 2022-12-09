@@ -18,7 +18,7 @@ exercises: 2
 After following this episode, participants should be able to...
 
 1. Import abundance data in a CSV format into R environment
-2. Clean taxonomic names using the *taxize* package
+2. Clean taxonomic names using the `taxize` package
 3. Aggregate abundances
 4. Calculate Hill numbers 
 5. Interpret Hill numbers
@@ -35,7 +35,15 @@ foo bar
 
 ## Abndance data import
 
-foo bar
+### Example
+
+The example will need to show:
+
+- how to load csv data
+- different formats we might expect for abundance
+- summing abundances by species and dealing with 0s
+- argument options and output of `taxize::gnr_resolve`
+- how to manipulate and combine different data.frames
 
 
 ::: challenge
