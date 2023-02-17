@@ -51,3 +51,7 @@ po/*~
 
 # renv detritus
 renv/sandbox/
+
+# rando
+.DS_Store
+Icon?
