@@ -50,6 +50,18 @@ Read with `read.csv`
 Cleaning:
 - Solving for the species, standardizing taxonomy (`taxize` package)
     - argument options and output of `taxize::gnr_resolve`
+
+[From taxsize vignette](http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html)
+"taxize takes the approach that the user should be able to make decisions about what resource to trust,
+rather than making the decision. Both the EOL GNR and the TNRS services provide data from a variety of data sources.
+The user may trust a specific data source, thus may want to use the names from that data source. In the future,
+we may provide the ability for taxize to suggest the best match from a variety of sources."
+
+
+temp <- gnr_resolve(names = c("Helianthos annus", "Homo saapiens"), best_match_only = TRUE)
+
+Get the one with maximum score
+
 - Coding for categorical data?
 - Collapsing individual trait data and getting mean, median, SD
 - Merging trait data from different sources (individual-based vs species-based)
