@@ -73,3 +73,12 @@ for(i in islands) {
 
 
 write.csv(abund, 'episodes/data/abundance_data.csv', row.names = FALSE)
+
+
+# simulate traits ----
+
+# body size
+
+bsize <- abund[rep(1:nrow(abund), each = abund$abundance), 'GenSp', drop = FALSE]
+
+bsize$mass_mg <- rgamma(nrow(bsize), 3, 0.1)
