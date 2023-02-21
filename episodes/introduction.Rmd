@@ -1,64 +1,42 @@
 ---
-title: "Using RMarkdown"
+title: "Introduction"
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- What are the four types of biodiversity data we'll be covering in this course? 
+- What are the four steps in handling each type?
+- What do the outcomes of analyzing multidimensional biodiversity data (MDBD) look like visualized? 
+- What are some strategies for connecting data types?
+- Where can you find MDBD?
+- What are are CARE principles and why are they important?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+After following this episode, participants should be able to...
+
+1. Explain the four types of biodiversity data and the four steps in handling each
+2. Interpret plots of MDBD
+3. Find openly avaiable MDBD
+4. Connect data to the Local Contexts Hub
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
-
-What you need to know is that there are three sections required for a valid
-Carpentries lesson template:
-
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Can you do it?
+## Challenge 1
 
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
+What do you think this plot says about ecological process?
 
 :::::::::::::::::::::::: solution 
 
 ## Output
- 
-```output
-[1] "This new lesson looks good"
-```
 
 :::::::::::::::::::::::::::::::::
 
