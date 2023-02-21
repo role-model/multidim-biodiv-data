@@ -79,6 +79,22 @@ write.csv(abund, 'episodes/data/abundance_data.csv', row.names = FALSE)
 
 # body size
 
-bsize <- abund[rep(1:nrow(abund), each = abund$abundance), 'GenSp', drop = FALSE]
+bsize <- abund[rep(1:nrow(abund), abund$abundance), 'GenSp', drop = FALSE]
 
 bsize$mass_mg <- rgamma(nrow(bsize), 3, 0.1)
+
+
+write.csv(bsize, 'episodes/data/body_size_data.csv', row.names = FALSE)
+
+
+
+# write out taxonomy ----
+
+tax <- hiArth[, 1:3]
+tax$GenSp <- paste(hiArth$Genus, hiArth$Species)
+
+tax$Status <- hiArth$Status
+
+tax <- tax[tax$GenSp %in% abund$GenSp, ]
+
+write.csv(tax, 'episodes/data/taxonomy.csv', row.names = FALSE)
