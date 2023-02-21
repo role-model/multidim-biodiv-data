@@ -42,10 +42,13 @@ ks <- seq(3, 0.01, length.out = length(islands))
 mus <- c(2, 3, 6, 1)
 names(ks) <- names(mus) <- islands
 
+# df to hold abund data
 abund <- data.frame(island = character(0),
                   site = character(0),
                   GenSp = character(0),
                   abundance = numeric(0))
+
+# loop over islands and simulate abundances
 for(i in islands) {
     # number of species to sample
     si <- rpois(1, sum(hiArth[[i]]) * 0.25) + 1
@@ -68,3 +71,5 @@ for(i in islands) {
     abund <- rbind(abund, out)
 }
 
+
+write.csv(abund, 'episodes/data/abundance_data.csv', row.names = FALSE)
