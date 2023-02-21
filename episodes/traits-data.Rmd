@@ -122,12 +122,11 @@ abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum)
 
 - Visualizing the distribution of one trait (body size) over the community
 
-# Summary stats
-
 
 # Visualizing with abundance
 
 
+# Summary stats
 
 
 1. Introduction
