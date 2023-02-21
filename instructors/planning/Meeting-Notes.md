@@ -61,3 +61,16 @@
         * New Mexico mice and hutchinson's ratio
         * Size, color and thermoregulation
 
+## Feb 21, 2023
+
+* Andy simulated some data: trait (body size) and abundance for arthropods, with some real taxonomy.
+
+* Abundance and trait data are moving forward.
+
+* Do we want taxonomy cleaning and Hill numbers to be done every episode? Or more towards the end? The repetition would be good. And then have one integration episode
+
+* **Isaac**: Simulating genetic data. Function to replicate sampling artifacts
+
+* Going over the episodes:
+    * Objectives look good. We need to start writing some examples now. What kind of examples would be interesting to show?
+    * Taxsize is giving some problems, we need to talk about taxonomy. We can let people know as of now we have some packages to help with that, but doing it manually might be the safest way in some cases.
