@@ -1,4 +1,4 @@
-library(pika)
+#library(pika)
 library(taxize)
 
 # read and clean taxonomy ----
