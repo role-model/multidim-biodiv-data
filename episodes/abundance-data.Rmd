@@ -27,79 +27,110 @@ After following this episode, participants should be able to...
 8. Connect species abundance patterns to Hill numbers
 
 
+
+
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
 
-foo bar
+If you've done work in the spheres of population or community ecology, chances are you have already worked some with organismal abundance data - that is, _counts of the population sizes of the different species within a system_. Here, we'll work through some approaches for importing, wrangling, and summarizing abundance data. 
 
-## Abndance data import
 
-### Example
+## Setup
 
-The example will need to show:
+For this lesson, we'll need a few packages commonly used in ecology.
 
-- how to load csv data
-- different formats we might expect for abundance
-- summing abundances by species and dealing with 0s
-- argument options and output of `taxize::gnr_resolve`
-- how to manipulate and combine different data.frames
+```{r package imports}
 
+library(dplyr)
+library(ggplot2)
+library(hillR)
+
+```
+
+## Data import 
+
+Abundance data are often stored in the `.csv` format. Here, we'll load data from the `data` directory of this lesson.
 
 ::: instructor
+We'll want to update the data path.
 
-Here's a test of an instructor note
+```{r data import}
 
-::::::::::::::
-
-
-
-::: challenge
-
-### Import and clean abundance data
-
-Rearrange these lines of code to import and clean an abundance dataset
-
-```{r abund-import, eval = FALSE}
-names(cleanTax) <- c('sp', 'clean_name')
-
-cleanTax <- gnr_resolve(abund$sp, 
-                        best_match_only = TRUE)
-
-cleanTax <- cleanTax[, c('user_supplied_name', 'matched_name')]
+abundances <- read.csv(here::here("episodes", "data", "abundance_data.csv")) 
 
 
-cleanTax$matched_name <- gsub(' \\(.*', '', cleanTax$matched_name)
-
-
-library(taxize)
-
-abund <- read.csv('data/abund.csv')
-
-abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum)
-
-abund <- merge(abund, cleanTax)
 ```
 
-:::::: solution
 
-```{r abund-import-sol, eval = FALSE}
-library(taxize)
+```{r abund cleaning}
+## Abundances as imported has a few duplicate species.
+## The following might make a good lesson on data cleaning, doing this without explanation for now
 
-abund <- read.csv('data/abund.csv')
+dups <- abundances %>%
+    group_by(island, site, GenSp) %>%
+    summarize(n = dplyr::n()) %>%
+    ungroup() %>%
+    filter(n > 1)
 
-cleanTax <- gnr_resolve(abund$sp, 
-                        best_match_only = TRUE)
+dups
 
-cleanTax$matched_name <- gsub(' \\(.*', '', cleanTax$matched_name)
-cleanTax <- cleanTax[, c('user_supplied_name', 'matched_name')]
-names(cleanTax) <- c('sp', 'clean_name')
+abundances <- abundances %>%
+    group_by(island, site, GenSp) %>%
+    summarize(abundance = sum(abundance)) %>%
+    ungroup()
 
-abund <- merge(abund, cleanTax)
-
-abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum)
 ```
 
-:::::::::::::::
+
+
+<!-- ::: challenge -->
+
+<!-- ### Import and clean abundance data -->
+
+<!-- Rearrange these lines of code to import and clean an abundance dataset -->
+
+<!-- ```{r abund-import, eval = FALSE} -->
+<!-- names(cleanTax) <- c('sp', 'clean_name') -->
+
+<!-- cleanTax <- gnr_resolve(abund$sp,  -->
+<!--                         best_match_only = TRUE) -->
+
+<!-- cleanTax <- cleanTax[, c('user_supplied_name', 'matched_name')] -->
+
+
+<!-- cleanTax$matched_name <- gsub(' \\(.*', '', cleanTax$matched_name) -->
+
+
+<!-- library(taxize) -->
+
+<!-- abund <- read.csv('data/abund.csv') -->
+
+<!-- abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum) -->
+
+<!-- abund <- merge(abund, cleanTax) -->
+<!-- ``` -->
+
+<!-- :::::: solution -->
+
+<!-- ```{r abund-import-sol, eval = FALSE} -->
+<!-- library(taxize) -->
+
+<!-- abund <- read.csv('data/abund.csv') -->
+
+<!-- cleanTax <- gnr_resolve(abund$sp,  -->
+<!--                         best_match_only = TRUE) -->
+
+<!-- cleanTax$matched_name <- gsub(' \\(.*', '', cleanTax$matched_name) -->
+<!-- cleanTax <- cleanTax[, c('user_supplied_name', 'matched_name')] -->
+<!-- names(cleanTax) <- c('sp', 'clean_name') -->
+
+<!-- abund <- merge(abund, cleanTax) -->
+
+<!-- abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum) -->
+<!-- ``` -->
+
+<!-- ::::::::::::::: -->
 
 :::::::::::::
