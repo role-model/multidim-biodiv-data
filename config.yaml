@@ -44,8 +44,9 @@ contact: 'team@carpentries.org'
 # Example -------------
 #
 # episodes:
-# - introduction.md
-# - first-steps.md
+# - introduction.Rmd
+# - abundance-data.Rmd
+# - traits-data.Rmd
 #
 # learners:
 # - setup.md
@@ -61,12 +62,7 @@ contact: 'team@carpentries.org'
 episodes:
 - introduction.Rmd
 - abundance-data.Rmd
-- summary-statistics.Rmd
-- connor-episode.Rmd
-- jacobs-episode.Rmd
-- isaac-sandbox-episode.Rmd
-- andys-laser-cat.Rmd
-- rilquer-episode.Rmd
+- traits-data.Rmd
 
 # Information for Learners
 learners:
