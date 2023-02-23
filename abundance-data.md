@@ -50,6 +50,7 @@ Abundance data are often stored in the `.csv` format. Here, we'll load data from
 ::: instructor
 We'll want to update the data path.
 
+
 :::
 
 
@@ -186,7 +187,7 @@ abundances_diversity
 
 ::: challenge
 
-Can you calculate the inverse Simpson index on the abundances data?
+Can you add the calculation of the inverse Simpson index to the `abundances_diversity` data?
 
 :::
 
@@ -194,9 +195,12 @@ Can you calculate the inverse Simpson index on the abundances data?
 
 
 ```r
-abundances_ranked %>%
+abundances_diversity <- abundances_ranked %>%
     group_by(site) %>%
-    summarize(invsimpson = vegan::diversity(abundance, index = "invsimpson")) %>%
+    summarize(richness = dplyr::n(),
+              evenness = vegan::diversity(abundance, index = "simpson"),
+              shannon = vegan::diversity(abundance, index = "shannon"),
+              invsimpson = vegan::diversity(abundance, index = "invsimpson")) %>%
     ungroup()
 ```
 :::
@@ -212,12 +216,29 @@ We'll encounter them throughout the workshop.
 
 :::
 
+::: instructor
+
+Here we could cut to a discussion/whiteboard of Hill numbers?
+
+:::
+
 
 #### Calculating Hill numbers using `hillR`
 
+::: instructor
+
+In v.2 let's update this to using roleR.
+
+:::
+
 
 ```r
-# Calculate hill numbers using hillR
+abundances_hill <- abundances_ranked %>%
+    group_by(site) %>%
+    summarize(hill0 = hill_taxa(abundance, q = 0),
+              hill1 = hill_taxa(abundance, q = 1),
+              hill2 = hill_taxa(abundance, q = 2)) %>%
+    ungroup()
 ```
 
 
@@ -229,15 +250,47 @@ Compare the Hill number calculations to the diversity metrics we calculated earl
 
 ::: solution
 
-show convergences
+
+```r
+left_join(abundances_diversity, abundances_hill )
+```
+
+We see that:
+
+- `hill0` converges to species richness
+- `hill2` converges to the inverse Simpson index.
+
+What about `hill1`? `hill1` converges to the _exponential_ of Shannon's index:
+
+
+
+```r
+left_join(abundances_diversity, abundances_hill) %>%
+    mutate(shannon_exp = exp(shannon))
+```
 
 :::
 
 #### Interpreting Hill numbers
 
+Let's look at how different values for each Hill number correspond to different shapes for the SAD.
+
+Let's start with Hill number of order 1. 
+
+
+
+```r
+abundances_ranked_with_hill <- left_join(abundances_ranked, abundances_hill, by = "site")
+
+ggplot(abundances_ranked_with_hill, aes(rank, abundance, color = hill1)) +
+    geom_line() +
+    facet_wrap(vars(site), scales = "free")
+```
+
+
 ::: challenge
 
-Plot each SAD for the hawaii data, colored with the Hill number of order 1.
+Build these same plots for Hill number order 2. 
 
 :::
 
@@ -247,14 +300,16 @@ Plot each SAD for the hawaii data, colored with the Hill number of order 1.
 
 
 ```r
-#notrun because the calculations aren't coded up yet
-
-sads_with_hill <- left_join(abundances_ranked, hill_numbers, by = "site")
-
-ggplot(sads_with_hill, aes(rank, abundance, color = hill1)) +
+ggplot(abundances_ranked_with_hill, aes(rank, abundance, color = hill2)) +
     geom_line() +
     facet_wrap(vars(site), scales = "free")
 ```
+
+:::
+
+::: discussion
+
+How do different SAD shapes affect the Hill numbers?
 
 :::
 
