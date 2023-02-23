@@ -3,7 +3,7 @@ title: "Abundance Data"
 teaching: 10
 exercises: 2
 ---
-
+<!--
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How is organismal abundance data typically stored?
@@ -268,3 +268,4 @@ ggplot(sads_with_hill, aes(rank, abundance, color = hill1)) +
 ```
 
 :::
+-->
