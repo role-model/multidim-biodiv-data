@@ -1,0 +1,109 @@
+---
+title: "Summary statistics"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What are summary statistics and why do we use them?
+- What are the common summary metrics used for different data types and how are they calculated?
+- How do Hill numbers unify multiple data types into the same framework?
+- What do Hill numbers tell you? 
+- How do I calculate Hill numbers for different data types?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe what summary statistics are and articulate potential applications in analyses
+- Calculate datatype-specific summary statitics for species abundance, population genetic, phylogenetic, and trait data
+    - Use `vegan` to summarize species abundance and trait data in terms of evenness and diversity <!-- I believe vegan does traits --->
+    - Use `ape` to summarize population genetic structure (genetic distance)
+    - Use `phytools` to describe phylogenetic structure
+- Use Hill numbers as a single framework for summarizing multiple dimensions of biodiversity data
+    - Be able to articulate the high-level mathematical intuition behind Hill numbers
+    - Use `hillR` to calculate Hill numbers for each data type
+   
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+TODO
+
+## Leadup to challenge
+### Intro/refresher on different common summary statistics for species abundance
+
+  - Why do we use summary stats?
+  - What do richness, diversity, evenness capture
+  - Link to references for further reading, equations
+  
+### Tour of calculating these metrics with `vegan`
+  
+  - Loading the `vegan` package
+  - Looking at `diversity` and its arguments
+  - Live-coded example calculating Shannon diversity, Simpson, invSimpson by changing arguments
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Assumptions of vegan
+
+Modify this code so it calculates Simpson evenness on the vector called `species_abundances`:
+
+```r
+library(vegan)
+diversity(species_abundances)
+```
+
+:::::::::::::::: solution
+
+```r
+diversity(species_abundances, index = "simpson")
+```
+
+:::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::: challenge
+
+### Creating Hill numbers with hillR
+
+Fill in the blanks so that the code below creates a vector of Hill numbers for community taxonomic richness as the ‘hn’ object.
+
+```r
+comm <- FD::dummy$abun
+traits <- FD::dummy$trait
+hn <- hillR::hill_taxa(__,q=__)
+```
+
+Blank 1 = ?
+Blank 2 = ? 
+
+::::::::::::::::: hint
+
+### HINT (`hint`)
+
+HINT accordions are created with the `hint` tag and nested within 
+`challenge` callouts. These offer more context for the challenge that can help
+the learner find the solution.
+
+::::::::::::::::::::::
+
+::::::::::::::::: solution
+
+### SOLUTION (`solution`)
+
+Blank 1 = comm
+Blank 2 = 0
+
+::::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::::::::
+
+
+:::::: keypoints
+ - Domain-specific summary statistics include evenness, diversity, ....
+ - Hill numbers provide a general framework for comparing diversity and community structure in different contexts.
+ - The q order of a Hill number defines what it means
+::::::
