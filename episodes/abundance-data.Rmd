@@ -3,7 +3,7 @@ title: "Abundance Data"
 teaching: 10
 exercises: 2
 ---
-<!--
+
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How is organismal abundance data typically stored?
@@ -31,7 +31,7 @@ After following this episode, participants should be able to...
 
 For this lesson, we'll need a few packages commonly used in ecology.
 
-```{r package imports}
+```{r, eval = FALSE}
 
 library(dplyr)
 library(ggplot2)
@@ -53,7 +53,7 @@ We'll want to update the data path.
 
 :::
 
-```{r data import}
+```{r, eval = FALSE}
 
 abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_data_cleaned.csv") 
 
@@ -67,7 +67,7 @@ The `abundances` data are simulated data for arthropods in the Hawaiian archipel
 Let's look at these data. 
 
 
-```{r inspect}
+```{r, eval = FALSE}
 
 head(abundances)
 
@@ -89,7 +89,7 @@ As a first step, let's take a look at how species' abundances vary across differ
 
 Let's start by looking at the species composition on Hawaii itself:
 
-```{r}
+```{r, eval = FALSE}
 
 hawaii_abund <- abundances %>%
     filter(island == "hawaiiisland")
@@ -105,7 +105,7 @@ This is nearly unreadable because of the high species richness (885!).
 
 It gets harder if we incorporate all the islands:
 
-```{r}
+```{r, eval = FALSE}
 
 ggplot(abundances, aes(GenSp, abundance)) +
     geom_col() +
@@ -123,7 +123,7 @@ In working with species abundance distributions, we relinquish a focus on specie
 
 To construct a species abundance distribution, we need to arrange the species in each of our sites from most to least abundant and plot the curve.
 
-```{r}
+```{r, eval = FALSE}
 
 abundances_ranked <- abundances %>%
     group_by(site) %>%
@@ -133,7 +133,7 @@ abundances_ranked <- abundances %>%
 
 ```
 
-```{r}
+```{r, eval = FALSE}
 
 hawaii_abund_ranked <- abundances_ranked %>%
     filter(island == "hawaiiisland")
@@ -152,7 +152,7 @@ Can you plot the SADs for all the islands in one plot?
 
 ::: solution
 
-```{r}
+```{r, eval = FALSE}
 ggplot(abundances_ranked, aes(rank, abundance)) +
     geom_line() +
     facet_wrap(vars(island), scales = "free")
@@ -176,7 +176,7 @@ Some common metrics include Shannon diversity, Simpson's evenness, or purely spe
 
 ### Conventional diversity metrics
 
-```{r}
+```{r, eval = FALSE}
 
 abundances_diversity <- abundances_ranked %>%
     group_by(site) %>%
@@ -199,7 +199,7 @@ Can you calculate the inverse Simpson index on the abundances data?
 
 ::: solution
 
-```{r}
+```{r, eval = FALSE}
 
 abundances_ranked %>%
     group_by(site) %>%
@@ -224,7 +224,7 @@ We'll encounter them throughout the workshop.
 
 #### Calculating Hill numbers using `hillR`
 
-```{r}
+```{r, eval = FALSE}
 
 # Calculate hill numbers using hillR
 
@@ -255,7 +255,7 @@ Plot each SAD for the hawaii data, colored with the Hill number of order 1.
 ::: solution
 
 
-```{r, eval = F}
+```{r, eval = FALSE}
 
 #notrun because the calculations aren't coded up yet
 
@@ -268,4 +268,4 @@ ggplot(sads_with_hill, aes(rank, abundance, color = hill1)) +
 ```
 
 :::
--->
+

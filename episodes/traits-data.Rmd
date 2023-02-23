@@ -155,7 +155,7 @@ associated with the lessons. They appear in the "Instructor View"
 
 Rearrange these lines of code to import and clean an abundance dataset
 
-```{r abund-import, eval = FALSE}
+```{r abund-import1, eval = FALSE}
 names(cleanTax) <- c('sp', 'clean_name')
 
 cleanTax <- gnr_resolve(abund$sp, 
@@ -178,7 +178,7 @@ abund <- merge(abund, cleanTax)
 
 ::: solution
 
-```{r abund-import-sol, eval = FALSE}
+```{r abund-import-sol1, eval = FALSE}
 library(taxize)
 
 abund <- read.csv('data/abund.csv')
