@@ -313,3 +313,13 @@ How do different SAD shapes affect the Hill numbers?
 
 :::
 
+
+## Recap
+
+::: keypoints
+
+- Organismal abundance data are a fundamental data type for population and community ecology.
+- The species abundance distribution (SAD) summarizes site-specific abundance information to facilitate cross-site or over-time comparisons.
+- We can quantify the shape of the SAD using *summary statistics*. Specifically, *Hill numbers* provide a unified framework for describing the diversity of a system.
+
+:::
