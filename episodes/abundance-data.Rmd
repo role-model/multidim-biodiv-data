@@ -44,9 +44,14 @@ After following this episode, participants should be able to...
 
 testing `jsonlite`
 
-```{r test-json, eval = TRUE}
+```{r test-json, eval = FALSE}
 library(jsonlite)
 hadley_orgs <- fromJSON("https://api.github.com/users/hadley/orgs")
+```
+
+```{r test-base, eval = TRUE}
+x <- 1:10
+x
 ```
 
 
