@@ -57,7 +57,7 @@ x
 
 For this lesson, we'll need a few packages commonly used in ecology.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 
 library(dplyr)
 library(ggplot2)
