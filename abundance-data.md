@@ -16,10 +16,23 @@ exercises: 2
 
 After following this episode, participants should be able to...
 
+
+<!-- 1. Import abundance data in a CSV format into R environment -->
+<!-- 2. Clean taxonomic names using the `taxize` package -->
+<!--     - clean spelling errors (ajr to introduce spelling errors) -->
+<!--     - fix synonyms  -->
+<!-- 3. Aggregate abundances -->
+<!-- 4. Calculate Hill numbers  -->
+<!-- 5. Interpret Hill numbers -->
+<!-- 6. Vizualize species abundance distributions -->
+<!-- 7. Interpret species abundance distribution plots -->
+<!-- 8. Connect species abundance patterns to Hill numbers -->
+
 1. Import and examine organismal abundance data from .csv files
 2. Generate species abundance distributions from abundance data
 3. Summarize species abundance data using Hill numbers
 4. Interpret how different Hill numbers correspond to different patterns in species diversity
+
 
 
 
@@ -215,6 +228,52 @@ Hill numbers provide a unified framework for summarizing abundance/diversity dat
 We'll encounter them throughout the workshop.
 
 :::
+
+
+```r
+# load
+abund <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/abundance_data.csv")
+
+# examine
+head(abund)
+```
+
+
+Talk about the data (fake, pretend hawaii, 4 sites, real taxa)
+
+Talk about other data formats (site by species, 1 row per individual)
+
+Make some pictorial examples of those data
+
+Talk about cleaning up species names
+
+
+```r
+library(taxize)
+
+
+wtf <- gnr_resolve(abund$GenSp)
+```
+
+
+
+Converting between data types
+
+
+```r
+# aggregation example
+x <- aggregate(abund[, 'abundance', drop = FALSE], abund[, c('GenSp', 'site')], 
+               sum)
+
+# should we use tidyverse????
+tidyr::pivot_wider(abund, names_from = site, values_from = abundance, 
+                   values_fn = sum, values_fill = 0)
+
+# same with base r
+y <- tapply(abund$abundance, abund[, c('GenSp', 'site')], sum)
+y[is.na(y)] <- 0
+y[1:3, 1:3]
+```
 
 ::: instructor
 
