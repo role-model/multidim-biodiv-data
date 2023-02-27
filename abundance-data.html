@@ -237,7 +237,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Abundance Data</h1>
-        <p> Last updated on 2023-02-23 | 
+        <p> Last updated on 2023-02-27 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -269,6 +269,16 @@ quantitatively compare species abundance distributions?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <p>After following this episode, participants should be able to…</p>
+<!-- 1. Import abundance data in a CSV format into R environment -->
+<!-- 2. Clean taxonomic names using the `taxize` package -->
+<!--     - clean spelling errors (ajr to introduce spelling errors) -->
+<!--     - fix synonyms  -->
+<!-- 3. Aggregate abundances -->
+<!-- 4. Calculate Hill numbers  -->
+<!-- 5. Interpret Hill numbers -->
+<!-- 6. Vizualize species abundance distributions -->
+<!-- 7. Interpret species abundance distribution plots -->
+<!-- 8. Connect species abundance patterns to Hill numbers -->
 <ol style="list-style-type: decimal"><li>Import and examine organismal abundance data from .csv files</li>
 <li>Generate species abundance distributions from abundance data</li>
 <li>Summarize species abundance data using Hill numbers</li>
@@ -417,7 +427,7 @@ curve.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -484,7 +494,7 @@ purely species richness. We can calculate these on our Hawaii data:</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -519,12 +529,54 @@ abundance/diversity data.</p>
 </div>
 </div>
 </div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># load</span></span>
+<span><span class="va">abund</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/abundance_data.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># examine</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abund</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Talk about the data (fake, pretend hawaii, 4 sites, real taxa)</p>
+<p>Talk about other data formats (site by species, 1 row per
+individual)</p>
+<p>Make some pictorial examples of those data</p>
+<p>Talk about cleaning up species names</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">wtf</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">abund</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Converting between data types</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># aggregation example</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">aggregate</span><span class="op">(</span><span class="va">abund</span><span class="op">[</span>, <span class="st">'abundance'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="va">abund</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">'GenSp'</span>, <span class="st">'site'</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>               <span class="va">sum</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># should we use tidyverse????</span></span>
+<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu">pivot_wider</span><span class="op">(</span><span class="va">abund</span>, names_from <span class="op">=</span> <span class="va">site</span>, values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
+<span>                   values_fn <span class="op">=</span> <span class="va">sum</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># same with base r</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">tapply</span><span class="op">(</span><span class="va">abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="va">abund</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">'GenSp'</span>, <span class="st">'site'</span><span class="op">)</span><span class="op">]</span>, <span class="va">sum</span><span class="op">)</span></span>
+<span><span class="va">y</span><span class="op">[</span><span class="fu">is.na</span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="va">y</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre>
+</div>
 
 <div class="section level4">
 <h4 id="calculating-hill-numbers-using-hillr">Calculating Hill numbers using <code>hillR</code>
 <a class="anchor" aria-label="anchor" href="#calculating-hill-numbers-using-hillr"></a></h4>
 
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -555,9 +607,9 @@ calculated earlier.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -570,7 +622,7 @@ calculated earlier.</p>
 <code>hill2</code> converges to the inverse Simpson index.</li>
 </ul><p>What about <code>hill1</code>? <code>hill1</code> converges to the
 <em>exponential</em> of Shannon’s index:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -587,7 +639,7 @@ calculated earlier.</p>
 <p>Let’s look at how different values for each Hill number correspond to
 different shapes for the SAD.</p>
 <p>Let’s start with Hill number of order 1.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -616,9 +668,9 @@ different shapes for the SAD.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -721,9 +773,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/abundance-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/abundance-data.html",
-  "dateCreated": "2023-02-23",
-  "dateModified": "2023-02-23",
-  "datePublished": "2023-02-23"
+  "dateCreated": "2023-02-27",
+  "dateModified": "2023-02-27",
+  "datePublished": "2023-02-27"
 }
 
   </script><script>
