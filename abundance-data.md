@@ -42,6 +42,15 @@ After following this episode, participants should be able to...
 
 ## Setup
 
+testing `jsonlite`
+
+
+```r
+library(jsonlite)
+hadley_orgs <- fromJSON("https://api.github.com/users/hadley/orgs")
+```
+
+
 For this lesson, we'll need a few packages commonly used in ecology.
 
 
