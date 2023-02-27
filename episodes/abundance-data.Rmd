@@ -98,6 +98,11 @@ wtf <- gnr_resolve(abund$GenSp)
 ```
 
 
+```{r aggregate-base, eval = FALSE}
+# aggregation example
+x <- aggregate(abund[, 'abundance', drop = FALSE], abund[, c('GenSp', 'site')], 
+               sum)
+```
 
 
 ## Visualization by species and site
