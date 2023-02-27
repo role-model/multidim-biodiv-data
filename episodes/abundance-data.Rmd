@@ -17,19 +17,10 @@ exercises: 2
 After following this episode, participants should be able to...
 
 
-<!-- 1. Import abundance data in a CSV format into R environment -->
-<!-- 2. Clean taxonomic names using the `taxize` package -->
-<!--     - clean spelling errors (ajr to introduce spelling errors) -->
-<!--     - fix synonyms  -->
-<!-- 3. Aggregate abundances -->
-<!-- 4. Calculate Hill numbers  -->
-<!-- 5. Interpret Hill numbers -->
-<!-- 6. Vizualize species abundance distributions -->
-<!-- 7. Interpret species abundance distribution plots -->
-<!-- 8. Connect species abundance patterns to Hill numbers -->
-
 1. Import and examine organismal abundance data from .csv files
-2. Generate species abundance distributions from abundance data
+1. Clean taxonomic names
+2. Manipulate abundance data into different formats
+2. Generate species abundance distribution plots from abundance data
 3. Summarize species abundance data using Hill numbers
 4. Interpret how different Hill numbers correspond to different patterns in species diversity
 
@@ -42,22 +33,9 @@ After following this episode, participants should be able to...
 
 ## Setup
 
-testing `jsonlite`
-
-```{r test-json, eval = FALSE}
-library(jsonlite)
-hadley_orgs <- fromJSON("https://api.github.com/users/hadley/orgs")
-```
-
-```{r test-base, eval = TRUE}
-x <- 1:10
-x
-```
-
-
 For this lesson, we'll need a few packages commonly used in ecology.
 
-```{r, eval = TRUE}
+```{r packages}
 
 library(dplyr)
 library(ggplot2)
@@ -80,8 +58,7 @@ We'll want to update the data path.
 
 :::
 
-```{r, eval = FALSE}
-
+```{r read-in}
 abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_data_cleaned.csv") 
 
 
@@ -94,19 +71,33 @@ The `abundances` data are simulated data for arthropods in the Hawaiian archipel
 Let's look at these data. 
 
 
-```{r, eval = FALSE}
-
+```{r head-abund}
+# look at a little bit of data
 head(abundances)
-
-
-
-
-abundances %>%
-    select(site, island) %>%
-    distinct()
 ```
 
+
 We see that we have columns for `island`, `site`, and `GenSp`, and `abundance`. We seem to have one site on each island. `GenSp` is the scientific name (*gen*us *sp*ecies). `abundance` is the total number of individuals of that species "observed" in our (fictitious) survey. 
+
+
+```{r examine-sites}
+unique(abundances[, c('site', 'island')])
+```
+
+## Cleaning
+
+- checking for typos
+- checking aggregation 
+
+
+```{r clean_taxa, eval = FALSE}
+library(taxize)
+
+
+wtf <- gnr_resolve(abund$GenSp)
+```
+
+
 
 
 ## Visualization by species and site
@@ -118,8 +109,18 @@ Let's start by looking at the species composition on Hawaii itself:
 
 ```{r, eval = FALSE}
 
+x1 <- abundances$abundance[abundances$site == 'hawaiiisland_01']
+x4 <- abundances$abundance[abundances$site == 'kauai_01']
+plot(x1)
+hist(x1)
+hist(log(x1))
+plot(sort(x1, TRUE), log = 'y')
+
+
 hawaii_abund <- abundances %>%
     filter(island == "hawaiiisland")
+
+plot(sort(hawaii_abund, TRUE))
 
 ggplot(hawaii_abund, aes(GenSp, abundance)) +
     geom_col() +
@@ -187,6 +188,8 @@ ggplot(abundances_ranked, aes(rank, abundance)) +
 ```
 :::
 
+
+## Re-formatting
 
 ## Summarizing species abundance data
 
