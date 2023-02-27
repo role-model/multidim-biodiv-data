@@ -51,6 +51,16 @@ hadley_orgs <- fromJSON("https://api.github.com/users/hadley/orgs")
 ```
 
 
+```r
+x <- 1:10
+x
+```
+
+```{.output}
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+
 For this lesson, we'll need a few packages commonly used in ecology.
 
 
