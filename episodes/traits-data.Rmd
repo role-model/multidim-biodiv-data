@@ -46,20 +46,46 @@ Different formats we might expect for trait data
 - Categorical vs continuous traits?
 - Data can come per individual (direct measurement) or per species (from the literature).
 
-Read with `read.csv`
+Trait data are often stored in the `.csv` format. Here, we'll load body size data from the `data` directory of this lesson with the function `read.csv` and take a peak at it with `head`. The data frame has two columns- `GenSp` and `mass_mg`, which contain species binomial name and the mass of the individual in milligrams, respectively.
 
-Cleaning:
-- Solving for the species, standardizing taxonomy (`taxize` package)
-    - argument options and output of `taxize::gnr_resolve`
+```{r read-trait, eval=FALSE}
+traits <- read.csv("episodes/data/body_size_data.csv")
 
-[From taxsize vignette](http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html)
+head(traits)
+```
+
+```{r read-trait-formatted, echo=FALSE}
+traits <- read.csv("episodes/data/body_size_data.csv")
+
+knitr::kable(head(traits))
+```
+
+Biodiversity data sets are often collected from multiple sources, include taxa the researcher is not familiar with, contain historical data, etc. This can lead to problems with species identification and recording in the data. In addition to careful scrutiny of your data set, the [taxize](https://docs.ropensci.org/taxize/) R package helps to standardize species names by solving for the species name and standardizing taxonomy.  
+
+[From taxize vignette](http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html):  
 "taxize takes the approach that the user should be able to make decisions about what resource to trust,
 rather than making the decision. Both the EOL GNR and the TNRS services provide data from a variety of data sources.
 The user may trust a specific data source, thus may want to use the names from that data source. In the future,
 we may provide the ability for taxize to suggest the best match from a variety of sources."
 
+The main function we will use to resolve species names is the function `taxize::gnr_resolve()`. There are many options, but the simplest approach is to supply the binomial names of your species as a vector (remember: a data frame column is a vector) and set the `best_match_only` flag to true, which returns the single best match for each species name query. Note, the input names are spelled incorrectly, so `gnr_resolve()` should provide a result that corrects this error:  
 
-temp <- gnr_resolve(names = c("Helianthos annus", "Homo saapiens"), best_match_only = TRUE)
+```{r taxize-small-example, eval=FALSE}
+resolved_names <- gnr_resolve(sci = c("Helianthos annus", "Homo saapiens"), best_match_only = TRUE)
+```
+
+And the output, which returns the supplied binomial names (`user_supplied_name`, `submitted_name`), the matched name (`matched_name`), the data source used for the matched name (`data_source_title`), and the score (`score`). Adding additional arguments may result in more columns of information being output. You may have noticed that "Homo sapiens Linnaeus, 1758" was returned for *Homo sapiens*. This includes the original citation in the name, which isn't an issue in terms of data analysis as long as all individuals use the same format, but may be annoying when formatting plots and other output. You can either change this manually, or set the `best_match_only` flag to `FALSE` to include multiple names to choose from.  
+
+```{r taxize-small-example-hidden, echo=FALSE}
+resolved_names <- gnr_resolve(sci = c("Helianthos annus", "Homo saapiens"), best_match_only = TRUE)
+knitr::kable(resolved_names)
+```
+
+
+Cleaning:
+- Solving for the species, standardizing taxonomy (`taxize` package)
+    - argument options and output of `taxize::gnr_resolve`
+
 
 Get the one with maximum score
 
@@ -73,9 +99,12 @@ Get the one with maximum score
 
 ### Import and clean abundance data
 
-Rearrange these lines of code to import and clean an abundance dataset
+Rearrange these lines of code to import and clean a trait dataset
 
-```{r abund-import, eval = FALSE}
+```{r atrait-import, eval = FALSE}
+library(taxize)
+
+data <- 
 names(cleanTax) <- c('sp', 'clean_name')
 
 cleanTax <- gnr_resolve(abund$sp, 
@@ -86,8 +115,6 @@ cleanTax <- cleanTax[, c('user_supplied_name', 'matched_name')]
 
 cleanTax$matched_name <- gsub(' \\(.*', '', cleanTax$matched_name)
 
-
-library(taxize)
 
 abund <- read.csv('data/abund.csv')
 
@@ -135,11 +162,90 @@ abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum)
 
 
 
-
-
-
-
 # Chunks of code to keep
+
+## code for the workshop
+
+1. Import trait data in a CSV format into the R environment
+
+```{r}
+traits <- read.csv("episodes/data/body_size_data.csv")
+```
+
+2. Clean taxonomic names using the `taxize` package
+
+Have to iterate over small chunks- using `http="post"` gets hung up, even though it's supposed to work for large queries.
+
+```{r}
+# get the unique names of all species in the data set
+spnames <- unique(traits$GenSp)
+
+# split the spnames vector into roughly equal sized chunks of 200
+x <- seq_along(spnames)
+spnames_list <- split(spnames, ceiling(x/200))
+
+# run gnr_resolve() over each species chunk
+resolved_list <- lapply(spnames_list, gnr_resolve, best_match_only = TRUE)
+
+# turn this back into a data frame
+resolved_names <- do.call(rbind, resolved_list)
+
+dim(resolved_names)
+```
+
+To see where your data doesn't match the matched_name and make decisions about what to correct.  
+
+```{r}
+resolved_names[resolved_names$user_supplied_name != resolved_names$matched_name,]
+```
+
+3. Aggregate traits
+
+```{r}
+library(dplyr)
+traits_grouped <- group_by(traits, GenSp)
+traits_agg <- summarize(traits_grouped, mean_mass_mg = mean(mass_mg))
+
+head(traits_agg)
+```
+
+4. Calculate Hill numbers 
+**need to settle on how we're calculating Hill numbers and what we're aggregating across (i.e. there are no other identifiers in the body size data set besides `GenSp`), but it'll look like this:  
+
+```{r, eval=FALSE}
+traits_hill <- summarize(traits_grouped, 
+                         hill_1 = hill_calc(mass_mg, 1),
+                         hill_2 = hill_calc(mass_mg, 2),
+                         hill_3 = hill_calc(mass_mg, 3)
+                         )
+```
+
+5. Interpret Hill numbers
+6. Visualize trait distributions
+
+Histograms
+```{r}
+# total
+hist(traits$mass_mg, xlab = "Mass (mg)", main = "All species")
+```
+
+```{r}
+# single species
+hist(traits$mass_mg[traits$GenSp == "Phoracantha semipunctata"], xlab = "Mass (mg)", main = "Phoracantha semipunctata")
+```
+
+Ranked plots
+```{r}
+plot(sort(traits$mass_mg, TRUE), xlab = "Rank", ylab = "Mass (mg)", main = "All species")
+```
+
+```{r}
+plot(sort(traits$mass_mg[traits$GenSp == "Phoracantha semipunctata"], TRUE), xlab = "Rank", ylab = "Mass (mg)", main = "Phorocantha semipunctata")
+```
+
+7. Interpret trait distribution plots
+8. Connect trait distribution patterns to Hill numbers
+
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
