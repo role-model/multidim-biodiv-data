@@ -276,7 +276,7 @@ Make some pictorial examples of those data
 
 Talk about cleaning up species names
 
-```{r clean_taxa, eval = FALSE}
+```{r clean_taxa_taxize, eval = FALSE}
 library(taxize)
 
 
