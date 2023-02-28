@@ -17,19 +17,10 @@ exercises: 2
 After following this episode, participants should be able to...
 
 
-<!-- 1. Import abundance data in a CSV format into R environment -->
-<!-- 2. Clean taxonomic names using the `taxize` package -->
-<!--     - clean spelling errors (ajr to introduce spelling errors) -->
-<!--     - fix synonyms  -->
-<!-- 3. Aggregate abundances -->
-<!-- 4. Calculate Hill numbers  -->
-<!-- 5. Interpret Hill numbers -->
-<!-- 6. Vizualize species abundance distributions -->
-<!-- 7. Interpret species abundance distribution plots -->
-<!-- 8. Connect species abundance patterns to Hill numbers -->
-
 1. Import and examine organismal abundance data from .csv files
-2. Generate species abundance distributions from abundance data
+1. Clean taxonomic names
+2. Manipulate abundance data into different formats
+2. Generate species abundance distribution plots from abundance data
 3. Summarize species abundance data using Hill numbers
 4. Interpret how different Hill numbers correspond to different patterns in species diversity
 
@@ -41,25 +32,6 @@ After following this episode, participants should be able to...
 
 
 ## Setup
-
-testing `jsonlite`
-
-
-```r
-library(jsonlite)
-hadley_orgs <- fromJSON("https://api.github.com/users/hadley/orgs")
-```
-
-
-```r
-x <- 1:10
-x
-```
-
-```{.output}
- [1]  1  2  3  4  5  6  7  8  9 10
-```
-
 
 For this lesson, we'll need a few packages commonly used in ecology.
 
@@ -119,17 +91,58 @@ Let's look at these data.
 
 
 ```r
+# look at a little bit of data
 head(abundances)
-
-
-
-
-abundances %>%
-    select(site, island) %>%
-    distinct()
 ```
 
+```{.output}
+        island            site                     GenSp abundance
+1 hawaiiisland hawaiiisland_01     Abanchogastra debilis        10
+2 hawaiiisland hawaiiisland_01  Abgrallaspis cyanophylli         3
+3 hawaiiisland hawaiiisland_01         Acalles lateralis         2
+4 hawaiiisland hawaiiisland_01            Aceria swezeyi         2
+5 hawaiiisland hawaiiisland_01 Acrolepiopsis sapporensis        35
+6 hawaiiisland hawaiiisland_01     Acrotelsa hawaiiensis        83
+```
+
+
 We see that we have columns for `island`, `site`, and `GenSp`, and `abundance`. We seem to have one site on each island. `GenSp` is the scientific name (*gen*us *sp*ecies). `abundance` is the total number of individuals of that species "observed" in our (fictitious) survey. 
+
+
+
+```r
+unique(abundances[, c('site', 'island')])
+```
+
+```{.output}
+                site       island
+1    hawaiiisland_01 hawaiiisland
+886         kauai_01        kauai
+1540         maui_01         maui
+2267      molokai_01      molokai
+```
+
+## Cleaning
+
+- checking for typos
+- checking aggregation 
+
+
+
+```r
+library(taxize)
+
+
+wtf <- gnr_resolve(abund$GenSp)
+```
+
+
+
+```r
+# aggregation example
+x <- aggregate(abund[, 'abundance', drop = FALSE], abund[, c('GenSp', 'site')], 
+               sum)
+```
 
 
 ## Visualization by species and site
@@ -141,8 +154,18 @@ Let's start by looking at the species composition on Hawaii itself:
 
 
 ```r
+x1 <- abundances$abundance[abundances$site == 'hawaiiisland_01']
+x4 <- abundances$abundance[abundances$site == 'kauai_01']
+plot(x1)
+hist(x1)
+hist(log(x1))
+plot(sort(x1, TRUE), log = 'y')
+
+
 hawaii_abund <- abundances %>%
     filter(island == "hawaiiisland")
+
+plot(sort(hawaii_abund, TRUE))
 
 ggplot(hawaii_abund, aes(GenSp, abundance)) +
     geom_col() +
@@ -206,6 +229,8 @@ ggplot(abundances_ranked, aes(rank, abundance)) +
 ```
 :::
 
+
+## Re-formatting
 
 ## Summarizing species abundance data
 
