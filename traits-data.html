@@ -223,7 +223,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Importing and summarizing trait data</h1>
-        <p> Last updated on 2023-02-27 | 
+        <p> Last updated on 2023-02-28 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -280,20 +280,66 @@ numeric values of a variable</p>
 <p>Different formats we might expect for trait data - Categorical vs
 continuous traits? - Data can come per individual (direct measurement)
 or per species (from the literature).</p>
-<p>Read with <code>read.csv</code></p>
+<p>Trait data are often stored in the <code>.csv</code> format. Here,
+we’ll load body size data from the <code>data</code> directory of this
+lesson with the function <code>read.csv</code> and take a peak at it
+with <code>head</code>. The data frame has two columns-
+<code>GenSp</code> and <code>mass_mg</code>, which contain species
+binomial name and the mass of the individual in milligrams,
+respectively.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"episodes/data/body_size_data.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Biodiversity data sets are often collected from multiple sources,
+include taxa the researcher is not familiar with, contain historical
+data, etc. This can lead to problems with species identification and
+recording in the data. In addition to careful scrutiny of your data set,
+the <a href="https://docs.ropensci.org/taxize/" class="external-link">taxize</a> R package
+helps to standardize species names by solving for the species name and
+standardizing taxonomy.</p>
+<p><a href="http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html" class="external-link">From
+taxize vignette</a>:<br>
+“taxize takes the approach that the user should be able to make
+decisions about what resource to trust, rather than making the decision.
+Both the EOL GNR and the TNRS services provide data from a variety of
+data sources. The user may trust a specific data source, thus may want
+to use the names from that data source. In the future, we may provide
+the ability for taxize to suggest the best match from a variety of
+sources.”</p>
+<p>The main function we will use to resolve species names is the
+function <code>taxize::gnr_resolve()</code>. There are many options, but
+the simplest approach is to supply the binomial names of your species as
+a vector (remember: a data frame column is a vector) and set the
+<code>best_match_only</code> flag to true, which returns the single best
+match for each species name query. Note, the input names are spelled
+incorrectly, so <code>gnr_resolve()</code> should provide a result that
+corrects this error:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span>sci <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Helianthos annus"</span>, <span class="st">"Homo saapiens"</span><span class="op">)</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+</div>
+<p>And the output, which returns the supplied binomial names
+(<code>user_supplied_name</code>, <code>submitted_name</code>), the
+matched name (<code>matched_name</code>), the data source used for the
+matched name (<code>data_source_title</code>), and the score
+(<code>score</code>). Adding additional arguments may result in more
+columns of information being output. You may have noticed that “Homo
+sapiens Linnaeus, 1758” was returned for <em>Homo sapiens</em>. This
+includes the original citation in the name, which isn’t an issue in
+terms of data analysis as long as all individuals use the same format,
+but may be annoying when formatting plots and other output. You can
+either change this manually, or set the <code>best_match_only</code>
+flag to <code>FALSE</code> to include multiple names to choose from.</p>
 <p>Cleaning: - Solving for the species, standardizing taxonomy
 (<code>taxize</code> package) - argument options and output of
 <code>taxize::gnr_resolve</code></p>
-<p><a href="http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html" class="external-link">From
-taxsize vignette</a> “taxize takes the approach that the user should be
-able to make decisions about what resource to trust, rather than making
-the decision. Both the EOL GNR and the TNRS services provide data from a
-variety of data sources. The user may trust a specific data source, thus
-may want to use the names from that data source. In the future, we may
-provide the ability for taxize to suggest the best match from a variety
-of sources.”</p>
-<p>temp &lt;- gnr_resolve(names = c(“Helianthos annus”, “Homo
-saapiens”), best_match_only = TRUE)</p>
 <p>Get the one with maximum score</p>
 <ul><li>Coding for categorical data?</li>
 <li>Collapsing individual trait data and getting mean, median, SD</li>
@@ -308,13 +354,15 @@ species-based)</li>
 <h3 class="callout-title">Import and clean abundance data<a class="anchor" aria-label="anchor" href="#challenge1"></a>
 </h3>
 <div class="callout-content">
-<p>Rearrange these lines of code to import and clean an abundance
-dataset</p>
-<div class="codewrapper sourceCode" id="cb1">
+<p>Rearrange these lines of code to import and clean a trait dataset</p>
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">cleanTax</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'sp'</span>, <span class="st">'clean_name'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> </span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">cleanTax</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'sp'</span>, <span class="st">'clean_name'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cleanTax</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">abund</span><span class="op">$</span><span class="va">sp</span>, </span>
 <span>                        best_match_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -324,8 +372,6 @@ dataset</p>
 <span></span>
 <span><span class="va">cleanTax</span><span class="op">$</span><span class="va">matched_name</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">' \\(.*'</span>, <span class="st">''</span>, <span class="va">cleanTax</span><span class="op">$</span><span class="va">matched_name</span><span class="op">)</span></span>
 <span></span>
-<span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">abund</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">'data/abund.csv'</span><span class="op">)</span></span>
 <span></span>
@@ -343,9 +389,9 @@ dataset</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -383,8 +429,103 @@ community</li>
 </ol></div>
 <div class="section level1">
 <h1 id="chunks-of-code-to-keep">Chunks of code to keep<a class="anchor" aria-label="anchor" href="#chunks-of-code-to-keep"></a></h1>
-
-<div id="challenge2" class="callout challenge">
+<div class="section level2">
+<h2 id="code-for-the-workshop">code for the workshop<a class="anchor" aria-label="anchor" href="#code-for-the-workshop"></a></h2>
+<ol style="list-style-type: decimal"><li>Import trait data in a CSV format into the R environment</li>
+</ol><div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"episodes/data/body_size_data.csv"</span><span class="op">)</span></span></code></pre>
+</div>
+<ol start="2" style="list-style-type: decimal"><li>Clean taxonomic names using the <code>taxize</code> package</li>
+</ol><p>Have to iterate over small chunks- using <code>http="post"</code>
+gets hung up, even though it’s supposed to work for large queries.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># get the unique names of all species in the data set</span></span>
+<span><span class="va">spnames</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># split the spnames vector into roughly equal sized chunks of 200</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">seq_along</span><span class="op">(</span><span class="va">spnames</span><span class="op">)</span></span>
+<span><span class="va">spnames_list</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">spnames</span>, <span class="fu">ceiling</span><span class="op">(</span><span class="va">x</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># run gnr_resolve() over each species chunk</span></span>
+<span><span class="va">resolved_list</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">spnames_list</span>, <span class="va">gnr_resolve</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># turn this back into a data frame</span></span>
+<span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">do.call</span><span class="op">(</span><span class="va">rbind</span>, <span class="va">resolved_list</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dim</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
+</div>
+<p>To see where your data doesn’t match the matched_name and make
+decisions about what to correct.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">resolved_names</span><span class="op">[</span><span class="va">resolved_names</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">resolved_names</span><span class="op">$</span><span class="va">matched_name</span>,<span class="op">]</span></span></code></pre>
+</div>
+<ol start="3" style="list-style-type: decimal"><li>Aggregate traits</li>
+</ol><div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="va">traits_grouped</span> <span class="op">&lt;-</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">traits</span>, <span class="va">GenSp</span><span class="op">)</span></span>
+<span><span class="va">traits_agg</span> <span class="op">&lt;-</span> <span class="fu">summarize</span><span class="op">(</span><span class="va">traits_grouped</span>, mean_mass_mg <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mass_mg</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_agg</span><span class="op">)</span></span></code></pre>
+</div>
+<ol start="4" style="list-style-type: decimal"><li>Calculate Hill numbers **need to settle on how we’re calculating
+Hill numbers and what we’re aggregating across (i.e. there are no other
+identifiers in the body size data set besides <code>GenSp</code>), but
+it’ll look like this:</li>
+</ol><div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">summarize</span><span class="op">(</span><span class="va">traits_grouped</span>, </span>
+<span>                         hill_1 <span class="op">=</span> <span class="fu">hill_calc</span><span class="op">(</span><span class="va">mass_mg</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                         hill_2 <span class="op">=</span> <span class="fu">hill_calc</span><span class="op">(</span><span class="va">mass_mg</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                         hill_3 <span class="op">=</span> <span class="fu">hill_calc</span><span class="op">(</span><span class="va">mass_mg</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span>                         <span class="op">)</span></span></code></pre>
+</div>
+<ol start="5" style="list-style-type: decimal"><li>Interpret Hill numbers</li>
+<li>Visualize trait distributions</li>
+</ol><p>Histograms</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># total</span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">mass_mg</span>, xlab <span class="op">=</span> <span class="st">"Mass (mg)"</span>, main <span class="op">=</span> <span class="st">"All species"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># single species</span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">mass_mg</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span> <span class="op">==</span> <span class="st">"Phoracantha semipunctata"</span><span class="op">]</span>, xlab <span class="op">=</span> <span class="st">"Mass (mg)"</span>, main <span class="op">=</span> <span class="st">"Phoracantha semipunctata"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Ranked plots</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">mass_mg</span>, <span class="cn">TRUE</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Rank"</span>, ylab <span class="op">=</span> <span class="st">"Mass (mg)"</span>, main <span class="op">=</span> <span class="st">"All species"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">mass_mg</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span> <span class="op">==</span> <span class="st">"Phoracantha semipunctata"</span><span class="op">]</span>, <span class="cn">TRUE</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Rank"</span>, ylab <span class="op">=</span> <span class="st">"Mass (mg)"</span>, main <span class="op">=</span> <span class="st">"Phorocantha semipunctata"</span><span class="op">)</span></span></code></pre>
+</div>
+<ol start="7" style="list-style-type: decimal"><li>Interpret trait distribution plots</li>
+<li>Connect trait distribution patterns to Hill numbers</li>
+</ol><div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -394,7 +535,7 @@ community</li>
 <div class="callout-content">
 <p>Rearrange these lines of code to import and clean an abundance
 dataset</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -427,9 +568,9 @@ dataset</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -456,6 +597,7 @@ dataset</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
+</div>
 </div>
 
 
@@ -512,9 +654,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/traits-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/traits-data.html",
-  "dateCreated": "2023-02-27",
-  "dateModified": "2023-02-27",
-  "datePublished": "2023-02-27"
+  "dateCreated": "2023-02-28",
+  "dateModified": "2023-02-28",
+  "datePublished": "2023-02-28"
 }
 
   </script><script>

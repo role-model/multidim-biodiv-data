@@ -167,8 +167,10 @@
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#data-import">Data import</a></li>
 <li><a href="#data-examination">Data examination</a></li>
+<li><a href="#cleaning">Cleaning</a></li>
 <li><a href="#visualization-by-species-and-site">Visualization by species and site</a></li>
 <li><a href="#species-abundance-distributions">Species abundance distributions</a></li>
+<li><a href="#re-formatting">Re-formatting</a></li>
 <li><a href="#summarizing-species-abundance-data">Summarizing species abundance data</a></li>
 <li><a href="#recap">Recap</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -237,7 +239,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Abundance Data</h1>
-        <p> Last updated on 2023-02-27 | 
+        <p> Last updated on 2023-02-28 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -269,18 +271,11 @@ quantitatively compare species abundance distributions?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <p>After following this episode, participants should be able to…</p>
-<!-- 1. Import abundance data in a CSV format into R environment -->
-<!-- 2. Clean taxonomic names using the `taxize` package -->
-<!--     - clean spelling errors (ajr to introduce spelling errors) -->
-<!--     - fix synonyms  -->
-<!-- 3. Aggregate abundances -->
-<!-- 4. Calculate Hill numbers  -->
-<!-- 5. Interpret Hill numbers -->
-<!-- 6. Vizualize species abundance distributions -->
-<!-- 7. Interpret species abundance distribution plots -->
-<!-- 8. Connect species abundance patterns to Hill numbers -->
 <ol style="list-style-type: decimal"><li>Import and examine organismal abundance data from .csv files</li>
-<li>Generate species abundance distributions from abundance data</li>
+<li>Clean taxonomic names</li>
+<li>Manipulate abundance data into different formats</li>
+<li>Generate species abundance distribution plots from abundance
+data</li>
 <li>Summarize species abundance data using Hill numbers</li>
 <li>Interpret how different Hill numbers correspond to different
 patterns in species diversity</li>
@@ -291,29 +286,9 @@ patterns in species diversity</li>
 </div>
 <section id="setup"><h2 class="section-heading">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
-<hr class="half-width"><p>testing <code>jsonlite</code></p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">jsonlite</span><span class="op">)</span></span>
-<span><span class="va">hadley_orgs</span> <span class="op">&lt;-</span> <span class="fu">fromJSON</span><span class="op">(</span><span class="st">"https://api.github.com/users/hadley/orgs"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
-<span><span class="va">x</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-</div>
-<p>For this lesson, we’ll need a few packages commonly used in
+<hr class="half-width"><p>For this lesson, we’ll need a few packages commonly used in
 ecology.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -339,7 +314,7 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -359,7 +334,7 @@ approaches for importing, wrangling, and summarizing abundance data.</p>
 Here, we’ll load data from the <code>data</code> directory of this
 lesson.</p>
 
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -372,18 +347,23 @@ the Hawaiian archipelago. We have real species names (this will be
 important later!) but computer-simulated occurrence and abundance
 values.</p>
 <p>Let’s look at these data.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">abundances</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">select</span><span class="op">(</span><span class="va">site</span>, <span class="va">island</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">distinct</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># look at a little bit of data</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>        island            site                     GenSp abundance
+1 hawaiiisland hawaiiisland_01     Abanchogastra debilis        10
+2 hawaiiisland hawaiiisland_01  Abgrallaspis cyanophylli         3
+3 hawaiiisland hawaiiisland_01         Acalles lateralis         2
+4 hawaiiisland hawaiiisland_01            Aceria swezeyi         2
+5 hawaiiisland hawaiiisland_01 Acrolepiopsis sapporensis        35
+6 hawaiiisland hawaiiisland_01     Acrotelsa hawaiiensis        83</code></pre>
 </div>
 <p>We see that we have columns for <code>island</code>,
 <code>site</code>, and <code>GenSp</code>, and <code>abundance</code>.
@@ -391,6 +371,42 @@ We seem to have one site on each island. <code>GenSp</code> is the
 scientific name (<em>gen</em>us <em>sp</em>ecies).
 <code>abundance</code> is the total number of individuals of that
 species “observed” in our (fictitious) survey.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">abundances</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">'site'</span>, <span class="st">'island'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                site       island
+1    hawaiiisland_01 hawaiiisland
+886         kauai_01        kauai
+1540         maui_01         maui
+2267      molokai_01      molokai</code></pre>
+</div>
+</section><section id="cleaning"><h2 class="section-heading">Cleaning<a class="anchor" aria-label="anchor" href="#cleaning"></a>
+</h2>
+<hr class="half-width"><ul><li>checking for typos</li>
+<li>checking aggregation</li>
+</ul><div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">wtf</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">abund</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># aggregation example</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">aggregate</span><span class="op">(</span><span class="va">abund</span><span class="op">[</span>, <span class="st">'abundance'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="va">abund</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">'GenSp'</span>, <span class="st">'site'</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>               <span class="va">sum</span><span class="op">)</span></span></code></pre>
+</div>
 </section><section id="visualization-by-species-and-site"><h2 class="section-heading">Visualization by species and site<a class="anchor" aria-label="anchor" href="#visualization-by-species-and-site"></a>
 </h2>
 <hr class="half-width"><p>As a first step, let’s take a look at how species’ abundances vary
@@ -398,12 +414,22 @@ across different sites. We’ll do this using the visualization package
 <code>ggplot2</code>.</p>
 <p>Let’s start by looking at the species composition on Hawaii
 itself:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hawaii_abund</span> <span class="op">&lt;-</span> <span class="va">abundances</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">abundance</span><span class="op">[</span><span class="va">abundances</span><span class="op">$</span><span class="va">site</span> <span class="op">==</span> <span class="st">'hawaiiisland_01'</span><span class="op">]</span></span>
+<span><span class="va">x4</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">abundance</span><span class="op">[</span><span class="va">abundances</span><span class="op">$</span><span class="va">site</span> <span class="op">==</span> <span class="st">'kauai_01'</span><span class="op">]</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="fu">log</span><span class="op">(</span><span class="va">x1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">x1</span>, <span class="cn">TRUE</span><span class="op">)</span>, log <span class="op">=</span> <span class="st">'y'</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">hawaii_abund</span> <span class="op">&lt;-</span> <span class="va">abundances</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">filter</span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="st">"hawaiiisland"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">hawaii_abund</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">hawaii_abund</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">GenSp</span>, <span class="va">abundance</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -412,7 +438,7 @@ itself:</p>
 <p>This is nearly unreadable because of the high species richness
 (885!).</p>
 <p>It gets harder if we incorporate all the islands:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -433,7 +459,7 @@ focus on species <em>identity</em> and look instead at how abundance is
 <p>To construct a species abundance distribution, we need to arrange the
 species in each of our sites from most to least abundant and plot the
 curve.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -443,7 +469,7 @@ curve.</p>
 <span>    <span class="fu">mutate</span><span class="op">(</span>rank <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">row_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -474,7 +500,7 @@ curve.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -486,7 +512,9 @@ curve.</p>
 </div>
 </div>
 </div>
-</section><section id="summarizing-species-abundance-data"><h2 class="section-heading">Summarizing species abundance data<a class="anchor" aria-label="anchor" href="#summarizing-species-abundance-data"></a>
+</section><section id="re-formatting"><h2 class="section-heading">Re-formatting<a class="anchor" aria-label="anchor" href="#re-formatting"></a>
+</h2>
+<hr class="half-width"></section><section id="summarizing-species-abundance-data"><h2 class="section-heading">Summarizing species abundance data<a class="anchor" aria-label="anchor" href="#summarizing-species-abundance-data"></a>
 </h2>
 <hr class="half-width"><div id="discussion2" class="callout discussion">
 <div class="callout-square">
@@ -506,7 +534,7 @@ comparing the <em>diversity</em> of a system to another?</p>
 purely species richness. We can calculate these on our Hawaii data:</p>
 <div class="section level3">
 <h3 id="conventional-diversity-metrics">Conventional diversity metrics<a class="anchor" aria-label="anchor" href="#conventional-diversity-metrics"></a></h3>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -541,7 +569,7 @@ purely species richness. We can calculate these on our Hawaii data:</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -574,7 +602,7 @@ abundance/diversity data.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -589,7 +617,7 @@ abundance/diversity data.</p>
 individual)</p>
 <p>Make some pictorial examples of those data</p>
 <p>Talk about cleaning up species names</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -599,7 +627,7 @@ individual)</p>
 <span><span class="va">wtf</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">abund</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Converting between data types</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -621,7 +649,7 @@ individual)</p>
 <h4 id="calculating-hill-numbers-using-hillr">Calculating Hill numbers using <code>hillR</code>
 <a class="anchor" aria-label="anchor" href="#calculating-hill-numbers-using-hillr"></a></h4>
 
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -654,7 +682,7 @@ calculated earlier.</p>
 </button>
 <div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -667,7 +695,7 @@ calculated earlier.</p>
 <code>hill2</code> converges to the inverse Simpson index.</li>
 </ul><p>What about <code>hill1</code>? <code>hill1</code> converges to the
 <em>exponential</em> of Shannon’s index:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -684,7 +712,7 @@ calculated earlier.</p>
 <p>Let’s look at how different values for each Hill number correspond to
 different shapes for the SAD.</p>
 <p>Let’s start with Hill number of order 1.</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -715,7 +743,7 @@ different shapes for the SAD.</p>
 </button>
 <div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -818,9 +846,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/abundance-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/abundance-data.html",
-  "dateCreated": "2023-02-27",
-  "dateModified": "2023-02-27",
-  "datePublished": "2023-02-27"
+  "dateCreated": "2023-02-28",
+  "dateModified": "2023-02-28",
+  "datePublished": "2023-02-28"
 }
 
   </script><script>
