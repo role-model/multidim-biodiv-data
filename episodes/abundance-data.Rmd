@@ -59,7 +59,7 @@ We'll want to update the data path.
 :::
 
 ```{r read-in}
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_data_cleaned.csv") 
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_data.csv") 
 
 
 ```
@@ -76,8 +76,9 @@ Let's look at these data.
 head(abundances)
 ```
 
+We have columns for `island`, `site`, `GenSp`, and `abundance`. Before we jump into analyses, it's good practice to do some checks on the data.
 
-We see that we have columns for `island`, `site`, and `GenSp`, and `abundance`. We seem to have one site on each island. `GenSp` is the scientific name (*gen*us *sp*ecies). `abundance` is the total number of individuals of that species "observed" in our (fictitious) survey. 
+First, we'll want to check for old-fashioned human error, i.e. typos. Second, we're working towards analyses that will use data on the _total abundances_ of each species at each site. For that, we'll want to make sure we have one record for each species for each site, and that that reflects the total abundance for that species. 
 
 
 ```{r examine-sites}
@@ -90,15 +91,8 @@ unique(abundances[, c('site', 'island')])
 - checking aggregation 
 
 
-```{r clean_taxa, eval = FALSE}
-library(taxize)
 
-
-wtf <- gnr_resolve(abund$GenSp)
-```
-
-
-```{r aggregate-base, eval = FALSE}
+```{r aggregate-base}
 # aggregation example
 x <- aggregate(abund[, 'abundance', drop = FALSE], abund[, c('GenSp', 'site')], 
                sum)
@@ -107,12 +101,12 @@ x <- aggregate(abund[, 'abundance', drop = FALSE], abund[, c('GenSp', 'site')],
 
 ## Visualization by species and site
 
-As a first step, let's take a look at how species' abundances vary across different sites. We'll do this using the visualization package `ggplot2`.
+As a first step, let's take a look at how species' abundances vary across different sites. 
 
 
 Let's start by looking at the species composition on Hawaii itself:
 
-```{r, eval = FALSE}
+```{r}
 
 x1 <- abundances$abundance[abundances$site == 'hawaiiisland_01']
 x4 <- abundances$abundance[abundances$site == 'kauai_01']
@@ -138,7 +132,7 @@ This is nearly unreadable because of the high species richness (885!).
 
 It gets harder if we incorporate all the islands:
 
-```{r, eval = FALSE}
+```{r}
 
 ggplot(abundances, aes(GenSp, abundance)) +
     geom_col() +
@@ -156,7 +150,7 @@ In working with species abundance distributions, we relinquish a focus on specie
 
 To construct a species abundance distribution, we need to arrange the species in each of our sites from most to least abundant and plot the curve.
 
-```{r, eval = FALSE}
+```{r}
 
 abundances_ranked <- abundances %>%
     group_by(site) %>%
@@ -166,7 +160,7 @@ abundances_ranked <- abundances %>%
 
 ```
 
-```{r, eval = FALSE}
+```{r}
 
 hawaii_abund_ranked <- abundances_ranked %>%
     filter(island == "hawaiiisland")
@@ -185,7 +179,7 @@ Can you plot the SADs for all the islands in one plot?
 
 ::: solution
 
-```{r, eval = FALSE}
+```{r}
 ggplot(abundances_ranked, aes(rank, abundance)) +
     geom_line() +
     facet_wrap(vars(island), scales = "free")
@@ -211,7 +205,7 @@ Some common metrics include Shannon diversity, Simpson's evenness, or purely spe
 
 ### Conventional diversity metrics
 
-```{r, eval = FALSE}
+```{r}
 
 abundances_diversity <- abundances_ranked %>%
     group_by(site) %>%
@@ -234,7 +228,7 @@ Can you add the calculation of the inverse Simpson index to the `abundances_dive
 
 ::: solution
 
-```{r, eval = FALSE}
+```{r}
 
 abundances_diversity <- abundances_ranked %>%
     group_by(site) %>%
@@ -259,7 +253,7 @@ We'll encounter them throughout the workshop.
 
 :::
 
-```{r abund_load, eval = FALSE}
+```{r abund_load}
 # load
 abund <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/abundance_data.csv")
 
@@ -276,18 +270,10 @@ Make some pictorial examples of those data
 
 Talk about cleaning up species names
 
-```{r clean_taxa, eval = FALSE}
-library(taxize)
-
-
-wtf <- gnr_resolve(abund$GenSp)
-```
-
-
 
 Converting between data types
 
-```{r tidy2sitespp, eval = FALSE}
+```{r tidy2sitespp}
 # aggregation example
 x <- aggregate(abund[, 'abundance', drop = FALSE], abund[, c('GenSp', 'site')], 
                sum)
@@ -317,7 +303,7 @@ In v.2 let's update this to using roleR.
 
 :::
 
-```{r, eval = FALSE}
+```{r}
 
 abundances_hill <- abundances_ranked %>%
     group_by(site) %>%
@@ -337,7 +323,7 @@ Compare the Hill number calculations to the diversity metrics we calculated earl
 
 ::: solution
 
-```{r, eval = FALSE}
+```{r}
 
 left_join(abundances_diversity, abundances_hill )
 
@@ -368,7 +354,7 @@ Let's look at how different values for each Hill number correspond to different 
 Let's start with Hill number of order 1. 
 
 
-```{r, eval = FALSE}
+```{r}
 
 abundances_ranked_with_hill <- left_join(abundances_ranked, abundances_hill, by = "site")
 
@@ -389,7 +375,7 @@ Build these same plots for Hill number order 2.
 ::: solution
 
 
-```{r, eval = FALSE}
+```{r}
 
 
 ggplot(abundances_ranked_with_hill, aes(rank, abundance, color = hill2)) +
