@@ -54,7 +54,7 @@ traits <- read.csv("episodes/data/body_size_data.csv")
 head(traits)
 ```
 
-```{r read-trait-formatted, echo=FALSE}
+```{r read-trait-formatted, echo=FALSE, eval=FALSE}
 traits <- read.csv("episodes/data/body_size_data.csv")
 
 knitr::kable(head(traits))
@@ -76,7 +76,7 @@ resolved_names <- gnr_resolve(sci = c("Helianthos annus", "Homo saapiens"), best
 
 And the output, which returns the supplied binomial names (`user_supplied_name`, `submitted_name`), the matched name (`matched_name`), the data source used for the matched name (`data_source_title`), and the score (`score`). Adding additional arguments may result in more columns of information being output. You may have noticed that "Homo sapiens Linnaeus, 1758" was returned for *Homo sapiens*. This includes the original citation in the name, which isn't an issue in terms of data analysis as long as all individuals use the same format, but may be annoying when formatting plots and other output. You can either change this manually, or set the `best_match_only` flag to `FALSE` to include multiple names to choose from.  
 
-```{r taxize-small-example-hidden, echo=FALSE}
+```{r taxize-small-example-hidden, echo=FALSE, eval=FALSE}
 resolved_names <- gnr_resolve(sci = c("Helianthos annus", "Homo saapiens"), best_match_only = TRUE)
 knitr::kable(resolved_names)
 ```
@@ -168,7 +168,7 @@ abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum)
 
 1. Import trait data in a CSV format into the R environment
 
-```{r}
+```{r, eval=FALSE}
 traits <- read.csv("episodes/data/body_size_data.csv")
 ```
 
@@ -176,7 +176,7 @@ traits <- read.csv("episodes/data/body_size_data.csv")
 
 Have to iterate over small chunks- using `http="post"` gets hung up, even though it's supposed to work for large queries.
 
-```{r}
+```{r, eval=FALSE}
 # get the unique names of all species in the data set
 spnames <- unique(traits$GenSp)
 
@@ -195,13 +195,13 @@ dim(resolved_names)
 
 To see where your data doesn't match the matched_name and make decisions about what to correct.  
 
-```{r}
+```{r, eval=FALSE}
 resolved_names[resolved_names$user_supplied_name != resolved_names$matched_name,]
 ```
 
 3. Aggregate traits
 
-```{r}
+```{r, eval=FALSE}
 library(dplyr)
 traits_grouped <- group_by(traits, GenSp)
 traits_agg <- summarize(traits_grouped, mean_mass_mg = mean(mass_mg))
@@ -224,22 +224,22 @@ traits_hill <- summarize(traits_grouped,
 6. Visualize trait distributions
 
 Histograms
-```{r}
+```{r, eval=FALSE}
 # total
 hist(traits$mass_mg, xlab = "Mass (mg)", main = "All species")
 ```
 
-```{r}
+```{r, eval=FALSE}
 # single species
 hist(traits$mass_mg[traits$GenSp == "Phoracantha semipunctata"], xlab = "Mass (mg)", main = "Phoracantha semipunctata")
 ```
 
 Ranked plots
-```{r}
+```{r, eval=FALSE}
 plot(sort(traits$mass_mg, TRUE), xlab = "Rank", ylab = "Mass (mg)", main = "All species")
 ```
 
-```{r}
+```{r, eval=FALSE}
 plot(sort(traits$mass_mg[traits$GenSp == "Phoracantha semipunctata"], TRUE), xlab = "Rank", ylab = "Mass (mg)", main = "Phorocantha semipunctata")
 ```
 
