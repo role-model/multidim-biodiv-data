@@ -81,8 +81,11 @@ The `taxize` R package can help identify and resolve simple typos in taxonomic n
 
 species_list <- unique(abundances$GenSp)
 
-wtf <- taxize::gnr_resolve(species_list)
+wtf <- taxize::gnr_resolve(species_list, best_match_only = TRUE, 
+                           canonical = TRUE) # returns only name, not authority
 
+
+# one clean/QC check is to remove entries with score < 0.6
 ```
 
 Here is what I would do, naively:
@@ -90,15 +93,20 @@ Here is what I would do, naively:
 ```{r}
 library(dplyr)
 
-best_scores <- wtf %>% group_by(user_supplied_name) %>%
-    mutate(rank_score = dplyr::row_number()) %>%
-    filter(rank_score == 1) %>%
-    select(user_supplied_name,
-           matched_name)
+# don't need if using `best_match_only = TRUE` in `taxize::gnr_resolve`
+# best_scores <- wtf %>% group_by(user_supplied_name) %>%
+#     mutate(rank_score = dplyr::row_number()) %>%
+#     filter(rank_score == 1) %>%
+#     select(user_supplied_name,
+#            matched_name)
 
-abundances <- left_join(abundances, best_scores, by = c("GenSp" = "user_supplied_name"))
+abundances <- left_join(abundances, wtf, by = c("GenSp" = "user_supplied_name"))
 
-abundances[ which(abundances$GenSp != abundances$matched_name), ]
+unique(abundances[which(abundances$GenSp != abundances$matched_name), 
+                  c("GenSp", "matched_name2")])
+
+abundances$final_name <- abundances$matched_name2
+abundances$final_name[abundances$final_name == "Cirphis"] <- "Cirphis pyrrhias"
 
 ```
 
@@ -111,7 +119,7 @@ The data we have have one record per individual, but we'd like to have the _tota
 ```{r compute species totals}
 
 abundance_tallies <- group_by(abundances, site, island, matched_name)
-abundance_tallies <- summarize(abundance_tallies, abundance = dplyr::n())
+abundance_tallies <- summarize(abundance_tallies, abundance = n())
 abundance_tallies <- ungroup(abundance_tallies)
 
 head(abundance_tallies)
