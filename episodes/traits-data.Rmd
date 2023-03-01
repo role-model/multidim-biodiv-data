@@ -61,73 +61,7 @@ and standardize the taxonomic information in your data set using the
 You're going to use those skills to import and clean the trait data set,
 which is located in `episodes/data/traits.csv`. The data contain typos
 and a problem with the taxonomy that you must correct and investigate.
-Make sure to glance at the data before cleaning
-
-::: solution
-
-Read in the traits data using the `read.csv()` function and supplying it
-with the path to the data. Take a glance at the data with the `head()`
-function. `str()` is another useful function to look at the structure of
-the data. The data contains two columns- `GenSp` which contains species
-binomial names and `mass_mg`, which contains the mass of the individual
-in milligrams.
-
-```{r trait-import-sol, eval = FALSE}
-traits <- read.csv('episodes/data/abund.csv')
-
-head(traits)
-```
-
-```{r trait-import-sol-hidden, eval=FALSE}
-traits <- read.csv('episodes/data/abund.csv')
-
-knitr::kable(head(traits))
-```
-
-:::::::::::
-
-::::::::::::::
-
-## 
-
-Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
-package) - argument options and output of `taxize::gnr_resolve`
-
-Get the one with maximum score
-
--   Coding for categorical data?
--   Collapsing individual trait data and getting mean, median, SD
--   Merging trait data from different sources (individual-based vs
-    species-based)
--   Creating a multi-dimensional trait database
-
-:::::: challenge
-
-### Import and clean trait data
-
-Rearrange these lines of code to import and clean a trait dataset
-
-```{r trait-import, eval = FALSE}
-library(taxize)
-
-data <- 
-names(cleanTax) <- c('sp', 'clean_name')
-
-cleanTax <- gnr_resolve(abund$sp, 
-                        best_match_only = TRUE)
-
-cleanTax <- cleanTax[, c('user_supplied_name', 'matched_name')]
-
-
-cleanTax$matched_name <- gsub(' \\(.*', '', cleanTax$matched_name)
-
-
-abund <- read.csv('data/abund.csv')
-
-abund <- aggregate(list(abund = abund$n), list(sp = abund$clean_name), sum)
-
-abund <- merge(abund, cleanTax)
-```
+Make sure to glance at the data before cleaning .
 
 ::: solution
 
@@ -167,9 +101,20 @@ traits$GenSp_clean <- traits_resolve$matched_name
 
 ```
 
-:::::::::::
+:::
 
-::::::::::::::
+::::::
+
+Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
+package) - argument options and output of `taxize::gnr_resolve`
+
+Get the one with maximum score
+
+-   Coding for categorical data?
+-   Collapsing individual trait data and getting mean, median, SD
+-   Merging trait data from different sources (individual-based vs
+    species-based)
+-   Creating a multi-dimensional trait database
 
 # Basic visualization of trait distribution
 
