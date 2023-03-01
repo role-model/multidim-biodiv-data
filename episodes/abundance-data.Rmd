@@ -56,7 +56,7 @@ Fix the data path.
 
 
 ```{r load data}
-abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/abundance-edits/episodes/data/long_abundances.csv")
+abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/long_abundances.csv")
 
 ```
 
@@ -81,7 +81,7 @@ The `taxize` R package can help identify and resolve simple typos in taxonomic n
 
 species_list <- unique(abundances$GenSp)
 
-wtf <- taxize::gnr_resolve(species_list, best_match_only = TRUE, 
+wtf <- gnr_resolve(species_list, best_match_only = TRUE, 
                            canonical = TRUE) # returns only name, not authority
 
 
@@ -93,7 +93,7 @@ Here is what I would do, naively:
 ```{r}
 library(dplyr)
 
-# don't need if using `best_match_only = TRUE` in `taxize::gnr_resolve`
+# don't need if using `best_match_only = TRUE` in `gnr_resolve`
 # best_scores <- wtf %>% group_by(user_supplied_name) %>%
 #     mutate(rank_score = dplyr::row_number()) %>%
 #     filter(rank_score == 1) %>%
@@ -106,7 +106,7 @@ unique(abundances[which(abundances$GenSp != abundances$matched_name),
                   c("GenSp", "matched_name2")])
 
 abundances$final_name <- abundances$matched_name2
-abundances$final_name[abundances$final_name == "Cirphis"] <- "Cirphis pyrrhias"
+abundances$final_name[abundances$final_name == "Cirphis"] <- "Mythimna amblycasis" # This one I picked seems to be a synonym and this is the one that comes up on Wikipedia
 
 ```
 
@@ -118,7 +118,7 @@ The data we have have one record per individual, but we'd like to have the _tota
 
 ```{r compute species totals}
 
-abundance_tallies <- group_by(abundances, site, island, matched_name)
+abundance_tallies <- group_by(abundances, site, island, matched_name2)
 abundance_tallies <- summarize(abundance_tallies, abundance = n())
 abundance_tallies <- ungroup(abundance_tallies)
 
@@ -127,7 +127,7 @@ head(abundance_tallies)
 ```
 
 ```{r or base r}
-x <- aggregate(abundances[, 'matched_name', drop = FALSE], abundances[, c('matched_name', 'site')], 
+x <- aggregate(abundances[, 'matched_name2', drop = FALSE], abundances[, c('matched_name2', 'site')], 
                length)
 
 head(x) #is identical
