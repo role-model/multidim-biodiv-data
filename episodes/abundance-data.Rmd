@@ -102,6 +102,13 @@ abundances[ which(abundances$GenSp != abundances$matched_name), ]
 
 ```
 
+::: discussion
+
+`taxize` is not a magic wand! alas.
+
+specifically, for example, names with no matches will be _dropped_.
+
+:::
 
 ## Wrangling abundance data
 
