@@ -120,7 +120,7 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.3",
+      "Version": "0.5.4",
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "6496090a9e00f8354b811d1a2d47b566",
