@@ -2,6 +2,9 @@
 title: "Abundance Data"
 teaching: 10
 exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -39,6 +42,7 @@ For this episode, we'll be working with a couple of specialized packages for bio
 library(dplyr)
 library(taxize)
 library(hillR)
+library(vegan)
 
 ```
 
@@ -56,7 +60,7 @@ Fix the data path.
 
 
 ```{r load data}
-abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/abundance-edits/episodes/data/long_abundances.csv")
+abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/long_abundances.csv")
 
 ```
 
@@ -81,32 +85,27 @@ The `taxize` R package can help identify and resolve simple typos in taxonomic n
 
 species_list <- unique(abundances$GenSp)
 
-wtf <- taxize::gnr_resolve(species_list, best_match_only = TRUE, 
-                           canonical = TRUE) # returns only name, not authority
+name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, 
+                            canonical = TRUE) # returns only name, not authority
 
-
-# one clean/QC check is to remove entries with score < 0.6
 ```
 
-Here is what I would do, naively:
 
-```{r}
-library(dplyr)
+```{r explore taxise outcomes}
+head(name_resolve)
+```
 
-# don't need if using `best_match_only = TRUE` in `taxize::gnr_resolve`
-# best_scores <- wtf %>% group_by(user_supplied_name) %>%
-#     mutate(rank_score = dplyr::row_number()) %>%
-#     filter(rank_score == 1) %>%
-#     select(user_supplied_name,
-#            matched_name)
+Now we need to add the newly-resolved names to our `abundnaces` data:
 
-abundances <- left_join(abundances, wtf, by = c("GenSp" = "user_supplied_name"))
+
+```{r join abundances and names}
+abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
 unique(abundances[which(abundances$GenSp != abundances$matched_name), 
                   c("GenSp", "matched_name2")])
 
 abundances$final_name <- abundances$matched_name2
-abundances$final_name[abundances$final_name == "Cirphis"] <- "Cirphis pyrrhias"
+abundances$final_name[abundances$final_name == "Cirphis"] <- "Mythimna amblycasis" # This one I picked seems to be a synonym and this is the one that comes up on Wikipedia
 
 ```
 
@@ -118,7 +117,7 @@ The data we have have one record per individual, but we'd like to have the _tota
 
 ```{r compute species totals}
 
-abundance_tallies <- group_by(abundances, site, island, matched_name)
+abundance_tallies <- group_by(abundances, site, island, matched_name2)
 abundance_tallies <- summarize(abundance_tallies, abundance = n())
 abundance_tallies <- ungroup(abundance_tallies)
 
@@ -127,7 +126,7 @@ head(abundance_tallies)
 ```
 
 ```{r or base r}
-x <- aggregate(abundances[, 'matched_name', drop = FALSE], abundances[, c('matched_name', 'site')], 
+x <- aggregate(abundances[, 'matched_name2', drop = FALSE], abundances[, c('matched_name2', 'site')], 
                length)
 
 head(x) #is identical
@@ -135,15 +134,242 @@ head(x) #is identical
 
 # Visualization via the species abundance distribution
 
+## Separating the islands
+
+```{r}
+
+kauai_abund <- abundance_tallies[ abundance_tallies$island == "kauai", ]
+maui_abund <- abundance_tallies[ abundance_tallies$island == "maui", ]
+hawaiiisland_abund <- abundance_tallies[ abundance_tallies$island == "hawaiiisland", ]
+
+```
+
 ## Plotting SADs
+
+```{r hawaii sad plot}
+
+plot(sort(hawaiiisland_abund$abundance, TRUE))
+
+```
+
+::: exercise
+
+Plot the rank-abundance distributions for the remaining islands.
+
+:::
+
+::: solution
+
+
+```{r kauai sad plot}
+
+plot(sort(kauai_abund$abundance, TRUE))
+
+```
+
+
+```{r maui sad plot}
+plot(sort(maui_abund$abundance, TRUE))
+
+```
+
+:::
+
+
 
 # Summary statistics
 
 ## Diversity indices
 
+### Simpson's evenness
+
+
+```{r richness on hawaii}
+
+hawaii_richness <- length(unique(hawaiiisland_abund$matched_name2))
+hawaii_richness
+
+```
+
+::: exercise
+
+Compute richness on Maui and Kauai.
+
+:::
+
+
+::: solution
+
+```{r richness on maui}
+
+maui_richness <- length(unique(maui_abund$matched_name2))
+
+maui_richness
+```
+
+
+
+```{r richness on kauai}
+
+kauai_richness <- length(unique(kauai_abund$matched_name2))
+
+
+kauai_richness
+```
+
+:::
+
+### Shannon's index
+
+```{r shannon on hawaii}
+
+hawaii_shannon <- diversity(hawaiiisland_abund$abundance)
+hawaii_shannon
+
+```
+
+::: exercise
+
+Compute Shannon diversity on Maui and Kauai.
+
+:::
+
+
+::: solution
+
+```{r shannon on maui}
+
+maui_shannon <- diversity(maui_abund$abundance)
+
+maui_shannon
+```
+
+
+
+```{r shannon on kauai}
+
+kauai_shannon <- diversity(kauai_abund$abundance)
+
+
+kauai_shannon
+```
+
+:::
+
+### Simpson's evenness
+
+
+```{r invsimpson on hawaii}
+
+hawaii_invsimpson <- diversity(hawaiiisland_abund$abundance, index = "invsimpson")
+hawaii_invsimpson
+
+```
+
+::: exercise
+
+Compute invsimpson evenness on Maui and Kauai.
+
+:::
+
+
+::: solution
+
+```{r invsimpson on maui}
+
+maui_invsimpson <- diversity(maui_abund$abundance, index = "invsimpson")
+
+maui_invsimpson
+```
+
+
+
+```{r invsimpson on kauai}
+
+kauai_invsimpson <- diversity(kauai_abund$abundance, index = "invsimpson")
+
+
+kauai_invsimpson
+```
+
+:::
+
+
+### Combining values into a dataframe
+
+```{r consolidate diversity metrics}
+
+diversity_metrics <- data.frame(
+    island = as.factor(c("hawaiiisland", "maui", "kauai")),
+    shannon = c(hawaii_shannon, maui_shannon, kauai_shannon),
+    invsimpson = c(hawaii_invsimpson, maui_invsimpson, kauai_invsimpson),
+    richness = c(hawaii_richness, maui_richness, kauai_richness)
+)
+
+diversity_metrics
+```
+
+```{r plotting Shannon}
+
+plot(diversity_metrics$island, diversity_metrics$shannon)
+
+```
+::: exercise
+
+Plot invsimpson and species richness for the different islands.
+
+
+```{r richness plot}
+
+plot(diversity_metrics$island, diversity_metrics$richness)
+
+```
+
+```{r invsimpson plot}
+
+plot(diversity_metrics$island, diversity_metrics$invsimpson)
+
+```
+:::
+
 ## Hill numbers
 
+::: discussion
+
+Hill numbers are a unifying framework.
+
+:::
+
+### Calculating Hill numbers
+
+Here we have provided a function for calculating Hill numbers of a given order `q`. 
+
+```{r}
+
+calculate_hill <- function(n, q = c(0:2)) {
+    
+   
+   n <- n/sum(n)
+    
+    hill <- outer(n, q, '^')
+    hill <- colSums(hill)^(1 / (1 - q))
+    hill[q == 1] <- exp(sum(-n * log(n)))
+    names(hill) <- q
+
+    hill
+}
+
+```
+
+
+```{r}
+
+
+
+```
+
 ## Relating Hill numbers to patterns in diversity
+
 
 
 
