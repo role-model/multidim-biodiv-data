@@ -28,6 +28,18 @@ After following this episode, participants should be able to...
 
 ## Introduction
 
+- intro of instructors
+- expectations of learners
+- exciting data narrative 
+- system reqs
+
+
+## Exciting data narrative 
+
+- young island dominated by immigration, neutrality
+- older island 
+
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1
