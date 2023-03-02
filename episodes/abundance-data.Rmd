@@ -4,7 +4,7 @@ teaching: 10
 exercises: 2
 editor_options: 
   markdown: 
-    wrap: 72
+    wrap: 50
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -152,11 +152,13 @@ plot(sort(hawaiiisland_abund$abundance, TRUE))
 
 ```
 
-::: exercise
+
+::: challenge
 
 Plot the rank-abundance distributions for the remaining islands.
 
 :::
+
 
 ::: solution
 
@@ -191,7 +193,7 @@ hawaii_richness
 
 ```
 
-::: exercise
+::: challenge
 
 Compute richness on Maui and Kauai.
 
@@ -228,7 +230,7 @@ hawaii_shannon
 
 ```
 
-::: exercise
+::: challenge
 
 Compute Shannon diversity on Maui and Kauai.
 
@@ -266,7 +268,7 @@ hawaii_invsimpson
 
 ```
 
-::: exercise
+::: challenge
 
 Compute invsimpson evenness on Maui and Kauai.
 
@@ -314,10 +316,16 @@ diversity_metrics
 plot(diversity_metrics$island, diversity_metrics$shannon)
 
 ```
-::: exercise
+
+
+::: challenge
 
 Plot invsimpson and species richness for the different islands.
 
+:::
+
+
+::: solution 
 
 ```{r richness plot}
 
@@ -344,6 +352,12 @@ Hill numbers are a unifying framework.
 
 Here we have provided a function for calculating Hill numbers of a given order `q`. 
 
+::: instructor
+
+We will want to find a way to share this or just implement it in roleR or something.
+
+:::
+
 ```{r}
 
 calculate_hill <- function(n, q = c(0:2)) {
@@ -356,20 +370,150 @@ calculate_hill <- function(n, q = c(0:2)) {
     hill[q == 1] <- exp(sum(-n * log(n)))
     names(hill) <- q
 
-    hill
+    as.data.frame(t(hill))
 }
 
 ```
 
+Let's use this function to calculate Hill numbers for Hawaii island.
 
 ```{r}
 
+hawaii_hill <- calculate_hill(hawaiiisland_abund$abundance)
+
+hawaii_hill
+
+```
+
+::: challenge
+
+Calculate Hill numbers for Maui and Kauai.
+
+:::
+
+::: solution
+
+```{r hill for maui}
+
+maui_hill <- calculate_hill(maui_abund$abundance)
+
+maui_hill
+
+```
+
+```{r hill for kauai}
+
+kauai_hill <- calculate_hill(kauai_abund$abundance)
+
+kauai_hill
+
+```
+:::
+
+### Combining and plotting Hill numbers
+
+```{r combining hill numbers}
+
+hill_numbers <- rbind(hawaii_hill, maui_hill, kauai_hill)
+hill_numbers$island = as.factor(c("hawaiiisland", "maui", "kauai"))
+
+```
+
+```{r plotting hill number 0}
+
+plot(hill_numbers$island, hill_numbers$"0")
+
+```
+
+
+::: challenge
+
+Plot the hill numbers for q = 1 and q = 2.
+
+:::
+
+
+::: solution
+
+
+```{r plotting hill number 1}
+
+plot(hill_numbers$island, hill_numbers$"1")
+
+```
+
+```{r plotting hill number 2}
+
+plot(hill_numbers$island, hill_numbers$"2")
+
+```
+
+:::
+
+::: discussion
+
+Compare the plots for the Hill numbers to the plots we generated earlier for richness,  Shannon's index, and the inverse Simpson.
+
+:::
+
+
+
+## Relating Hill numbers to patterns in diversity
+
+Let's revisit the SAD plots we generated before, and think about these in terms of Hill numbers. 
+
+Let's start with species richness:
+
+```{r richness plots}
+
+par(mfrow = c(2,2))
+plot(sort(hawaiiisland_abund$abundance, TRUE))
+plot(sort(kauai_abund$abundance, TRUE))
+plot(sort(maui_abund$abundance, TRUE))
+plot(hill_numbers$island, hill_numbers$"0")
 
 
 ```
 
-## Relating Hill numbers to patterns in diversity
+::: challenge
 
+Explore the same comparisons for q = 1 and q = 2.
+
+:::
+
+
+::: instructor
+
+This seems like a good opportunity for a breakout groups kind of session.
+
+:::
+
+
+::: solution
+
+```{r q1 plots}
+
+par(mfrow = c(2,2))
+plot(sort(hawaiiisland_abund$abundance, TRUE))
+plot(sort(kauai_abund$abundance, TRUE))
+plot(sort(maui_abund$abundance, TRUE))
+plot(hill_numbers$island, hill_numbers$"1")
+
+
+```
+
+
+```{r q2 plots}
+
+par(mfrow = c(2,2))
+plot(sort(hawaiiisland_abund$abundance, TRUE))
+plot(sort(kauai_abund$abundance, TRUE))
+plot(sort(maui_abund$abundance, TRUE))
+plot(hill_numbers$island, hill_numbers$"2")
+
+
+```
+:::
 
 
 
