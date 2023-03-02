@@ -2,6 +2,9 @@
 title: "Abundance Data"
 teaching: 10
 exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -39,6 +42,7 @@ For this episode, we'll be working with a couple of specialized packages for bio
 library(dplyr)
 library(taxize)
 library(hillR)
+library(vegan)
 
 ```
 
@@ -84,23 +88,17 @@ species_list <- unique(abundances$GenSp)
 name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, 
                            canonical = TRUE) # returns only name, not authority
 
-head(name_resolve)
-# one clean/QC check is to remove entries with score < 0.6
 ```
 
-Here is what I would do, naively:
 
-```{r}
-library(dplyr)
+```{r explore taxise outcomes}
+head(name_resolve)
+```
 
-# don't need if using `best_match_only = TRUE` in `gnr_resolve`
-# best_scores <- name_resolve %>% group_by(user_supplied_name) %>%
-#     mutate(rank_score = dplyr::row_number()) %>%
-#     filter(rank_score == 1) %>%
-#     select(user_supplied_name,
-#            matched_name)
+Now we need to add the newly-resolved names to our `abundnaces` data:
 
 
+```{r join abundances and names}
 abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
 unique(abundances[which(abundances$GenSp != abundances$matched_name), 
@@ -136,15 +134,222 @@ head(x) #is identical
 
 # Visualization via the species abundance distribution
 
+## Separating the islands
+
+```{r}
+
+kauai_abund <- abundance_tallies[ abundance_tallies$island == "kauai", ]
+maui_abund <- abundance_tallies[ abundance_tallies$island == "maui", ]
+hawaiiisland_abund <- abundance_tallies[ abundance_tallies$island == "hawaiiisland", ]
+
+```
+
 ## Plotting SADs
+
+```{r hawaii sad plot}
+
+plot(sort(hawaiiisland_abund$abundance, TRUE))
+
+```
+
+::: exercise
+
+Plot the rank-abundance distributions for the remaining islands.
+
+:::
+
+::: solution
+
+
+```{r kauai sad plot}
+
+plot(sort(kauai_abund$abundance, TRUE))
+
+```
+
+
+```{r maui sad plot}
+plot(sort(maui_abund$abundance, TRUE))
+
+```
+
+:::
+
+
 
 # Summary statistics
 
 ## Diversity indices
 
+### Simpson's evenness
+
+
+```{r richness on hawaii}
+
+hawaii_richness <- length(unique(hawaiiisland_abund$matched_name2))
+hawaii_richness
+
+```
+
+::: exercise
+
+Compute richness on Maui and Kauai.
+
+:::
+
+
+::: solution
+
+```{r richness on maui}
+
+maui_richness <- length(unique(maui_abund$matched_name2))
+
+maui_richness
+```
+
+
+
+```{r richness on kauai}
+
+kauai_richness <- length(unique(kauai_abund$matched_name2))
+
+
+kauai_richness
+```
+
+:::
+
+### Shannon's index
+
+```{r shannon on hawaii}
+
+hawaii_shannon <- diversity(hawaiiisland_abund$abundance)
+hawaii_shannon
+
+```
+
+::: exercise
+
+Compute Shannon diversity on Maui and Kauai.
+
+:::
+
+
+::: solution
+
+```{r shannon on maui}
+
+maui_shannon <- diversity(maui_abund$abundance)
+
+maui_shannon
+```
+
+
+
+```{r shannon on kauai}
+
+kauai_shannon <- diversity(kauai_abund$abundance)
+
+
+kauai_shannon
+```
+
+:::
+
+### Simpson's evenness
+
+
+```{r invsimpson on hawaii}
+
+hawaii_invsimpson <- diversity(hawaiiisland_abund$abundance, index = "invsimpson")
+hawaii_invsimpson
+
+```
+
+::: exercise
+
+Compute invsimpson evenness on Maui and Kauai.
+
+:::
+
+
+::: solution
+
+```{r invsimpson on maui}
+
+maui_invsimpson <- diversity(maui_abund$abundance, index = "invsimpson")
+
+maui_invsimpson
+```
+
+
+
+```{r invsimpson on kauai}
+
+kauai_invsimpson <- diversity(kauai_abund$abundance, index = "invsimpson")
+
+
+kauai_invsimpson
+```
+
+:::
+
+
+### Combining values into a dataframe
+
+```{r consolidate diversity metrics}
+
+diversity_metrics <- data.frame(
+    island = as.factor(c("hawaiiisland", "maui", "kauai")),
+    shannon = c(hawaii_shannon, maui_shannon, kauai_shannon),
+    invsimpson = c(hawaii_invsimpson, maui_invsimpson, kauai_invsimpson),
+    richness = c(hawaii_richness, maui_richness, kauai_richness)
+)
+
+diversity_metrics
+```
+
+```{r plotting Shannon}
+
+plot(diversity_metrics$island, diversity_metrics$shannon)
+
+```
+::: exercise
+
+Plot invsimpson and species richness for the different islands.
+
+
+```{r richness plot}
+
+plot(diversity_metrics$island, diversity_metrics$richness)
+
+```
+
+```{r invsimpson plot}
+
+plot(diversity_metrics$island, diversity_metrics$invsimpson)
+
+```
+:::
+
 ## Hill numbers
 
+::: discussion
+
+Hill numbers are a unifying framework.
+
+:::
+
+### Calculating Hill numbers
+
+```{r}
+
+
+
+```
+
 ## Relating Hill numbers to patterns in diversity
+
 
 
 
