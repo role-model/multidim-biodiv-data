@@ -95,17 +95,41 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE,
 head(name_resolve)
 ```
 
+```{r find mismatches}
+
+
+mismatches <- name_resolve[ name_resolve$matched_name2 != name_resolve$user_supplied_name, ]
+
+mismatches[, c("user_supplied_name", "matched_name2")]
+
+```
+
+Four of these are just typos. But `Agrotis chersotoides` in our data is resolved only to Agrotis. What's up there?
+
+::: discussion
+
+Agrotis taxonomic resolution
+
+:::
+
+::: solution
+
+```{r fix agrotis}
+
+name_resolve$matched_name2[name_resolve$user_supplied_name == "Agrotis chersotoides"] <- "Agrotis chersotoides"
+
+```
+
+:::
+
+
 Now we need to add the newly-resolved names to our `abundnaces` data:
 
 
 ```{r join abundances and names}
 abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
-unique(abundances[which(abundances$GenSp != abundances$matched_name), 
-                  c("GenSp", "matched_name2")])
-
 abundances$final_name <- abundances$matched_name2
-abundances$final_name[abundances$final_name == "Cirphis"] <- "Mythimna amblycasis" # This one I picked seems to be a synonym and this is the one that comes up on Wikipedia
 
 ```
 
@@ -117,7 +141,7 @@ The data we have have one record per individual, but we'd like to have the _tota
 
 ```{r compute species totals}
 
-abundance_tallies <- group_by(abundances, site, island, matched_name2)
+abundance_tallies <- group_by(abundances, site, island, final_name)
 abundance_tallies <- summarize(abundance_tallies, abundance = n())
 abundance_tallies <- ungroup(abundance_tallies)
 
@@ -126,7 +150,7 @@ head(abundance_tallies)
 ```
 
 ```{r or base r}
-x <- aggregate(abundances[, 'matched_name2', drop = FALSE], abundances[, c('matched_name2', 'site')], 
+x <- aggregate(abundances[, 'final_name', drop = FALSE], abundances[, c('final_name', 'site')], 
                length)
 
 head(x) #is identical
@@ -188,7 +212,7 @@ plot(sort(maui_abund$abundance, TRUE))
 
 ```{r richness on hawaii}
 
-hawaii_richness <- length(unique(hawaiiisland_abund$matched_name2))
+hawaii_richness <- length(unique(hawaiiisland_abund$final_name))
 hawaii_richness
 
 ```
@@ -204,7 +228,7 @@ Compute richness on Maui and Kauai.
 
 ```{r richness on maui}
 
-maui_richness <- length(unique(maui_abund$matched_name2))
+maui_richness <- length(unique(maui_abund$final_name))
 
 maui_richness
 ```
@@ -213,7 +237,7 @@ maui_richness
 
 ```{r richness on kauai}
 
-kauai_richness <- length(unique(kauai_abund$matched_name2))
+kauai_richness <- length(unique(kauai_abund$final_name))
 
 
 kauai_richness
