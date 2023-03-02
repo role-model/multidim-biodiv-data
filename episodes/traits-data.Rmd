@@ -7,16 +7,16 @@ editor_options:
     wrap: 72
 ---
 
-::: questions
+:::::::::::::::::::::::::::::::::::::: questions
 
 -   How do you import trait data?
 -   How do you clean trait data?
 -   How do you summarize trait data?
 -   How do you visualize trait data?
 
-:::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
-::: objectives
+::::::::::::::::::::::::::::::::::::: objectives
 
 After following this episode, participants should be able to...
 
@@ -29,7 +29,7 @@ After following this episode, participants should be able to...
 7.  Interpret trait distribution plots
 8.  Connect trait distribution patterns to Hill numbers
 
-::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 # Background on traits
 
@@ -53,15 +53,18 @@ We're starting with a challenge!
 
 ### Import and clean trait data
 
-In the \[abundance episode\](), you learned how to read in a `CSV` file
-with the `read.csv()` function. In addition, you learned how to clean
-and standardize the taxonomic information in your data set using the
-`gnr_resolve()` function from the `taxize` package.
+In the \[abundance-data episode\](), you learned how to read in a `CSV`
+file with the `read.csv()` function. In addition, you learned how to
+clean and standardize the taxonomic information in your data set using
+the `gnr_resolve()` function from the `taxize` package.
 
-You're going to use those skills to import and clean the trait data set,
-which is located in `episodes/data/traits.csv`. The data contain typos
-and a problem with the taxonomy that you must correct and investigate.
-Make sure to glance at the data before cleaning .
+You're going to use those skills to import and clean the trait data set.
+The data contain typos and a problem with the taxonomy that you must
+correct and investigate. Make sure to glance at the data before cleaning
+.
+
+Your trait data is located at:  
+`https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/filtered_body_size_data.csv`
 
 ::: solution
 
@@ -69,7 +72,7 @@ Read in the traits data using the `read.csv` function and supplying it
 with the path to the data.
 
 ```{r trait-import-sol, eval = FALSE}
-traits <- read.csv('episodes/data/abund.csv')
+traits <- read.csv('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv')
 ```
 
 Check the names of the traits using the `gnr_resolve()` function. To
@@ -80,30 +83,56 @@ data to `gnr_resolve()`.
 # only need to check the unique names
 spnames <- unique(traits$GenSp)
 
-traits_resolve <- gnr_resolve(spnames, best_match_only = TRUE)
+name_resolve <- gnr_resolve(spnames, best_match_only = TRUE, canonical = TRUE)
 ```
 
 To quickly see which taxa are in conflict with `taxize`'s, use bracket
 subsetting and boolean matching.
 
 ```{r trait-resolve-sol2, eval=FALSE}
-traits_conflict <- traits_resolve[traits_resolve$user_supplied_name != matched_name,]
+name_conflict <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
 ```
 
-If all of these look good to you, you can either add a new column to
-your traits data frame or replace the existing `GenSp` column with
-cleaned names. Unless space is at a premium, I like to add columns
-rather than modify existing columns, so I'm adding a new column called
-`GenSp_clean`.
+Fixing the names comes in two steps. First, we join the `traits`
+dataframe with the `name_resolve` dataframe using the `left_join()`
+function. Note, we indicate that the `GenSp` and `user_supplied_name`
+columns have the same information by supplying a named vector to the
+`by =` argument.
 
 ```{r trait-resolve-sol3, eval=FALSE}
-traits$GenSp_clean <- traits_resolve$matched_name
-
+traits <- left_join(traits, name_resolve[, c("user_supplied_name", "matched_name2")], by = c("GenSp" = "user_supplied_name"))
 ```
 
-:::
+Then, to replace *Agrotis chersotoides* with the updated *Peridroma
+chersotoides*, which you discovered in \[abundance-data\]() episode, use
+bracketed indexing, boolean matching, and assignment.
 
-::::::
+In addition, although not necessary, changing the column name
+`matched_name2` to `final_name` to give it a more sensible name for
+later use is good practice.
+
+```{r trait-resolve-sol4, eval=FALSE}
+traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
+
+colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
+
+head(traits)
+```
+
+```{r trait-resolve-sol4-hidden, eval=FALSE}
+traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
+
+colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
+
+knitr::kable(head(traits))
+```
+
+:::::::::::::::
+
+:::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+instructor
 
 Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
 package) - argument options and output of `taxize::gnr_resolve`
@@ -116,97 +145,279 @@ Get the one with maximum score
     species-based)
 -   Creating a multi-dimensional trait database
 
-# Basic visualization of trait distribution
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
--   Visualizing the distribution of one trait (body size) over the
-    community
+# Aggregation
 
-# Visualizing with abundance
+When analyzing trait data, it often needs to be summarized at a higher
+level than the individual. For instance, many community assembly
+analyses require species-level summaries, rather than individual
+measurements. So, we often want to calculate summary statistics of
+traits for each species. For numeric measurements, body size, statistics
+like the mean, median, and standard deviation give information about the
+center and spread of the distribution of traits for the species. For
+this section, you will aggregate the trait data to the species level,
+calculating the mean, median, and mode of body size for each species.
 
-# Summary stats
+While there are methods to aggregate data in base R, the
+[dplyr](https://dplyr.tidyverse.org/) makes this task and other data
+wrangling tasks much more intuitive. The function `group_by()` groups
+your data frame by a variable. The first argument to `group_by()` is
+your data frame, and all following unnamed arguments are the variables
+you want to group the data by. In our case, we want to group by species
+name, so we'll supply `final_name`.
 
-1.  Introduction
+```{r group-traits-species, eval=FALSE}
+library(dplyr)
 
-# Chunks of code to keep
+# group the data frame by species
+traits_grouped_sp <- group_by(traits, final_name)
 
-## code for the workshop
-
-1.  Import trait data in a CSV format into the R environment
-
-```{r read-traits, eval=FALSE}
-traits <- read.csv("episodes/data/body_size_data.csv")
 ```
 
-1.  Clean taxonomic names using the `taxize` package
-
-Have to iterate over small chunks- using `http="post"` gets hung up,
-even though it's supposed to work for large queries.
-
-```{r clean-taxa-names, eval=FALSE}
-# get the unique names of all species in the data set
-spnames <- unique(traits$GenSp)
-
-# split the spnames vector into roughly equal sized chunks of 200
-x <- seq_along(spnames)
-spnames_list <- split(spnames, ceiling(x/200))
-
-# run gnr_resolve() over each species chunk
-resolved_list <- lapply(spnames_list, gnr_resolve, best_match_only = TRUE)
-
-# turn this back into a single data frame
-resolved_names <- do.call(rbind, resolved_list)
-
-dim(resolved_names)
-```
-
-To see where your data doesn't match the matched_name and make decisions
-about what to correct.
-
-```{r view-taxa-conflicts, eval=FALSE}
-View(resolved_names[resolved_names$user_supplied_name != resolved_names$matched_name,])
-```
-
-From this list, there appear to be a few typical correction conventions:
-
-1.  `taxize` can only match a genus for the species
-    -   e.g. Neosciara molokaiensis --&gt; Neosciara
-2.  The species description citation is included in the name
-    -   Drosophila curtitarsus -&gt; Drosophila curtitarsus
-        Hardy and Kaneshiro 2001
-3.  Subspecies are not present
-    -   Stenoptilodes taprobanes brachymorpha -&gt;
-        Stenoptilodes taprobanes (Felder & Rogenhofer, 1875)
-4.  There are undescribed species in your data
-    -   Hyposmocoma new species 25 -&gt; Hyposmocoma
-
-In case 1, good practice would be to look up the species to make sure
-its name hasn't changed. Case 2 basically confirms that you have a
-quality record and no change is necessary. In case 3, good practice
-would be to decide if subspecies rank is relevant for your analysis and,
-if it is, make sure that the specific subspecies classification is still
-recognized. In case 4, this requires knowledge of your system- is this a
-putative species that should be recognized and is relevant for the
-analysis?
-
-For this workshop, let's assume that all species names are valid.
-
-1.  Aggregate traits
+`group_by()` just adds an index that tells any following `dplyr`
+functions to perform their calculations on the group the data frame was
+indexed by. So, to perform the actual calculations, we will use the
+`summarize()` function (`summarise()` works too for non-Americans). The
+first argument you supply is the data frame, following by the
+calculations you want to perform on the grouped data and what you want
+to name the resulting variables. The structure is
+`new_var_name = function(original_var_name)` for each calculation. Here,
+we're using the `mean()`, `median()`, and `sd()` functions. Then, we'll
+take a look at the new data set with the `head()` function.
 
 ```{r agg-traits-species, eval=FALSE}
-library(dplyr)
-traits_grouped_sp <- group_by(traits, GenSp)
-traits_agg_sp <- summarize(traits_grouped_sp, mean_mass_mg = mean(mass_mg))
+# summarize the grouped data frame, so you're calculating the summary statistics for each species
+traits_agg_sp <-
+    summarize(
+        traits_grouped_sp,
+        mean_mass_g = mean(mass_g),
+        median_mass_g = median(mass_g),
+        sd_mass_g = sd(mass_g)
+    )
 
 head(traits_agg_sp)
 ```
 
 ```{r agg-traits-species-hidden, echo=FALSE, eval=FALSE}
 library(dplyr)
-traits_grouped_sp <- group_by(traits, GenSp)
-traits_agg_sp <- summarize(traits_grouped_sp, mean_mass_mg = mean(mass_mg))
+traits_grouped_sp <- group_by(traits, final_name)
+traits_agg_sp <-
+    summarize(
+        traits_grouped_sp,
+        mean_mass_g = mean(mass_g),
+        median_mass_g = median(mass_g),
+        sd_mass_g = sd(mass_g)
+    )
 
 knitr::kable(head(traits_agg_sp))
 ```
+
+## Hill numbers
+
+Hill numbers are a useful and informative summary of trait diversity, in
+addition to abundances [Gaggiotti et al.
+2018](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593). They
+contain signatures of the processes underlying community assembly. To
+calculate Hill numbers across the entire site, you'll use the species
+aggregated trait data that you just created. Then, you will use a
+similar approach to what you did with species to aggregate the species
+to the site level and calculate a Hill number for each site.
+
+But first, the `traits_agg_sp` dataframe doesn't have site information!
+
+```{r trait-head, eval=FALSE}
+head(traits_agg_sp)
+```
+
+```{r trait-head-hidden, eval=FALSE, echo=FALSE}
+knitr::kable(head(traits_agg_sp))
+```
+
+To get the site information, you need to read in the cleaned abundance
+data, or use the cleaned data if it's already loaded. \[need to have
+cleaned data available\]
+
+```{r read-abund, eval=FALSE}
+abund <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_data_cleaned.csv")
+```
+
+Then, you'll need to perform a left join to bind the two data frames
+together.
+
+```{r join-abund-traits, eval=FALSE}
+abund_traits <- left_join(abund, traits_agg_sp, by = "final_name")
+head(abund_traits)
+```
+
+```{r join-abund-traits-hidden, eval=FALSE, echo=FALSE}
+abund_traits <- left_join(abund, traits_agg_sp, by = "final_name")
+knitr::kable(head(abund_traits))
+```
+
+Finally, you will need to aggregate your dataframe by site and calculate
+the first three Hill numbers for mean body size! Which we are leaving to
+a challenge...
+
+:::::::: challenge
+
+Time to calculate Hill numbers! Use what you know from aggregating
+species' body size to calculate the first three Hill numbers (1, 2, 3)
+per site. To calculate the Hill numbers, you'll use the `hill_calc()`
+function...\[flesh out with more info once we settle on the function\].
+In addition to `hill_calc()`, key functions include `group_by()` and
+`summarize()`. Make sure to summarize the *mean* body size.
+
+:::: solution
+
+First, group the data frame by site. The name was getting out of hand,
+so I shortened `abund_traits_` to `at_`.
+
+```{r group-traits-site-soln, eval=FALSE}
+at_grouped_site <- group_by(abund_traits, site)
+```
+
+Next, calculate Hill 1, 2, and 3 inside the `summarize()` function.
+
+```{r agg-traits-site-soln, eval=FALSE}
+at_agg_site <- summarize(at_grouped_site,
+                         hill_1 = hill_calc(mean_mass_g, 1),
+                         hill_2 = hill_calc(mean_mass_g, 2),
+                         hill_3 = hill_calc(mean_mass_g, 3)
+                         )
+
+head(at_agg_site)
+
+```
+
+```{r agg-traits-site-soln-hidden, eval=FALSE, echo=FALSE}
+at_agg_site <- summarize(at_grouped_site,
+                         hill_1 = hill_calc(mean_mass_g, 1),
+                         hill_2 = hill_calc(mean_mass_g, 2),
+                         hill_3 = hill_calc(mean_mass_g, 3)
+                         )
+
+knitr::kable(head(at_agg_site))
+```
+
+:::::::
+
+::::::::::::::
+
+Blurb on understanding Hill numbers.... Visualization can help
+understand what they mean...
+
+# Visualize trait distributions
+
+Histograms and density plots can help give you a quick look at the
+distribution of your data. For quality control purposes, they are useful
+to see if there are any suspicious values due to human error.
+Visualizing the entire distribution of body size, there doesn't seem to
+be anything too suspicious, with body size centered around 12 grams and
+a right-skew.
+
+```{r density-all, eval=FALSE}
+# total
+plot(density(abund_traits$mean_mass_g), xlab = "Average mass (g)", main = "All species")
+```
+
+In addition, knowing the distribution of trait data lends itself towards
+questions of what processes are shaping the communities under study. Are
+the traits overdispersed? Underdispersed? Does the average vary across
+communities? It appears that `Kauai_01` is widely dispersed with an
+average that may be a bit higher than the other islands. What might this
+suggest about the community assembly mechanism?
+
+```{r density-site, eval=FALSE}
+# per site
+
+# split by site
+abund_traits_split <- split(abund_traits, abund_traits$site)
+
+plot(
+    density(abund_traits_split$HawaiiIsland_01$mean_mass_g),
+    main = "Average mass per study site",
+    xlab = "Average mass (g)",
+    ylab = "Density",
+    lwd = 2,
+    col = "#440154FF"
+)
+
+lines(
+    density(abund_traits_split$Kauai_01$mean_mass_g),
+    lwd = 2,
+    col = "#31688EFF"
+)
+lines(
+    density(abund_traits_split$Maui_01$mean_mass_g),
+    lwd = 2,
+    col = "#35B779FF"
+)
+
+legend(
+    "topright",
+    legend = c("Hawaii 01", "Kauai 01", "Maui 01"),
+    lwd = 2,
+    col = c("#440154FF", "#31688EFF", "#35B779FF")
+)
+```
+
+However, the distribution of the data doesn't convey all of the
+information there is to be had. Similar to abundances, a ranked plot
+conveys unique and complementary information to the raw distribution of
+the data.
+
+\[should I even show the full ranked plot?\]
+
+```{r ranked-all, eval=FALSE}
+
+plot(
+    sort(abund_traits$mean_mass_g, decreasing = TRUE),
+    xlab = "Rank",
+    ylab = "Average mass (mg)",
+    main = "Average mass across species"
+)
+```
+
+We can see clearly that the diversity differs across islands, where
+Kauai and Maui have more even, higher diversity communities, while
+Hawaii has a less even, lower diversity community.
+
+```{r ranked-site, eval=FALSE}
+plot(
+    sort(abund_traits_split$HawaiiIsland_01$mean_mass_g),
+    main = "Average mass per study site",
+    xlab = "Rank",
+    ylab = "Average mass (mg)",
+    pwd = 2,
+    pch = 19,
+    col = "#440154FF"
+)
+
+points(
+    sort(abund_traits_split$Kauai_01$mean_mass_g),
+    pwd = 2,
+    pch = 19,
+    col = "#31688EFF"
+)
+points(
+    sort(abund_traits_split$Maui_01$mean_mass_g),
+    pwd = 2,
+    pch = 19,
+    col = "#35B779FF"
+)
+
+legend(
+    "topleft",
+    legend = c("Hawaii 01", "Kauai 01", "Maui 01"),
+    pch = 19,
+    col = c("#440154FF", "#31688EFF", "#35B779FF")
+)
+```
+
+# Chunks of code to keep
+
+## code for the workshop
 
 1.  Calculate Hill numbers \*\*need to settle on how we're calculating
     Hill numbers and what we're aggregating across (i.e. there are no
@@ -218,8 +429,8 @@ knitr::kable(head(traits_agg_sp))
 ```{r hill-calc, eval=FALSE}
 ###### hill_calc ########
 
-## Get one hill number from a list of genetic distances. Original python code written by Isaac Overcast, with slight modifications (correct = TRUE implemented by CMF)
-## dists are the OTU Tajima's pi
+## Get one hill number from a vector of numeric data. Original python code written by Isaac Overcast, with slight modifications (correct = TRUE implemented by CMF)
+## dists are a vector of numeric biodiversity data axis to summarize
 ## order is the q order of the Hill number
 ## correct indicates if you want to correct for species richness or not. Default is TRUE
 hill_calc <- function(dists, order = 1, correct = TRUE) { 
@@ -245,123 +456,6 @@ hill_calc <- function(dists, order = 1, correct = TRUE) {
 }
 ```
 
-Read in (cleaned) abundance data.
-
-```{r read-abund, eval=FALSE}
-abund <- read.csv("episodes/data/abundance_data_cleaned.csv")
-```
-
-Join the traits data that has been summarized to species to the
-abundance data.
-
-```{r join-traits-abund, eval=FALSE}
-abund_traits <- left_join(abund, traits_agg_sp, by = "GenSp")
-```
-
-Let's check if any matches went wrong.
-
-```{r check-join}
-sum(is.na(abund_traits$mean_mass_mg))
-```
-
-1.  Interpret Hill numbers
-2.  Visualize trait distributions
-
-Density plots
-
-```{r density-all, eval=FALSE}
-# total
-plot(density(abund_traits$mean_mass_mg), xlab = "Average mass (mg)", main = "All species")
-```
-
-```{r density-site, eval=FALSE}
-# per site
-
-# split by site
-abund_traits_split <- split(abund_traits, abund_traits$site)
-
-plot(
-    density(abund_traits_split$hawaiiisland_01$mean_mass_mg),
-    main = "Average mass per study site",
-    xlab = "Average mass (mg)",
-    ylab = "Density",
-    lwd = 2,
-    col = "#440154FF"
-)
-
-lines(
-    density(abund_traits_split$kauai_01$mean_mass_mg),
-    lwd = 2,
-    col = "#31688EFF"
-)
-lines(
-    density(abund_traits_split$maui_01$mean_mass_mg),
-    lwd = 2,
-    col = "#35B779FF"
-)
-lines(
-    density(abund_traits_split$molokai_01$mean_mass_mg),
-    lwd = 2,
-    col = "#FDE725FF"
-)
-
-legend(
-    "topright",
-    legend = c("Hawaii 01", "Kauai 01", "Maui 01", "Molokai 01"),
-    lwd = 2,
-    col = c("#440154FF", "#31688EFF", "#35B779FF", "#FDE725FF")
-)
-```
-
-Ranked plots
-
-```{r ranked-all, eval=FALSE}
-plot(
-    sort(abund_traits$mean_mass_mg, decreasing = TRUE),
-    xlab = "Rank",
-    ylab = "Average mass (mg)",
-    main = "Average mass across species"
-)
-```
-
-```{r ranked-site, eval=FALSE}
-plot(
-    sort(abund_traits_split$hawaiiisland_01$mean_mass_mg),
-    main = "Average mass per study site",
-    xlab = "Rank",
-    ylab = "Average mass (mg)",
-    pwd = 2,
-    pch = 19,
-    col = "#440154FF"
-)
-
-points(
-    sort(abund_traits_split$kauai_01$mean_mass_mg),
-    pwd = 2,
-    pch = 19,
-    col = "#31688EFF"
-)
-points(
-    sort(abund_traits_split$maui_01$mean_mass_mg),
-    pwd = 2,
-    pch = 19,
-    col = "#35B779FF"
-)
-points(
-    sort(abund_traits_split$molokai_01$mean_mass_mg),
-    pwd = 2,
-    pch = 19,
-    col = "#FDE725FF"
-)
-
-legend(
-    "topleft",
-    legend = c("Hawaii 01", "Kauai 01", "Maui 01", "Molokai 01"),
-    pch = 19,
-    col = c("#440154FF", "#31688EFF", "#35B779FF", "#FDE725FF")
-)
-```
-
 1.  Interpret trait distribution plots
 2.  Connect trait distribution patterns to Hill numbers
 
@@ -378,8 +472,8 @@ associated with the lessons. They appear in the "Instructor View"
 Trait data are often stored in the `.csv` format. Here, we'll load body
 size data from the `data/` directory of this lesson with the function
 `read.csv` and take a peak at it with `head`. The data frame has two
-columns- `GenSp` and `mass_mg`, which contain species binomial name and
-the mass of the individual in milligrams, respectively.
+columns- `GenSp` and `mass_g`, which contain species binomial name and
+the mass of the individual in grams, respectively.
 
 ```{r read-trait, eval=FALSE}
 traits <- read.csv("episodes/data/body_size_data.csv")
@@ -453,3 +547,60 @@ vignette](http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.htm
 > decision. Both the EOL GNR and the TNRS services provide data from a
 > variety of data sources. The user may trust a specific data source,
 > thus may want to use the names from that data source.
+
+1.  Import trait data in a CSV format into the R environment
+
+```{r read-traits, eval=FALSE}
+traits <- read.csv("episodes/data/body_size_data.csv")
+```
+
+1.  Clean taxonomic names using the `taxize` package
+
+Have to iterate over small chunks- using `http="post"` gets hung up,
+even though it's supposed to work for large queries.
+
+```{r clean-taxa-names, eval=FALSE}
+# get the unique names of all species in the data set
+spnames <- unique(traits$GenSp)
+
+# split the spnames vector into roughly equal sized chunks of 200
+x <- seq_along(spnames)
+spnames_list <- split(spnames, ceiling(x/200))
+
+# run gnr_resolve() over each species chunk
+resolved_list <- lapply(spnames_list, gnr_resolve, best_match_only = TRUE)
+
+# turn this back into a single data frame
+resolved_names <- do.call(rbind, resolved_list)
+
+dim(resolved_names)
+```
+
+To see where your data doesn't match the matched_name and make decisions
+about what to correct.
+
+```{r view-taxa-conflicts, eval=FALSE}
+View(resolved_names[resolved_names$user_supplied_name != resolved_names$matched_name,])
+```
+
+From this list, there appear to be a few typical correction conventions:
+
+1.  `taxize` can only match a genus for the species
+    -   e.g. Neosciara molokaiensis --&gt; Neosciara
+2.  The species description citation is included in the name
+    -   Drosophila curtitarsus -&gt; Drosophila curtitarsus
+        Hardy and Kaneshiro 2001
+3.  Subspecies are not present
+    -   Stenoptilodes taprobanes brachymorpha -&gt;
+        Stenoptilodes taprobanes (Felder & Rogenhofer, 1875)
+4.  There are undescribed species in your data
+    -   Hyposmocoma new species 25 -&gt; Hyposmocoma
+
+In case 1, good practice would be to look up the species to make sure
+its name hasn't changed. Case 2 basically confirms that you have a
+quality record and no change is necessary. In case 3, good practice
+would be to decide if subspecies rank is relevant for your analysis and,
+if it is, make sure that the specific subspecies classification is still
+recognized. In case 4, this requires knowledge of your system- is this a
+putative species that should be recognized and is relevant for the
+analysis?
