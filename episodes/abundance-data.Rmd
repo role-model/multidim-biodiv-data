@@ -60,7 +60,7 @@ Fix the data path.
 
 
 ```{r load data}
-abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/long_abundances.csv")
+abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/abundance_data.csv")
 
 ```
 
@@ -138,9 +138,9 @@ head(x) #is identical
 
 ```{r}
 
-kauai_abund <- abundance_tallies[ abundance_tallies$island == "kauai", ]
-maui_abund <- abundance_tallies[ abundance_tallies$island == "maui", ]
-hawaiiisland_abund <- abundance_tallies[ abundance_tallies$island == "hawaiiisland", ]
+kauai_abund <- abundance_tallies[ abundance_tallies$island == "Kauai", ]
+maui_abund <- abundance_tallies[ abundance_tallies$island == "Maui", ]
+hawaiiisland_abund <- abundance_tallies[ abundance_tallies$island == "HawaiiIsland", ]
 
 ```
 
