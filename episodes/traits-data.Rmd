@@ -60,8 +60,7 @@ the `gnr_resolve()` function from the `taxize` package.
 
 You're going to use those skills to import and clean the trait data set.
 The data contain typos and a problem with the taxonomy that you must
-correct and investigate. Make sure to glance at the data before cleaning
-.
+correct and investigate. Make sure to glance at the data before cleaning.
 
 Your trait data is located at:  
 `https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/filtered_body_size_data.csv`
@@ -119,6 +118,7 @@ colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 head(traits)
 ```
 
+
 ```{r trait-resolve-sol4-hidden, eval=FALSE}
 traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
 
@@ -131,8 +131,7 @@ knitr::kable(head(traits))
 
 :::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-instructor
+instructor ::::::::::::::::::
 
 Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
 package) - argument options and output of `taxize::gnr_resolve`
@@ -458,14 +457,6 @@ hill_calc <- function(dists, order = 1, correct = TRUE) {
 
 1.  Interpret trait distribution plots
 2.  Connect trait distribution patterns to Hill numbers
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Original taxize text
 
