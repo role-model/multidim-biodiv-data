@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://role-model.github.io/multidim-biodiv-data/01-introduction.html</loc>
-  </url>
-  <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
@@ -26,9 +23,6 @@
   </url>
   <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/index.html</loc>
-  </url>
-  <url>
-    <loc>https://role-model.github.io/multidim-biodiv-data/instructor/01-introduction.html</loc>
   </url>
   <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/instructor/CODE_OF_CONDUCT.html</loc>
@@ -70,13 +64,7 @@
     <loc>https://role-model.github.io/multidim-biodiv-data/instructor/key-points.html</loc>
   </url>
   <url>
-    <loc>https://role-model.github.io/multidim-biodiv-data/instructor/keypoints.html</loc>
-  </url>
-  <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/instructor/profiles.html</loc>
-  </url>
-  <url>
-    <loc>https://role-model.github.io/multidim-biodiv-data/instructor/renatas-episode.html</loc>
   </url>
   <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/instructor/rilquer-episode.html</loc>
@@ -103,13 +91,7 @@
     <loc>https://role-model.github.io/multidim-biodiv-data/key-points.html</loc>
   </url>
   <url>
-    <loc>https://role-model.github.io/multidim-biodiv-data/keypoints.html</loc>
-  </url>
-  <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/profiles.html</loc>
-  </url>
-  <url>
-    <loc>https://role-model.github.io/multidim-biodiv-data/renatas-episode.html</loc>
   </url>
   <url>
     <loc>https://role-model.github.io/multidim-biodiv-data/rilquer-episode.html</loc>
