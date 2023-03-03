@@ -61,7 +61,9 @@ and standardize the taxonomic information in your data set using the
 You're going to use those skills to import and clean the trait data set,
 which is located in `episodes/data/traits.csv`. The data contain typos
 and a problem with the taxonomy that you must correct and investigate.
-Make sure to glance at the data before cleaning .
+Make sure to glance at the data before cleaning.
+:::
+
 
 ::: solution
 
@@ -100,10 +102,7 @@ rather than modify existing columns, so I'm adding a new column called
 traits$GenSp_clean <- traits_resolve$matched_name
 
 ```
-
 :::
-
-::::::
 
 Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
 package) - argument options and output of `taxize::gnr_resolve`
@@ -364,14 +363,6 @@ legend(
 
 1.  Interpret trait distribution plots
 2.  Connect trait distribution patterns to Hill numbers
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Original taxize text
 
