@@ -32,6 +32,10 @@ After following this episode, participants should be able to...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r, include = F}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+
+```
 
 # Setup
 
