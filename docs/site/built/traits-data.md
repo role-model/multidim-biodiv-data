@@ -1,0 +1,452 @@
+---
+title: "Importing and summarizing trait data"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+
+
+::: questions
+
+-   How do you import trait data?
+-   How do you clean trait data?
+-   How do you summarize trait data?
+-   How do you visualize trait data?
+
+:::::::::::::
+
+::: objectives
+
+After following this episode, participants should be able to...
+
+1.  Import trait data in a CSV format into the R environment
+2.  Clean taxonomic names using the `taxize` package
+3.  Aggregate traits
+4.  Calculate Hill numbers
+5.  Interpret Hill numbers
+6.  Visualize trait distributions
+7.  Interpret trait distribution plots
+8.  Connect trait distribution patterns to Hill numbers
+
+::::::::::::::
+
+# Background on traits
+
+A little background on trait literature? Why do we want to look at
+traits? The distribution of traits gives hints about the ecological
+processes in that community. - Traits values clustering together -
+Traits very dispersed - A few traits super represented - Random
+distribution of traits - Correlation among traits (when using
+multidimensional trait)?
+
+One trait or several traits Unit does not matter, as long as they are
+numeric values of a variable
+
+Different formats we might expect for trait data - Categorical vs
+continuous traits? - Data can come per individual (direct measurement)
+or per species (from the literature).
+
+We're starting with a challenge!
+
+:::::: challenge
+
+### Import and clean trait data
+
+In the \[abundance episode\](), you learned how to read in a `CSV` file
+with the `read.csv()` function. In addition, you learned how to clean
+and standardize the taxonomic information in your data set using the
+`gnr_resolve()` function from the `taxize` package.
+
+You're going to use those skills to import and clean the trait data set,
+which is located in `episodes/data/traits.csv`. The data contain typos
+and a problem with the taxonomy that you must correct and investigate.
+Make sure to glance at the data before cleaning.
+:::
+
+
+::: solution
+
+Read in the traits data using the `read.csv` function and supplying it
+with the path to the data.
+
+
+```r
+traits <- read.csv('episodes/data/abund.csv')
+```
+
+Check the names of the traits using the `gnr_resolve()` function. To
+streamline your efforts, supply only the unique species names in your
+data to `gnr_resolve()`.
+
+
+```r
+# only need to check the unique names
+spnames <- unique(traits$GenSp)
+
+traits_resolve <- gnr_resolve(spnames, best_match_only = TRUE)
+```
+
+To quickly see which taxa are in conflict with `taxize`'s, use bracket
+subsetting and boolean matching.
+
+
+```r
+traits_conflict <- traits_resolve[traits_resolve$user_supplied_name != matched_name,]
+```
+
+If all of these look good to you, you can either add a new column to
+your traits data frame or replace the existing `GenSp` column with
+cleaned names. Unless space is at a premium, I like to add columns
+rather than modify existing columns, so I'm adding a new column called
+`GenSp_clean`.
+
+
+```r
+traits$GenSp_clean <- traits_resolve$matched_name
+```
+:::
+
+Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
+package) - argument options and output of `taxize::gnr_resolve`
+
+Get the one with maximum score
+
+-   Coding for categorical data?
+-   Collapsing individual trait data and getting mean, median, SD
+-   Merging trait data from different sources (individual-based vs
+    species-based)
+-   Creating a multi-dimensional trait database
+
+# Basic visualization of trait distribution
+
+-   Visualizing the distribution of one trait (body size) over the
+    community
+
+# Visualizing with abundance
+
+# Summary stats
+
+1.  Introduction
+
+# Chunks of code to keep
+
+## code for the workshop
+
+1.  Import trait data in a CSV format into the R environment
+
+
+```r
+traits <- read.csv("episodes/data/body_size_data.csv")
+```
+
+1.  Clean taxonomic names using the `taxize` package
+
+Have to iterate over small chunks- using `http="post"` gets hung up,
+even though it's supposed to work for large queries.
+
+
+```r
+# get the unique names of all species in the data set
+spnames <- unique(traits$GenSp)
+
+# split the spnames vector into roughly equal sized chunks of 200
+x <- seq_along(spnames)
+spnames_list <- split(spnames, ceiling(x/200))
+
+# run gnr_resolve() over each species chunk
+resolved_list <- lapply(spnames_list, gnr_resolve, best_match_only = TRUE)
+
+# turn this back into a single data frame
+resolved_names <- do.call(rbind, resolved_list)
+
+dim(resolved_names)
+```
+
+To see where your data doesn't match the matched_name and make decisions
+about what to correct.
+
+
+```r
+View(resolved_names[resolved_names$user_supplied_name != resolved_names$matched_name,])
+```
+
+From this list, there appear to be a few typical correction conventions:
+
+1.  `taxize` can only match a genus for the species
+    -   e.g. Neosciara molokaiensis --&gt; Neosciara
+2.  The species description citation is included in the name
+    -   Drosophila curtitarsus -&gt; Drosophila curtitarsus
+        Hardy and Kaneshiro 2001
+3.  Subspecies are not present
+    -   Stenoptilodes taprobanes brachymorpha -&gt;
+        Stenoptilodes taprobanes (Felder & Rogenhofer, 1875)
+4.  There are undescribed species in your data
+    -   Hyposmocoma new species 25 -&gt; Hyposmocoma
+
+In case 1, good practice would be to look up the species to make sure
+its name hasn't changed. Case 2 basically confirms that you have a
+quality record and no change is necessary. In case 3, good practice
+would be to decide if subspecies rank is relevant for your analysis and,
+if it is, make sure that the specific subspecies classification is still
+recognized. In case 4, this requires knowledge of your system- is this a
+putative species that should be recognized and is relevant for the
+analysis?
+
+For this workshop, let's assume that all species names are valid.
+
+1.  Aggregate traits
+
+
+```r
+library(dplyr)
+traits_grouped_sp <- group_by(traits, GenSp)
+traits_agg_sp <- summarize(traits_grouped_sp, mean_mass_mg = mean(mass_mg))
+
+head(traits_agg_sp)
+```
+
+
+
+1.  Calculate Hill numbers \*\*need to settle on how we're calculating
+    Hill numbers and what we're aggregating across (i.e. there are no
+    other identifiers in the body size data set besides `GenSp`). I've
+    attached a function I adapted from Isaac's python code. My comments
+    refer to genetic distances, but it's applicable to any number. Maybe
+    we should package this function and make it available on github?
+
+
+```r
+###### hill_calc ########
+
+## Get one hill number from a list of genetic distances. Original python code written by Isaac Overcast, with slight modifications (correct = TRUE implemented by CMF)
+## dists are the OTU Tajima's pi
+## order is the q order of the Hill number
+## correct indicates if you want to correct for species richness or not. Default is TRUE
+hill_calc <- function(dists, order = 1, correct = TRUE) { 
+  if (order == 0) {
+    return(length(dists))
+  }
+  if (order == 1) {
+    h1 = exp(entropy::entropy(dists))
+    if (correct) {
+      return(h1 / length(dists))
+    } else return(h1)
+    
+  }
+  else {
+    tot = sum(dists)
+    proportions = dists/tot
+    prop_order = proportions**order
+    h2 = sum(prop_order)**(1/(1-order))
+    if (correct) {
+      return(h2 / length(dists))
+    } else return(h2)
+  }
+}
+```
+
+Read in (cleaned) abundance data.
+
+
+```r
+abund <- read.csv("episodes/data/abundance_data_cleaned.csv")
+```
+
+Join the traits data that has been summarized to species to the
+abundance data.
+
+
+```r
+abund_traits <- left_join(abund, traits_agg_sp, by = "GenSp")
+```
+
+Let's check if any matches went wrong.
+
+
+```r
+sum(is.na(abund_traits$mean_mass_mg))
+```
+
+1.  Interpret Hill numbers
+2.  Visualize trait distributions
+
+Density plots
+
+
+```r
+# total
+plot(density(abund_traits$mean_mass_mg), xlab = "Average mass (mg)", main = "All species")
+```
+
+
+```r
+# per site
+
+# split by site
+abund_traits_split <- split(abund_traits, abund_traits$site)
+
+plot(
+    density(abund_traits_split$hawaiiisland_01$mean_mass_mg),
+    main = "Average mass per study site",
+    xlab = "Average mass (mg)",
+    ylab = "Density",
+    lwd = 2,
+    col = "#440154FF"
+)
+
+lines(
+    density(abund_traits_split$kauai_01$mean_mass_mg),
+    lwd = 2,
+    col = "#31688EFF"
+)
+lines(
+    density(abund_traits_split$maui_01$mean_mass_mg),
+    lwd = 2,
+    col = "#35B779FF"
+)
+lines(
+    density(abund_traits_split$molokai_01$mean_mass_mg),
+    lwd = 2,
+    col = "#FDE725FF"
+)
+
+legend(
+    "topright",
+    legend = c("Hawaii 01", "Kauai 01", "Maui 01", "Molokai 01"),
+    lwd = 2,
+    col = c("#440154FF", "#31688EFF", "#35B779FF", "#FDE725FF")
+)
+```
+
+Ranked plots
+
+
+```r
+plot(
+    sort(abund_traits$mean_mass_mg, decreasing = TRUE),
+    xlab = "Rank",
+    ylab = "Average mass (mg)",
+    main = "Average mass across species"
+)
+```
+
+
+```r
+plot(
+    sort(abund_traits_split$hawaiiisland_01$mean_mass_mg),
+    main = "Average mass per study site",
+    xlab = "Rank",
+    ylab = "Average mass (mg)",
+    pwd = 2,
+    pch = 19,
+    col = "#440154FF"
+)
+
+points(
+    sort(abund_traits_split$kauai_01$mean_mass_mg),
+    pwd = 2,
+    pch = 19,
+    col = "#31688EFF"
+)
+points(
+    sort(abund_traits_split$maui_01$mean_mass_mg),
+    pwd = 2,
+    pch = 19,
+    col = "#35B779FF"
+)
+points(
+    sort(abund_traits_split$molokai_01$mean_mass_mg),
+    pwd = 2,
+    pch = 19,
+    col = "#FDE725FF"
+)
+
+legend(
+    "topleft",
+    legend = c("Hawaii 01", "Kauai 01", "Maui 01", "Molokai 01"),
+    pch = 19,
+    col = c("#440154FF", "#31688EFF", "#35B779FF", "#FDE725FF")
+)
+```
+
+1.  Interpret trait distribution plots
+2.  Connect trait distribution patterns to Hill numbers
+
+## Original taxize text
+
+Trait data are often stored in the `.csv` format. Here, we'll load body
+size data from the `data/` directory of this lesson with the function
+`read.csv` and take a peak at it with `head`. The data frame has two
+columns- `GenSp` and `mass_mg`, which contain species binomial name and
+the mass of the individual in milligrams, respectively.
+
+
+```r
+traits <- read.csv("episodes/data/body_size_data.csv")
+
+head(traits)
+```
+
+
+
+Biodiversity data sets are often collected from multiple sources, they
+include taxa the researcher is not familiar with, they contain
+historical data, etc. This can lead to problems with taxonomic
+consistency. In addition to careful scrutiny of your data set, the
+[taxize](https://docs.ropensci.org/taxize/) R package helps to
+standardize species names by solving for the species name and
+standardizing taxonomy.
+
+[From the taxize
+vignette](http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html):
+
+> Taxize takes the approach that the user should be able to make
+> decisions about what resource to trust, rather than making the
+> decision. Both the EOL GNR and the TNRS services provide data from a
+> variety of data sources. The user may trust a specific data source,
+> thus may want to use the names from that data source. In the future,
+> we may provide the ability for taxize to suggest the best match from a
+> variety of sources.
+
+The main function we will use to resolve species names is the function
+`taxize::gnr_resolve()`. There are many options, but the simplest
+approach is to supply the binomial names of your species as a vector
+(remember: a data frame column is a vector) and set the
+`best_match_only` flag to true, which returns the single best match for
+each species name query. Note, the input names are spelled incorrectly,
+so `gnr_resolve()` should provide a result that corrects this error:
+
+
+```r
+library(taxize)
+resolved_names <- gnr_resolve(sci = c("Helianthos annus", "Homo saapiens"), best_match_only = TRUE)
+```
+
+And the output, which returns the supplied binomial names
+(`user_supplied_name`, `submitted_name`), the matched name
+(`matched_name`), the data source used for the matched name
+(`data_source_title`), and the score (`score`). Adding additional
+arguments may result in more columns of information being output. You
+may have noticed that "Homo sapiens Linnaeus, 1758" was returned for
+*Homo sapiens*. This includes the original citation in the name, which
+isn't an issue in terms of data analysis as long as all individuals use
+the same format, but may be annoying when formatting plots and other
+output. You can either change this manually, or set the
+`best_match_only` flag to `FALSE` to include multiple names to choose
+from.
+
+
+
+If you have a specific database that you trust for the taxa at hand,
+find its id with the `gnr_datasources()` function and supply that id to
+the `data_source_ids` argument in `gnr_resolve()`. [From the taxize
+vignette](http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html):
+
+> taxize takes the approach that the user should be able to make
+> decisions about what resource to trust, rather than making the
+> decision. Both the EOL GNR and the TNRS services provide data from a
+> variety of data sources. The user may trust a specific data source,
+> thus may want to use the names from that data source.
