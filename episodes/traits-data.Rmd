@@ -7,11 +7,6 @@ editor_options:
     wrap: 72
 ---
 
-```{r, include = F}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
-
-```
-
 ::: questions
 
 -   How do you import trait data?
