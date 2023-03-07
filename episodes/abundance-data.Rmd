@@ -7,13 +7,15 @@ editor_options:
     wrap: 50
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+
+
+::: questions 
 
 - How is organismal abundance data typically stored?
 - How is the species abundance distribution used to compare abundance data from differing systems?
 - How do we use summary statistics - including Hill numbers - to quantitatively compare species abundance distributions?
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
@@ -43,6 +45,7 @@ library(dplyr)
 library(taxize)
 library(hillR)
 library(vegan)
+library(tidyr)
 
 ```
 
@@ -54,9 +57,6 @@ We'll be working with ecological species abundance data stored in `.csv` files. 
 
 Let's load the data:
 
-::: instructor
-Fix the data path.
-:::
 
 
 ```{r load data}
@@ -112,15 +112,13 @@ Agrotis taxonomic resolution
 
 :::
 
-::: solution
 
 ```{r fix agrotis}
 
-name_resolve$matched_name2[name_resolve$user_supplied_name == "Agrotis chersotoides"] <- "Agrotis chersotoides"
+name_resolve$matched_name2[name_resolve$user_supplied_name == "Agrotis chersotoides"] <- "Peridroma chersotoides"
 
 ```
 
-:::
 
 
 Now we need to add the newly-resolved names to our `abundnaces` data:
@@ -143,7 +141,6 @@ The data we have have one record per individual, but we'd like to have the _tota
 
 abundance_tallies <- group_by(abundances, site, island, final_name)
 abundance_tallies <- summarize(abundance_tallies, abundance = n())
-abundance_tallies <- ungroup(abundance_tallies)
 
 head(abundance_tallies)
 
@@ -151,10 +148,39 @@ head(abundance_tallies)
 
 Write out the tallied data for later use:
 
-```{r, eval=FALSE}
+```{r save abundance tallies, eval=FALSE}
 write.csv(abundance_tallies, "abundance_tallies.csv", row.names = FALSE)
 ```
 
+
+## Site-by-species matrix
+
+Often we'll want to work with a _site by species matrix_, which has sites as rows and species as columns. We can get there using the `pivot_wider` function from the package `tidyr`:
+
+```{r site by species}
+
+abundance_wide <- pivot_wider(abundance_tallies, id_cols = site,
+                              names_from = final_name,
+                              values_from = abundance, 
+                              values_fill = 0)
+
+head(abundance_wide)
+
+```
+
+We'll want this data to have _row names_ based on the sites, so we'll need some more steps:
+
+```{r}
+
+abundance_wide <- as.data.frame(abundance_wide)
+
+row.names(abundance_wide) <- abundance_wide$site
+
+abundance_wide <- abundance_wide[, -1]
+
+head(abundance_wide)
+
+```
 
 <!-- ```{r or base r} -->
 <!-- x <- aggregate(abundances[, 'final_name', drop = FALSE], abundances[, c('final_name', 'site')],  -->
@@ -214,162 +240,76 @@ plot(sort(maui_abund$abundance, TRUE))
 
 ## Diversity indices
 
-### Simpson's evenness
+The `vegan` package is a widely-used toolset for calculating diversity indices on ecological abundance data. 
+
+### Species richness
 
 
-```{r richness on hawaii}
+```{r richness}
 
-hawaii_richness <- length(unique(hawaiiisland_abund$final_name))
-hawaii_richness
+richness <- specnumber(abundance_wide)
 
+richness
 ```
-
-::: challenge
-
-Compute richness on Maui and Kauai.
-
-:::
-
-
-::: solution
-
-```{r richness on maui}
-
-maui_richness <- length(unique(maui_abund$final_name))
-
-maui_richness
-```
-
-
-
-```{r richness on kauai}
-
-kauai_richness <- length(unique(kauai_abund$final_name))
-
-
-kauai_richness
-```
-
-:::
 
 ### Shannon's index
 
 ```{r shannon on hawaii}
 
-hawaii_shannon <- diversity(hawaiiisland_abund$abundance)
-hawaii_shannon
+shannon <- diversity(abundance_wide, index = "shannon")
 
-```
-
-::: challenge
-
-Compute Shannon diversity on Maui and Kauai.
-
-:::
-
-
-::: solution
-
-```{r shannon on maui}
-
-maui_shannon <- diversity(maui_abund$abundance)
-
-maui_shannon
+shannon
 ```
 
 
+```{r exp shannon}
 
-```{r shannon on kauai}
-
-kauai_shannon <- diversity(kauai_abund$abundance)
+exp_shannon <- exp(shannon)
 
 
-kauai_shannon
+exp_shannon
 ```
-
-:::
 
 ### Simpson's evenness
 
 
-```{r invsimpson on hawaii}
+```{r simpson on hawaii}
 
-hawaii_invsimpson <- diversity(hawaiiisland_abund$abundance, index = "invsimpson")
-hawaii_invsimpson
+simpson <- diversity(abundance_wide, index = "simpson")
+simpson
 
 ```
 
 ::: challenge
 
-Compute invsimpson evenness on Maui and Kauai.
+Compute the *inverse* Simpson index.
+
+(Hint: use `?diversity` to get more information about the `diversity` function).
 
 :::
 
 
 ::: solution
 
-```{r invsimpson on maui}
+```{r invsimpson }
 
-maui_invsimpson <- diversity(maui_abund$abundance, index = "invsimpson")
+invsimpson <- diversity(abundance_wide, index = "invsimpson")
 
-maui_invsimpson
+invsimpson
 ```
 
-
-
-```{r invsimpson on kauai}
-
-kauai_invsimpson <- diversity(kauai_abund$abundance, index = "invsimpson")
-
-
-kauai_invsimpson
-```
-
-:::
 
 
 ### Combining values into a dataframe
 
 ```{r consolidate diversity metrics}
 
-diversity_metrics <- data.frame(
-    island = as.factor(c("hawaiiisland", "maui", "kauai")),
-    shannon = c(hawaii_shannon, maui_shannon, kauai_shannon),
-    invsimpson = c(hawaii_invsimpson, maui_invsimpson, kauai_invsimpson),
-    richness = c(hawaii_richness, maui_richness, kauai_richness)
-)
+diversity_metrics <- rbind(exp_shannon, 
+                           invsimpson,
+                           richness)
 
 diversity_metrics
 ```
-
-```{r plotting Shannon}
-
-plot(diversity_metrics$island, diversity_metrics$shannon)
-
-```
-
-
-::: challenge
-
-Plot invsimpson and species richness for the different islands.
-
-:::
-
-
-::: solution 
-
-```{r richness plot}
-
-plot(diversity_metrics$island, diversity_metrics$richness)
-
-```
-
-```{r invsimpson plot}
-
-plot(diversity_metrics$island, diversity_metrics$invsimpson)
-
-```
-:::
 
 ## Hill numbers
 
@@ -381,170 +321,94 @@ Hill numbers are a unifying framework.
 
 ### Calculating Hill numbers
 
-Here we have provided a function for calculating Hill numbers of a given order `q`. 
+The `hillR` package allows us to calculate Hill numbers in much the same way we calculate diversity indices in `vegan`.
 
-::: instructor
+```{r hill 0}
 
-We will want to find a way to share this or just implement it in roleR or something.
+hill_0 <- hill_taxa(abundance_wide, q = 0 )
 
-:::
-
-```{r}
-
-calculate_hill <- function(n, q = c(0:2)) {
-    
-   
-   n <- n/sum(n)
-    
-    hill <- outer(n, q, '^')
-    hill <- colSums(hill)^(1 / (1 - q))
-    hill[q == 1] <- exp(sum(-n * log(n)))
-    names(hill) <- q
-
-    as.data.frame(t(hill))
-}
+hill_0
 
 ```
 
-Let's use this function to calculate Hill numbers for Hawaii island.
+```{r hill 1}
 
-```{r}
+hill_1 <- hill_taxa(abundance_wide, q = 1)
 
-hawaii_hill <- calculate_hill(hawaiiisland_abund$abundance)
-
-hawaii_hill
+hill_1
 
 ```
+
 
 ::: challenge
 
-Calculate Hill numbers for Maui and Kauai.
+Calculate the hill numbers for q = 2.
 
 :::
 
 ::: solution
 
-```{r hill for maui}
+```{r hill 2}
 
-maui_hill <- calculate_hill(maui_abund$abundance)
+hill_2 <- hill_taxa(abundance_wide, q = 2)
 
-maui_hill
-
-```
-
-```{r hill for kauai}
-
-kauai_hill <- calculate_hill(kauai_abund$abundance)
-
-kauai_hill
+hill_2
 
 ```
+
+
 :::
 
 ### Combining and plotting Hill numbers
 
 ```{r combining hill numbers}
 
-hill_numbers <- rbind(hawaii_hill, maui_hill, kauai_hill)
-hill_numbers$island = as.factor(c("hawaiiisland", "maui", "kauai"))
-
+hill_numbers <- rbind(hill_0, hill_1, hill_2)
+hill_numbers
 ```
-
-```{r plotting hill number 0}
-
-plot(hill_numbers$island, hill_numbers$"0")
-
-```
-
-
-::: challenge
-
-Plot the hill numbers for q = 1 and q = 2.
-
-:::
-
-
-::: solution
-
-
-```{r plotting hill number 1}
-
-plot(hill_numbers$island, hill_numbers$"1")
-
-```
-
-```{r plotting hill number 2}
-
-plot(hill_numbers$island, hill_numbers$"2")
-
-```
-
-:::
 
 ::: discussion
 
-Compare the plots for the Hill numbers to the plots we generated earlier for richness,  Shannon's index, and the inverse Simpson.
+Compare the values for the Hill numbers to the values we generated earlier for richness,  Shannon's index, and the inverse Simpson.
+
+The following may help:
+
+```{r show dis}
+
+diversity_metrics
+
+```
+
+
+```{r show hills}
+
+hill_numbers
+
+```
+
 
 :::
-
 
 
 ## Relating Hill numbers to patterns in diversity
 
 Let's revisit the SAD plots we generated before, and think about these in terms of Hill numbers. 
 
-Let's start with species richness:
+```{r sad again plots}
 
-```{r richness plots}
-
-par(mfrow = c(2,2))
+par(mfrow = c(3,1))
 plot(sort(hawaiiisland_abund$abundance, TRUE))
 plot(sort(kauai_abund$abundance, TRUE))
 plot(sort(maui_abund$abundance, TRUE))
-plot(hill_numbers$island, hill_numbers$"0")
-
-
-```
-
-::: challenge
-
-Explore the same comparisons for q = 1 and q = 2.
-
-:::
-
-
-::: instructor
-
-This seems like a good opportunity for a breakout groups kind of session.
-
-:::
-
-
-::: solution
-
-```{r q1 plots}
-
-par(mfrow = c(2,2))
-plot(sort(hawaiiisland_abund$abundance, TRUE))
-plot(sort(kauai_abund$abundance, TRUE))
-plot(sort(maui_abund$abundance, TRUE))
-plot(hill_numbers$island, hill_numbers$"1")
 
 
 ```
 
 
-```{r q2 plots}
-
-par(mfrow = c(2,2))
-plot(sort(hawaiiisland_abund$abundance, TRUE))
-plot(sort(kauai_abund$abundance, TRUE))
-plot(sort(maui_abund$abundance, TRUE))
-plot(hill_numbers$island, hill_numbers$"2")
-
+```{r hill again}
+hill_numbers
 
 ```
-:::
 
 
 
