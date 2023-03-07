@@ -65,12 +65,14 @@ and investigate. Make sure to glance at the data before cleaning!
 
 Your trait data is located at: <http://bit.ly/41GsgvE>
 
+:::
+
 ::: solution
 
 Read in the traits data using the `read.csv` function and supplying it
 with the path to the data.
 
-```{r trait-import-sol, eval = FALSE}
+```{r trait-import-sol}
 traits <- read.csv('http://bit.ly/41GsgvE')
 ```
 
@@ -103,13 +105,15 @@ function. Note, we indicate that the `GenSp` and `user_supplied_name`
 columns have the same information by supplying a named vector to the
 `by =` argument.
 
-instructor ::::::::::::::::::
+:::
 
-Remember, left_join is like sticking two things together with a shared
+:::::::::::::::::: instructor
+    
+    Remember, left_join is like sticking two things together with a shared
 column
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+:::::::::::::::::::::::::::::::::::::::::::::::::::
+    
 ```{r trait-resolve-sol3}
 library(dplyr)
 traits <- left_join(traits, name_resolve[, c("user_supplied_name", "matched_name2")], by = c("GenSp" = "user_supplied_name"))
@@ -125,6 +129,7 @@ In addition, although not necessary, changing the column name
 `matched_name2` to `final_name` to give it a more sensible name for
 later use is good practice.
 
+
 ```{r trait-resolve-sol4}
 traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
 
@@ -133,28 +138,26 @@ colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 head(traits)
 ```
 
-:::::::::::::::
 
-:::::::::::::::::::::::
 
-instructor ::::::::::::::::::
-
-Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
-package) - argument options and output of `taxize::gnr_resolve`
+:::::::::::::::::: instructor
+    
+    Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
+                                                                 package) - argument options and output of `taxize::gnr_resolve`
 
 Get the one with maximum score
 
 -   Coding for categorical data?
--   Collapsing individual trait data and getting mean, median, SD
+    -   Collapsing individual trait data and getting mean, median, SD
 -   Merging trait data from different sources (individual-based vs
-    species-based)
+                                               species-based)
 -   Creating a multi-dimensional trait database
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-# Aggregation
-
-When analyzing trait data, it often needs to be summarized at a higher
+    
+    # Aggregation
+    
+    When analyzing trait data, it often needs to be summarized at a higher
 level than the individual. For instance, many community assembly
 analyses require species-level summaries, rather than individual
 measurements. So, we often want to calculate summary statistics of
@@ -252,7 +255,7 @@ If you're used to seeing histograms, the y-axis may look unfamiliar. To
 get the two plots to use the same scale, you set `freq = FALSE`, which
 converts the histogram counts to a density value. The density scales the
 distribution from 0-1, so the bar height (and line height on the density
-plot) is a fraction of the total distribution.
+                                          plot) is a fraction of the total distribution.
 
 Finally, to add the density line to the plot, you calculate the density
 of the trait distribution with the `density()` function and wrap it with
@@ -277,7 +280,7 @@ lines(density(traits_sumstats$mean_mass_g))
 In addition to quality control, knowing the distribution of trait data
 lends itself towards questions of what processes are shaping the
 communities under study. Are the traits overdispersed? Underdispersed?
-Does the average vary across communities? To get at these questions, you
+    Does the average vary across communities? To get at these questions, you
 need to plot each site and compare among sites. To facilitate
 comparison, you're going to layer the distributions on top of each other
 in a single plot. Histograms get cluttered quickly, so let's use density
@@ -364,7 +367,7 @@ a look at using Hill numbers to summarize the distribution of traits.
 
 Hill numbers are a useful and informative summary of trait diversity, in
 addition to other biodiversity variables ([Gaggiotti et al.
-2018](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593)). They
+                                           2018](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593)). They
 contain signatures of the processes underlying community assembly. To
 calculate Hill numbers for traits, you're going to use the `hill_func()`
 function from the `hillR` package. It requires two inputs- the site by
@@ -376,6 +379,8 @@ rows and traits as columns.
 Your first challenge, if you don't have the site by species abundance
 dataframe, is to recreate it here. Remember, you'll need to use the
 `pivot_wider()` function and the `abundance_tallies` data!
+
+:::
 
 :::: solution
 
@@ -400,10 +405,10 @@ abundance_wide <- abundance_wide[,-1]
 ```
 
 :::::::::::::::::
-
-::::::::::::::::::::::::::::
-
-Now, to create the traits dataframe you first need to remove the `site`,
+    
+    
+    
+    Now, to create the traits dataframe you first need to remove the `site`,
 `island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
 
 ```{r traits-remove-cols}
@@ -449,8 +454,8 @@ which are defined in [Chao et al.
 2014](https://www.annualreviews.org/doi/abs/10.1146/annurev-ecolsys-120213-091540).
 For simplicity's sake, we will look at `D_q`, which from the
 documentation is the:
-
-> functional Hill number, the effective number of equally abundant and
+    
+    > functional Hill number, the effective number of equally abundant and
 > functionally equally distinct species
 
 ```{r hill1-output}
@@ -460,7 +465,7 @@ traits_hill_1
 To gain an intuition for what this means, let's plot our data. First,
 you will wrangle the output into a single dataframe to work with. Since
 Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
-2.
+    2.
 
 ```{r traits-hill-df}
 traits_hill <- list(traits_hill_1[3,], traits_hill_2[3,])
@@ -496,7 +501,6 @@ plot(
     main = "Average mass per study site",
     xlab = "Rank",
     ylab = "Average mass (mg)",
-    pwd = 2,
     pch = 19,
     col = "#440154FF",
     ylim = c(0, 40),
@@ -505,13 +509,11 @@ plot(
 
 points(
     sort(traits_sumstats_split$Kauai_01$mean_mass_g, decreasing = TRUE),
-    pwd = 2,
     pch = 19,
     col = "#31688EFF"
 )
 points(
     sort(traits_sumstats_split$Maui_01$mean_mass_g, decreasing = TRUE),
-    pwd = 2,
     pch = 19,
     col = "#35B779FF"
 )
@@ -539,4 +541,4 @@ traits_hill$q1 / sp_counts
 
 Interestingly, we see that Kauai actually has a more even distribution of trait values than Maui when accounting for species richness! 
 
-What are some other interpretations from the plots, summary statistics, and what you know from the island histories can you make about this system?
+What are some other interpretations from the plots, summary statistics, and what you know fr
