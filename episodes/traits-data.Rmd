@@ -29,21 +29,22 @@ After following this episode, participants should be able to...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-# Background on traits
+We will work now with trait (i.e., phenotypic) data for communities in the
+Hawaiian islands. Similarly to abundance, investigating trait data can
+give insights into the ecological processes shaping different communities.
+Specifically, it would be interesting to answer questions like: 1) how much
+does a specific trait vary in a community?; 2) Are all species converging
+into a similar trait value or dispersing into a wide range of values for the
+trait?; 3) do those patterns of variation change across different communities?
+Answering these questions can help us understand how species are interacting
+with the environment and/or with each other.
 
-A little background on trait literature? Why do we want to look at
-traits? The distribution of traits gives hints about the ecological
-processes in that community. - Traits values clustering together -
-Traits very dispersed - A few traits super represented - Random
-distribution of traits - Correlation among traits (when using
-multidimensional trait)?
-
-One trait or several traits Unit does not matter, as long as they are
-numeric values of a variable
-
-Different formats we might expect for trait data - Categorical vs
-continuous traits? - Data can come per individual (direct measurement)
-or per species (from the literature).
+Here, we will work with a dataset containing values of **body mass** for the
+species in the Hawaiian islands. Similar to the abundance data, each row
+represents one specimen: in this dataset, each row contains the body mass
+measured for that specimen. Our overall goal here is to clean this data and
+attach it to the species data, so we can investigate trait patterns per
+community.
 
 We're starting with a challenge!
 
