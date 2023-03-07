@@ -51,7 +51,7 @@ We're starting with a challenge!
 
 ### Import and clean trait data
 
-In the \[abundance-data episode\](), you learned how to read in a `CSV`
+In the abundance-data episode, you learned how to read in a `CSV`
 file with the `read.csv()` function. In addition, you learned how to
 clean and standardize the taxonomic information in your data set using
 the `gnr_resolve()` function from the `taxize` package.
@@ -118,7 +118,7 @@ head(traits)
 ```
 
 Then, to replace *Agrotis chersotoides* with the updated *Peridroma
-chersotoides*, which you discovered in \[abundance-data\]() episode, use
+chersotoides*, which you discovered in abundance-data episode, use
 bracketed indexing, boolean matching, and assignment.
 
 In addition, although not necessary, changing the column name
@@ -209,7 +209,7 @@ to the abundance data, so you have the summary statistics for each
 species at each site.
 
 First, read in the abundance tallies dataframe you made in the
-\[abundance episode\]().
+abundance episode.
 
 ```{r read-abundance}
 abundance_tallies <- read.csv("http://bit.ly/3L2OFxk")
@@ -450,7 +450,7 @@ which are defined in [Chao et al.
 For simplicity's sake, we will look at `D_q`, which from the
 documentation is the:
 
-> functional hill number, the effective number of equally abundant and
+> functional Hill number, the effective number of equally abundant and
 > functionally equally distinct species
 
 ```{r hill1-output}
