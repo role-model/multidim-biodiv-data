@@ -149,7 +149,7 @@ head(abundance_tallies)
 Write out the tallied data for later use:
 
 ```{r save abundance tallies, eval=FALSE}
-write.csv(abundance_tallies, "abundance_tallies.csv", row.names = FALSE)
+write.csv(abundance_tallies,  "abundance_tallies.csv", row.names = FALSE)
 ```
 
 
