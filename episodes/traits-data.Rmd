@@ -106,8 +106,6 @@ function. Note, we indicate that the `GenSp` and `user_supplied_name`
 columns have the same information by supplying a named vector to the
 `by =` argument.
 
-:::
-
 :::::::::::::::::: instructor
     
     Remember, left_join is like sticking two things together with a shared
@@ -155,10 +153,12 @@ Get the one with maximum score
 -   Creating a multi-dimensional trait database
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    
+
+:::
+
     # Aggregation
     
-    When analyzing trait data, it often needs to be summarized at a higher
+When analyzing trait data, it often needs to be summarized at a higher
 level than the individual. For instance, many community assembly
 analyses require species-level summaries, rather than individual
 measurements. So, we often want to calculate summary statistics of
