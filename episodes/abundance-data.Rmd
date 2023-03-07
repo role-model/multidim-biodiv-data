@@ -60,7 +60,7 @@ Fix the data path.
 
 
 ```{r load data}
-abundances <- read.csv("https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/abundance_data.csv")
+abundances <- read.csv("http://bit.ly/3INNA9V")
 
 ```
 
@@ -149,12 +149,19 @@ head(abundance_tallies)
 
 ```
 
-```{r or base r}
-x <- aggregate(abundances[, 'final_name', drop = FALSE], abundances[, c('final_name', 'site')], 
-               length)
+Write out the tallied data for later use:
 
-head(x) #is identical
+```{r, eval=FALSE}
+write.csv(abundance_tallies, "abundance_tallies.csv", row.names = FALSE)
 ```
+
+
+<!-- ```{r or base r} -->
+<!-- x <- aggregate(abundances[, 'final_name', drop = FALSE], abundances[, c('final_name', 'site')],  -->
+<!--                length) -->
+
+<!-- head(x) #is identical -->
+<!-- ``` -->
 
 # Visualization via the species abundance distribution
 
