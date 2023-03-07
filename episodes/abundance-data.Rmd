@@ -298,6 +298,7 @@ invsimpson <- diversity(abundance_wide, index = "invsimpson")
 invsimpson
 ```
 
+:::
 
 
 ### Combining values into a dataframe
@@ -356,8 +357,8 @@ hill_2
 
 ```
 
-
 :::
+
 
 ### Combining and plotting Hill numbers
 
@@ -422,3 +423,4 @@ hill_numbers
 - We can quantify the shape of the SAD using *summary statistics*. Specifically, *Hill numbers* provide a unified framework for describing the diversity of a system.
 
 :::
+    
