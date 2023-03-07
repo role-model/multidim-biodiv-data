@@ -164,7 +164,7 @@ abundance_wide <- pivot_wider(abundance_tallies, id_cols = site,
                               values_from = abundance, 
                               values_fill = 0)
 
-head(abundance_wide)
+head(abundance_wide[,1:10])
 
 ```
 
