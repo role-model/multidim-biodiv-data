@@ -81,9 +81,9 @@ data to `gnr_resolve()`.
 ```{r trait-resolve-sol1}
 library(taxize)
 # only need to check the unique names
-spnames <- unique(traits$GenSp)
+species_list <- unique(traits$GenSp)
 
-name_resolve <- gnr_resolve(spnames, best_match_only = TRUE, canonical = TRUE)
+name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, canonical = TRUE)
 
 head(name_resolve)
 ```
@@ -92,9 +92,9 @@ To quickly see which taxa are in conflict with `taxize`'s, use bracket
 subsetting and boolean matching.
 
 ```{r trait-resolve-sol2}
-name_conflict <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
+mismatches_traits <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
 
-name_conflict
+mismatches_traits
 ```
 
 Fixing the names comes in two steps. First, we join the `traits`
@@ -437,11 +437,11 @@ calculate Hill numbers 0-2 of body size across sites.
 ```{r hill-traits}
 library(hillR)
 
-traits_hill0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
+traits_hill_0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
 
-traits_hill1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
+traits_hill_1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
 
-traits_hill2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
+traits_hill_2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
 ```
 
 The output of `hill_func()` returns quite a few Hill number options,
@@ -454,7 +454,7 @@ documentation is the:
 > functionally equally distinct species
 
 ```{r hill1-output}
-traits_hill1
+traits_hill_1
 ```
 
 To gain an intuition for what this means, let's plot our data. First,
@@ -463,7 +463,7 @@ Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
 2.
 
 ```{r traits-hill-df}
-traits_hill <- list(traits_hill1[3,], traits_hill2[3,])
+traits_hill <- list(traits_hill_1[3,], traits_hill_2[3,])
 
 traits_hill <- do.call(cbind, traits_hill)
 
