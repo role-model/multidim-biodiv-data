@@ -1,4 +1,4 @@
-# The Carpentries Workbench Template R Markdown Lesson
+# Multi-dimensional Biodiversity Data
 
 Biodiversity researchers must work with an array of data types, including community composition and abundance information, trait, phylogenetic and genetic data. Traditionally, studies in ecology and evolution have worked with only one or a few of these data types. To successfully advance the study of biodiversity across different levels of organization, biodiversity scientists are nonetheless finding the need to integrate multiple of these disparate data types into the same analytical workflow. This workshop will promote learning in the use of multidimensional data streams, gathering biodiversity scientists and students from different sub-disciplines to help facilitate integrative, cross-specialization research.
 
