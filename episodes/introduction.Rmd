@@ -53,52 +53,265 @@ What do you think this plot says about ecological process?
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+## Outline
 
-:::::::::::::::::::::::: solution 
+Below is a rough outline of episodes
 
-You can add a line with at least three colons and a `solution` tag.
 
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
+## Intro
 
-## Figures
+an overview of what we're going to cover but in "reverse order"---i.e., start with a cool analysis/visualization of data, then talk about the steps we need to take to get to that cool output, those steps will be the content of each subsequent episode
 
-You can also include figures generated from R Markdown:
+- Abundance data
+    - import
+    - clean
+    - summarize
+    - visualize 
+- Trait data
+    - import
+    - clean
+    - summarize
+    - visualize
+- Phylo data
+    - import
+    - clean
+    - summarize
+    - visualize
+- Pop gen data
+    - import
+    - clean
+    - summarize
+    - visualize
+- Methods of connecting different data types
+- Finding multi-dimensional data
+- Contributing multi-dimensional data
+- Incorporating CARE principles by connecting data to Local Contexts Hub
 
-```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
-```
 
-Or you can use standard markdown for static figures with the following syntax:
+Below I list `questions` and `objectives` for each episode
 
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
+## Abundance data
 
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
+::: questions 
 
-## Math
+- How do you import abundance data?
+- How do you clean abundance data?
+- How do you summarize abundance data?
+- How do you visualize abundance data?
 
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
+:::::::::::::
 
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
 
-Cool, right?
+::: objectives
 
-::::::::::::::::::::::::::::::::::::: keypoints 
+After following this episode, we intend that participants will be able to:
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+1. Import abundance data in a CSV format into the R environment
+2. Clean taxonomic names using the `taxize` package
+3. Aggregate abundances
+4. Calculate Hill numbers 
+5. Interpret Hill numbers
+6. Visualize species abundance distributions
+7. Interpret species abundance distribution plots
+8. Connect species abundance patterns to Hill numbers
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::
 
-[r-markdown]: https://rmarkdown.rstudio.com/
+
+### NOTES
+
+- using `taxize` comes up again and again, maybe it would be better suited for the data integration section? integrating data is when clean names become important anyway!
+- for abundance especially we should talk about long vs. wide format
+- we should also talk about (in the context of long format) when rows are species (and columns are abundances) vs. when rows are individuals and there is a collumn for species ID
+
+
+## Trait data
+
+::: questions 
+
+- How do you import trait data?
+- How do you clean trait data?
+- How do you summarize trait data?
+- How do you visualize trait data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Import trait data in a CSV format into the R environment
+2. Clean taxonomic names using the `taxize` package
+3. Aggregate traits
+4. Calculate Hill numbers 
+5. Interpret Hill numbers
+6. Visualize trait distributions
+7. Interpret trait distribution plots
+8. Connect trait distribution patterns to Hill numbers
+
+::::::::::::::
+
+
+
+
+## Phylo data
+
+::: questions 
+
+- What are the common phylogeny data formats?
+- How do you import phylogeny data?
+- How do you clean phylogeny data?
+- How do you summarize phylogeny data?
+- How do you visualize phylogeny data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Identify key features of different phylogenetic data formats 
+1. Import phylogenetic data in multiple formats into the R environment
+2. Clean taxonomic names using the `taxize` package
+3. Manipulate phylogenies by adding and removing branches
+4. Calculate Hill numbers 
+5. Interpret Hill numbers
+6. Visualize phylogenies
+8. Connect phylogenetic shapes to Hill numbers
+
+::::::::::::::
+
+
+
+## Pop gen data
+
+::: questions 
+
+- What are the common pop gen data formats?
+- How do you import pop gen data?
+- How do you clean pop gen data?
+- How do you summarize pop gen data?
+- How do you visualize pop gen data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Identify key features of different pop gen data formats 
+1. Import pop gen data in multiple formats into the R environment
+2. Clean taxonomic names using the `taxize` package
+3. Manipulate pop gen data by adding and removing sequences
+3. Alignment??
+3. Site frequency spectrum??
+3. Calculate genetic diversity $\pi$
+4. Calculate Hill numbers 
+5. Interpret Hill numbers
+6. Visualize SFS??
+6. Visualize genetic diversity distributions
+8. Connect genetic diversity distributions to Hill numbers
+
+
+## Methods for connecting different data types
+
+::: questions
+
+- How do you put all these different types of data together?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Identify when data from different dimensions can and cannot be synthesized (based, e.g., on sufficient overlap in taxonomy and similar spatial extent/resolution)
+1. Join data by space, time, and taxonomy
+1. Visualize joint data plots (flesh this out more, e.g. traits on a phylo, phylo and gen div, gen div and abund, etc)
+
+::::::::::::::
+
+
+
+
+
+## Finding multi-dimensional data
+
+
+::: questions
+
+- Where do multi-dimensional biodiversity data live online?
+- How can we combine online resources to assemble multi-dimensional datasets?
+- How can we use R to retrieve data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. List online repositories (kinda lame)
+1. Retrieve data from xyz (insert repo names here, e.g. GEOME) using R and APIs
+1. Assemble a synthetic data set of multiple dimensions of biodiversity from multiple online sources
+
+::::::::::::::
+
+### NOTES
+
+- do we talk about metadata standards here? or under each data type episode? or below under contributing data????
+
+
+## Contributing multi-dimensional data
+
+
+::: questions
+
+- How do you share your own data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Describe their data using community metadata standards (e.g. Darwin Core, MIxS, etc)
+2. Create a data record on GEOME
+
+::::::::::::::
+
+
+
+
+## Incorporating CARE principles by connecting data to Local Contexts Hub
+
+::: questions
+
+- What is Indigenous data sovereignty?
+- What are the CARE principles?
+- How can we incorperate these principles into our data work?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Articulate the mission of Local Contexts Hub in the context of the CARE and FAIR principles
+1. Apply Bio-Cultural and Traditional Knowledge Notices appropriately to datasets
+1. Create an account on Local Contexts Hub
+1. Create a project on Local Contexts Hub
+1. Query the Local Contexts Hub API to link a dataset with project IDs on Local Contexts Hub
+
+::::::::::::::
+
+
+
+
 
