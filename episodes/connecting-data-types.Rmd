@@ -1,0 +1,43 @@
+---
+title: "Connecting different data types"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 50
+---
+
+
+
+::: questions
+
+- How do you put all these different types of data together?
+- What analyses can we do with multiple data types simultaneously?
+- How do we visualize multiple data types concurrently?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Identify when data from different dimensions can and cannot be synthesized (based, e.g., on sufficient overlap in taxonomy and similar spatial extent/resolution)
+1. Join data by space, time, and taxonomy
+1. Visualize joint data plots (flesh this out more, e.g. traits on a phylo, phylo and gen div, gen div and abund, etc)
+
+::::::::::::::
+
+
+
+# Content
+
+# Recap
+
+::: keypoints
+
+- easter
+- bunny
+
+:::
+    
