@@ -1,0 +1,55 @@
+## Pop gen data
+
+::: questions 
+
+- What are the common pop gen data formats?
+- How do you import pop gen data?
+- How do you clean pop gen data?
+- How do you summarize pop gen data?
+- How do you visualize pop gen data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+3. Understand what genetic diversity is
+6. Visualize genetic diversity distributions
+8. Connect genetic diversity distributions to Hill numbers
+1. Identify key features of different pop gen data formats 
+1. Import pop gen data in multiple formats into the R environment
+3. Manipulate pop gen data by adding and removing sequences
+3. Calculate genetic diversity $\pi$
+4. Calculate Hill numbers 
+5. Interpret Hill numbers
+
+# Introduction
+## What is genetic diversity?
+## What does it say about community assembly?
+
+# Visualizing genetic diversity
+## SFS visualization
+## Genetic diversity distributions
+## Hill numbers of genetic diversity distributions
+### Within-species (Hill of SFS) and among species (Hill of assemblage)
+
+# Work with pop gen data
+## Sequences
+### FASTA
+#### ape
+#### Manipulate data
+#### Calculate genetic diversity
+## SNPs
+### VCF
+#### vcfR
+#### Manipulate data
+#### Export to genind
+#### Calculate genetic diversity
+
+# Summarize genetic diversity
+## Calculate Hill numbers within species
+### Interpret (refer back to visualizations)
+## Calculate Hill numbers across species
+### Interpret (refer back to visualizations)
