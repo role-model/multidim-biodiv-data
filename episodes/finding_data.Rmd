@@ -1,0 +1,88 @@
+---
+title: "Finding multi-dimensional biodiversity data"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 50
+---
+
+
+
+::: questions
+
+- Where do multi-dimensional biodiversity data live online?
+- How can we combine online resources to assemble multi-dimensional datasets?
+- How can we use R to retrieve data?
+
+:::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. List some online repositories where different types of biodiversity data may be obtained
+2. Retrieve data from GEOME & GBIF using their R APIs
+3. Assemble a dataset of multiple dimensions of biodiversity from multiple online sources
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+# Setup
+
+For this episode, we'll be working with some R packages that wrap the APIs of online repositories 
+
+```{r load packages}
+
+library(rgbif)
+library(devtools)
+devtools::install_github("biocodellc/fimsR-access")
+library(geomedb)
+
+```
+
+# Open-access data repositories
+
+GEOME (Genomic Observatories MetaDatabase) contains genetic data associated with specimens or samples from the field. 
+GBIF contains occurrance records of individuals assembled from dozens of smaller databases. 
+
+# Downloading data using R APIs
+
+## GBIF
+
+Let's download some occurrence records from GBIF
+
+## GEOME
+
+Now let's get some genetic data from GEOME
+
+Data in GEOME is organized into Projects, lets look at some projects
+
+```{r geome1}
+
+listProjects()
+
+```
+
+The project with ID 1 looks interesting, let's download all sequences from this project
+
+```{r geome2}
+
+fasta <- querySanger('CYB', projects=list(1))
+
+```
+
+
+# Assembling a combined dataset
+
+
+# Recap
+
+::: keypoints
+
+- Many sources exist online where multidimensional biodiversity data can be obtained
+- APIs allow for fast and reproducible querying and downloading
+- Storing multidimensional data efficiently is important
+
+:::
+    
