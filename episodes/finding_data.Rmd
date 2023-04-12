@@ -7,13 +7,11 @@ editor_options:
     wrap: 50
 ---
 
-
-
 ::: questions
 
 - Where do multi-dimensional biodiversity data live online?
-- How can we combine online resources to assemble multi-dimensional datasets?
-- How can we use R to retrieve data?
+- How can we use R APIs to quickly and reproducibly retrieve data?
+- How can we combine online resources to assemble and store multi-dimensional datasets?
 
 :::
 
@@ -21,16 +19,16 @@ editor_options:
 
 After following this episode, we intend that participants will be able to:
 
-1. List some online repositories where different types of biodiversity data may be obtained
-2. Retrieve data from GEOME & GBIF using their R APIs
-3. Assemble a dataset of multiple dimensions of biodiversity from multiple online sources
+1. Effectively search for and find trait, sequence, and abundance data online given a taxon and research question 
+2. Retrieve data from GEOME & GBIF using their R APIs and apply API principles to other databases
+3. Organize a dataset of multiple dimensions of biodiversity from multiple online sources
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
 # Setup
 
-For this episode, we'll be working with some R packages that wrap the APIs of online repositories 
+Later on in this episode, we'll be working with some R packages that wrap the APIs of online repositories. 
+Let's set those up now. 
 
 ```{r load packages}
 
@@ -41,21 +39,25 @@ library(geomedb)
 
 ```
 
-# Open-access data repositories
+# Sources of multidimensional biodiversity data: large open-access databases
 
-GEOME (Genomic Observatories MetaDatabase) contains genetic data associated with specimens or samples from the field. 
-GBIF contains occurrance records of individuals assembled from dozens of smaller databases. 
+In recent years, large grant-supported open-access databases have been growing at an incredible pace. 
+Databases like this host data from a wide variety of sources. Often data is accumulated from other large projects and organizations.
+These platforms are then used to share and standardize data for the widest possible use. 
 
-# Downloading data using R APIs
+Many of these databases exist, but here are some examples:
+  GBIF contains occurrance records of individuals assembled from dozens of smaller databases.
+  GEOME (Genomic Observatories MetaDatabase) contains genetic data associated with specimens or samples from the field. 
+  BOLD (Barcode of Life)
+  EOL (Encyclopedia of Life)
+  OTOL (Open Tree of Life) 
+  
+## Using R APIs to download database data 
 
-## GBIF
+An API is a set of tools that allows users to interact with a database, such as reading, writing, updating, and deleting data.
+We can't go over all of these databases in detail, but let's cover some examples that illustrate some principles of how these APIs work for different data types. 
 
-Let's download some occurrence records from GBIF
-
-## GEOME
-
-Now let's get some genetic data from GEOME
-
+Lets get sequence data for mammals from GEOME. 
 Data in GEOME is organized into Projects, lets look at some projects
 
 ```{r geome1}
@@ -71,7 +73,26 @@ The project with ID 1 looks interesting, let's download all sequences from this 
 fasta <- querySanger('CYB', projects=list(1))
 
 ```
+OTOL - phylogenies
 
+
+## Common issues with API big data downloads 
+
+Download limits
+
+Query limits 
+
+# Sources of MDBD: "small data" attached to papers 
+
+A lot of useful data is not held in big databases, and is instead attached to papers. 
+Searching on Google and Google Scholar can be an effective way to find such data. 
+Let's search for "mammal trait database" on Google Scholar.
+
+The first paper looks good, so let's look at the Supplementary Data which will contain their data.
+
+Let's download and unzip the data. 
+
+Reading the metadata file, we see that a certain data file contains the traits. Great! Let's read it into R. 
 
 # Assembling a combined dataset
 
