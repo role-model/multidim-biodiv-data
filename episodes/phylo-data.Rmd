@@ -1,0 +1,72 @@
+---
+title: "Trait data"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+::: questions 
+
+- What are the common phylogeny data formats?
+- How do you import phylogeny data?
+- How do you clean phylogeny data?
+- How do you summarize phylogeny data?
+- How do you visualize phylogeny data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, participants will be able to:
+
+1. Identify key features of different phylogenetic data formats 
+2. Import, clean and manipulate phylogenetic data in the R environment
+3. Calculate and interpret phylogenetic Hill numbers
+6. Visualize phylogenies
+8. Connect phylogenetic shapes to Hill numbers
+
+::::::::::::::
+
+# Introduction
+
+Explain phylogenetic data
+Phylogenetic hypotheses for community assembly
+Phylogenetic shapes to hill numbers
+
+# File formats
+
+Brief explanation of different phylogenetic data formats - Explain key features of each format:
+
+* Newick
+* NEXUS
+* Phyllip
+
+Which package to use:
+
+* `ape` package
+
+### Importing data
+
+`read.newick`
+
+### Clean taxonomic names
+
+Same old code from abundance and traits episode. Probably leave it to challenge.
+
+### Visualize phylogenies
+
+`ggtree`
+
+### Manipulating phylogenies
+
+`ape` to do modifications
+`ggtree` to visualize changes
+
+### Calculating hill numbers
+
+`hillR`
+`hill_phylo` function
+
