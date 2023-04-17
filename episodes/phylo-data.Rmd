@@ -10,10 +10,9 @@ editor_options:
 ::: questions 
 
 - What are the common phylogeny data formats?
-- How do you import phylogeny data?
-- How do you clean phylogeny data?
-- How do you summarize phylogeny data?
-- How do you visualize phylogeny data?
+- How do you import and manipulate phylogeny data in R?
+- How do you visualize phylogenies in R?
+- How to summarize and interpret phylogenies using Hill numbers?
 
 :::::::::::::
 
@@ -24,19 +23,26 @@ After following this episode, participants will be able to:
 
 1. Identify key features of different phylogenetic data formats 
 2. Import, clean and manipulate phylogenetic data in the R environment
-3. Calculate and interpret phylogenetic Hill numbers
-6. Visualize phylogenies
-8. Connect phylogenetic shapes to Hill numbers
+3. Visualize phylogenies
+4. Calculate and interpret phylogenetic Hill numbers
+
+
 
 ::::::::::::::
 
-# Introduction
+### Introduction
 
 Explain phylogenetic data
-Phylogenetic hypotheses for community assembly
-Phylogenetic shapes to hill numbers
+- Phylogenetic history of groups and their importance to ecological processes
 
-# File formats
+Phylogenetic hypotheses for community assembly
+- Amount of evolutionary history in a community may be related to age. Is it related to size?
+- Overdispersion in the tree vs 
+
+Phylogenetic shapes to hill numbers
+- 
+
+### File formats
 
 Brief explanation of different phylogenetic data formats - Explain key features of each format:
 
@@ -50,7 +56,14 @@ Which package to use:
 
 ### Importing data
 
-`read.newick`
+`read.newick` or `read.tree`
+
+```{r}
+library(ape)
+
+tree <- read.tree('tree.txt')
+
+```
 
 ### Clean taxonomic names
 
@@ -63,10 +76,29 @@ Same old code from abundance and traits episode. Probably leave it to challenge.
 ### Manipulating phylogenies
 
 `ape` to do modifications
+`keep.tip`
+`drop.tip`
 `ggtree` to visualize changes
 
 ### Calculating hill numbers
 
 `hillR`
 `hill_phylo` function
+
+```{r}
+library(hillR)
+t_hill <- hill_phylo(spp_by_site,tree)
+
+mod_tree <- vector('list',length = 5)
+mod_hill <- vector('list',length = 5)
+for (i in 1:5) {
+  todrop <- sample(tree$tip.label,10)
+  mod_tree[[i]] <- drop.tip(tree,todrop)
+  mod_hill[[i]] <- hill_phylo(spp_by_site,mod_tree[[i]])
+}
+
+## CHANGE CODE TO MODIFY TIP LABELS IN ORDER TO HAVE THE SAME LIST OF SPECIES FOR ALL TREES, MATCHING SITE 1
+```
+
+### Connect phylogenetic shapes to Hill numbers
 
