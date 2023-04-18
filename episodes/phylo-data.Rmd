@@ -46,6 +46,8 @@ Hill numbers summarize shape of phylogeny
 - Values of hill numbers can give an idea of the relative length of the branches across the community and help answer the questions abvoe.
 - Maybe show here a SAD-like distribution of branch lengths to give an intuition of the evenness?
 
+Do I wanna focus here on explaining everything, showing the different trees, their values, how they differ and why? Or do I show that I as we start calculating it later on (and here just show the overall concept of hill numbers)? I think the latter is better.
+
 ### File formats
 
 Brief explanation of different phylogenetic data formats - Explain key features of each format:
