@@ -38,9 +38,13 @@ Explain phylogenetic data
 Phylogenetic hypotheses for community assembly
 - Amount of evolutionary history in a community may be related to age. Is it related to size?
 - Overdispersion in the tree vs 
+- Do we have short branch or longer branches? That will hint into processes of community assembly.
+- Is the community composed of a few long branches and several super short branches or we have several branches with similar lengths (more even distribution)? That will also hint into processes of communitu assembly.
 
-Phylogenetic shapes to hill numbers
-- 
+Hill numbers summarize shape of phylogeny
+- Recap the idea of hill numbers. How they apply to phylogenies = here we are calculating branch lengths and the distribution of those lengths across the community.
+- Values of hill numbers can give an idea of the relative length of the branches across the community and help answer the questions abvoe.
+- Maybe show here a SAD-like distribution of branch lengths to give an intuition of the evenness?
 
 ### File formats
 
@@ -60,9 +64,7 @@ Which package to use:
 
 ```{r}
 library(ape)
-
 tree <- read.tree('tree.txt')
-
 ```
 
 ### Clean taxonomic names
@@ -71,9 +73,14 @@ Same old code from abundance and traits episode. Probably leave it to challenge.
 
 ### Visualize phylogenies
 
-`ggtree`
+`ggtree` or basic `plot`??
+
 
 ### Manipulating phylogenies
+
+Use this part to prune the phylogeny only to the taxa we are seeing in our local communities
+
+Should I show here how to retrieve branch lengths and check the evenness of the distribution, as a prelude to hill numbers?
 
 `ape` to do modifications
 `keep.tip`
@@ -82,23 +89,44 @@ Same old code from abundance and traits episode. Probably leave it to challenge.
 
 ### Calculating hill numbers
 
-`hillR`
-`hill_phylo` function
+1. Briefly recap the meaning of hill numbers for phylogenetic trees, which was explained in intro
+2. Start with a random tree with 10 clades. Show `hill_phylo` on that tree. Highlight `hill_phylo` needs a spp-by-site matrix, but here we'll just make a matrix where all species of the tree are present.
+3. Show two additional trees that has same topology as first one, but differ in branch lengths: 1) younger diversification (shorter branch lengths) and 2) older diversification (longer branch lengths). Ask them to calculate hill number for them and compare. What can we see? Here, we should be able to see branch lengths being different. How that reflect in terms of the community? Younger community vs older community?
+4. Show different orders and introduce (or recap from other eps) what they mean. Maybe plot sorted branch lengths to give an idea of evenness.
+5. Then move on to our simulated dataset. Highlight that there is one tree for the whole group, but different communities will have different trees. Let's check the tree for the oldest island vs the tree for the youngest island. Show how to prune the tree for the oldest island using `drop.tip` (or `keep.tip`). Challenge: do that for the other island.
+6. Now plot both trees and discuss what we expect hill numbers to be. Which tree is gonna have more or less diversity?
+7. Show how `hill_phylo` automatically calculates phylo hill numbers for each community based on a global tree. Do the calculating for all islands in our simulated dataset using the species-by-site matrix created in previous episodes.
+
+
+Personal code for me to better understand phylogenetic hill numbers:
 
 ```{r}
-library(hillR)
-t_hill <- hill_phylo(spp_by_site,tree)
+# Creating a site matrix with one site and four taxa all present in the one site
+site_m <- data.frame(rbind(rep(1,4)))
+colnames(site_m) <- paste0('t',seq(1:4))
 
-mod_tree <- vector('list',length = 5)
-mod_hill <- vector('list',length = 5)
-for (i in 1:5) {
-  todrop <- sample(tree$tip.label,10)
-  mod_tree[[i]] <- drop.tip(tree,todrop)
-  mod_hill[[i]] <- hill_phylo(spp_by_site,mod_tree[[i]])
+# Six random trees
+trees <- rmtopology(6,4,rooted = TRUE)
+trees <- lapply(trees,FUN = force.ultrametric)
+hill_data <- c()
+for (i in 1:length(trees)) {
+  hill0 <- hill_phylo(site_m, trees[[i]], q = 0)
+  hill1 <- hill_phylo(site_m, trees[[i]], q = 1)
+  hill2 <- hill_phylo(site_m, trees[[i]], q = 2)
+  hill_data <- rbind(hill_data,c(hill0,hill1,hill2,trees[[i]]$edge.length))
 }
+colnames(hill_data) <- c('hill_0','hill_1','hill_2',paste0('edge_',seq(1:6)))
 
-## CHANGE CODE TO MODIFY TIP LABELS IN ORDER TO HAVE THE SAME LIST OF SPECIES FOR ALL TREES, MATCHING SITE 1
+# Plotting SAD of branch lenghts for each tree
+plot(data.frame(seq(1:6),sort(hill_data[1,4:9],decreasing = TRUE)))
+plot(data.frame(seq(1:6),sort(hill_data[2,4:9],decreasing = TRUE)))
+plot(data.frame(seq(1:6),sort(hill_data[3,4:9],decreasing = TRUE)))
+plot(data.frame(seq(1:6),sort(hill_data[4,4:9],decreasing = TRUE)))
+plot(data.frame(seq(1:6),sort(hill_data[5,4:9],decreasing = TRUE)))
+plot(data.frame(seq(1:6),sort(hill_data[6,4:9],decreasing = TRUE)))
 ```
 
-### Connect phylogenetic shapes to Hill numbers
-
+Personal notes:
+* Order 0 is just the sum of branch lengths… From order 1 and above, you weight by the abundance of that branch length in the tree… Like, how many branches have high length vs how many branchs have low length? In order one, if you have one branch that is super long and all others are super short, your hill number drops: your PD is driven by only one branch… If branch length is evenly distributed through the phylogeny (i.e., several branches with similar lenghts), then your PD increases… That is a Shannon entropy index basically…
+* As you increase the order of the hill number, you are giving more weight to highly abundant branch lenghts… Order 0 is just the sum of lenghts, 1 is weight by evenness, 2 is weighted by evenness giving more weight to values of branch lengths that are more abundant, 3 is the same but focusing even more on the most abundance values (i.e., as you increase the order, you decrease your focus on rare values)…  So, like, if you have a phylogeny dminated by few branches that are very long, your hill number drops really fast as you move up in the orders… Because your hill number becomes dictated by only a few branches very fast… Whereas if you have a more even distribution of branch lenghts (several branch with similar values of length), the hill number doesn’t change as much as you move higher in the order, because even high orders still focus on most of the branches (as they are the most abundant, since they are equally abundant)
+* If all branches had the exact same branch length, then hill numbers wouldn’t change as you go up in the orders (i.e, evenness is perfect)
