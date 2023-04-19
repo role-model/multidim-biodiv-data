@@ -26,9 +26,35 @@ exercises: 2
 
 ### R and Rstudio
 
+SW Carpentry lessons, especially (from R for Reproducible Data Analysis):
+
+- https://swcarpentry.github.io/r-novice-gapminder/01-rstudio-intro/index.html
+- https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/index.html
+- https://swcarpentry.github.io/r-novice-gapminder/03-seeking-help/index.html
+- https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html
+- https://swcarpentry.github.io/r-novice-gapminder/16-wrap-up/index.html 
+
+
 ### Project and data management
 
+Lessons from above on project management.
+
+(Still looking for a good resource on where to put your data etc.)
+
+R for Data Science on projects:
+
+https://r4ds.had.co.nz/workflow-projects.html
+
+
+
+
 ### Git and GitHub
+
+It's not _necessary_ for the things we'll do in the workshop. But it's good practice.
+
+A useful resource:
+
+https://happygitwithr.com/index.html
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
