@@ -30,7 +30,9 @@ After following this episode, participants will be able to:
 
 ### Introduction
 
-In this episode, we will explore how to extract information from phylogenetic trees in order to complement our hypotheses and inferences about processes shaping biodiversity patterns. Phylogenetic trees have information about how the species in a taxonomic group are related to each other and how much relative evolutionary change has accumulated among them. Such information can give insights on why communities are how they are because local communities differ in their representation of the tree of life. Depending on different factors such as age and size of the communitu, local environmental conditions
+In this episode, we will explore how to extract information from phylogenetic trees in order to complement our hypotheses and inferences about processes shaping biodiversity patterns. Phylogenetic trees have information about how the species in a taxonomic group are related to each other and how much relative evolutionary change has accumulated among them. Such information can give insights on why communities are how they are because local communities differ in their representation of the tree of life.
+
+Depending on different factors such as age and size of the communitu, local environmental conditions
 
 and how we can interpret relationships of species in a community. The phylogenic history of species 
 
@@ -41,14 +43,15 @@ as well as charactheristics of the macoreovlutionary processes (rate of trait ev
 species in a community may be closely related (phylogenetic clustering) or come from very different lineages (phylogenetic dispersion). Similarly, the amount of evolutionary history in a community (branch length)
 
 
-Phylogenetic hypotheses for community assembly
+*Phylogenetic hypotheses for community assembly*
 - Phylogenetic clustering vs phylogenetic dispersion
 - Amount of evolutionary history in a community may be related to age. Is it related to size?
 
 - Do we have short branch or longer branches? That will hint into processes of community assembly.
 - Is the community composed of a few long branches and several super short branches or we have several branches with similar lengths (more even distribution)? That will also hint into processes of communitu assembly.
 
-Hill numbers summarize shape of phylogeny
+
+*Hill numbers summarize shape of phylogeny*
 - Recap the idea of hill numbers. How they apply to phylogenies = here we are calculating branch lengths and the distribution of those lengths across the community.
 - Values of hill numbers can give an idea of the relative length of the branches across the community and help answer the questions abvoe.
 - Maybe show here a SAD-like distribution of branch lengths to give an intuition of the evenness?
@@ -63,31 +66,48 @@ Brief explanation of different phylogenetic data formats - Explain key features 
 * NEXUS
 * Phyllip
 
-Which package to use:
-
-* `ape` package
+`ape` package
 
 ### Importing data
 
-`read.newick` or `read.tree`
+Reading the phylogenetic tree for our "fictional" communities
+
+`read.tree`
 
 ```{r}
 library(ape)
 tree <- read.tree('tree.txt')
 ```
 
+Initial plot:
+
+`plot()`
+
+- Show structure of `phylo` object, especially `tip.labels` (for name cleaning) and `edge.lengths` (for PD)
+
 ### Clean taxonomic names
 
-Same old code from abundance and traits episode. Probably leave it to challenge.
+Same old code from abundance and traits episode.
 
-### Visualize phylogenies
+:::::: challenge
 
-`ggtree` or basic `plot`??
+`gnr_resolve()`
+
+Save back to `tip.labels` in the same order
+
+::: solution
+
+:::
+
+:::
+
+### Pruning phylogeny to our species
+
+`keep.tip()` based on on sites-by-spp matrix, or spp column in abundance table.
+
+Plot again to show new tree. Show some more options to customize plot.
 
 
-### Manipulating phylogenies
-
-Use this part to prune the phylogeny only to the taxa we are seeing in our local communities
 
 Should I show here how to retrieve branch lengths and check the evenness of the distribution, as a prelude to hill numbers?
 
@@ -99,9 +119,12 @@ Should I show here how to retrieve branch lengths and check the evenness of the 
 ### Calculating hill numbers
 
 1. Briefly recap the meaning of hill numbers for phylogenetic trees, which was explained in intro
+Question: steps 2 to 3 or jump to step 5?
+
 2. Start with a random tree with 10 clades. Show `hill_phylo` on that tree. Highlight `hill_phylo` needs a spp-by-site matrix, but here we'll just make a matrix where all species of the tree are present.
 3. Show two additional trees that has same topology as first one, but differ in branch lengths: 1) younger diversification (shorter branch lengths) and 2) older diversification (longer branch lengths). Ask them to calculate hill number for them and compare. What can we see? Here, we should be able to see branch lengths being different. How that reflect in terms of the community? Younger community vs older community?
 4. Show different orders and introduce (or recap from other eps) what they mean. Maybe plot sorted branch lengths to give an idea of evenness.
+
 5. Then move on to our simulated dataset. Highlight that there is one tree for the whole group, but different communities will have different trees. Let's check the tree for the oldest island vs the tree for the youngest island. Show how to prune the tree for the oldest island using `drop.tip` (or `keep.tip`). Challenge: do that for the other island.
 6. Now plot both trees and discuss what we expect hill numbers to be. Which tree is gonna have more or less diversity?
 7. Show how `hill_phylo` automatically calculates phylo hill numbers for each community based on a global tree. Do the calculating for all islands in our simulated dataset using the species-by-site matrix created in previous episodes.
