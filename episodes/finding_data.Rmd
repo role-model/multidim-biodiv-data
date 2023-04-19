@@ -62,21 +62,18 @@ Lets download some occurrance data from GBIF, some sequence data from NBCI, and 
 
 Perhaps the simplest search you can do is for records of one or more species in a given database.
 
-For GBIF access using the spocc package, we use the occ() function where a species name can be put as the query 
+The spocc package is all about occurrence data and lets you download occurrences from all major occurrence databases. 
+For GBIF access using the spocc package, we use the occ() function.
+
+We'll put a species name as the 'query' and specify gbif as our target database in the 'from' field.
 
 ```{r sp_query}
 
 df <- occ(query = 'Accipiter striatus', from = 'gbif')
 
-listProjects()
-
-entrez_search(db="sra",
-              term="Tetrahymena thermophila[ORGN]",
-              retmax=0)
-
 ```
 
-For NCBI access using the rentez package we can also search for a species, but unlike spocc this returns a set of record IDs rather than the record information. Other databases also use this kind of pipeline. 
+For NCBI access using the rentez package we can also search for a species, but unlike spocc this returns a set of record IDs rather than the actual records.
 
 ```{r sp_query2}
 
@@ -85,7 +82,7 @@ search_results <- entrez_search(db="sra",
               retmax=0)
 ```
 
-We then have to use entrez_summary() to obtain the actual record information
+We then have to use entrez_summary() to obtain the actual record information.
 
 ```{r sp_query3}
 
@@ -93,7 +90,7 @@ summaries <- entrez_summary(db="sra",id=search_results$ids)
 
 ```
 
-OTOL works similarly, but the first search returns a set of resolved taxon IDs organized in a dataframe, not record IDs like NCBI.
+OTOL works similarly in that we need two steps, but the first search returns a set of resolved taxon IDs organized in a dataframe, not record IDs like NCBI.
 
 ```{r sp_query4}
 
@@ -109,11 +106,35 @@ tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
 
 ```
 
-In addition to or instead of querying by species, we can search for records in a given subdatabase or location in the world 
+In addition to or instead of querying by species, we can search for records in a given location in the world.
+Within spocc we need to pass location queries directly to GBIF using gbifopts
 
-... 
+```{r loc_query1}
+
+df <- occ(query = 'Accipiter striatus', from = 'gbif', has_coords=TRUE, gbifopts=list("continent"="north_america"))
+df <- occ(query = 'Accipiter striatus', from = 'gbif', has_coords=TRUE, gbifopts=list("decimalLatitude"='30,35',"decimalLongitude='-30,-25'))
+
+```
+
+For NCBI, we can use the "country" argument 
+
+```{r loc_query2}
+
+search_results <- entrez_search(db="sra",
+              term="Tetrahymena thermophila[ORGN]", country="US", 
+              retmax=0)
+
+```
 
 Now let's take a closer look at the data we have downloaded and some similarities in how MDBD database data is formatted.
+
+For GBIF, 
+
+```{r format_1}
+
+df
+
+```
 
 
 ## Common issues with API big data downloads 
