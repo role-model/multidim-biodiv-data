@@ -55,3 +55,6 @@ renv/sandbox/
 # rando
 .DS_Store
 Icon?
+
+#
+docs/

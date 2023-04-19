@@ -44,9 +44,8 @@ contact: 'team@carpentries.org'
 # Example -------------
 #
 # episodes:
-# - introduction.Rmd
-# - abundance-data.Rmd
-# - traits-data.Rmd
+# - introduction.md
+# - first-steps.md
 #
 # learners:
 # - setup.md
@@ -60,6 +59,7 @@ contact: 'team@carpentries.org'
 
 # Order of episodes in your lesson
 episodes:
+- before-we-start.Rmd
 - introduction.Rmd
 - abundance-data.Rmd
 - traits-data.Rmd

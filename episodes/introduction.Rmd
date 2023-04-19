@@ -46,6 +46,8 @@ After following this episode, participants should be able to...
 
 What do you think this plot says about ecological process?
 
+:::
+
 :::::::::::::::::::::::: solution 
 
 ## Output
@@ -215,6 +217,7 @@ After following this episode, we intend that participants will be able to:
 6. Visualize genetic diversity distributions
 8. Connect genetic diversity distributions to Hill numbers
 
+:::
 
 ## Methods for connecting different data types
 

@@ -1,0 +1,38 @@
+---
+title: 'before_we_start'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What tasks should I take care of **before** the workshop?
+- What foundational topics support this workshop?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Direct learners to necessary setup (see Setup page)
+- Direct learners to topics that won't be covered in the workshop but are good to be familiar with ahead of time
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+## Setup tasks
+
+## Foundational topics
+
+### R and Rstudio
+
+### Project and data management
+
+### Git and GitHub
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- 
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
