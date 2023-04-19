@@ -1,5 +1,5 @@
 ---
-title: "Trait data"
+title: "Summarizing phylogenetic data"
 teaching: 10
 exercises: 2
 editor_options: 
@@ -26,18 +26,24 @@ After following this episode, participants will be able to:
 3. Visualize phylogenies
 4. Calculate and interpret phylogenetic Hill numbers
 
-
-
 ::::::::::::::
 
 ### Introduction
 
-Explain phylogenetic data
-- Phylogenetic history of groups and their importance to ecological processes
+In this episode, we will explore how to extract information from phylogenetic trees in order to create hypotheses and draw inferences about biodiversity patterns. The phylogenetic history of species across communities, coupled with information on their spatial distribution and abundance, give several insights about 
+and how we can interpret relationships of species in a community. The phylogenic history of species 
+
+Similarly to how species in a community may show different degrees of trait variation, local communities differ in their representation of the tree of life. Depending on different factors such as age and size of the communitu, local environmental conditions
+
+as well as charactheristics of the macoreovlutionary processes (rate of trait evolution, degree of niche conservatism, etc.)
+
+species in a community may be closely related (phylogenetic clustering) or come from very different lineages (phylogenetic dispersion). Similarly, the amount of evolutionary history in a community (branch length)
+
 
 Phylogenetic hypotheses for community assembly
+- Phylogenetic clustering vs phylogenetic dispersion
 - Amount of evolutionary history in a community may be related to age. Is it related to size?
-- Overdispersion in the tree vs 
+
 - Do we have short branch or longer branches? That will hint into processes of community assembly.
 - Is the community composed of a few long branches and several super short branches or we have several branches with similar lengths (more even distribution)? That will also hint into processes of communitu assembly.
 
