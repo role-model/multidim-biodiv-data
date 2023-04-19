@@ -47,33 +47,73 @@ These platforms are then used to share and standardize data for the widest possi
 
 Many of these databases exist, but here are some examples:
   GBIF contains occurrance records of individuals assembled from dozens of smaller databases.
+  NCBI (National Center for Biotechnology Information) database, which includes GenBank is the largest repository of genetic data in the world, but includes a lot of biomedical data
   GEOME (Genomic Observatories MetaDatabase) contains genetic data associated with specimens or samples from the field. 
-  BOLD (Barcode of Life)
+  OTOL (Open Tree of Life) is a database that combines published trees and taxonomies into one supertree 
+  BOLD (Barcode of Life) 
   EOL (Encyclopedia of Life)
-  OTOL (Open Tree of Life) 
   
 ## Using R APIs to download database data 
 
 An API is a set of tools that allows users to interact with a database, such as reading, writing, updating, and deleting data.
 We can't go over all of these databases in detail, but let's cover some examples that illustrate some principles of how these APIs work for different data types. 
 
-Lets get sequence data for mammals from GEOME. 
-Data in GEOME is organized into Projects, lets look at some projects
+Lets download some occurrance data from GBIF, some sequence data from NBCI, and a phylogeny from OTOL.
 
-```{r geome1}
+Perhaps the simplest search you can do is for records of one or more species in a given database.
+
+For GBIF access using the spocc package, we use the occ() function where a species name can be put as the query 
+
+```{r sp_query}
+
+df <- occ(query = 'Accipiter striatus', from = 'gbif')
 
 listProjects()
 
-```
-
-The project with ID 1 looks interesting, let's download all sequences from this project
-
-```{r geome2}
-
-fasta <- querySanger('CYB', projects=list(1))
+entrez_search(db="sra",
+              term="Tetrahymena thermophila[ORGN]",
+              retmax=0)
 
 ```
-OTOL - phylogenies
+
+For NCBI access using the rentez package we can also search for a species, but unlike spocc this returns a set of record IDs rather than the record information. Other databases also use this kind of pipeline. 
+
+```{r sp_query2}
+
+search_results <- entrez_search(db="sra",
+              term="Tetrahymena thermophila[ORGN]",
+              retmax=0)
+```
+
+We then have to use entrez_summary() to obtain the actual record information
+
+```{r sp_query3}
+
+summaries <- entrez_summary(db="sra",id=search_results$ids)
+
+```
+
+OTOL works similarly, but the first search returns a set of resolved taxon IDs organized in a dataframe, not record IDs like NCBI.
+
+```{r sp_query4}
+
+resolved_names <- tnrs_match_names(c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")))
+
+```
+
+We can then get the tree containing only these matched taxa as tips
+
+```{r sp_query5}
+
+tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
+
+```
+
+In addition to or instead of querying by species, we can search for records in a given subdatabase or location in the world 
+
+... 
+
+Now let's take a closer look at the data we have downloaded and some similarities in how MDBD database data is formatted.
 
 
 ## Common issues with API big data downloads 
