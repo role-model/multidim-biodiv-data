@@ -30,10 +30,11 @@ After following this episode, participants will be able to:
 
 ### Introduction
 
-In this episode, we will explore how to extract information from phylogenetic trees in order to create hypotheses and draw inferences about biodiversity patterns. The phylogenetic history of species across communities, coupled with information on their spatial distribution and abundance, give several insights about 
+In this episode, we will explore how to extract information from phylogenetic trees in order to complement our hypotheses and inferences about processes shaping biodiversity patterns. Phylogenetic trees have information about how the species in a taxonomic group are related to each other and how much relative evolutionary change has accumulated among them. Such information can give insights on why communities are how they are because local communities differ in their representation of the tree of life. Depending on different factors such as age and size of the communitu, local environmental conditions
+
 and how we can interpret relationships of species in a community. The phylogenic history of species 
 
-Similarly to how species in a community may show different degrees of trait variation, local communities differ in their representation of the tree of life. Depending on different factors such as age and size of the communitu, local environmental conditions
+
 
 as well as charactheristics of the macoreovlutionary processes (rate of trait evolution, degree of niche conservatism, etc.)
 
