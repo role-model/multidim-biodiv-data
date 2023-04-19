@@ -2,12 +2,12 @@
 title: "Summarizing phylogenetic data"
 teaching: 10
 exercises: 2
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
 ---
 
-::: questions 
+::: questions
 
 - What are the common phylogeny data formats?
 - How do you import and manipulate phylogeny data in R?
@@ -21,7 +21,7 @@ editor_options:
 
 After following this episode, participants will be able to:
 
-1. Identify key features of different phylogenetic data formats 
+1. Identify key features of different phylogenetic data formats
 2. Import, clean and manipulate phylogenetic data in the R environment
 3. Visualize phylogenies
 4. Calculate and interpret phylogenetic Hill numbers
@@ -34,7 +34,7 @@ In this episode, we will explore how to extract information from phylogenetic tr
 
 Depending on different factors such as age and size of the communitu, local environmental conditions
 
-and how we can interpret relationships of species in a community. The phylogenic history of species 
+and how we can interpret relationships of species in a community. The phylogenic history of species
 
 
 
@@ -108,8 +108,6 @@ Save back to `tip.labels` in the same order
 Plot again to show new tree. Show some more options to customize plot.
 
 
-<<<<<<< HEAD
-
 =======
 Should I show here how to retrieve branch lengths and check the evenness of the distribution, as a prelude to hill numbers?
 
@@ -129,12 +127,6 @@ Question: steps 2 to 3 or jump to step 5?
 
 2. Start with toy trees tree with 6 clades. Show `hill_phylo` on that tree. Highlight `hill_phylo` needs a spp-by-site matrix, but here we'll just make a matrix where all species of the tree are present.
 
-<<<<<<< HEAD
-5. Then move on to our simulated dataset. Highlight that there is one tree for the whole group, but different communities will have different trees. Let's check the tree for the oldest island vs the tree for the youngest island. Show how to prune the tree for the oldest island using `drop.tip` (or `keep.tip`). Challenge: do that for the other island.
-
-6. Now plot both trees and discuss what we expect hill numbers to be. Which tree is gonna have more or less diversity?
-
-7. Show how `hill_phylo` automatically calculates phylo hill numbers for each community based on a global tree. Do the calculating for all islands in our simulated dataset using the species-by-site matrix created in previous episodes.
 =======
 3. Andy's comments:
 - Play aroud with toy trees: ladder phylogenies and perfectly balanced trees
@@ -159,7 +151,6 @@ hill_phylo(site_m,tre2)
 4. **Do this??** - Show two additional toy trees trees that has same topology as first one, but differ in branch lengths: 1) younger diversification (shorter branch lengths) and 2) older diversification (longer branch lengths). Ask them to calculate hill number for them and compare. What can we see? Here, we should be able to see branch lengths being different. How that reflect in terms of the community? Younger community vs older community?
 
 5. Jump to `hill_phylo` function - show how the function automatically calculates phylo hill numbers for each community based on a global tree. Do the calculating for all islands in our simulated dataset using the species-by-site matrix created in previous episodes.
->>>>>>> bf53cfecf6234b87348a9d489421f5d1362abcd7
 
 
 Personal code for me to better understand phylogenetic hill numbers:
