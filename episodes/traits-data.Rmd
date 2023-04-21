@@ -107,8 +107,6 @@ function. Note, we indicate that the `GenSp` and `user_supplied_name`
 columns have the same information by supplying a named vector to the
 `by =` argument.
 
-:::
-
 :::::::::::::::::: instructor
 
 ```         
@@ -159,9 +157,18 @@ Get the one with maximum score
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+<<<<<<< HEAD
 # Aggregation
 
 When analyzing trait data, it often needs to be summarized at a higher level than the individual. For instance, many community assembly
+=======
+:::
+
+    # Aggregation
+    
+When analyzing trait data, it often needs to be summarized at a higher
+level than the individual. For instance, many community assembly
+>>>>>>> c86449c88ae44948adde76c7c0a39200bae38e26
 analyses require species-level summaries, rather than individual
 measurements. So, we often want to calculate summary statistics of
 traits for each species. For numeric measurements, body size, statistics
