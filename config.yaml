@@ -63,6 +63,9 @@ episodes:
 - introduction.Rmd
 - abundance-data.Rmd
 - traits-data.Rmd
+- popgen-data.Rmd
+- finding_data.Rmd
+- connecting_data_types.Rmd
 
 # Information for Learners
 learners:
