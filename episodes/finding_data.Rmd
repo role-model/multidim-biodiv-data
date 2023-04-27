@@ -32,10 +32,12 @@ Let's set those up now.
 
 ```{r load packages}
 
-library(rgbif)
-library(devtools)
-devtools::install_github("biocodellc/fimsR-access")
-library(geomedb)
+install.packages("spocc")
+library(spocc)
+install.packages("rentrez")
+library(rentrez)
+install.packages("rotl")
+library(rotl) 
 
 ```
 
@@ -58,35 +60,51 @@ Many of these databases exist, but here are some examples:
 An API is a set of tools that allows users to interact with a database, such as reading, writing, updating, and deleting data.
 We can't go over all of these databases in detail, but let's cover some examples that illustrate some principles of how these APIs work for different data types. 
 
-Lets download some occurrance data from GBIF, some sequence data from NBCI, and a phylogeny from OTOL.
+Hawaii has some amazing diversity of Tetragnatha, a genus of long-jawed orb weaver spiders.
+With this target in mind let's download some occurrance data from GBIF, some sequence data from NBCI, and a phylogeny from OTOL.
+
+Many APIs searches will requires species names rather than the names of broader taxa like genus or family. 
+
+We can use our good friend taxize for this. First we use get_uid to get the identifier for the genus, then we get the names of the children taxa for that UID.
+These are our species!
+
+```{r genus_species}
+
+library(taxize)
+
+uid <- get_uid("Tetragnatha", db = "ncbi")
+species_uids <- children(uid, db = "ncbi")
+species_names <- species_uids$Tetragnatha$childtaxa_name
+
+```
 
 Perhaps the simplest search you can do is for records of one or more species in a given database.
 
 The spocc package is all about occurrence data and lets you download occurrences from all major occurrence databases. 
 For GBIF access using the spocc package, we use the occ() function.
 
-We'll put a species name as the 'query' and specify gbif as our target database in the 'from' field.
+We'll put the species names we retrieved  'query' and specify gbif as our target database in the 'from' field.
 
 ```{r sp_query}
 
-df <- occ(query = 'Accipiter striatus', from = 'gbif')
+occurences_df <- occ(query = species_names, from = 'gbif')
 
 ```
 
-For NCBI access using the rentez package we can also search for a species, but unlike spocc this returns a set of record IDs rather than the actual records.
+For NCBI access using the rentez package we can just search for our genus. 
+BUT unlike spocc this returns a set of record IDs rather than the actual records.
 
 ```{r sp_query2}
 
-search_results <- entrez_search(db="sra",
-              term="Tetrahymena thermophila[ORGN]",
-              retmax=0)
+search_results <- entrez_search(db="taxonomy", term="Tetragnatha & Genus[RANK]")
+
 ```
 
-We then have to use entrez_summary() to obtain the actual record information.
+We then have to use entrez_summary() on the IDs in search_results to obtain the actual record information.
 
 ```{r sp_query3}
 
-summaries <- entrez_summary(db="sra",id=search_results$ids)
+sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, rettype = "fasta")
 
 ```
 
