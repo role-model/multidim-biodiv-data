@@ -65,7 +65,7 @@ episodes:
 - traits-data.Rmd
 - popgen-data.Rmd
 - finding_data.Rmd
-- connecting_data_types.Rmd
+- connecting-data-types.Rmd
 
 # Information for Learners
 learners:
