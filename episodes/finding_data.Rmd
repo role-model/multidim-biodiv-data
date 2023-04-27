@@ -112,7 +112,7 @@ OTOL works similarly in that we need two steps, but the first search returns a s
 
 ```{r sp_query4}
 
-resolved_names <- tnrs_match_names(c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")))
+resolved_names <- tnrs_match_names(c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo"))
 
 ```
 
@@ -130,7 +130,7 @@ Within spocc we need to pass location queries directly to GBIF using gbifopts
 ```{r loc_query1}
 
 df <- occ(query = 'Accipiter striatus', from = 'gbif', has_coords=TRUE, gbifopts=list("continent"="north_america"))
-df <- occ(query = 'Accipiter striatus', from = 'gbif', has_coords=TRUE, gbifopts=list("decimalLatitude"='30,35',"decimalLongitude='-30,-25'))
+df <- occ(query = 'Accipiter striatus', from = 'gbif', has_coords=TRUE, gbifopts=list("decimalLatitude"='30,35',"decimalLongitude"='-30,-25'))
 
 ```
 
@@ -185,4 +185,3 @@ Reading the metadata file, we see that a certain data file contains the traits. 
 - Storing multidimensional data efficiently is important
 
 :::
-    
