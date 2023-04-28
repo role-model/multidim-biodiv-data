@@ -1,3 +1,12 @@
+---
+title: "Working with population genetic data"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 50
+---
+
 ## Pop gen data
 
 ::: questions
@@ -23,6 +32,8 @@ After following this episode, we intend that participants will be able to:
 7.  Calculate genetic diversity $\pi$
 8.  Calculate Hill numbers
 9.  Interpret Hill numbers
+
+:::
 
 # Introduction
 
