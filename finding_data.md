@@ -38,7 +38,7 @@ install.packages("spocc")
 ```{.output}
 Installing spocc [1.2.2] ...
 	OK [linked cache in 0.28 milliseconds]
-* Installed 1 package in 0.93 seconds.
+* Installed 1 package in 1.1 seconds.
 ```
 
 ```r
@@ -48,8 +48,8 @@ install.packages("rentrez")
 
 ```{.output}
 Installing rentrez [1.2.3] ...
-	OK [linked cache in 0.31 milliseconds]
-* Installed 1 package in 0.16 seconds.
+	OK [linked cache in 0.19 milliseconds]
+* Installed 1 package in 0.14 seconds.
 ```
 
 ```r
@@ -59,8 +59,8 @@ install.packages("rotl")
 
 ```{.output}
 Installing rotl [3.0.14] ...
-	OK [linked cache in 0.26 milliseconds]
-* Installed 1 package in 0.1 seconds.
+	OK [linked cache in 0.19 milliseconds]
+* Installed 1 package in 81 milliseconds.
 ```
 
 ```r
