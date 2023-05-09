@@ -250,7 +250,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Finding multi-dimensional biodiversity data</h1>
-        <p> Last updated on 2023-05-02 | 
+        <p> Last updated on 2023-05-09 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -310,8 +310,8 @@ wrap the APIs of online repositories. Let’s set those up now.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Installing spocc [1.2.2] ...
-	OK [linked cache in 0.28 milliseconds]
-* Installed 1 package in 1.1 seconds.</code></pre>
+	OK [linked cache in 0.26 milliseconds]
+* Installed 1 package in 0.81 seconds.</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -324,8 +324,8 @@ wrap the APIs of online repositories. Let’s set those up now.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Installing rentrez [1.2.3] ...
-	OK [linked cache in 0.19 milliseconds]
-* Installed 1 package in 0.14 seconds.</code></pre>
+	OK [linked cache in 0.17 milliseconds]
+* Installed 1 package in 0.12 seconds.</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -338,8 +338,8 @@ wrap the APIs of online repositories. Let’s set those up now.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Installing rotl [3.0.14] ...
-	OK [linked cache in 0.19 milliseconds]
-* Installed 1 package in 81 milliseconds.</code></pre>
+	OK [linked cache in 0.17 milliseconds]
+* Installed 1 package in 72 milliseconds.</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -475,11 +475,27 @@ No ENTREZ API key provided
  Get one via taxize::use_entrez()
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
+proceeding to next if there is one</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in names(output) &lt;- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">$</span><span class="va">Tetragnatha</span><span class="op">$</span><span class="va">childtaxa_name</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_uids' not found</code></pre>
 </div>
 <p>Perhaps the simplest search you can do is for records of one or more
 species in a given database.</p>
@@ -488,16 +504,21 @@ occurrences from all major occurrence databases. For GBIF access using
 the spocc package, we use the occ() function.</p>
 <p>We’ll put the species names we retrieved ‘query’ and specify gbif as
 our target database in the ‘from’ field.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">occurences_df</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
+</div>
 <p>For NCBI access using the rentez package we can just search for our
 genus. BUT unlike spocc this returns a set of record IDs rather than the
 actual records.</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -505,7 +526,7 @@ actual records.</p>
 </div>
 <p>We then have to use entrez_summary() on the IDs in search_results to
 obtain the actual record information.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -514,7 +535,7 @@ obtain the actual record information.</p>
 <p>OTOL works similarly in that we need two steps, but the first search
 returns a set of resolved taxon IDs organized in a dataframe, not record
 IDs like NCBI.</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -522,7 +543,7 @@ IDs like NCBI.</p>
 </div>
 <p>We can then get the tree containing only these matched taxa as
 tips</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -540,7 +561,7 @@ mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 <p>In addition to or instead of querying by species, we can search for
 records in a given location in the world. Within spocc we need to pass
 location queries directly to GBIF using gbifopts</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -548,7 +569,7 @@ location queries directly to GBIF using gbifopts</p>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="st">'Accipiter striatus'</span>, from <span class="op">=</span> <span class="st">'gbif'</span>, has_coords<span class="op">=</span><span class="cn">TRUE</span>, gbifopts<span class="op">=</span><span class="fu">list</span><span class="op">(</span><span class="st">"decimalLatitude"</span><span class="op">=</span><span class="st">'30,35'</span>,<span class="st">"decimalLongitude"</span><span class="op">=</span><span class="st">'-30,-25'</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>For NCBI, we can use the “country” argument</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -559,7 +580,7 @@ location queries directly to GBIF using gbifopts</p>
 <p>Now let’s take a closer look at the data we have downloaded and some
 similarities in how MDBD database data is formatted.</p>
 <p>For GBIF,</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -649,7 +670,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.15" class="external-link">sandpaper (0.11.15)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
 			</div>
@@ -671,9 +692,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/finding_data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/finding_data.html",
-  "dateCreated": "2023-04-28",
-  "dateModified": "2023-05-02",
-  "datePublished": "2023-05-02"
+  "dateCreated": "2023-05-05",
+  "dateModified": "2023-05-09",
+  "datePublished": "2023-05-09"
 }
 
   </script><script>

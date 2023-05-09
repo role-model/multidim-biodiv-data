@@ -43,7 +43,7 @@
     },
     "Hmisc": {
       "Package": "Hmisc",
-      "Version": "5.0-1",
+      "Version": "5.1-0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -66,11 +66,11 @@
         "rpart",
         "viridis"
       ],
-      "Hash": "bf9fe82c010a468fb32f913ff56d65e1"
+      "Hash": "58bdffbf73db41c8bf9e4e2329f92429"
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-59",
+      "Version": "7.3-60",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -81,7 +81,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "26570ae748e78cb2b0f56019dd2ba354"
+      "Hash": "a56a6365b3fa73293ea8d084be0d9bb0"
     },
     "Matrix": {
       "Package": "Matrix",
@@ -383,20 +383,19 @@
     },
     "bold": {
       "Package": "bold",
-      "Version": "1.2.0",
+      "Version": "1.3.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
+        "R",
         "crul",
         "data.table",
         "jsonlite",
-        "plyr",
-        "reshape",
-        "stringr",
-        "tibble",
+        "methods",
+        "stringi",
         "xml2"
       ],
-      "Hash": "270c305e57f4fa2a97141753e585ec20"
+      "Hash": "54048beb0afc6b124b17ab0e908e7496"
     },
     "boot": {
       "Package": "boot",
@@ -1048,12 +1047,12 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.9",
+      "Version": "1.6.10",
       "Source": "Repository",
       "Repository": "https://carpentries.r-universe.dev",
       "RemoteUrl": "https://github.com/rstudio/httpuv",
-      "RemoteRef": "v1.6.9",
-      "RemoteSha": "4cdd15f02598cb94fa49385607f2c9f76de40502",
+      "RemoteRef": "v1.6.10",
+      "RemoteSha": "0c8ea73922faf4f2921ed54b4c4620442b684f65",
       "Requirements": [
         "R",
         "R6",
@@ -1062,11 +1061,11 @@
         "promises",
         "utils"
       ],
-      "Hash": "1046aa31a57eae8b357267a56a0b6d8b"
+      "Hash": "503490b202c9ae28e7f58b9b5ae21d9f"
     },
     "httr": {
       "Package": "httr",
-      "Version": "1.4.5",
+      "Version": "1.4.6",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1077,7 +1076,7 @@
         "mime",
         "openssl"
       ],
-      "Hash": "f6844033201269bec3ca0097bc6c97b3"
+      "Hash": "7e5e3cbd2a7bc07880c94e22348fb661"
     },
     "igraph": {
       "Package": "igraph",
@@ -1171,14 +1170,14 @@
     },
     "later": {
       "Package": "later",
-      "Version": "1.3.0",
+      "Version": "1.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "Rcpp",
         "rlang"
       ],
-      "Hash": "7e7b457d7766bc47f2a5f21cc2984f8e"
+      "Hash": "40401c9cf2bc2259dfe83311c9384710"
     },
     "lattice": {
       "Package": "lattice",
@@ -1392,7 +1391,7 @@
     },
     "nnet": {
       "Package": "nnet",
-      "Version": "7.3-18",
+      "Version": "7.3-19",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1400,7 +1399,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "170da2130d5332bea7d6ede01875ba1d"
+      "Hash": "2c797b46eea7fb58ede195bc0b1f1138"
     },
     "numDeriv": {
       "Package": "numDeriv",
@@ -1736,17 +1735,6 @@
       ],
       "Hash": "c9e8442ab69bc21c9697ecf856c1e6c7"
     },
-    "reshape": {
-      "Package": "reshape",
-      "Version": "0.8.9",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "plyr"
-      ],
-      "Hash": "603d56041d7d4fa3ceb1864b3f6ee6b1"
-    },
     "reshape2": {
       "Package": "reshape2",
       "Version": "1.4.4",
@@ -1976,7 +1964,7 @@
     },
     "scatterplot3d": {
       "Package": "scatterplot3d",
-      "Version": "0.3-43",
+      "Version": "0.3-44",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1985,7 +1973,7 @@
         "graphics",
         "stats"
       ],
-      "Hash": "4a5715fedeeb7e01ced6b238a03811c4"
+      "Hash": "10ee4b91ec812690bd55d9bf51edccee"
     },
     "segmented": {
       "Package": "segmented",
@@ -2355,27 +2343,26 @@
     },
     "viridis": {
       "Package": "viridis",
-      "Version": "0.6.2",
+      "Version": "0.6.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "ggplot2",
         "gridExtra",
-        "stats",
         "viridisLite"
       ],
-      "Hash": "ee96aee95a7a563e5496f8991e9fde4b"
+      "Hash": "0d774f552202add033efc43a30293b3f"
     },
     "viridisLite": {
       "Package": "viridisLite",
-      "Version": "0.4.1",
+      "Version": "0.4.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "62f4b5da3e08d8e5bcba6cac15603f70"
+      "Hash": "c826c7c4241b6fc89ff55aaea3fa7491"
     },
     "vroom": {
       "Package": "vroom",
@@ -2442,13 +2429,13 @@
     },
     "wk": {
       "Package": "wk",
-      "Version": "0.7.2",
+      "Version": "0.7.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "d090e79291f852c4da96b036500d449f"
+      "Hash": "68a7ab6ec1afb5f076172b983c069313"
     },
     "worrms": {
       "Package": "worrms",
