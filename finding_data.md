@@ -37,8 +37,8 @@ install.packages("spocc")
 
 ```{.output}
 Installing spocc [1.2.2] ...
-	OK [linked cache in 0.28 milliseconds]
-* Installed 1 package in 1.1 seconds.
+	OK [linked cache in 0.26 milliseconds]
+* Installed 1 package in 0.81 seconds.
 ```
 
 ```r
@@ -48,8 +48,8 @@ install.packages("rentrez")
 
 ```{.output}
 Installing rentrez [1.2.3] ...
-	OK [linked cache in 0.19 milliseconds]
-* Installed 1 package in 0.14 seconds.
+	OK [linked cache in 0.17 milliseconds]
+* Installed 1 package in 0.12 seconds.
 ```
 
 ```r
@@ -59,8 +59,8 @@ install.packages("rotl")
 
 ```{.output}
 Installing rotl [3.0.14] ...
-	OK [linked cache in 0.19 milliseconds]
-* Installed 1 package in 81 milliseconds.
+	OK [linked cache in 0.17 milliseconds]
+* Installed 1 package in 72 milliseconds.
 ```
 
 ```r
@@ -172,8 +172,21 @@ No ENTREZ API key provided
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
 ```
 
+```{.warning}
+Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
+proceeding to next if there is one
+```
+
+```{.error}
+Error in names(output) <- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]
+```
+
 ```r
 species_names <- species_uids$Tetragnatha$childtaxa_name
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_uids' not found
 ```
 
 Perhaps the simplest search you can do is for records of one or more species in a given database.
@@ -186,6 +199,10 @@ We'll put the species names we retrieved  'query' and specify gbif as our target
 
 ```r
 occurences_df <- occ(query = species_names, from = 'gbif')
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
 ```
 
 For NCBI access using the rentez package we can just search for our genus. 
