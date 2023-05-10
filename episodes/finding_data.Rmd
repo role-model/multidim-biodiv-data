@@ -33,7 +33,7 @@ For this episode, we'll be working with some R
 packages that wrap the APIs of online
 repositories. Let's set those up now.
 
-```{r setup echo=FALSE}
+```{r setup, echo=FALSE}
 
 #install.packages("spocc")
 library(spocc)
