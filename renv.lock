@@ -1047,12 +1047,12 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.10",
+      "Version": "1.6.11",
       "Source": "Repository",
       "Repository": "https://carpentries.r-universe.dev",
       "RemoteUrl": "https://github.com/rstudio/httpuv",
-      "RemoteRef": "v1.6.10",
-      "RemoteSha": "0c8ea73922faf4f2921ed54b4c4620442b684f65",
+      "RemoteRef": "v1.6.11",
+      "RemoteSha": "3d75acb3dac8984cfe1884890bf6f1d6d813c754",
       "Requirements": [
         "R",
         "R6",
@@ -1061,7 +1061,7 @@
         "promises",
         "utils"
       ],
-      "Hash": "503490b202c9ae28e7f58b9b5ae21d9f"
+      "Hash": "838602f54e32c1a0f8cc80708cefcefa"
     },
     "httr": {
       "Package": "httr",
@@ -2270,14 +2270,14 @@
     },
     "tzdb": {
       "Package": "tzdb",
-      "Version": "0.3.0",
+      "Version": "0.4.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "cpp11"
       ],
-      "Hash": "b2e1cbce7c903eaf23ec05c58e59fb5e"
+      "Hash": "f561504ec2897f4d46f0c7657e488ae1"
     },
     "urltools": {
       "Package": "urltools",
