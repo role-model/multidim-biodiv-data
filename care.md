@@ -36,9 +36,13 @@ After following this episode, we intend that participants will be able to:
 
 ### Labels
 
+https://localcontexts.org/labels/traditional-knowledge-labels/
+
 ### Notices
 
-### In action: Maine eDNA
+https://localcontexts.org/notices/aboutnotices/
+
+https://localcontexts.org/notice-in-use-maine-edna/
 
 
 ## The Local Contexts Hub API
