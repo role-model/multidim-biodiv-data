@@ -1,0 +1,116 @@
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Identify key features of different pop gen data formats
+1. Import pop gen data in multiple formats into the R environment
+2. Clean taxonomic names using the `taxize` package
+3. Manipulate pop gen data by adding and removing sequences
+3. Alignment??
+3. Site frequency spectrum??
+3. Calculate genetic diversity $\pi$
+4. Calculate Hill numbers
+5. Interpret Hill numbers
+6. Visualize SFS??
+6. Visualize genetic diversity distributions
+8. Connect genetic diversity distributions to Hill numbers
+
+
+## Methods for connecting different data types
+
+::: questions
+
+- How do you put all these different types of data together?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Identify when data from different dimensions can and cannot be synthesized (based, e.g., on sufficient overlap in taxonomy and similar spatial extent/resolution)
+1. Join data by space, time, and taxonomy
+1. Visualize joint data plots (flesh this out more, e.g. traits on a phylo, phylo and gen div, gen div and abund, etc)
+
+::::::::::::::
+
+
+
+
+
+## Finding multi-dimensional data
+
+
+::: questions
+
+- Where do multi-dimensional biodiversity data live online?
+- How can we combine online resources to assemble multi-dimensional datasets?
+- How can we use R to retrieve data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. List online repositories (kinda lame)
+1. Retrieve data from xyz (insert repo names here, e.g. GEOME) using R and APIs
+1. Assemble a synthetic data set of multiple dimensions of biodiversity from multiple online sources
+
+::::::::::::::
+
+### NOTES
+
+- do we talk about metadata standards here? or under each data type episode? or below under contributing data????
+
+
+## Contributing multi-dimensional data
+
+
+::: questions
+
+- How do you share your own data?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Describe their data using community metadata standards (e.g. Darwin Core, MIxS, etc)
+2. Create a data record on GEOME
+
+::::::::::::::
+
+
+
+
+## Incorporating CARE principles by connecting data to Local Contexts Hub
+
+::: questions
+
+- What is Indigenous data sovereignty?
+- What are the CARE principles?
+- How can we incorperate these principles into our data work?
+
+:::::::::::::
+
+
+::: objectives
+
+After following this episode, we intend that participants will be able to:
+
+1. Articulate the mission of Local Contexts Hub in the context of the CARE and FAIR principles
+1. Apply Bio-Cultural and Traditional Knowledge Notices appropriately to datasets
+1. Create an account on Local Contexts Hub
+1. Create a project on Local Contexts Hub
+1. Query the Local Contexts Hub API to link a dataset with project IDs on Local Contexts Hub
+
+::::::::::::::
+
+
+

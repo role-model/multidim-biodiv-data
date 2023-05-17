@@ -1,3 +1,12 @@
+---
+title: "Working with population genetic data"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 50
+---
+
 ## Pop gen data
 
 ::: questions
