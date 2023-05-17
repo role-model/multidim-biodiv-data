@@ -44,9 +44,8 @@ contact: 'team@carpentries.org'
 # Example -------------
 #
 # episodes:
-# - introduction.Rmd
-# - abundance-data.Rmd
-# - traits-data.Rmd
+# - introduction.md
+# - first-steps.md
 #
 # learners:
 # - setup.md
@@ -64,8 +63,10 @@ episodes:
 - abundance-data.Rmd
 - traits-data.Rmd
 - popgen-data.Rmd
-- finding_data.Rmd
+- phylo-data.Rmd
 - connecting-data-types.Rmd
+- finding_data.Rmd
+- care.Rmd
 
 # Information for Learners
 learners:
