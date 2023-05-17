@@ -225,7 +225,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="finding_data.html">5. Finding multi-dimensional biodiversity data</a>
+        <a href="phylo-data.html">5. Summarizing phylogenetic data</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -238,6 +238,30 @@
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
         <a href="connecting-data-types.html">6. Connecting different data types</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="finding_data.html">7. Finding multi-dimensional biodiversity data</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="care.html">8. The CARE principles and open data</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -301,7 +325,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction</a></p>
 <hr>
-<p> Last updated on 2023-05-16 | 
+<p> Last updated on 2023-05-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -374,7 +398,7 @@ handling each</li>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -387,7 +411,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-abundance-data"><p>Content from <a href="abundance-data.html">Abundance Data</a></p>
 <hr>
-<p> Last updated on 2023-05-16 | 
+<p> Last updated on 2023-05-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1576,7 +1600,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-traits-data"><p>Content from <a href="traits-data.html">Trait data</a></p>
 <hr>
-<p> Last updated on 2023-05-16 | 
+<p> Last updated on 2023-05-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -2365,7 +2389,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-popgen-data"><p>Content from <a href="popgen-data.html">Working with population genetic data</a></p>
 <hr>
-<p> Last updated on 2023-05-16 | 
+<p> Last updated on 2023-05-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/popgen-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -2801,9 +2825,757 @@ any links that you are not going to use.
  -->
 </div>
 </div>
+</div></section><section id="aio-phylo-data"><p>Content from <a href="phylo-data.html">Summarizing phylogenetic data</a></p>
+<hr>
+<p> Last updated on 2023-05-17 | 
+        
+        <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What are the common phylogeny data formats?</li>
+<li>How do you import and manipulate phylogeny data in R?</li>
+<li>How do you visualize phylogenies in R?</li>
+<li>How to summarize and interpret phylogenies using Hill numbers?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<p>After following this episode, participants will be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Identify key features of different phylogenetic data formats</li>
+<li>Import, clean and manipulate phylogenetic data in the R
+environment</li>
+<li>Visualize phylogenies</li>
+<li>Calculate and interpret phylogenetic Hill numbers</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h3>
+<p>In this episode, we will explore how to extract information from
+phylogenetic trees in order to complement our hypotheses and inferences
+about processes shaping biodiversity patterns. Phylogenetic trees have
+information about how the species in a taxonomic group are related to
+each other and how much relative evolutionary change has accumulated
+among them. Since local communities differ in their phylogenetic
+composition, this information can give insights on why communities are
+how they are.</p>
+<p>The relative phylogenetic distance among species in a community as
+well as the distribution of the amount of evolutionary history
+(represented by the length of the branches in a phylogeny) are a result
+of different factors such as the age since the initial formation of the
+community and the rate of macroevolutionary processes such as speciation
+and extinction. For instance, young communities that are dominated by
+closely related species and show very short branch lengths may suggest a
+short history with few colonization events and high rates of local
+speciation; alternatively, if the same young communities harbor
+distantly related species with longer branch lengths, it may suggest
+that most of the local diversity was generated by speciation elsewhere,
+along with many colonization by species from different points in the
+phylogeny. Coupled with information on ecological traits and rates of
+macroevolutionary processes, these patterns also allow to test for
+hypotheses regarding, for instance, ecological filtering or niche
+conservatism.</p>
+<!-- Maybe bring in the paragraph above explicit connections to our young vs older Hawaian islands examples. -->
+<p>Summarizing this phylogenetic information (i.e., phylogenetic
+distance and distribution of branch lenghts) is therefore crucial for
+inference. As we have seen in previous episodes, the use of <a href="">Hill numbers</a> is an informative approach to summarize
+biodiversity. In this episode, we will then go over 1) how to import and
+manipulate phylogenetic data in R; 2) how to calculate and interpret
+Hill numbers for different communities.</p>
+</div>
+<div class="section level3">
+<h3 id="importing-phylogenetic-data">Importing phylogenetic data<a class="anchor" aria-label="anchor" href="#importing-phylogenetic-data"></a>
+</h3>
+<p>Several file formats exist to store phylogenetic information. The
+most common formats are the <a href="">Newick</a> and <a href="">Nexus</a> formats. Both these formats are plain text files
+storing different levels of information about the taxa relationship and
+evolutionary history. <code>Newick</code> files are the standard for
+representing trees in a computer-readable form, as they can be extremely
+simple and therefore do not take up much memory. <code>Nexus</code>
+file, on the other hand, are composed by different blocks regarding
+different types of information and can be used to store DNA alignments,
+phylogenetic trees, pre-defined groupings of taxa, or everything at
+once. Since they are a step ahead in complexity, we will stick with
+<code>Newick</code> files for now.</p>
+<p><code>Newick</code> files store the information about the clades in a
+tree by representing each clade within two parentheses, with tips
+separated by <code>,</code>. We also add the symbol <code>;</code> at
+the end to represent the end of the information for that phylogenetic
+tree.</p>
+<p>The basic structure of a tree in a <code>Newick</code> format is
+therefore as follows:</p>
+<p>((A,B),C);</p>
+<p>The notation above indicates that: 1) we have three taxa in our tree,
+named <code>A</code>, <code>B</code> and <code>C</code>; 2)
+<code>A</code> and <code>B</code> form one clade (A,B); 3) the (A,B)
+clade is sister to the <code>C</code> clade (we represent that by adding
+another set of parentheses and a <code>,</code> separating (A,B) from
+C).</p>
+<p>In addition, <code>Newick</code> files can also store information on
+the branch leading to it tip and node. We do that by adding
+<code>:</code> after each tip/node.</p>
+<p>((A:0.5,B:0.5):0.5,C:1);</p>
+<p>The notation above indicates that: 1) the branches containing A and B
+have each a length = 0.5; 2) the branch that leads to the node
+connecting A and B also has length = 0.5; 3) the branch leading to C has
+length = 1.</p>
+<p>The notation above is what we import into R to start working with and
+manipulating our phylogenetic tree. For that goal, we will use the <a href="package">ape</a>:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ape</span><span class="op">)</span></span></code></pre>
+</div>
+<p>To import our tree, we will be using the function
+<code>read.tree()</code> from the <code>ape</code> package. In the case
+of simple trees as the one above, we could directly create them within R
+by giving that notation as a <code>character</code> value to this
+function, using the <code>text</code> argument, as shown below:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_tree</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text <span class="op">=</span> <span class="st">'((A:0.5,B:0.5):0.5,C:1);'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now, we can visually inspect our tree using the <code>plot()</code>
+function:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">example_tree</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/phylo-data-rendered-plot-example-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Can you visualize the text notation in that image? We can see the
+same information: A is closer related to B than C, and the branches
+leading to A and B have half the length of the branch leading to C.</p>
+<p>The <code>read.tree()</code> function creates an object of class
+<code>phylo</code>. We can further investigate this object by calling it
+in our console:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_tree</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Phylogenetic tree with 3 tips and 2 internal nodes.
+
+Tip labels:
+  A, B, C
+
+Rooted; includes branch lengths.</code></pre>
+</div>
+<p>The printed information shows us that we have a phylogenetic tree
+with 3 tips and 2 internal nodes, where the tip labels are “A, B, C”. We
+also are informed that this tree is <a href="">rooted</a> and has branch
+lengths.</p>
+<p>One way to access the components of this object and better explore it
+is to use <code>$</code> after the object name. Here, it will be
+important for us to know a little bit more about where the information
+about tip labels and branch lengths are stored in that
+<code>phylo</code> objecy. Easy enough, we can access that by calling
+<code>tip.labels</code> and <code>edge.length</code> after
+<code>$</code>.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_tree</span><span class="op">$</span><span class="va">tip.label</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "A" "B" "C"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_tree</span><span class="op">$</span><span class="va">edge.length</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 0.5 0.5 0.5 1.0</code></pre>
+</div>
+<p>Now that we learned how to import and visualize trees in R, let’s
+bring the phylogeny for the communities we are working with in this
+workshop. Our data so far consists of <a href="abundance-data.html">abundances</a> and <a href="traits-data.html">traits</a> of several taxa of arthropods
+collected across three islands in the Hawaian archipelago. Here, we will
+import a global phylogeny of arthropods, located at: &lt;&gt;</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">phylogeny</span> <span class="op">&lt;-</span> <span class="fu">read_tree</span><span class="op">(</span><span class="st">''</span><span class="op">)</span></span></code></pre>
+</div>
+<p>This new object is way larger than the previous once, being a “real”
+phylogeny and all. You can inspect it again by directly calling the
+object <code>phylogeny</code>. To plot it, we will use the
+<code>type</code> argument to modify how our tree will be displayed.
+Here, we used the option <code>'fan'</code>, to display a circular
+phylogeny (slightly better to show such a large phylogeny in the
+screen).</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">phylogeny</span>, type <span class="op">=</span> <span class="st">'fan'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>How do we combine all this information with the community datasets we
+have so far for our three islands? First, we will have perform some
+cleaning.</p>
+</div>
+<div class="section level3">
+<h3 id="cleaning-phylogenetic-data">Cleaning phylogenetic data<a class="anchor" aria-label="anchor" href="#cleaning-phylogenetic-data"></a>
+</h3>
+<p>Often, when we want to include the phylogenetic relatedness of
+organisms in our biodiversity analyses, we will run into published
+phylogenetic trees for our focal taxon (that is the case of the tree we
+are using here). A couple issues arise in these cases. First, and maybe
+most importantly, we need to make sure that the taxonomic names used
+across the different datasets in our analyses (phylogenies included) are
+the same. A second issue is that, depending on the resolution of the
+published phylogeny, it may be the case that some taxa in our <a href="">community dataset</a> may not be explicitly represented in the
+phylogeny. In these cases, we will want to assign those “missing taxa”
+to one of the tips present in the tree, based on their known genus
+and/or family assignments.</p>
+<p>In this section, we will deal with these issues in order to prepare
+our data for community inferences. Our first issue will be dealt with in
+a challenge!</p>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+</h3>
+<div class="callout-content">
+<p>In previous episodes, we have used the package <code>taxize</code> to
+clean and standardize the taxonomic names in out dataset. Here, we will
+apply the same approach to the tip names of our phylogeny. We need to
+make sure the names we will accept from <code>taxize</code> will match
+the names we have accepted in previous episodes. Finally, after we
+decide on the names, we need to add them to the <code>phylogeny</code>
+objects, where the tip names are stored.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>First, we check the names using the <code>gnr_resolve()</code>
+function. In <code>phylogeny</code>, tip names are stored in
+<code>phylogeny$tip.label</code>, so we provide that vector to our
+function.</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
+<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
+</div>
+<p>We can see what taxa are in conflict with the names retrieved by
+<code>taxize</code> by subsetting <code>name_resolve</code> based on
+boolean matching.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mismatches_phylo</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">mismatches_phylo</span></span></code></pre>
+</div>
+<p>From here, we can see that apparently there are no misspellings in
+our tree (as expected from a published phylogeny). Most of the
+mismatches seem to be related to changes in the taxonomic treatment of
+species. This is a common situation, since taxonomic treatments are
+often revised after new trees are published; it might be the case that
+<code>nameA</code> in our dataset was treated as <code>nameB</code> at
+the time the phylogeny was created.</p>
+<p>In the previous episodes, we used the names provided by
+<code>taxize</code> directly. Therefore, here we can just add those
+names directly to the phylogeny.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span> <span class="op">==</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The next issue we need to address is the fact that we may have
+species in our dataset that are not present in the phylogenetic tree we
+are using. We therefore need to 1) find out which species are not in the
+tree; 2) assign them to tips that are present in the tree.</p>
+<p>To check which species are not in the tree, we can use any of the
+objects we created so far that has the list of all the species in our
+communities. These could be: 1) the abundances we calculated per site
+and island in the <a href="">abundances episode</a>, stored in the
+<code>abundance_tallies</code> object; 2) the <em>site by species
+matrix</em> we have created in the abundance episode (stored in the
+<code>abundance_wide</code> object); 3) the list of species with their
+respective trait values, created in the <a href="">traits episode</a>
+and stored in the <code>traits_simple</code> object. Since we directly
+use the site-by-species matrix to calculate Hill numbers (next section),
+let’s focus on this object and retrieve the species name for it.</p>
+<p>We do that by accessing the <code>colnames()</code> of that object.
+We also remove the first element, since it is just the header for the
+column with the <code>site</code> name.</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
+</div>
+<p>Since the taxonomic names in both the abundance data and in the
+phylogenetic tree were corrected using the same database from
+<code>taxize</code>, we expect that any names from our abundance data
+that are nof found in the tree simply represent taxa that are not
+included in this phylogeny. We can use the boolean operator
+<code>%in%</code> coupled with <code>!</code> to check
+<code>species_names</code> that are not included in the
+<code>phylogeny$tip.label</code>. In summary, the expression
+<code>A %in% B</code> would return what elements of A are present in B.
+The <code>!</code> (NOT) operator returnts the opposite of that
+expression, in a way that <code>!(A %in% B)</code> will return the
+elements of A that are <em>NOT</em> present in B (which is what we
+want)</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">not_present</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="op">(</span><span class="va">species_names</span> <span class="op">%in%</span> <span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now let’s check those species that were not in the tree:</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">species_name</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span></span></code></pre>
+</div>
+<p>Here, we can decide how we are going to assign these species to tips
+in our tree. For instance, we see that we do not have <em>XXX</em> in
+our tree, but we have <em>XXX</em>, which belongs to the same genus.
+Similarly…</p>
+<p>We can then rename the species with the name of those that are
+present in the species.</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">species_name</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<p>And now we can rename the species in out site-by-species matrix using
+these new names. For this, we will first transfer our matrix to another
+object (in order to keep the abundance matrix intact), and then we will
+rename the columns of this new object based on the modified names.</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">phylo_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">phylo_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">species_name</span></span></code></pre>
+</div>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Another</span> issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up.</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>After solving these issues, we now have 1) a phylogenetic tree with
+tip labels taxonomically cleaned; 2) a site-by-species matrix where all
+species are represented in out tree. These two objects are the two bits
+of information that we need to summarize the phylogenetic diversity and
+the distribution of branch lenghts across our focal communities.</p>
+</div>
+<div class="section level3">
+<h3 id="summarizing-with-hill-numbers">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a>
+</h3>
+<blockquote>
+<p>Recap the idea of hill numbers. How they apply to phylogenies</p>
+</blockquote>
+<p>As we discussed above,</p>
+<p>“The relative phylogenetic distance among species in a community as
+well as the distribution of the amount of evolutionary history
+(represented by the length of the branches in a phylogeny) are a result
+of different factors such as the age since the initial formation of the
+community and the rate of macroevolutionary processes such as speciation
+and extinction. For instance, young communities that are dominated by
+closely related species and show very short branch lengths may suggest a
+short history with few colonization events and high rates of local
+speciation; alternatively, if the same young communities harbor
+distantly related species with longer branch lengths, it may suggest
+that most of the local diversity was generated by speciation elsewhere,
+along with many colonization by species from different points in the
+phylogeny. Coupled with information on ecological traits and rates of
+macroevolutionary processes, these patterns also allow to test for
+hypotheses regarding, for instance, ecological filtering or niche
+conservatism.”</p>
+<p>here we are calculating branch lengths and the distribution of those
+lengths across the community.</p>
+<p>Let’s first visualize what this information mean by comparing two
+trees with different pattern of relationships.</p>
+<blockquote>
+<p>Play aroud with toy trees: ladder phylogenies and perfectly balanced
+trees Totally Balanced - short and long Totally unbalanced 6 clades</p>
+</blockquote>
+<p>Show here how to manually retrieve branch lengths and check the
+evenness of the distribution, as a prelude to hill numbers.</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tre1</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text<span class="op">=</span><span class="st">'(a:3,(b:2,(c:1,d:1):1):1);'</span><span class="op">)</span></span>
+<span><span class="va">tre2</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text<span class="op">=</span><span class="st">'((a:1,b:1):1,(c:1,d:1):1);'</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">## ADD HERE CODE TO RETRIEVE BRANCH LENGHTS MANUALLY</span></span></code></pre>
+</div>
+<blockquote>
+<p>Maybe show here a SAD-like distribution of branch lengths to give an
+intuition of the evenness?</p>
+</blockquote>
+<p>Values of hill numbers can give an idea of the relative length of the
+branches across the community and help answer the questions above.</p>
+<blockquote>
+<p><code>hill_phylo</code> function - show how the function
+automatically calculates phylo hill numbers for each community based on
+a global tree. Show example in toy trees first.</p>
+</blockquote>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">site_m</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span><span class="fu">rbind</span><span class="op">(</span><span class="fu">rep</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">site_m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>,<span class="st">'d'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
+<span><span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>,<span class="va">tre1</span><span class="op">)</span></span>
+<span><span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>,<span class="va">tre2</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Doing it in your own tree leaving to a challenge. Discussion on what
+is found?</p>
+<p>Do the calculating for all islands in our simulated dataset using the
+species-by-site matrix created in previous episodes.</p>
+</div>
+<section id="visualization-of-phylo-hill-numbers"><h2 class="section-heading">Visualization of phylo Hill numbers<a class="anchor" aria-label="anchor" href="#visualization-of-phylo-hill-numbers"></a>
+</h2>
+<hr class="half-width">
+<p>==== Personal code for me to better understand phylogenetic hill
+numbers:</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Creating a site matrix with one site and four taxa all present in the one site</span></span>
+<span><span class="va">site_m</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span><span class="fu">rbind</span><span class="op">(</span><span class="fu">rep</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">site_m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">'t'</span>,<span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Six random trees</span></span>
+<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu">rmtopology</span><span class="op">(</span><span class="fl">6</span>,<span class="fl">4</span>,rooted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">trees</span>,FUN <span class="op">=</span> <span class="va">force.ultrametric</span><span class="op">)</span></span>
+<span><span class="va">hill_data</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span><span class="op">(</span><span class="va">trees</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">hill0</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>, <span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="va">hill1</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>, <span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="va">hill2</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>, <span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="va">hill_data</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">hill_data</span>,<span class="fu">c</span><span class="op">(</span><span class="va">hill0</span>,<span class="va">hill1</span>,<span class="va">hill2</span>,<span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">edge.length</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">hill_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'hill_0'</span>,<span class="st">'hill_1'</span>,<span class="st">'hill_2'</span>,<span class="fu">paste0</span><span class="op">(</span><span class="st">'edge_'</span>,<span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plotting SAD of branch lenghts for each tree</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">6</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Personal notes: * Order 0 is just the sum of branch lengths… From
+order 1 and above, you weight by the abundance of that branch length in
+the tree… Like, how many branches have high length vs how many branchs
+have low length? In order one, if you have one branch that is super long
+and all others are super short, your hill number drops: your PD is
+driven by only one branch… If branch length is evenly distributed
+through the phylogeny (i.e., several branches with similar lenghts),
+then your PD increases… That is a Shannon entropy index basically… * As
+you increase the order of the hill number, you are giving more weight to
+highly abundant branch lenghts… Order 0 is just the sum of lenghts, 1 is
+weight by evenness, 2 is weighted by evenness giving more weight to
+values of branch lengths that are more abundant, 3 is the same but
+focusing even more on the most abundance values (i.e., as you increase
+the order, you decrease your focus on rare values)… So, like, if you
+have a phylogeny dminated by few branches that are very long, your hill
+number drops really fast as you move up in the orders… Because your hill
+number becomes dictated by only a few branches very fast… Whereas if you
+have a more even distribution of branch lenghts (several branch with
+similar values of length), the hill number doesn’t change as much as you
+move higher in the order, because even high orders still focus on most
+of the branches (as they are the most abundant, since they are equally
+abundant) * If all branches had the exact same branch length, then hill
+numbers wouldn’t change as you go up in the orders (i.e, evenness is
+perfect)</p>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-connecting-data-types"><p>Content from <a href="connecting-data-types.html">Connecting different data types</a></p>
+<hr>
+<p> Last updated on 2023-05-17 | 
+        
+        <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/connecting-data-types.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What questions and analyses can we explore by linking multiple data
+types together?</li>
+<li>How do we determine if our data can be linked?</li>
+<li>How do we actually link different data types together?</li>
+<li>How do we analyze, visualize, and interpret multiple data types
+concurrently?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<p>After following this episode, we intend that participants will be
+able to:</p>
+<ol style="list-style-type: decimal">
+<li>Generate ideas for scientific questions that can be answered using 2
+or more of the data types we have covered in previous episodes</li>
+<li>Identify considerations regarding the cross-compatibility of data
+from different sources</li>
+<li>Use spatial and taxonomic tools to link data of different types</li>
+<li>Calculate and visualize joint diversity indices for multiple data
+types simultaneously</li>
+<li>Interpret these results in scientific context</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="motivation-why-combine-data-types">Motivation: Why combine data types?<a class="anchor" aria-label="anchor" href="#motivation-why-combine-data-types"></a>
+</h1>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Think-pair-share</p>
+<p>Segueing into the simulated Hawaii data</p>
+</div>
+</div>
+</div>
+</div>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>What kinds of questions can we imagine answering using multipe data
+types at once?</p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="show-demo-visualization-of-hawaii-sim-data">Show demo visualization of Hawaii sim data<a class="anchor" aria-label="anchor" href="#show-demo-visualization-of-hawaii-sim-data"></a>
+</h2>
+</div>
+</div>
+<div class="section level1">
+<h1 id="linking-different-data-types">Linking different data types<a class="anchor" aria-label="anchor" href="#linking-different-data-types"></a>
+</h1>
+<div class="section level2">
+<h2 id="checking-the-compatibility-of-data-types">Checking the compatibility of data types<a class="anchor" aria-label="anchor" href="#checking-the-compatibility-of-data-types"></a>
+</h2>
+<div class="section level3">
+<h3 id="taxonomic-overlap">Taxonomic overlap<a class="anchor" aria-label="anchor" href="#taxonomic-overlap"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="taxonomic-consistency">Taxonomic consistency<a class="anchor" aria-label="anchor" href="#taxonomic-consistency"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="spatial-extent">Spatial extent<a class="anchor" aria-label="anchor" href="#spatial-extent"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="others">Others??<a class="anchor" aria-label="anchor" href="#others"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="linking-data-types">Linking data types<a class="anchor" aria-label="anchor" href="#linking-data-types"></a>
+</h2>
+<div class="section level3">
+<h3 id="resources-for-resolving-inconsistencies">Resources for resolving inconsistencies<a class="anchor" aria-label="anchor" href="#resources-for-resolving-inconsistencies"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="left_join">left_join<a class="anchor" aria-label="anchor" href="#left_join"></a>
+</h3>
+<p>(being slightly flip here, but this is the heart of it, right?)</p>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="analyzing-and-visualizing-joint-data-types">Analyzing and visualizing joint data types<a class="anchor" aria-label="anchor" href="#analyzing-and-visualizing-joint-data-types"></a>
+</h1>
+<div class="section level2">
+<h2 id="hill-numbers-for-multidim-data">Hill numbers for multidim data<a class="anchor" aria-label="anchor" href="#hill-numbers-for-multidim-data"></a>
+</h2>
+<div class="section level3">
+<h3 id="discussionlecture">Discussion/lecture<a class="anchor" aria-label="anchor" href="#discussionlecture"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="calculating-hills">Calculating Hills<a class="anchor" aria-label="anchor" href="#calculating-hills"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="visualizing-multiple-data-types">Visualizing multiple data types<a class="anchor" aria-label="anchor" href="#visualizing-multiple-data-types"></a>
+</h2>
+<div class="section level3">
+<h3 id="joing-vis-plots">Joing vis plots<a class="anchor" aria-label="anchor" href="#joing-vis-plots"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="interpretation">Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"></a>
+</h2>
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion2"></a>
+</h3>
+<div class="callout-content">
+<p>Discuss Hawaii interp</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="challenge-using-other-data-sets">Challenge: using other data sets<a class="anchor" aria-label="anchor" href="#challenge-using-other-data-sets"></a>
+</h1>
+<div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
+  <h3 class="accordion-header" id="headingInstructor2">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div class="accordion-body">
+<p>Here I was thinking to generate a few more toy data sets using RoLE
+as foreshadowing of days 3-4.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
+</h1>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Considering multiple data types at once can answer a unique and
+rapidly evolving set of questions</li>
+<li>Data types do need to be (minimally) compatible; there are
+resources/approaches for reconciling not-fully-compatible data</li>
+<li>Hill numbers provide a unified framework for the analysis and
+visualization of different data types as part of one question</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
 </div></section><section id="aio-finding_data"><p>Content from <a href="finding_data.html">Finding multi-dimensional biodiversity data</a></p>
 <hr>
-<p> Last updated on 2023-05-16 | 
+<p> Last updated on 2023-05-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -2977,38 +3749,91 @@ No ENTREZ API key provided
  Get one via taxize::use_entrez()
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
-proceeding to next if there is one</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in names(output) &lt;- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span>
+<span><span class="va">species_names</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_uids' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_names</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
+<pre class="output" tabindex="0"><code> [1] "Tetragnatha paludicola"              
+ [2] "Tetragnatha boydi"                   
+ [3] "Tetragnatha cavaleriei"              
+ [4] "Tetragnatha virescens"               
+ [5] "Tetragnatha josephi"                 
+ [6] "Tetragnatha gui"                     
+ [7] "Tetragnatha bituberculata"           
+ [8] "Tetragnatha shinanoensis"            
+ [9] "Tetragnatha chauliodus"              
+[10] "Tetragnatha cf. tincochacae DDC-2018"
+[11] "Tetragnatha similis"                 
+[12] "Tetragnatha riveti"                  
+[13] "Tetragnatha puella"                  
+[14] "Tetragnatha paschae"                 
+[15] "Tetragnatha caudicula"               
+[16] "Tetragnatha tanigawai"               
+[17] "Tetragnatha ceylonica"               
+[18] "Tetragnatha makiharai"               
+[19] "Tetragnatha iriomotensis"            
+[20] "Tetragnatha yesoensis"               
+[21] "Tetragnatha cf. vermiformis JJA-2017"
+[22] "Tetragnatha cf. moua sc_02763"       
+[23] "Tetragnatha lauta"                   
+[24] "Tetragnatha hasselti"                
+[25] "Tetragnatha geniculata"              
+[26] "Tetragnatha vermiformis"             
+[27] "Tetragnatha shoshone"                
+[28] "Tetragnatha caudata"                 
+[29] "Tetragnatha dearmata"                
+[30] "Tetragnatha squamata"                
+[31] "Tetragnatha praedonia"               
+[32] "Tetragnatha pinicola"                
+[33] "Tetragnatha extensa"                 
+[34] "Tetragnatha viridis"                 
+[35] "Tetragnatha javana"                  
+[36] "Tetragnatha obtusa"                  
+[37] "Tetragnatha nigrita"                 
+[38] "Tetragnatha rava"                    
+[39] "Tetragnatha punua"                   
+[40] "Tetragnatha nitens"                  
+[41] "Tetragnatha moua"                    
+[42] "Tetragnatha marquesiana"             
+[43] "Tetragnatha macilenta"               
+[44] "Tetragnatha montana"                 
+[45] "Tetragnatha straminea"               
+[46] "Tetragnatha guatemalensis"           
+[47] "Tetragnatha elongata"                
+[48] "Tetragnatha stelarobusta"            
+[49] "Tetragnatha perkinsi"                
+[50] "Tetragnatha pallescens"              
+[51] "Tetragnatha limu"                    
+[52] "Tetragnatha laboriosa"               
+[53] "Tetragnatha filiciphilia"            
+[54] "Tetragnatha eurychasma"              
+[55] "Tetragnatha obscura"                 
+[56] "Tetragnatha kukuiki"                 
+[57] "Tetragnatha macracantha"             
+[58] "Tetragnatha kikokiko"                
+[59] "Tetragnatha anuenue"                 
+[60] "Tetragnatha maxillosa"               
+[61] "Tetragnatha acuta"                   
+[62] "Tetragnatha pilosa"                  
+[63] "Tetragnatha quasimodo"               
+[64] "Tetragnatha tantalus"                
+[65] "Tetragnatha polychromata"            
+[66] "Tetragnatha perreirai"               
+[67] "Tetragnatha restricta"               
+[68] "Tetragnatha brevignatha"             
+[69] "Tetragnatha kamakou"                 
+[70] "Tetragnatha kukuhaa"                 
+[71] "Tetragnatha versicolor"              
+[72] "Tetragnatha kauaiensis"              
+[73] "Tetragnatha waikamoi"                
+[74] "Tetragnatha mandibulata"             
+[75] "Tetragnatha hawaiensis"              </code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -3022,7 +3847,7 @@ gbif as our target database in the ‘from’ field.</p>
 <p>Since the occurrences from spocc are organized as a list of
 dataframes, one per species, we use the bind_rows() function from dplyr
 to combine this into a single dataframe.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3049,38 +3874,33 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span><span class="op">)</span></span>
+<span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences</span><span class="op">$</span><span class="va">gbif</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences</span><span class="op">$</span><span class="va">gbif</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb26">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences_df' not found</code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 192
+  name           longitude latitude issues prov  key   scientificName datasetKey
+  &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     
+1 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+2 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+3 Tetragnatha p…     -156.     20.8 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+4 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+5 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+6 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+# ℹ 184 more variables: publishingOrgKey &lt;chr&gt;, installationKey &lt;chr&gt;,
+#   publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;,
+#   lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, hostingOrganizationKey &lt;chr&gt;,
+#   basisOfRecord &lt;chr&gt;, individualCount &lt;int&gt;, occurrenceStatus &lt;chr&gt;,
+#   taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;,
+#   orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
+#   acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, …</code></pre>
 </div>
 <p>The rotl package provides an interface to the Open Tree of Life. To
 get a tree from this database, we have to match our species names to
@@ -3088,52 +3908,22 @@ OTOL’s ids.</p>
 <p>We first use trns_match_names() to match our species names to OTOL’s
 taxonomy.</p>
 <p>Then we use ott_id() to get OTOL ids for these matched names.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">otol_ids</span> <span class="op">&lt;-</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'resolved_names' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span>
+<span><span class="va">otol_ids</span> <span class="op">&lt;-</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Finally, we get the tree containing these IDs as tips.</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'resolved_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tr' not found</code></pre>
-</div>
-<p>Unfortunately we can see that the phylogenetic relationships between
+<figure><img src="../fig/finding_data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Unfortunately we can see that the phylogenetic relationships between
 these species aren’t resolved in OTOL, so we may have to look elsewhere
 for a phylogeny.</p>
 <p>Let’s continue with the rentrez package, which provides an interface
@@ -3143,7 +3933,7 @@ with lists of species.</p>
 <p>For this reason, let’s just search for <em>Tetragnatha</em> using the
 ‘term’ argument, which takes a string in a specific format describing
 the query.</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3155,7 +3945,7 @@ of IDs.</p>
 obtain the actual record information.</p>
 <p>We specify ‘db’ as ‘nucleotide’ and ‘rettype’ as ‘fasta’ to get fasta
 sequences</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3169,7 +3959,7 @@ sequences</p>
 records in a given location in the world. Within spocc we need to pass
 location queries directly to GBIF using ‘gbifopts’. We’ll search in a
 lat-long bounding box around Hawaii.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3178,14 +3968,9 @@ lat-long bounding box around Hawaii.</p>
 <span>                     gbifopts<span class="op">=</span><span class="fu">list</span><span class="op">(</span><span class="st">"decimalLatitude"</span><span class="op">=</span><span class="st">'18.910361,28.402123'</span>,</span>
 <span>                                   <span class="st">"decimalLongitude"</span><span class="op">=</span><span class="st">'-178.334698,-154.806773'</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
-</div>
 <p>For NCBI, we can add the state of Hawaii to the query string. HI is
 the abbreviation for Hawaii.</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3275,11 +4060,11 @@ different.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</div></section><section id="aio-connecting-data-types"><p>Content from <a href="connecting-data-types.html">Connecting different data types</a></p>
+</div></section><section id="aio-care"><p>Content from <a href="care.html">The CARE principles and open data</a></p>
 <hr>
-<p> Last updated on 2023-05-16 | 
+<p> Last updated on 2023-05-17 | 
         
-        <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/connecting-data-types.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/care.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -3292,12 +4077,10 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>What questions and analyses can we explore by linking multiple data
-types together?</li>
-<li>How do we determine if our data can be linked?</li>
-<li>How do we actually link different data types together?</li>
-<li>How do we analyze, visualize, and interpret multiple data types
-concurrently?</li>
+<li>What is Indigenous data sovereignty?</li>
+<li>What are the CARE principles?</li>
+<li>What is Local Contexts Hub, and how can we use it to implement the
+CARE principles in our work?</li>
 </ul>
 </div>
 </div>
@@ -3309,157 +4092,59 @@ concurrently?</li>
 <p>After following this episode, we intend that participants will be
 able to:</p>
 <ol style="list-style-type: decimal">
-<li>Generate ideas for scientific questions that can be answered using 2
-or more of the data types we have covered in previous episodes</li>
-<li>Identify considerations regarding the cross-compatibility of data
-from different sources</li>
-<li>Use spatial and taxonomic tools to link data of different types</li>
-<li>Calculate and visualize joint diversity indices for multiple data
-types simultaneously</li>
-<li>Interpret these results in scientific context</li>
+<li>Articulate the mission of Local Contexts Hub in the context of the
+CARE and FAIR principles</li>
+<li>Apply Bio-Cultural and Traditional Knowledge Notices appropriately
+to datasets</li>
+<li>Create an account on Local Contexts Hub</li>
+<li>Create a project on Local Contexts Hub</li>
+<li>Query the Local Contexts Hub API to link a dataset with project IDs
+on Local Contexts Hub</li>
 </ol>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="motivation-why-combine-data-types">Motivation: Why combine data types?<a class="anchor" aria-label="anchor" href="#motivation-why-combine-data-types"></a>
-</h1>
-<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
-  <h3 class="accordion-header" id="headingInstructor1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
-  Instructor Note
-  </h3>
-</button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
-<div class="accordion-body">
-<p>Think-pair-share</p>
-<p>Segueing into the simulated Hawaii data</p>
-</div>
-</div>
-</div>
-</div>
-<div id="discussion1" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
-</h3>
-<div class="callout-content">
-<p>What kinds of questions can we imagine answering using multipe data
-types at once?</p>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="show-demo-visualization-of-hawaii-sim-data">Show demo visualization of Hawaii sim data<a class="anchor" aria-label="anchor" href="#show-demo-visualization-of-hawaii-sim-data"></a>
+<section id="indigenous-data-soverginty"><h2 class="section-heading">Indigenous data soverginty<a class="anchor" aria-label="anchor" href="#indigenous-data-soverginty"></a>
 </h2>
-</div>
-</div>
-<div class="section level1">
-<h1 id="linking-different-data-types">Linking different data types<a class="anchor" aria-label="anchor" href="#linking-different-data-types"></a>
-</h1>
-<div class="section level2">
-<h2 id="checking-the-compatibility-of-data-types">Checking the compatibility of data types<a class="anchor" aria-label="anchor" href="#checking-the-compatibility-of-data-types"></a>
+<hr class="half-width"></section><section id="the-care-principles"><h2 class="section-heading">The CARE Principles<a class="anchor" aria-label="anchor" href="#the-care-principles"></a>
 </h2>
+<hr class="half-width">
 <div class="section level3">
-<h3 id="taxonomic-overlap">Taxonomic overlap<a class="anchor" aria-label="anchor" href="#taxonomic-overlap"></a>
+<h3 id="collective-benefit">Collective benefit<a class="anchor" aria-label="anchor" href="#collective-benefit"></a>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="taxonomic-consistency">Taxonomic consistency<a class="anchor" aria-label="anchor" href="#taxonomic-consistency"></a>
+<h3 id="authority-to-control">Authority to control<a class="anchor" aria-label="anchor" href="#authority-to-control"></a>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="spatial-extent">Spatial extent<a class="anchor" aria-label="anchor" href="#spatial-extent"></a>
+<h3 id="responsibility">Responsibility<a class="anchor" aria-label="anchor" href="#responsibility"></a>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="others">Others??<a class="anchor" aria-label="anchor" href="#others"></a>
+<h3 id="ethics">Ethics<a class="anchor" aria-label="anchor" href="#ethics"></a>
 </h3>
 </div>
-</div>
-<div class="section level2">
-<h2 id="linking-data-types">Linking data types<a class="anchor" aria-label="anchor" href="#linking-data-types"></a>
+</section><section id="local-contexts-hub"><h2 class="section-heading">Local Contexts Hub<a class="anchor" aria-label="anchor" href="#local-contexts-hub"></a>
 </h2>
+<hr class="half-width">
 <div class="section level3">
-<h3 id="resources-for-resolving-inconsistencies">Resources for resolving inconsistencies<a class="anchor" aria-label="anchor" href="#resources-for-resolving-inconsistencies"></a>
+<h3 id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="left_join">left_join<a class="anchor" aria-label="anchor" href="#left_join"></a>
+<h3 id="notices">Notices<a class="anchor" aria-label="anchor" href="#notices"></a>
 </h3>
-<p>(being slightly flip here, but this is the heart of it, right?)</p>
 </div>
+<div class="section level3">
+<h3 id="in-action-maine-edna">In action: Maine eDNA<a class="anchor" aria-label="anchor" href="#in-action-maine-edna"></a>
+</h3>
 </div>
-</div>
-<div class="section level1">
-<h1 id="analyzing-and-visualizing-joint-data-types">Analyzing and visualizing joint data types<a class="anchor" aria-label="anchor" href="#analyzing-and-visualizing-joint-data-types"></a>
-</h1>
-<div class="section level2">
-<h2 id="hill-numbers-for-multidim-data">Hill numbers for multidim data<a class="anchor" aria-label="anchor" href="#hill-numbers-for-multidim-data"></a>
+</section><section id="the-local-contexts-hub-api"><h2 class="section-heading">The Local Contexts Hub API<a class="anchor" aria-label="anchor" href="#the-local-contexts-hub-api"></a>
 </h2>
-<div class="section level3">
-<h3 id="discussionlecture">Discussion/lecture<a class="anchor" aria-label="anchor" href="#discussionlecture"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="calculating-hills">Calculating Hills<a class="anchor" aria-label="anchor" href="#calculating-hills"></a>
-</h3>
-</div>
-</div>
-<div class="section level2">
-<h2 id="visualizing-multiple-data-types">Visualizing multiple data types<a class="anchor" aria-label="anchor" href="#visualizing-multiple-data-types"></a>
-</h2>
-<div class="section level3">
-<h3 id="joing-vis-plots">Joing vis plots<a class="anchor" aria-label="anchor" href="#joing-vis-plots"></a>
-</h3>
-</div>
-</div>
-<div class="section level2">
-<h2 id="interpretation">Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"></a>
-</h2>
-<div id="discussion2" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion2"></a>
-</h3>
-<div class="callout-content">
-<p>Discuss Hawaii interp</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level1">
-<h1 id="challenge-using-other-data-sets">Challenge: using other data sets<a class="anchor" aria-label="anchor" href="#challenge-using-other-data-sets"></a>
-</h1>
-<div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
-  <h3 class="accordion-header" id="headingInstructor2">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
-  Instructor Note
-  </h3>
-</button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
-<div class="accordion-body">
-<p>Here I was thinking to generate a few more toy data sets using RoLE
-as foreshadowing of days 3-4.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level1">
-<h1 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a>
-</h1>
+<hr class="half-width">
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -3469,12 +4154,14 @@ as foreshadowing of days 3-4.</p>
 </h3>
 <div class="callout-content">
 <ul>
-<li>Considering multiple data types at once can answer a unique and
-rapidly evolving set of questions</li>
-<li>Data types do need to be (minimally) compatible; there are
-resources/approaches for reconciling not-fully-compatible data</li>
-<li>Hill numbers provide a unified framework for the analysis and
-visualization of different data types as part of one question</li>
+<li>“Be FAIR and CARE”: The CARE principles (<strong>C</strong>ollective
+benefit, <strong>A</strong>uthority to control,
+<strong>R</strong>esponsibility, and <strong>E</strong>thics) are part
+of a framework emphasizing Indigenous rights and interests in the
+context of data sharing ecosystems.</li>
+<li>Local Contexts Hub provides Labels and Notices for learning more
+about and engaging with Indigenous data in accordance with the CARE
+principles.</li>
 </ul>
 </div>
 </div>
@@ -3483,7 +4170,7 @@ visualization of different data types as part of one question</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</div></section>
+</section></section>
 </div>
     </main>
 </div>
@@ -3508,7 +4195,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.17" class="external-link">sandpaper (0.11.17)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
 			</div>
@@ -3531,9 +4218,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
-  "dateCreated": "2023-05-10",
-  "dateModified": "2023-05-16",
-  "datePublished": "2023-05-16"
+  "dateCreated": "2023-05-17",
+  "dateModified": "2023-05-17",
+  "datePublished": "2023-05-17"
 }
 
   </script><script>
