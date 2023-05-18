@@ -37,11 +37,11 @@ The relative phylogenetic distance among species in a community as well as the d
 
 <!-- Maybe bring in the paragraph above explicit connections to our young vs older Hawaian islands examples. -->
 
-Summarizing this phylogenetic information (i.e., phylogenetic distance and distribution of branch lenghts) is therefore crucial for inference. As we have seen in previous episodes, the use of [Hill numbers]() is an informative approach to summarize biodiversity. In this episode, we will then go over 1) how to import and manipulate phylogenetic data in R; 2) how to calculate and interpret Hill numbers for different communities.
+Summarizing this phylogenetic information (i.e., phylogenetic distance and distribution of branch lenghts) is therefore crucial for inference. As we have seen in previous episodes, the use of [Hill numbers](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593) is an informative approach to summarize biodiversity. In this episode, we will then go over 1) how to import and manipulate phylogenetic data in R; 2) how to calculate and interpret Hill numbers for different communities.
 
 ### Importing phylogenetic data
 
-Several file formats exist to store phylogenetic information. The most common formats are the [Newick]() and [Nexus]() formats. Both these formats are plain text files storing different levels of information about the taxa relationship and evolutionary history. `Newick` files are the standard for representing trees in a computer-readable form, as they can be extremely simple and therefore do not take up much memory. `Nexus` file, on the other hand, are composed by different blocks regarding different types of information and can be used to store DNA alignments, phylogenetic trees, pre-defined groupings of taxa, or everything at once. Since they are a step ahead in complexity, we will stick with `Newick` files for now.
+Several file formats exist to store phylogenetic information. The most common formats are the [Newick and Nexus formats](http://evomics.org/resources/tree-formats/). Both these formats are plain text files storing different levels of information about the taxa relationship and evolutionary history. `Newick` files are the standard for representing trees in a computer-readable form, as they can be extremely simple and therefore do not take up much memory. `Nexus` file, on the other hand, are composed by different blocks regarding different types of information and can be used to store DNA alignments, phylogenetic trees, pre-defined groupings of taxa, or everything at once. Since they are a step ahead in complexity, we will stick with `Newick` files for now.
 
 `Newick` files store the information about the clades in a tree by representing each clade within two parentheses, with tips separated by `,`. We also add the symbol `;` at the end to represent the end of the information for that phylogenetic tree.
 
@@ -57,21 +57,21 @@ In addition, `Newick` files can also store information on the branch leading to 
 
 The notation above indicates that: 1) the branches containing A and B have each a length = 0.5; 2) the branch that leads to the node connecting A and B also has length = 0.5; 3) the branch leading to C has length = 1.
 
-The notation above is what we import into R to start working with and manipulating our phylogenetic tree. For that goal, we will use the [ape](package):
+The notation above is what we import into R to start working with and manipulating our phylogenetic tree. For that goal, we will use the [ape](https://academic.oup.com/bioinformatics/article/20/2/289/204981) package:
 
-```{r loading-ape}
+```{r loading-ape eval=FALSE}
 library(ape)
 ```
 
 To import our tree, we will be using the function `read.tree()` from the `ape` package. In the case of simple trees as the one above, we could directly create them within R by giving that notation as a `character` value to this function, using the `text` argument, as shown below:
 
-```{r read-example}
+```{r read-example eval=FALSE}
 example_tree <- read.tree(text = '((A:0.5,B:0.5):0.5,C:1);')
 ```
 
 Now, we can visually inspect our tree using the `plot()` function:
 
-```{r plot-example}
+```{r plot-example eval=FALSE}
 plot(example_tree)
 ```
 
@@ -79,15 +79,15 @@ Can you visualize the text notation in that image? We can see the same informati
 
 The `read.tree()` function creates an object of class `phylo`. We can further investigate this object by calling it in our console:
 
-```{r calling-example}
+```{r calling-example eval=FALSE}
 example_tree
 ```
 
-The printed information shows us that we have a phylogenetic tree with 3 tips and 2 internal nodes, where the tip labels are "A, B, C". We also are informed that this tree is [rooted]() and has branch lengths.
+The printed information shows us that we have a phylogenetic tree with 3 tips and 2 internal nodes, where the tip labels are "A, B, C". We also are informed that this tree is rooted and has branch lengths.
 
 One way to access the components of this object and better explore it is to use `$` after the object name. Here, it will be important for us to know a little bit more about where the information about tip labels and branch lengths are stored in that `phylo` objecy. Easy enough, we can access that by calling `tip.labels` and `edge.length` after `$`.
 
-```{r calling-tips-edge}
+```{r calling-tips-edge eval=FALSE}
 example_tree$tip.label
 example_tree$edge.length
 ```
@@ -104,11 +104,11 @@ This new object is way larger than the previous once, being a "real" phylogeny a
 plot(phylogeny, type = 'fan')
 ```
 
-How do we combine all this information with the community datasets we have so far for our three islands? First, we will have perform some cleaning.
+How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some cleaning.
 
 ### Cleaning phylogenetic data
 
-Often, when we want to include the phylogenetic relatedness of organisms in our biodiversity analyses, we will run into published phylogenetic trees for our focal taxon (that is the case of the tree we are using here). A couple issues arise in these cases. First, and maybe most importantly, we need to make sure that the taxonomic names used across the different datasets in our analyses (phylogenies included) are the same. A second issue is that, depending on the resolution of the published phylogeny, it may be the case that some taxa in our [community dataset]() may not be explicitly represented in the phylogeny. In these cases, we will want to assign those "missing taxa" to one of the tips present in the tree, based on their known genus and/or family assignments.
+Often, when we want to include the phylogenetic relatedness of organisms in our biodiversity analyses, we will run into published phylogenetic trees for our focal taxon (that is the case of the tree we are using here). A couple issues arise in these cases. First, and maybe most importantly, we need to make sure that the taxonomic names used across the different datasets in our analyses (phylogenies included) are the same. A second issue is that, depending on the resolution of the published phylogeny, it may be the case that some taxa in our community dataset may not be explicitly represented in the phylogeny. In these cases, we will want to assign those "missing taxa" to one of the tips present in the tree, based on their known genus and/or family assignments.
 
 In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge!
 
@@ -140,6 +140,7 @@ In the previous episodes, we used the names provided by `taxize` directly. There
 
 ```{r phylo-resolve-sol3, eval=FALSE}
 phylogeny$tip.label == name_resolve$matched_name2
+
 ```
 
 ::::::::::::
@@ -148,21 +149,21 @@ phylogeny$tip.label == name_resolve$matched_name2
 
 The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree.
 
-To check which species are not in the tree, we can use any of the objects we created so far that has the list of all the species in our communities. These could be: 1) the abundances we calculated per site and island in the [abundances episode](), stored in the `abundance_tallies` object; 2) the _site by species matrix_ we have created in the abundance episode (stored in the `abundance_wide` object); 3) the list of species with their respective trait values, created in the [traits episode]() and stored in the `traits_simple` object. Since we directly use the site-by-species matrix to calculate Hill numbers (next section), let's focus on this object and retrieve the species name for it.
+To check which species are not in the tree, we can use any of the objects we created so far that has the list of all the species in our communities. These could be: 1) the abundances we calculated per site and island in the [abundances episode](abundance-data.Rmd), stored in the object `abundance_tallies`; 2) the _site by species matrix_ we have created in the abundance episode (stored in the object `abundance_wide`); 3) the list of species with their respective trait values, created in the [traits episode](traits-data.Rmd) and stored in the `traits_simple` object. Since we are going to directly use the site-by-species matrix to calculate Hill numbers (next section), let's focus on this object and retrieve the species name for it.
 
-We do that by accessing the `colnames()` of that object. We also remove the first element, since it is just the header for the column with the `site` name.
+We do that by accessing the `colnames()` of that object. We will also remove the first element, since it is just the header for the column with the `site` name.
 
 ```{r, eval=FALSE}
 species_names <- colnames(abundance_wide)[-1]
 ```
 
-Since the taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`, we expect that any names from our abundance data that are nof found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return what elements of A are present in B. The `!` (NOT) operator returnts the opposite of that expression, in a way that `!(A %in% B)` will return the elements of A that are *NOT* present in B (which is what we want)
+The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now).
 
 ```{r, eval=FALSE}
 not_present <- !(species_names %in% phylogeny$tip.label)
 ```
 
-Now let's check those species that were not in the tree:
+The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`:
 
 ```{r, eval=FALSE}
 species_name[not_present]
@@ -170,17 +171,18 @@ species_name[not_present]
 
 Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly...
 
-We can then rename the species with the name of those that are present in the species.
+We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future).
 
 ```{r, eval=FALSE}
 species_name[not_present] <- c()
+new_names[not_present] <- c()
 ```
 
-And now we can rename the species in out site-by-species matrix using these new names. For this, we will first transfer our matrix to another object (in order to keep the abundance matrix intact), and then we will rename the columns of this new object based on the modified names.
+Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names.
 
 ```{r, eval=FALSE}
 phylo_wide <- abundance_wide
-colnames(phylo_wide) <- species_name
+colnames(phylo_wide) <- new_names
 ```
 
 :::::::::::::::::: instructor
@@ -189,57 +191,85 @@ colnames(phylo_wide) <- species_name
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
 
-After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in out tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lenghts across our focal communities.
+After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities.
 
 ### Summarizing with hill numbers
 
-> Recap the idea of hill numbers. How they apply to phylogenies
+In this section, we will extract some summary statistics about the pattern of phylogenetic diversity in our communities. As we discussed above, the relative phylogenetic distance among species and distribution of this distance can give insights into processes of community assembly. Here, we will make use of [Hill numbers](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593) to extract summaries of phylogenetic distances. To understand what they mean, let's first explore their properties in a simple example.
 
-As we discussed above,
+Let's assume we have a community with eight taxa: A through H. We will create two possibilities of phylogenetic relationship among them.
 
-"The relative phylogenetic distance among species in a community as well as the distribution of the amount of evolutionary history (represented by the length of the branches in a phylogeny) are a result of different factors such as the age since the initial formation of the community and the rate of macroevolutionary processes such as speciation and extinction. For instance, young communities that are dominated by closely related species and show very short branch lengths may suggest a short history with few colonization events and high rates of local speciation; alternatively, if the same young communities harbor distantly related species with longer branch lengths, it may suggest that most of the local diversity was generated by speciation elsewhere, along with many colonization by species from different points in the phylogeny. Coupled with information on ecological traits and rates of macroevolutionary processes, these patterns also allow to test for hypotheses regarding, for instance, ecological filtering or niche conservatism."
+Tree 1 will represent a totally unbalanced pattern...
 
-here we are calculating branch lengths and the distribution of those lengths across the community.
-
-Let's first visualize what this information mean by comparing two trees with different pattern of relationships.
-
-> Play aroud with toy trees: ladder phylogenies and perfectly balanced trees
-> Totally Balanced - short and long
-> Totally unbalanced
-> 6 clades
-
-Show here how to manually retrieve branch lengths and check the evenness of the distribution, as a prelude to hill numbers.
-
-```{r, eval=FALSE}
-
-tre1 <- read.tree(text='(a:3,(b:2,(c:1,d:1):1):1);')
-tre2 <- read.tree(text='((a:1,b:1):1,(c:1,d:1):1);')
-
-
-## ADD HERE CODE TO RETRIEVE BRANCH LENGHTS MANUALLY
+```{r}
+tree1 <- read.tree(text='(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);')
+plot(tree1)
 ```
 
+whereas tree 2 will represent a totally balanced pattern.
 
-> Maybe show here a SAD-like distribution of branch lengths to give an intuition of the evenness?
-
-Values of hill numbers can give an idea of the relative length of the branches across the community and help answer the questions above.
-
-> `hill_phylo` function - show how the function automatically calculates phylo hill numbers for each community based on a global tree. Show example in toy trees first.
-
-```{r, eval=FALSE}
-site_m <- data.frame(rbind(rep(1,4)))
-colnames(site_m) <- c('a','b','c','d')
-
-library(hillR)
-hill_phylo(site_m,tre1)
-hill_phylo(site_m,tre2)
+```{r}
+tree2 <- read.tree(text='(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);')
+plot(tree2)
 ```
+
+Notice that both trees are ultrametric: all tips align at the end, representing extant taxa, which means branch lengths here represent the amount of time that has passed between each node. The difference between the first and the second tree resides in the fate of each new lineage at a node. In the first tree, at each diversification event, one of the lineages always persists till the present with no change while the other undergoes another round of diversification. In the second tree, both lineages from each node split again, meaning that all extant species result from recent diversification (i.e., there are no old lineages).
+
+
+Now we will calculate the phylogenetic Hill number using the function `hill_phylo` from the `hillR` package. This function requires both a phylogeny and site-by-species matrix. For our fictional example, we will create a matrix with only one site containing all eight species (we will assign the value 1 to all species to indicate presence).
+
+
+```{r}
+mat <- data.frame(rbind(rep(1,8)))
+
+colnames(mat) <- c('A','B','C','D','E','F','G','H')
+```
+
+Using that matrix, we will calculate Hill numbers of order 0 to 2 for both trees:
+
+```{r}
+tree1_h0 <- hill_phylo(mat,tree1,q=0)
+tree1_h1 <- hill_phylo(mat,tree1,q=1)
+tree1_h2 <- hill_phylo(mat,tree1,q=2)
+tree2_h0 <- hill_phylo(mat,tree2,q=0)
+tree2_h1 <- hill_phylo(mat,tree2,q=1)
+tree2_h2 <- hill_phylo(mat,tree2,q=2)
+```
+
+Patterns:
+- Tree 1 has overall higher values (more history)
+- Hill numbers go down as q goes up: putting more emphasis on common lengths
+- The rate of change is different: because longer branches are more common in tree1, hill numbers don't go down as fast.
+
+What happens if our species have different relative abundances? Let's make a site-by-species matrix where abundance goes down from species A to species B (for simplicity, we'll just go down from 8 to 1)
+
+```{r}
+mat <- data.frame(rbind(seq(8,1)))
+colnames(mat) <- c('A','B','C','D','E','F','G','H')
+```
+
+Let's calculate the same hill numbers with this new community:
+
+
+```{r}
+tree1_h0_uneven <- hill_phylo(mat,tree1,q=0)
+tree1_h1_uneven <- hill_phylo(mat,tree1,q=1)
+tree1_h2_uneven <- hill_phylo(mat,tree1,q=2)
+tree2_h0_uneven <- hill_phylo(mat,tree2,q=0)
+tree2_h1_uneven <- hill_phylo(mat,tree2,q=1)
+tree2_h2_uneven <- hill_phylo(mat,tree2,q=2)
+```
+
+If we call these objects, we can see that...
+
+What would be a good way to better visualize these patterns in these summary statistics?
+
+Plotting hill in y and order in 0, and coloring by the tree and the even vs uneven.
+
 
 Doing it in your own tree leaving to a challenge. Discussion on what is found?
 
 Do the calculating for all islands in our simulated dataset using the species-by-site matrix created in previous episodes.
-
-## Visualization of phylo Hill numbers
 
 
 
