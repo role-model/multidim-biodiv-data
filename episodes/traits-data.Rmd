@@ -29,22 +29,23 @@ After following this episode, participants should be able to...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-We will work now with trait (i.e., phenotypic) data for communities in the
-Hawaiian islands. Similarly to abundance, investigating trait data can
-give insights into the ecological processes shaping different communities.
-Specifically, it would be interesting to answer questions like: 1) how much
-does a specific trait vary in a community?; 2) Are all species converging
-into a similar trait value or dispersing into a wide range of values for the
-trait?; 3) do those patterns of variation change across different communities?
-Answering these questions can help us understand how species are interacting
-with the environment and/or with each other.
+We will work now with trait (i.e., phenotypic) data for communities in
+the Hawaiian islands. Similarly to abundance, investigating trait data
+can give insights into the ecological processes shaping different
+communities. Specifically, it would be interesting to answer questions
+like: 1) how much does a specific trait vary in a community?; 2) Are all
+species converging into a similar trait value or dispersing into a wide
+range of values for the trait?; 3) do those patterns of variation change
+across different communities? Answering these questions can help us
+understand how species are interacting with the environment and/or with
+each other.
 
-Here, we will work with a dataset containing values of **body mass** for the
-species in the Hawaiian islands. Similar to the abundance data, each row
-represents one specimen: in this dataset, each row contains the body mass
-measured for that specimen. Our overall goal here is to clean this data and
-attach it to the species data, so we can investigate trait patterns per
-community.
+Here, we will work with a dataset containing values of **body mass** for
+the species in the Hawaiian islands. Similar to the abundance data, each
+row represents one specimen: in this dataset, each row contains the body
+mass measured for that specimen. Our overall goal here is to clean this
+data and attach it to the species data, so we can investigate trait
+patterns per community.
 
 We're starting with a challenge!
 
@@ -52,10 +53,10 @@ We're starting with a challenge!
 
 ### Import and clean trait data
 
-In the abundance-data episode, you learned how to read in a `CSV`
-file with the `read.csv()` function. In addition, you learned how to
-clean and standardize the taxonomic information in your data set using
-the `gnr_resolve()` function from the `taxize` package.
+In the abundance-data episode, you learned how to read in a `CSV` file
+with the `read.csv()` function. In addition, you learned how to clean
+and standardize the taxonomic information in your data set using the
+`gnr_resolve()` function from the `taxize` package.
 
 You're going to use those skills to import and clean the trait data set.
 The trait data set contains two columns: `GenSp`, which contains the
@@ -107,12 +108,15 @@ columns have the same information by supplying a named vector to the
 `by =` argument.
 
 :::::::::::::::::: instructor
-    
-    Remember, left_join is like sticking two things together with a shared
+
+```         
+Remember, left_join is like sticking two things together with a shared
+```
+
 column
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
-    
+
 ```{r trait-resolve-sol3}
 library(dplyr)
 traits <- left_join(traits, name_resolve[, c("user_supplied_name", "matched_name2")], by = c("GenSp" = "user_supplied_name"))
@@ -128,7 +132,6 @@ In addition, although not necessary, changing the column name
 `matched_name2` to `final_name` to give it a more sensible name for
 later use is good practice.
 
-
 ```{r trait-resolve-sol4}
 traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
 
@@ -137,29 +140,35 @@ colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 head(traits)
 ```
 
-
-
 :::::::::::::::::: instructor
-    
-    Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
-                                                                 package) - argument options and output of `taxize::gnr_resolve`
+
+```         
+Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
+                                                             package) - argument options and output of `taxize::gnr_resolve`
+```
 
 Get the one with maximum score
 
 -   Coding for categorical data?
     -   Collapsing individual trait data and getting mean, median, SD
 -   Merging trait data from different sources (individual-based vs
-                                               species-based)
+    species-based)
 -   Creating a multi-dimensional trait database
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+<<<<<<< HEAD
+# Aggregation
+
+When analyzing trait data, it often needs to be summarized at a higher level than the individual. For instance, many community assembly
+=======
 :::
 
     # Aggregation
     
 When analyzing trait data, it often needs to be summarized at a higher
 level than the individual. For instance, many community assembly
+>>>>>>> c86449c88ae44948adde76c7c0a39200bae38e26
 analyses require species-level summaries, rather than individual
 measurements. So, we often want to calculate summary statistics of
 traits for each species. For numeric measurements, body size, statistics
@@ -212,8 +221,8 @@ Finally, you need to add the aggregated species-level information back
 to the abundance data, so you have the summary statistics for each
 species at each site.
 
-First, read in the abundance tallies dataframe you made in the
-abundance episode.
+First, read in the abundance tallies dataframe you made in the abundance
+episode.
 
 ```{r read-abundance}
 abundance_tallies <- read.csv("http://bit.ly/3L2OFxk")
@@ -256,7 +265,7 @@ If you're used to seeing histograms, the y-axis may look unfamiliar. To
 get the two plots to use the same scale, you set `freq = FALSE`, which
 converts the histogram counts to a density value. The density scales the
 distribution from 0-1, so the bar height (and line height on the density
-                                          plot) is a fraction of the total distribution.
+plot) is a fraction of the total distribution.
 
 Finally, to add the density line to the plot, you calculate the density
 of the trait distribution with the `density()` function and wrap it with
@@ -281,7 +290,7 @@ lines(density(traits_sumstats$mean_mass_g))
 In addition to quality control, knowing the distribution of trait data
 lends itself towards questions of what processes are shaping the
 communities under study. Are the traits overdispersed? Underdispersed?
-    Does the average vary across communities? To get at these questions, you
+Does the average vary across communities? To get at these questions, you
 need to plot each site and compare among sites. To facilitate
 comparison, you're going to layer the distributions on top of each other
 in a single plot. Histograms get cluttered quickly, so let's use density
@@ -368,7 +377,7 @@ a look at using Hill numbers to summarize the distribution of traits.
 
 Hill numbers are a useful and informative summary of trait diversity, in
 addition to other biodiversity variables ([Gaggiotti et al.
-                                           2018](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593)). They
+2018](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593)). They
 contain signatures of the processes underlying community assembly. To
 calculate Hill numbers for traits, you're going to use the `hill_func()`
 function from the `hillR` package. It requires two inputs- the site by
@@ -406,10 +415,11 @@ abundance_wide <- abundance_wide[,-1]
 ```
 
 :::::::::::::::::
-    
-    
-    
-    Now, to create the traits dataframe you first need to remove the `site`,
+
+```         
+Now, to create the traits dataframe you first need to remove the `site`,
+```
+
 `island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
 
 ```{r traits-remove-cols}
@@ -455,8 +465,11 @@ which are defined in [Chao et al.
 2014](https://www.annualreviews.org/doi/abs/10.1146/annurev-ecolsys-120213-091540).
 For simplicity's sake, we will look at `D_q`, which from the
 documentation is the:
-    
-    > functional Hill number, the effective number of equally abundant and
+
+```         
+> functional Hill number, the effective number of equally abundant and
+```
+
 > functionally equally distinct species
 
 ```{r hill1-output}
@@ -466,7 +479,7 @@ traits_hill_1
 To gain an intuition for what this means, let's plot our data. First,
 you will wrangle the output into a single dataframe to work with. Since
 Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
-    2.
+2.
 
 ```{r traits-hill-df}
 traits_hill <- list(traits_hill_1[3,], traits_hill_2[3,])
@@ -527,7 +540,13 @@ legend(
 )
 ```
 
-You can see clearly that the diversity differs across islands, where Maui has many more species than the other islands and a seemingly more even distribution than the others. However, species richness strongly influences the calculation of a Hill number. To factor out the influence of the number of species from the Hill number and get a stronger indicator of "evenness", you can divide the Hill number by the number of species, which you will do for Hill q = 1.
+You can see clearly that the diversity differs across islands, where
+Maui has many more species than the other islands and a seemingly more
+even distribution than the others. However, species richness strongly
+influences the calculation of a Hill number. To factor out the influence
+of the number of species from the Hill number and get a stronger
+indicator of "evenness", you can divide the Hill number by the number of
+species, which you will do for Hill q = 1.
 
 ```{r hill-divide}
 sp_counts <-
@@ -540,6 +559,8 @@ sp_counts <-
 traits_hill$q1 / sp_counts
 ```
 
-Interestingly, we see that Kauai actually has a more even distribution of trait values than Maui when accounting for species richness! 
+Interestingly, we see that Kauai actually has a more even distribution
+of trait values than Maui when accounting for species richness!
 
-What are some other interpretations from the plots, summary statistics, and what you know fr
+What are some other interpretations from the plots, summary statistics,
+and what you know fr

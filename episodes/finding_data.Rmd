@@ -8,102 +8,291 @@ editor_options:
 ---
 
 ::: questions
-
-- Where do multi-dimensional biodiversity data live online?
-- How can we use R APIs to quickly and reproducibly retrieve data?
-- How can we combine online resources to assemble and store multi-dimensional datasets?
-
+-   Where do multi-dimensional biodiversity data
+    live online?
+-   How can we use R APIs to quickly and
+    reproducibly retrieve data?
+-   What are some patterns in how these APIs work?
 :::
 
-::::::::::::::::::::::::::::::::::::: objectives
+::: objectives
+After following this episode, we intend that
+participants will be able to:
 
-After following this episode, we intend that participants will be able to:
-
-1. Effectively search for and find trait, sequence, and abundance data online given a taxon and research question 
-2. Retrieve data from GEOME & GBIF using their R APIs and apply API principles to other databases
-3. Organize a dataset of multiple dimensions of biodiversity from multiple online sources
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+1.  Effectively search for and find trait,
+    sequence, and abundance data online given a
+    taxon or research question
+2.  Retrieve data from GEOME & GBIF using their R
+    APIs and apply API principles to other
+    databases
+:::
 
 # Setup
 
-Later on in this episode, we'll be working with some R packages that wrap the APIs of online repositories. 
-Let's set those up now. 
+For this episode, we'll be working with some R
+packages that wrap the APIs of online
+repositories. Let's set those up now.
 
-```{r load packages}
+```{r setup, echo=FALSE}
 
-library(rgbif)
-library(devtools)
-devtools::install_github("biocodellc/fimsR-access")
-library(geomedb)
-
+#install.packages("spocc")
+library(spocc)
+#install.packages("rentrez")
+library(rentrez)
+#install.packages("rotl")
+library(rotl) 
+#install.packages("taxize")
+library(taxize)
 ```
 
 # Sources of multidimensional biodiversity data: large open-access databases
 
-In recent years, large grant-supported open-access databases have been growing at an incredible pace. 
-Databases like this host data from a wide variety of sources. Often data is accumulated from other large projects and organizations.
-These platforms are then used to share and standardize data for the widest possible use. 
+Large open-access biological databases have been
+growing at an incredible pace in recent years.
+Often they accumulate data from many projects and
+organizations. These platforms are then used to
+share and standardize data for wide use.
 
-Many of these databases exist, but here are some examples:
-  GBIF contains occurrance records of individuals assembled from dozens of smaller databases.
-  GEOME (Genomic Observatories MetaDatabase) contains genetic data associated with specimens or samples from the field. 
-  BOLD (Barcode of Life)
-  EOL (Encyclopedia of Life)
-  OTOL (Open Tree of Life) 
-  
-## Using R APIs to download database data 
+Many such databases exist, but here are some
+listed examples:
 
-An API is a set of tools that allows users to interact with a database, such as reading, writing, updating, and deleting data.
-We can't go over all of these databases in detail, but let's cover some examples that illustrate some principles of how these APIs work for different data types. 
+-   GBIF contains occurrence records of
+    individuals assembled from dozens of smaller
+    databases.
 
-Lets get sequence data for mammals from GEOME. 
-Data in GEOME is organized into Projects, lets look at some projects
+-   NCBI (National Center for Biotechnology
+    Information) database, which includes GenBank
+    is the largest repository of genetic data in
+    the world, but includes a lot of biomedical
+    data.
 
-```{r geome1}
+-   OTOL (Open Tree of Life) is a database that
+    combines numerous published trees and
+    taxonomies into one supertree
 
-listProjects()
+-   GEOME (Genomic Observatories MetaDatabase)
+    contains genetic data associated with
+    specimens or samples from the field.
 
+-   BOLD (Barcode of Life) is a reference library
+    and database for DNA barcoding
+
+-   EOL (Encyclopedia of Life) is a species-level
+    platform containing data like taxonomic
+    descriptions, distribution maps, and images
+
+## What's an API?
+
+An API is a set of tools that allows users to
+interact with a database, such as reading,
+writing, updating, and deleting data. We can't go
+over all of these databases in detail, but let's
+cover some examples that illustrate some
+principles of how these APIs work for different
+types of biodiversity data.
+
+Hawaii is known for its diversity of
+*Tetragnatha*, a genus of orb weaver spiders. With
+this target in mind let's download some occurrence
+data from GBIF, some sequence data from NCBI, and
+a phylogeny from OTOL.
+
+## Searching by taxon: getting species names
+
+We want records of only the genus *Tetragnatha*,
+but some APIs will require species names rather
+than the names of broader taxa like genus or
+family. We can use the taxize package for this.
+
+First we use get_uid() to get the identification
+number for the genus in the taxonomy (drawn from
+NCBI).
+
+```{r}
+library(taxize)
+uid <- get_uid("Tetragnatha")
 ```
 
-The project with ID 1 looks interesting, let's download all sequences from this project
+Then we use the downstream() function to get all
+species in *Tetragnatha*. This also works on
+larger taxa like families and orders.
 
-```{r geome2}
-
-fasta <- querySanger('CYB', projects=list(1))
-
+```{r}
+species_uids <- downstream(uid,downto="species")
+species_names <- species_uids[[1]]$childtaxa_name
+species_names
 ```
-OTOL - phylogenies
 
+## Searching by taxon: querying GBIF, OTOL, and NCBI
 
-## Common issues with API big data downloads 
+The spocc package is all about occurrence data and
+lets you download occurrences from all major
+occurrence databases. For GBIF access using the
+spocc package, we use the occ() function.
 
-Download limits
+We'll put the species names we retrieved as the
+'query' and specify gbif as our target database in
+the 'from' field.
 
-Query limits 
+Since the occurrences from spocc are organized as
+a list of dataframes, one per species, we use the
+bind_rows() function from dplyr to combine this
+into a single dataframe.
 
-# Sources of MDBD: "small data" attached to papers 
+```{r}
 
-A lot of useful data is not held in big databases, and is instead attached to papers. 
-Searching on Google and Google Scholar can be an effective way to find such data. 
-Let's search for "mammal trait database" on Google Scholar.
+library(spocc)
+library(dplyr)
+occurrences <- occ(query = species_names, from = 'gbif')
+occurrences_df <- bind_rows(occurrences$gbif$data)
+head(occurrences_df)
+```
 
-The first paper looks good, so let's look at the Supplementary Data which will contain their data.
+The rotl package provides an interface to the Open
+Tree of Life. To get a tree from this database, we
+have to match our species names to OTOL's ids.
 
-Let's download and unzip the data. 
+We first use trns_match_names() to match our
+species names to OTOL's taxonomy.
 
-Reading the metadata file, we see that a certain data file contains the traits. Great! Let's read it into R. 
+Then we use ott_id() to get OTOL ids for these
+matched names.
 
-# Assembling a combined dataset
+```{r}
+resolved_names <- tnrs_match_names(species_names)
+otol_ids <- ott_id(resolved_names)
+```
 
+Finally, we get the tree containing these IDs as
+tips.
+
+```{r}
+tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
+plot(tr)
+```
+
+Unfortunately we can see that the phylogenetic
+relationships between these species aren't
+resolved in OTOL, so we may have to look elsewhere
+for a phylogeny.
+
+Let's continue with the rentrez package, which
+provides an interface to NCBI.
+
+NCBI's API works with genera and larger ranks, but
+has a harder time with lists of species.
+
+For this reason, let's just search for
+*Tetragnatha* using the 'term' argument, which
+takes a string in a specific format describing the
+query.
+
+```{r}
+
+search_results <- entrez_search(db="nucleotide", term="Tetragnatha & Genus[RANK]")
+```
+
+UNLIKE spocc but SIMILARLY to rotol, this first
+search returns a set of IDs.
+
+We then have to use entrez_fetch() on the IDs in
+search_results to obtain the actual record
+information.
+
+We specify 'db' as 'nucleotide' and 'rettype' as
+'fasta' to get fasta sequences
+
+```{r}
+
+sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, rettype = "fasta")
+```
+
+## Searching by location: querying GBIF and NCBI
+
+In addition to or instead of querying by species,
+we can search for records in a given location in
+the world. Within spocc we need to pass location
+queries directly to GBIF using 'gbifopts'. We'll
+search in a lat-long bounding box around Hawaii.
+
+```{r}
+
+#df <- occ(query = species_names, from = 'gbif', has_coords=TRUE, gbifopts=list("continent"#="north_america"))
+occurences_df <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
+                     gbifopts=list("decimalLatitude"='18.910361,28.402123',
+                                   "decimalLongitude"='-178.334698,-154.806773')) 
+```
+
+For NCBI, we can add the state of Hawaii to the
+query string. HI is the abbreviation for Hawaii.
+
+```{r}
+
+search_results <- entrez_search(db="nucleotide", term="Tetragnatha & HI[State]")
+
+sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, rettype = "fasta")
+```
+
+From this we obtain 5 nucleotide sequences from
+Hawaii *Tetragnatha*.
+
+::: challenge
+What are some similarities and differences in how
+data is obtained using the R APIs of GBIF, NCBI,
+and OTOL?
+:::
+
+::: solution
+NCBI and OTOL both require an initial search to
+obtain record IDs, then a second fetch to obtain
+the actual record data for each ID
+
+NCBI uses a string-based query where the search is
+a specially-formated string, while GBIF uses an
+argument-based query where the search is based on
+the various arguments you give to the R API
+function
+
+NCBI is capable of taking a genus and returning
+the records of all its species, but OTOL and GBIF
+require obtaining the species names first using a
+package like taxize
+
+NCBI can take a state in the query, GBIF can take
+a country but not a state.
+
+GBIF data is formatted as a list of occurrences
+for each species contained in the object we get
+from the query.
+:::
+
+# Sources of MDBD: "small data" attached to papers
+
+A lot of useful data is not held in big databases,
+and is instead attached to papers. Searching on
+Google and Google Scholar can be an effective way
+to find such data. Let's search for "mammal trait
+database" on Google Scholar.
+
+The first paper looks good, so let's look at the
+Supplementary Data which will contain their data.
+
+Let's download and unzip the data.
+
+Reading the metadata file, we see that a certain
+data file contains the traits. Great! Let's read
+it into R.
 
 # Recap
 
 ::: keypoints
-
-- Many sources exist online where multidimensional biodiversity data can be obtained
-- APIs allow for fast and reproducible querying and downloading
-- Storing multidimensional data efficiently is important
-
+-   Many sources exist online where
+    multidimensional biodiversity data can be
+    obtained
+-   APIs allow for fast and reproducible querying
+    and downloading
+-   While there are patterns in how these APIs
+    work, there will always be differences between
+    databases that make using each API a bit
+    different.
 :::
-    
