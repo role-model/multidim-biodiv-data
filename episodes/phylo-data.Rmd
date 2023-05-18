@@ -59,19 +59,19 @@ The notation above indicates that: 1) the branches containing A and B have each 
 
 The notation above is what we import into R to start working with and manipulating our phylogenetic tree. For that goal, we will use the [ape](https://academic.oup.com/bioinformatics/article/20/2/289/204981) package:
 
-```{r loading-ape eval=FALSE}
+```{r loading-ape, eval=FALSE}
 library(ape)
 ```
 
 To import our tree, we will be using the function `read.tree()` from the `ape` package. In the case of simple trees as the one above, we could directly create them within R by giving that notation as a `character` value to this function, using the `text` argument, as shown below:
 
-```{r read-example eval=FALSE}
+```{r read-example, eval=FALSE}
 example_tree <- read.tree(text = '((A:0.5,B:0.5):0.5,C:1);')
 ```
 
 Now, we can visually inspect our tree using the `plot()` function:
 
-```{r plot-example eval=FALSE}
+```{r plot-example, eval=FALSE}
 plot(example_tree)
 ```
 
@@ -79,7 +79,7 @@ Can you visualize the text notation in that image? We can see the same informati
 
 The `read.tree()` function creates an object of class `phylo`. We can further investigate this object by calling it in our console:
 
-```{r calling-example eval=FALSE}
+```{r calling-example, eval=FALSE}
 example_tree
 ```
 
@@ -87,7 +87,7 @@ The printed information shows us that we have a phylogenetic tree with 3 tips an
 
 One way to access the components of this object and better explore it is to use `$` after the object name. Here, it will be important for us to know a little bit more about where the information about tip labels and branch lengths are stored in that `phylo` objecy. Easy enough, we can access that by calling `tip.labels` and `edge.length` after `$`.
 
-```{r calling-tips-edge eval=FALSE}
+```{r calling-tips-edge, eval=FALSE}
 example_tree$tip.label
 example_tree$edge.length
 ```
