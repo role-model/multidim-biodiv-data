@@ -85,7 +85,7 @@ The first bar of this plot indicates derived alleles (i.e. not ancestral) that a
 
 The shape of the SFS can tell us important information about the demographic history of a population and their history of selection. The above plot corresponds with a population that has experienced demographic stability. A couple other examples of the impact of demographic history on the SFS include:
 
-```{r, plot-SFS-demography, echo=false, fig.show="hold", out.width="50%"}
+```{r, plot-SFS-demography, echo=FALSE, fig.show="hold", out.width="50%"}
 
 contraction_df <- tibble(
     x = seq(1, 30),
