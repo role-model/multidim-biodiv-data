@@ -8,12 +8,17 @@ editor_options:
 ---
 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+```
+
+
 
 ::: questions 
 
-- How is organismal abundance data typically stored?
-- How is the species abundance distribution used to compare abundance data from differing systems?
-- How do we use summary statistics - including Hill numbers - to quantitatively compare species abundance distributions?
+- How is organismal abundance data typically recorded and stored?
+- How do I clean and manipulate abundance data to prepare for analyses?
+- How do we use summary statistics - including Hill numbers - to compare abundance data across systems?
 
 :::
 
@@ -27,9 +32,7 @@ After following this episode, participants should be able to...
 2. Manipulate abundance data into different formats
 2. Generate species abundance distribution plots from abundance data
 3. Summarize species abundance data using Hill numbers
-4. Interpret how different Hill numbers correspond to different patterns in species diversity
-
-
+4. Interpret how different Hill numbers correspond to different signatures of species diversity
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -58,7 +61,6 @@ We'll be working with ecological species abundance data stored in `.csv` files. 
 Let's load the data:
 
 
-
 ```{r load data}
 abundances <- read.csv("http://bit.ly/3INNA9V")
 
@@ -66,14 +68,13 @@ abundances <- read.csv("http://bit.ly/3INNA9V")
 
 And look at what we've got:
 
-
 ```{r head}
 
 head(abundances)
 
 ```
 
-`abundances` is a data frame with columns for `island`, `site`, and `GenSp`. These data are in a common format in which each row represents a single individual observed. 
+`abundances` is a data frame with columns for `island`, `site`, and `GenSp` (Genus-Species). These data are in a common format in which each row represents a single individual observed. 
 
 ## Cleaning taxonomic names
 
