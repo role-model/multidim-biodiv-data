@@ -60,13 +60,13 @@ contact: 'team@carpentries.org'
 # Order of episodes in your lesson
 episodes:
 - introduction.Rmd
+- finding_data.Rmd
+- care.Rmd
 - abundance-data.Rmd
 - traits-data.Rmd
 - popgen-data.Rmd
 - phylo-data.Rmd
 - connecting-data-types.Rmd
-- finding_data.Rmd
-- care.Rmd
 
 # Information for Learners
 learners:

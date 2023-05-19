@@ -10,15 +10,21 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+
+library(dplyr)
+library(taxize)
+library(hillR)
+library(vegan)
+library(tidyr)
 ```
 
 
 
 ::: questions 
 
-- How is organismal abundance data typically recorded and stored?
+- What is abundance data, and how can we use it to gain insights about a system?
 - How do I clean and manipulate abundance data to prepare for analyses?
-- How do we use summary statistics - including Hill numbers - to compare abundance data across systems?
+- How do I calculate summary statistics and relate these to ecological pattern?
 
 :::
 
@@ -26,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
 
 After following this episode, participants should be able to...
 
-
+1. Describe ecological abundance data and what it can tell us about a system
 1. Import and examine organismal abundance data from .csv files
 1. Clean taxonomic names
 2. Manipulate abundance data into different formats
@@ -38,11 +44,52 @@ After following this episode, participants should be able to...
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-# Setup
+# Introduction to abundance data
+
+Abundance data is one of the most widely-collected biodiversity data types. It generally keeps track of how many individuals of each species (or taxonomic unit) are present at a site. It may also be recorded as relative abundances or percent cover, depending on the group. 
+
+:::: discussion
+
+How have you used species abundance data in your work?
+
+::::
+
+There's a huge diversity of applications of abundance data. Here, we'll focus on one of the most generally-applicable approaches, which is to look at the _diversity_ of a system. By diversity, we mean how abundance is distributed among the different taxonomic groups present in that system. This incorporates both species richness, and the _evenness_ of how abundances is portioned among different species.
+
+
+Let's make this more concrete. If we plot the abundances of all the species in a system, sorted from most to least abundant, we end up with something like this:
+
+```{r first SAD visual, echo = F, include = F}
+
+
+```
+
+This is the _species abundance distribution_, or SAD.
+
+The SAD can show how even or uneven our system is.
+
+Ok, great. What if we want to make comparisons between different systems? For that we need a quantifiable metric. 
+
+There are dozens - literally - of summary statistics for ecological diversity. 
+
+::: discussion
+
+What diversity metrics have you encountered?
+
+:::
+
+For this workshop, we're going to focus on **Hill numbers**.
+
+[Hill numbers and effective nb of species content].
+
+
+# Working with abundance data
+
+Ok, so how about we do some actual coding?
 
 For this episode, we'll be working with a couple of specialized packages for biological data. 
 
-```{r load packagse}
+```{r load packages, include = T, eval = F}
 
 library(dplyr)
 library(taxize)
@@ -52,7 +99,6 @@ library(tidyr)
 
 ```
 
-# Data import and cleaning
 
 ## Loading data
 
@@ -62,19 +108,22 @@ Let's load the data:
 
 
 ```{r load data}
-abundances <- read.csv("http://bit.ly/3INNA9V")
+abundances <- read.csv("http://bit.ly/3INNA9V") %>%
+    group_by(island, site, GenSp) %>%
+    summarize(abundance = dplyr::n()) %>%
+    ungroup()
 
 ```
 
 And look at what we've got:
 
-```{r head}
+```{r examine data}
 
 head(abundances)
 
 ```
 
-`abundances` is a data frame with columns for `island`, `site`, and `GenSp` (Genus-Species). These data are in a common format in which each row represents a single individual observed. 
+`abundances` is a data frame with columns for `island`, `site`, `GenSp`, and `abundance`. Each row tells us how many individuals of each species (GenSp) were recorded at a given site on each island. This is a common format - imagine you are censusing a plant quadrat, counting up how many individuals of each species you see. 
 
 ## Cleaning taxonomic names
 
@@ -82,9 +131,9 @@ The first thing we'll want to do is check for human error wherever we can, in th
 
 The `taxize` R package can help identify and resolve simple typos in taxonomic names. 
 
-```{r taxize}
+```{r taxize nameresolve}
 
-species_list <- unique(abundances$GenSp)
+species_list <- abundances$GenSp
 
 name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, 
                             canonical = TRUE) # returns only name, not authority
@@ -122,7 +171,13 @@ name_resolve$matched_name2[name_resolve$user_supplied_name == "Agrotis chersotoi
 
 
 
-Now we need to add the newly-resolved names to our `abundnaces` data:
+Now we need to add the newly-resolved names to our `abundances` data. For this, we'll use a function called `left_join`. 
+
+::: discussion
+
+Visual of how `left_join` works
+
+:::
 
 
 ```{r join abundances and names}
@@ -133,32 +188,38 @@ abundances$final_name <- abundances$matched_name2
 ```
 
 
-## Wrangling abundance data
+## Visualizing species abundance distributions
 
-The data we have have one record per individual, but we'd like to have the _total_ number of individuals of each species in our data. 
+Now that we have cleaned data, we can generate plots of how abundance is distributed.
 
-
-```{r compute species totals}
-
-abundance_tallies <- group_by(abundances, site, island, final_name)
-abundance_tallies <- summarize(abundance_tallies, abundance = n())
-
-head(abundance_tallies)
+```{r separate islands using split}
 
 ```
 
-Write out the tallied data for later use:
 
-```{r save abundance tallies, eval=FALSE}
-write.csv(abundance_tallies,  "abundance_tallies.csv", row.names = FALSE)
+```{r base R plots of SADs}
+
 ```
 
+::: discussion
 
-## Site-by-species matrix
+What do you notice about the SADs on the different islands?
 
-Often we'll want to work with a _site by species matrix_, which has sites as rows and species as columns. We can get there using the `pivot_wider` function from the package `tidyr`:
+:::
 
-```{r site by species}
+
+
+## Quantifying diversity using Hill numbers
+
+Let's calculate Hill numbers to put some numbers to these shapes. 
+
+For this, we'll need what's known as a **site by species matrix**. This is a very common data format for ecological diversity data. 
+
+### Site-by-species matrix
+
+A site by species sites as rows and species as columns. We can get there using the `pivot_wider` function from the package `tidyr`:
+
+```{r site by species matrix via pivot wider}
 
 abundance_wide <- pivot_wider(abundance_tallies, id_cols = site,
                               names_from = final_name,
@@ -171,7 +232,7 @@ head(abundance_wide[,1:10])
 
 We'll want this data to have _row names_ based on the sites, so we'll need some more steps:
 
-```{r}
+```{r site by species matrix row names}
 
 abundance_wide <- as.data.frame(abundance_wide)
 
@@ -183,147 +244,9 @@ head(abundance_wide)
 
 ```
 
-<!-- ```{r or base r} -->
-<!-- x <- aggregate(abundances[, 'final_name', drop = FALSE], abundances[, c('final_name', 'site')],  -->
-<!--                length) -->
+### Calculating Hill numbers with `hillR`
 
-<!-- head(x) #is identical -->
-<!-- ``` -->
-
-# Visualization via the species abundance distribution
-
-## Separating the islands
-
-```{r}
-
-kauai_abund <- abundance_tallies[ abundance_tallies$island == "Kauai", ]
-maui_abund <- abundance_tallies[ abundance_tallies$island == "Maui", ]
-hawaiiisland_abund <- abundance_tallies[ abundance_tallies$island == "HawaiiIsland", ]
-
-```
-
-## Plotting SADs
-
-```{r hawaii sad plot}
-
-plot(sort(hawaiiisland_abund$abundance, TRUE))
-
-```
-
-
-::: challenge
-
-Plot the rank-abundance distributions for the remaining islands.
-
-:::
-
-
-::: solution
-
-
-```{r kauai sad plot}
-
-plot(sort(kauai_abund$abundance, TRUE))
-
-```
-
-
-```{r maui sad plot}
-plot(sort(maui_abund$abundance, TRUE))
-
-```
-
-:::
-
-
-
-# Summary statistics
-
-## Diversity indices
-
-The `vegan` package is a widely-used toolset for calculating diversity indices on ecological abundance data. 
-
-### Species richness
-
-
-```{r richness}
-
-richness <- specnumber(abundance_wide)
-
-richness
-```
-
-### Shannon's index
-
-```{r shannon on hawaii}
-
-shannon <- diversity(abundance_wide, index = "shannon")
-
-shannon
-```
-
-
-```{r exp shannon}
-
-exp_shannon <- exp(shannon)
-
-
-exp_shannon
-```
-
-### Simpson's evenness
-
-
-```{r simpson on hawaii}
-
-simpson <- diversity(abundance_wide, index = "simpson")
-simpson
-
-```
-
-::: challenge
-
-Compute the *inverse* Simpson index.
-
-(Hint: use `?diversity` to get more information about the `diversity` function).
-
-:::
-
-
-::: solution
-
-```{r invsimpson }
-
-invsimpson <- diversity(abundance_wide, index = "invsimpson")
-
-invsimpson
-```
-
-:::
-
-
-### Combining values into a dataframe
-
-```{r consolidate diversity metrics}
-
-diversity_metrics <- rbind(exp_shannon, 
-                           invsimpson,
-                           richness)
-
-diversity_metrics
-```
-
-## Hill numbers
-
-::: discussion
-
-Hill numbers are a unifying framework.
-
-:::
-
-### Calculating Hill numbers
-
-The `hillR` package allows us to calculate Hill numbers in much the same way we calculate diversity indices in `vegan`.
+The `hillR` package allows us to calculate Hill numbers. 
 
 ```{r hill 0}
 
@@ -361,42 +284,12 @@ hill_2
 :::
 
 
-### Combining and plotting Hill numbers
-
-```{r combining hill numbers}
-
-hill_numbers <- rbind(hill_0, hill_1, hill_2)
-hill_numbers
-```
-
-::: discussion
-
-Compare the values for the Hill numbers to the values we generated earlier for richness,  Shannon's index, and the inverse Simpson.
-
-The following may help:
-
-```{r show dis}
-
-diversity_metrics
-
-```
-
-
-```{r show hills}
-
-hill_numbers
-
-```
-
-
-:::
-
 
 ## Relating Hill numbers to patterns in diversity
 
 Let's revisit the SAD plots we generated before, and think about these in terms of Hill numbers. 
 
-```{r sad again plots}
+```{r render SAD plots again}
 
 par(mfrow = c(3,1))
 plot(sort(hawaiiisland_abund$abundance, TRUE))
@@ -407,7 +300,7 @@ plot(sort(maui_abund$abundance, TRUE))
 ```
 
 
-```{r hill again}
+```{r look at hill numbers again}
 hill_numbers
 
 ```
