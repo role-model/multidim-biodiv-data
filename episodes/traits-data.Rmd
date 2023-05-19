@@ -7,11 +7,17 @@ editor_options:
     wrap: 72
 ---
 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+
+```
+
 :::::::::::::::::::::::::::::::::::::: questions
 
--   How do you read in and clean trait data?
--   What visualization techniques help you perform quality control and
-    understand the distribution of your data?
+-   What information is captured via trait data? 
+-   How do you read, clean, and visualize trait data?
 -   What do Hill numbers convey in the context of trait data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -29,8 +35,18 @@ After following this episode, participants should be able to...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-We will work now with trait (i.e., phenotypic) data for communities in
-the Hawaiian islands. Similarly to abundance, investigating trait data
+## Introduction to traits
+
+Trait data is both old and new in ecology.
+
+::: discussion
+
+What have been your experiences with trait data? What are examples of traits you've looked at, or you imagine might be important?
+
+:::
+
+
+Similarly to abundance, investigating trait data
 can give insights into the ecological processes shaping different
 communities. Specifically, it would be interesting to answer questions
 like: 1) how much does a specific trait vary in a community?; 2) Are all
@@ -40,8 +56,30 @@ across different communities? Answering these questions can help us
 understand how species are interacting with the environment and/or with
 each other.
 
+Defining what exactly constitutes a trait, and measuring traits, can get complicated in ecology. (For example, there are lots of things we can measure about even just a leaf - but it's another story to understand which of those attributes are telling us something _ecologically_ meaningful). Ideally, we'd want to focus on a trait that is easily measureable and also linked to ecological features of interest. One such trait is _body size_. Body size is correlated with a whole host of ecologically meaningful traits, and is one of the easiest things to measure about an organism.
+
+Similarly to how we look at community-wide distributions of abundance, we can generate and interpret community-wide _trait_ distributions. 
+
+```{r plot of trait diversity distribution}
+
+```
+
+
+And, similar to how we can look at species abundance diversity using Hill numbers, we can look at trait diversity using a _trait_ Hill number. 
+
+
+```{r show trait hill numbers} 
+
+
+
+```
+
+## Working with trait data
+
+### Importing and cleaning trait data
+
 Here, we will work with a dataset containing values of **body mass** for
-the species in the Hawaiian islands. Similar to the abundance data, each
+the species in the Hawaiian islands. Unlike to the abundance data, each
 row represents one specimen: in this dataset, each row contains the body
 mass measured for that specimen. Our overall goal here is to clean this
 data and attach it to the species data, so we can investigate trait
@@ -51,7 +89,6 @@ We're starting with a challenge!
 
 :::::: challenge
 
-### Import and clean trait data
 
 In the abundance-data episode, you learned how to read in a `CSV` file
 with the `read.csv()` function. In addition, you learned how to clean
@@ -107,15 +144,6 @@ function. Note, we indicate that the `GenSp` and `user_supplied_name`
 columns have the same information by supplying a named vector to the
 `by =` argument.
 
-:::::::::::::::::: instructor
-
-```         
-Remember, left_join is like sticking two things together with a shared
-```
-
-column
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r trait-resolve-sol3}
 library(dplyr)
@@ -140,36 +168,11 @@ colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 head(traits)
 ```
 
-:::::::::::::::::: instructor
-
-```         
-Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
-                                                             package) - argument options and output of `taxize::gnr_resolve`
-```
-
-Get the one with maximum score
-
--   Coding for categorical data?
-    -   Collapsing individual trait data and getting mean, median, SD
--   Merging trait data from different sources (individual-based vs
-    species-based)
--   Creating a multi-dimensional trait database
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-<<<<<<< HEAD
-# Aggregation
-
-When analyzing trait data, it often needs to be summarized at a higher level than the individual. For instance, many community assembly
-=======
 :::
 
-    # Aggregation
-    
-When analyzing trait data, it often needs to be summarized at a higher
-level than the individual. For instance, many community assembly
->>>>>>> c86449c88ae44948adde76c7c0a39200bae38e26
-analyses require species-level summaries, rather than individual
+### Summarizing and cleaning trait data
+
+When analyzing trait data, it often needs to be summarized at a higher level than the individual. For instance, many community assembly analyses require species-level summaries, rather than individual
 measurements. So, we often want to calculate summary statistics of
 traits for each species. For numeric measurements, body size, statistics
 like the mean, median, and standard deviation give information about the
@@ -221,7 +224,7 @@ Finally, you need to add the aggregated species-level information back
 to the abundance data, so you have the summary statistics for each
 species at each site.
 
-First, read in the abundance tallies dataframe you made in the abundance
+First, read in the abundance data you used in the abundance
 episode.
 
 ```{r read-abundance}
@@ -241,7 +244,7 @@ traits_sumstats <- left_join(abundance_tallies, traits_sumstats, by = "final_nam
 head(traits_sumstats)
 ```
 
-# Visualize trait distributions
+## Visualizing trait distributions
 
 Histograms and density plots can help give you a quick look at the
 distribution of your data. For quality control purposes, they are useful
@@ -416,11 +419,8 @@ abundance_wide <- abundance_wide[,-1]
 
 :::::::::::::::::
 
-```         
-Now, to create the traits dataframe you first need to remove the `site`,
-```
 
-`island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
+Now, to create the traits dataframe you first need to remove the `site`, `island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
 
 ```{r traits-remove-cols}
 traits_simple <- traits_sumstats[, -c(1, 2, 4, 6, 7)]
@@ -467,10 +467,9 @@ For simplicity's sake, we will look at `D_q`, which from the
 documentation is the:
 
 ```         
-> functional Hill number, the effective number of equally abundant and
-```
+> functional Hill number, the effective number of equally abundant and functionally equally distinct species
 
-> functionally equally distinct species
+```
 
 ```{r hill1-output}
 traits_hill_1
@@ -562,5 +561,17 @@ traits_hill$q1 / sp_counts
 Interestingly, we see that Kauai actually has a more even distribution
 of trait values than Maui when accounting for species richness!
 
+::: discussion
+
 What are some other interpretations from the plots, summary statistics,
-and what you know fr
+and what you know from your work?
+
+:::
+
+
+::: keypoints
+
+- Traits data contain more information about ecologially significant traits than just species IDs.
+- Traits data can be treated similarly to abundance data.
+
+:::
