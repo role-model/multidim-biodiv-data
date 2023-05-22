@@ -27,7 +27,10 @@ tidyr
 ape
 taxize
 hillR
-[REMAINING PACKAGES]
+spocc
+rotl
+rentrez
+
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::

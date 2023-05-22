@@ -81,8 +81,15 @@ What diversity metrics have you encountered?
 
 For this workshop, we're going to focus on **Hill numbers**.
 
-[Hill numbers and effective nb of species content].
+Hill numbers are a family of diversity indices that can be described verbally as the "effective number of species". That is, they describe how many species of _equal abundances_ would be present in a system to generate the corresponding diversity index.
 
+::: discussion
+
+Let's get into Hill numbers more on the whiteboard.
+
+:::
+
+Hill numbers are similar to other diversity indices you might have encountered. In fact, they mathematically converge with Shannon, Simpson, and species evenness.
 
 # Working with abundance data
 
