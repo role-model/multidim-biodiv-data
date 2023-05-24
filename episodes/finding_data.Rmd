@@ -295,7 +295,9 @@ Others can be downloaded directly from the source.
 
 Finally, A lot of useful data is not held in  databases,
 and is instead attached to papers. Searching manuscript databases or Google Scholar can be an effective way
-to find such data. However, this can be a somewhat heterogeneous and time-consuming strategy!
+to find such data. You can filter Web of Science to find entries with "associated data".
+
+However, this can still be a somewhat heterogeneous and time-consuming strategy!
 
 ::: instructor
 
