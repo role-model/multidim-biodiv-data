@@ -102,7 +102,7 @@ mass in grams, the metric of body size chosen for the study. The data
 also contain typos and a problem with the taxonomy that you must correct
 and investigate. Make sure to glance at the data before cleaning!
 
-Your trait data is located at: <http://bit.ly/41GsgvE>
+Your trait data is located at: <https://bit.ly/41GsgvE>
 
 :::
 
@@ -112,7 +112,7 @@ Read in the traits data using the `read.csv` function and supplying it
 with the path to the data.
 
 ```{r trait-import-sol}
-traits <- read.csv('http://bit.ly/41GsgvE')
+traits <- read.csv('https://bit.ly/41GsgvE')
 ```
 
 Check the names of the traits using the `gnr_resolve()` function. To
