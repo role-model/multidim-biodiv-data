@@ -105,16 +105,47 @@ example_tree$tip.label
 example_tree$edge.length
 ```
 
-Now that we learned how to import and visualize trees in R, let's bring the phylogeny for the communities we are working with in this workshop. Our data so far consists of [abundances](abundance-data.Rmd) and [traits](traits-data.Rmd) of several taxa of arthropods collected across three islands in the Hawaian archipelago. Here, we will import a global phylogeny of arthropods, located at: <>
+Now that we learned how to import and visualize trees in R, let's bring the phylogeny for the communities we are working with in this workshop. Our data so far consists of [abundances](abundance-data.Rmd) and [traits](traits-data.Rmd) of several taxa of arthropods collected across three islands in the Hawaian archipelago. Let's work though importing phylogenetic information for these species. 
 
-```{r reading-phylogeny}
-phylogeny <- read_tree('')
+First, we will get the OTT IDs for the species in our data:
+
+```{r rotl ott ids}
+library(rotl)
+
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_raw.csv")
+
+species_names <- abundances$GenSp
+
+resolved_names <- tnrs_match_names(species_names)
+
+# Remove names that aren't a perfect match
+
+good_names <- resolved_names[ !resolved_names$approximate_match,]
+good_names <- good_names[ !is.na(good_names$approximate_match), ]
+
+# Remove a couple of ott ids that seem to confuse tol_induced_subtree
+
+good_names <- good_names[ good_names$ott_id != "3574707", ]
+good_names <- good_names[ good_names$ott_id != "737065", ]
+```
+
+Next, we can query the Open Tree of Life for those IDs using the `tol_induced_subtree` function.
+
+```{r tol subtree}
+
+arthro_tree <- tol_induced_subtree(ott_ids = good_names$ott_id)
+
+```
+
+```{r}
+arthro_tree
+class(arthro_tree)
 ```
 
 This new object is way larger than the previous once, being a "real" phylogeny and all. You can inspect it again by directly calling the object `phylogeny`. To plot it, we will use the `type` argument to modify how our tree will be displayed. Here, we used the option `'fan'`, to display a circular phylogeny (slightly better to show such a large phylogeny in the screen).
 
 ```{r plotting-phylogeny}
-plot(phylogeny, type = 'fan')
+plot(arthro_tree, type = 'fan', show.tip.label = F)
 ```
 
 How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some cleaning.
@@ -123,92 +154,105 @@ How do we combine all this information with the community datasets we have so fa
 
 Often, when we want to include the phylogenetic relatedness of organisms in our biodiversity analyses, we will run into published phylogenetic trees for our focal taxon (that is the case of the tree we are using here). A couple issues arise in these cases. First, and maybe most importantly, we need to make sure that the taxonomic names used across the different datasets in our analyses (phylogenies included) are the same. A second issue is that, depending on the resolution of the published phylogeny, it may be the case that some taxa in our community dataset may not be explicitly represented in the phylogeny. In these cases, we will want to assign those "missing taxa" to one of the tips present in the tree, based on their known genus and/or family assignments.
 
-In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge!
 
-### Resolving taxonomic names
+**RMD commenting May 26. With taxize down, and using `rotl` for both name resolution and getting the phylogeny, there aren't going to be mismatched names in the phylogeny.**
 
-::: challenge
+**But, there is the potential for missing names...**
 
-In previous episodes, we have used the package `taxize` to clean and standardize the taxonomic names in out dataset. Here, we will apply the same approach to the tip names of our phylogeny. We need to make sure the names we will accept from `taxize` will match the names we have accepted in previous episodes. Finally, after we decide on the names, we need to add them to the `phylogeny` objects, where the tip names are stored.
+**For now, RMD is commenting out the phylo cleaning section. If we end up continuing with `rotl` for both cleaning + phylo, I think there will be an opportunity to do name/broken taxon fixing. Some of this is covered in an R Open Tree of Life Carpentries lesson here: https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html (which is what RMD is working from).**
 
-::: solution
+<!-- In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge! -->
 
-First, we check the names using the `gnr_resolve()` function. In `phylogeny`, tip names are stored in `phylogeny$tip.label`, so we provide that vector to our function.
+<!-- ### Resolving taxonomic names -->
 
-```{r phylo-resolve-sol1}
-library(taxize)
-name_resolve <- gnr_resolve(phylogeny$tip.label, best_match_only = TRUE, canonical = TRUE)
-head(name_resolve)
-```
+<!-- ::: challenge -->
 
-We can see what taxa are in conflict with the names retrieved by `taxize` by subsetting `name_resolve` based on boolean matching.
+<!-- In previous episodes, we have used the package `taxize` to clean and standardize the taxonomic names in out dataset. Here, we will apply the same approach to the tip names of our phylogeny. We need to make sure the names we will accept from `taxize` will match the names we have accepted in previous episodes. Finally, after we decide on the names, we need to add them to the `phylogeny` objects, where the tip names are stored. -->
 
-```{r phylo-resolve-sol2}
-mismatches_phylo <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
+<!-- ::: solution -->
 
-mismatches_phylo
-```
+<!-- First, we check the names using the `gnr_resolve()` function. In `phylogeny`, tip names are stored in `phylogeny$tip.label`, so we provide that vector to our function. -->
 
-From here, we can see that apparently there are no misspellings in our tree (as expected from a published phylogeny). Most of the mismatches seem to be related to changes in the taxonomic treatment of species. This is a common situation, since taxonomic treatments are often revised after new trees are published; it might be the case that `nameA` in our dataset was treated as `nameB` at the time the phylogeny was created.
+<!-- ```{r phylo-resolve-sol1} -->
+<!-- library(taxize) -->
+<!-- name_resolve <- gnr_resolve(phylogeny$tip.label, best_match_only = TRUE, canonical = TRUE) -->
+<!-- head(name_resolve) -->
+<!-- ``` -->
 
-In the previous episodes, we used the names provided by `taxize` directly. Therefore, here we can just add those names directly to the phylogeny.
+<!-- We can see what taxa are in conflict with the names retrieved by `taxize` by subsetting `name_resolve` based on boolean matching. -->
 
-```{r phylo-resolve-sol3}
-phylogeny$tip.label == name_resolve$matched_name2
+<!-- ```{r phylo-resolve-sol2} -->
+<!-- mismatches_phylo <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")] -->
 
-```
+<!-- mismatches_phylo -->
+<!-- ``` -->
 
-::::::::::::
+<!-- From here, we can see that apparently there are no misspellings in our tree (as expected from a published phylogeny). Most of the mismatches seem to be related to changes in the taxonomic treatment of species. This is a common situation, since taxonomic treatments are often revised after new trees are published; it might be the case that `nameA` in our dataset was treated as `nameB` at the time the phylogeny was created. -->
 
-::::::::::::
+<!-- In the previous episodes, we used the names provided by `taxize` directly. Therefore, here we can just add those names directly to the phylogeny. -->
 
-### Resolving missing tip names
+<!-- ```{r phylo-resolve-sol3} -->
+<!-- phylogeny$tip.label == name_resolve$matched_name2 -->
 
-The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree.
+<!-- ``` -->
 
-To check which species are not in the tree, we can use any of the objects we created so far that has the list of all the species in our communities. These could be: 1) the abundances we calculated per site and island in the [abundances episode](abundance-data.Rmd), stored in the object `abundance_tallies`; 2) the _site by species matrix_ we have created in the abundance episode (stored in the object `abundance_wide`); 3) the list of species with their respective trait values, created in the [traits episode](traits-data.Rmd) and stored in the `traits_simple` object. Since we are going to directly use the site-by-species matrix to calculate Hill numbers (next section), let's focus on this object and retrieve the species name for it.
+<!-- :::::::::::: -->
 
-We do that by accessing the `colnames()` of that object. We will also remove the first element, since it is just the header for the column with the `site` name.
+<!-- :::::::::::: -->
 
-```{r}
-species_names <- colnames(abundance_wide)[-1]
-```
+<!-- ### Resolving missing tip names -->
 
-The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now).
+<!-- The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree. -->
 
-```{r}
-not_present <- !(species_names %in% phylogeny$tip.label)
-```
+<!-- For this, let's refer back to our original species list and cross-check it against the list of names we were able to find good OTT IDs for. -->
 
-The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`:
 
-```{r}
-species_name[not_present]
-```
 
-Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly...
+<!-- ```{r} -->
 
-We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future).
+<!-- all_names <- tolower(abundances$GenSp) -->
 
-```{r}
-species_name[not_present] <- c()
-new_names[not_present] <- c()
-```
+<!-- found_names <- good_names$search_string -->
 
-Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names.
+<!-- unfound_names <- setdiff(all_names, found_names) -->
 
-```{r}
-phylo_wide <- abundance_wide
-colnames(phylo_wide) <- new_names
-```
+<!-- ``` -->
 
-:::::::::::::::::: instructor
-    
-    Another issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up.
+<!-- The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now). -->
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::
+<!-- ```{r} -->
+<!-- not_present <- !(species_names %in% phylogeny$tip.label) -->
+<!-- ``` -->
 
-After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities.
+<!-- The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`: -->
+
+<!-- ```{r} -->
+<!-- species_name[not_present] -->
+<!-- ``` -->
+
+<!-- Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly... -->
+
+<!-- We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future). -->
+
+<!-- ```{r} -->
+<!-- species_name[not_present] <- c() -->
+<!-- new_names[not_present] <- c() -->
+<!-- ``` -->
+
+<!-- Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names. -->
+
+<!-- ```{r} -->
+<!-- phylo_wide <- abundance_wide -->
+<!-- colnames(phylo_wide) <- new_names -->
+<!-- ``` -->
+
+<!-- :::::::::::::::::: instructor -->
+
+<!--     Another issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up. -->
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+<!-- After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities. -->
 
 ### Summarizing with hill numbers
 
