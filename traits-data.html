@@ -268,7 +268,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Trait data</h1>
-        <p> Last updated on 2023-05-30 | 
+        <p> Last updated on 2023-06-01 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -358,7 +358,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -379,47 +379,44 @@ names in your data to <code>gnr_resolve()</code>.</p>
 <span><span class="co"># only need to check the unique names</span></span>
 <span><span class="va">species_list</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: Service Unavailable (HTTP 503)</code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 5
+  user_supplied_name        submitted_name data_source_title score matched_name2
+  &lt;chr&gt;                     &lt;chr&gt;          &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        
+1 Xyleborus perforans       Xyleborus per… National Center … 0.988 Xyleborus pe…
+2 Agrotis chersotoides      Agrotis chers… Catalogue of Lif… 0.75  Agrotis      
+3 Oligotoma saundersii      Oligotoma sau… Wikispecies       0.988 Oligotoma sa…
+4 Drosophila humeralis      Drosophila hu… Wikispecies       0.988 Drosophila h…
+5 Entomobrya griseoolivata  Entomobrya gr… National Center … 0.988 Entomobrya g…
+6 Pseudosinella kalalauens… Pseudosinella… Encyclopedia of … 0.988 Pseudosinell…</code></pre>
 </div>
+<p>To quickly see which taxa are in conflict with <code>taxize</code>’s,
+use bracket subsetting and boolean matching.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">mismatches_traits</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">mismatches_traits</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'name_resolve' not found</code></pre>
-</div>
-<p>To quickly see which taxa are in conflict with <code>taxize</code>’s,
-use bracket subsetting and boolean matching.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mismatches_traits</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'name_resolve' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mismatches_traits</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'mismatches_traits' not found</code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 5 × 2
+  user_supplied_name     matched_name2       
+  &lt;chr&gt;                  &lt;chr&gt;               
+1 Agrotis chersotoides   Agrotis             
+2 Trigonidium flelectens Trigonidium flectens
+3 Schrankia simplllex    Schrankia simplex   
+4 Holcobius insignigis   Holcobius insignis  
+5 Carposina mauiii       Carposina mauii     </code></pre>
 </div>
 <p>Fixing the names comes in two steps. First, we join the
 <code>traits</code> dataframe with the <code>name_resolve</code>
@@ -428,7 +425,7 @@ that the <code>GenSp</code> and <code>user_supplied_name</code> columns
 have the same information by supplying a named vector to the
 <code>by =</code> argument.</p>
 
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -454,33 +451,24 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, <span class="va">name_resolve</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span>, by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'name_resolve' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, <span class="va">name_resolve</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span>, by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>                 GenSp   mass_g
-1  Xyleborus perforans 10.13036
-2  Xyleborus perforans 10.05684
-3  Xyleborus perforans 10.14838
-4  Xyleborus perforans 10.20234
-5  Xyleborus perforans 10.14719
-6 Agrotis chersotoides 24.25539</code></pre>
+<pre class="output" tabindex="0"><code>                 GenSp   mass_g       matched_name2
+1  Xyleborus perforans 10.13036 Xyleborus perforans
+2  Xyleborus perforans 10.05684 Xyleborus perforans
+3  Xyleborus perforans 10.14838 Xyleborus perforans
+4  Xyleborus perforans 10.20234 Xyleborus perforans
+5  Xyleborus perforans 10.14719 Xyleborus perforans
+6 Agrotis chersotoides 24.25539             Agrotis</code></pre>
 </div>
 <p>Then, to replace <em>Agrotis chersotoides</em> with the updated
 <em>Peridroma chersotoides</em>, which you discovered in abundance-data
@@ -488,35 +476,26 @@ episode, use bracketed indexing, boolean matching, and assignment.</p>
 <p>In addition, although not necessary, changing the column name
 <code>matched_name2</code> to <code>final_name</code> to give it a more
 sensible name for later use is good practice.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">==</span> <span class="st">"Agrotis"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Peridroma chersotoides"</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `$&lt;-.data.frame`(`*tmp*`, matched_name2, value = character(0)): replacement has 0 rows, data has 1440</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span><span class="op">[</span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span> <span class="op">==</span> <span class="st">"matched_name2"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"final_name"</span></span>
+<code class="sourceCode R"><span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">==</span> <span class="st">"Agrotis"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Peridroma chersotoides"</span></span>
+<span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span><span class="op">[</span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span> <span class="op">==</span> <span class="st">"matched_name2"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"final_name"</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>                 GenSp   mass_g
-1  Xyleborus perforans 10.13036
-2  Xyleborus perforans 10.05684
-3  Xyleborus perforans 10.14838
-4  Xyleborus perforans 10.20234
-5  Xyleborus perforans 10.14719
-6 Agrotis chersotoides 24.25539</code></pre>
+<pre class="output" tabindex="0"><code>                 GenSp   mass_g             final_name
+1  Xyleborus perforans 10.13036    Xyleborus perforans
+2  Xyleborus perforans 10.05684    Xyleborus perforans
+3  Xyleborus perforans 10.14838    Xyleborus perforans
+4  Xyleborus perforans 10.20234    Xyleborus perforans
+5  Xyleborus perforans 10.14719    Xyleborus perforans
+6 Agrotis chersotoides 24.25539 Peridroma chersotoides</code></pre>
 </div>
 
 <p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD # Aggregation</p>
@@ -529,10 +508,10 @@ assembly<a class="anchor" aria-label="anchor" href="#when-analyzing-trait-data-i
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregation</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregation</span></span></code></pre>
 </div>
 <p>When analyzing trait data, it often needs to be summarized at a
 higher level than the individual. For instance, many community assembly
@@ -552,7 +531,7 @@ argument to <code>group_by()</code> is your data frame, and all
 following unnamed arguments are the variables you want to group the data
 by. In our case, we want to group by species name, so we’ll supply
 <code>final_name</code>.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -560,13 +539,6 @@ by. In our case, we want to group by species name, so we’ll supply
 <span></span>
 <span><span class="co"># group the data frame by species</span></span>
 <span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">traits</span>, <span class="va">final_name</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `group_by()`:
-! Must group by variables found in `.data`.
-✖ Column `final_name` is not found.</code></pre>
 </div>
 <p><code>group_by()</code> just adds an index that tells any following
 <code>dplyr</code> functions to perform their calculations on the group
@@ -580,7 +552,7 @@ resulting variables. The structure is
 calculation. Here, we’re using the <code>mean()</code>,
 <code>median()</code>, and <code>sd()</code> functions. Then, we’ll take
 a look at the new data set with the <code>head()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -591,30 +563,29 @@ a look at the new data set with the <code>head()</code> function.</p>
 <span>        mean_mass_g <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mass_g</span><span class="op">)</span>,</span>
 <span>        median_mass_g <span class="op">=</span> <span class="fu">median</span><span class="op">(</span><span class="va">mass_g</span><span class="op">)</span>,</span>
 <span>        sd_mass_g <span class="op">=</span> <span class="fu">sd</span><span class="op">(</span><span class="va">mass_g</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span></code></pre>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 4
+  final_name               mean_mass_g median_mass_g sd_mass_g
+  &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+1 Abanchogastra debilis           6.65          6.64    0.0890
+2 Acanthia procellaris           12.9          12.8     0.0726
+3 Actia eucosmae                 10.8          10.9     0.0945
+4 Adelencyrtus odonaspidis        5.99          6.00    0.0411
+5 Aedes albopictus               10.9          10.9     0.0548
+6 Aedes nocturnus                 6.84          6.83    0.0331</code></pre>
 </div>
 <p>Finally, you need to add the aggregated species-level information
 back to the abundance data, so you have the summary statistics for each
 species at each site.</p>
 <p>First, read in the abundance tallies dataframe you made in the
 abundance episode.</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -624,27 +595,31 @@ abundance episode.</p>
 hopefully getting familiar to you now!</p>
 <p><code>abundance_tallies</code> should be on the left side, since we
 want the species-information for each species in each community.</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abundance_tallies</span>, <span class="va">traits_sumstats</span>, by <span class="op">=</span> <span class="st">"final_name"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abundance_tallies</span>, <span class="va">traits_sumstats</span>, by <span class="op">=</span> <span class="st">"final_name"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
+<pre class="output" tabindex="0"><code>             site       island                         final_name abundance
+1 HawaiiIsland_01 HawaiiIsland               Acanthia procellaris         3
+2 HawaiiIsland_01 HawaiiIsland                     Actia eucosmae         4
+3 HawaiiIsland_01 HawaiiIsland Anomalochrysa fulvescens rhododora         2
+4 HawaiiIsland_01 HawaiiIsland             Anoplolepis gracilipes         5
+5 HawaiiIsland_01 HawaiiIsland                   Anurophorus lohi         2
+6 HawaiiIsland_01 HawaiiIsland                    Aphis citricola         3
+  mean_mass_g median_mass_g  sd_mass_g
+1   12.875661     12.840191 0.07255218
+2   10.836548     10.864682 0.09449608
+3    2.860058      2.855061 0.04633525
+4   12.366928     12.358811 0.01926359
+5    6.251880      6.234964 0.07793529
+6    3.822070      3.819887 0.12376448</code></pre>
 </div>
 <div class="section level1">
 <h1 id="visualize-trait-distributions">Visualize trait distributions<a class="anchor" aria-label="anchor" href="#visualize-trait-distributions"></a></h1>
@@ -675,7 +650,7 @@ distribution.</p>
 <p>Finally, to add the density line to the plot, you calculate the
 density of the trait distribution with the <code>density()</code>
 function and wrap it with the <code>lines()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -687,25 +662,11 @@ function and wrap it with the <code>lines()</code> function.</p>
 <span>    main <span class="op">=</span> <span class="st">"All species"</span>,</span>
 <span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.11</span><span class="op">)</span>,</span>
 <span>    freq <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lines</span><span class="op">(</span><span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb38">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lines</span><span class="op">(</span><span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
-</div>
-<p>In addition to quality control, knowing the distribution of trait
+<figure><img src="fig/traits-data-rendered-density-all-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In addition to quality control, knowing the distribution of trait
 data lends itself towards questions of what processes are shaping the
 communities under study. Are the traits overdispersed? Underdispersed?
 Does the average vary across communities? To get at these questions, you
@@ -720,28 +681,19 @@ then returns a list of data frames for each element in the variable.</p>
 <p>Running <code>head()</code> on the list returns a lot of output, so
 you can use the <code>names()</code> function to make sure the names of
 the dataframes in your list are the sites you intended to split by.</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># split by site</span></span>
-<span><span class="va">traits_sumstats_split</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">traits_sumstats</span>, <span class="va">traits_sumstats</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span></code></pre>
+<span><span class="va">traits_sumstats_split</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">traits_sumstats</span>, <span class="va">traits_sumstats</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb42">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] "HawaiiIsland_01" "Kauai_01"        "Maui_01"        </code></pre>
 </div>
 <p>To plot the data, you first need to initialize the plot with the
 <code>plot()</code> function of a single site’s density. Here is also
@@ -766,7 +718,7 @@ whatever your heart desires!</p>
 <code>legend()</code> function, you specify the position of the legend
 (“topright”), the legend labels, the line width, and colors to assign to
 the labels.</p>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -780,60 +732,28 @@ the labels.</p>
 <span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">40</span><span class="op">)</span>,</span>
 <span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.11</span><span class="op">)</span></span>
 <span>    </span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb46">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lines</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lines</span><span class="op">(</span></span>
 <span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb48">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lines</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lines</span><span class="op">(</span></span>
 <span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb50">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">legend</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
 <span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet</code></pre>
-</div>
-<p>It looks like Kauai insects have a higher average mass and more
+<figure><img src="fig/traits-data-rendered-density-site-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>It looks like Kauai insects have a higher average mass and more
 dispersed distribution of masses than Hawaii and Maui! Next, we’ll take
 a look at using Hill numbers to summarize the distribution of
 traits.</p>
@@ -870,9 +790,9 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -901,114 +821,71 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
 <pre><code>Now, to create the traits dataframe you first need to remove the `site`,</code></pre>
 <p><code>island</code>, <code>abundance</code>,
 <code>median_mass_g</code>, and <code>sd_mass_g</code> columns.</p>
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_sumstats</span><span class="op">[</span>, <span class="op">-</span><span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_sumstats</span><span class="op">[</span>, <span class="op">-</span><span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb56">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
+<pre class="output" tabindex="0"><code>                          final_name mean_mass_g
+1               Acanthia procellaris   12.875661
+2                     Actia eucosmae   10.836548
+3 Anomalochrysa fulvescens rhododora    2.860058
+4             Anoplolepis gracilipes   12.366928
+5                   Anurophorus lohi    6.251880
+6                    Aphis citricola    3.822070</code></pre>
 </div>
 <p>Next, you need to filter for unique species in the dataframe.</p>
-<div class="codewrapper sourceCode" id="cb58">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb60">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
+<pre class="output" tabindex="0"><code>                          final_name mean_mass_g
+1               Acanthia procellaris   12.875661
+2                     Actia eucosmae   10.836548
+3 Anomalochrysa fulvescens rhododora    2.860058
+4             Anoplolepis gracilipes   12.366928
+5                   Anurophorus lohi    6.251880
+6                    Aphis citricola    3.822070</code></pre>
 </div>
 <p>Finally, you need to set the species names to be row names and remove
 the <code>final_name</code> column. Note, you have to use the
 <code>drop=F</code> argument because R has the funny behavior that it
 likes to convert single-column dataframes into a vector.</p>
-<div class="codewrapper sourceCode" id="cb62">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">$</span><span class="va">final_name</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb64">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span>, drop<span class="op">=</span><span class="cn">F</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
+<code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">$</span><span class="va">final_name</span></span>
+<span></span>
+<span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span>, drop<span class="op">=</span><span class="cn">F</span><span class="op">]</span></span></code></pre>
 </div>
 <p>Next, you’ll use the <code>hill_func()</code> function from the
 <code>hillR</code> package to calculate Hill numbers 0-2 of body size
 across sites.</p>
-<div class="codewrapper sourceCode" id="cb66">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb68">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb70">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_simple' not found</code></pre>
+<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The output of <code>hill_func()</code> returns quite a few Hill
 number options, which are defined in <a href="https://www.annualreviews.org/doi/abs/10.1146/annurev-ecolsys-120213-091540" class="external-link">Chao
@@ -1018,107 +895,57 @@ et al. 2014</a>. For simplicity’s sake, we will look at
 <blockquote>
 <p>functionally equally distinct species</p>
 </blockquote>
-<div class="codewrapper sourceCode" id="cb73">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">traits_hill_1</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill_1' not found</code></pre>
+<pre class="output" tabindex="0"><code>     HawaiiIsland_01     Kauai_01      Maui_01
+Q           4.288057     7.313327     4.807929
+FDis        3.061469     5.136366     3.602256
+D_q        38.330994    78.854310   103.950856
+MD_q      164.365495   576.687383   499.788382
+FD_q     6300.292831 45474.285521 51953.430115</code></pre>
 </div>
 <p>To gain an intuition for what this means, let’s plot our data. First,
 you will wrangle the output into a single dataframe to work with. Since
 Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 2.</p>
-<div class="codewrapper sourceCode" id="cb75">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">list</span><span class="op">(</span><span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill_1' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb77">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">do.call</span><span class="op">(</span><span class="va">cbind</span>, <span class="va">traits_hill</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb79">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"q1"</span>, <span class="st">"q2"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'traits_hill' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb81">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># convert to a dataframe</span></span>
-<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb83">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># I don't like rownames for plotting, so making the rownames a column</span></span>
-<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb85">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'traits_hill' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">list</span><span class="op">(</span><span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">do.call</span><span class="op">(</span><span class="va">cbind</span>, <span class="va">traits_hill</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"q1"</span>, <span class="st">"q2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># convert to a dataframe</span></span>
+<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># I don't like rownames for plotting, so making the rownames a column</span></span>
+<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre>
 </div>
 <p>Let’s look at how Hill q = 1 compare across sites.</p>
-<div class="codewrapper sourceCode" id="cb87">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">as.factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span><span class="op">)</span>, <span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill' not found</code></pre>
-</div>
-<p>Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
+<figure><img src="fig/traits-data-rendered-hill-plot-raw-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
 a higher or lower trait Hill number means, you will make rank plots of
 the trait data, to make a plot analogous to the species abundance
 distribution.</p>
-<div class="codewrapper sourceCode" id="cb89">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1131,67 +958,34 @@ distribution.</p>
 <span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
 <span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span>,</span>
 <span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">135</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb91">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">points</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">points</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#31688EFF"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb93">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">points</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">points</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#35B779FF"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb95">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">legend</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
 <span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#31688EFF"</span>, <span class="st">"#35B779FF"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet</code></pre>
-</div>
-<p>You can see clearly that the diversity differs across islands, where
+<figure><img src="fig/traits-data-rendered-hill-plot-rank-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>You can see clearly that the diversity differs across islands, where
 Maui has many more species than the other islands and a seemingly more
 even distribution than the others. However, species richness strongly
 influences the calculation of a Hill number. To factor out the influence
 of the number of species from the Hill number and get a stronger
 indicator of “evenness”, you can divide the Hill number by the number of
 species, which you will do for Hill q = 1.</p>
-<div class="codewrapper sourceCode" id="cb97">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1200,23 +994,14 @@ species, which you will do for Hill q = 1.</p>
 <span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">)</span>,</span>
 <span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">)</span>,</span>
 <span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span></code></pre>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span> <span class="op">/</span> <span class="va">sp_counts</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb99">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span> <span class="op">/</span> <span class="va">sp_counts</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'traits_hill' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.6496779 0.8388756 0.7643445</code></pre>
 </div>
 <p>Interestingly, we see that Kauai actually has a more even
 distribution of trait values than Maui when accounting for species
@@ -1283,9 +1068,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/traits-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/traits-data.html",
-  "dateCreated": "2023-05-18",
-  "dateModified": "2023-05-30",
-  "datePublished": "2023-05-30"
+  "dateCreated": "2023-06-01",
+  "dateModified": "2023-06-01",
+  "datePublished": "2023-06-01"
 }
 
   </script><script>

@@ -2242,7 +2242,7 @@
     },
     "sp": {
       "Package": "sp",
-      "Version": "1.6-0",
+      "Version": "1.6-1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2255,7 +2255,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "6674e075a078d9c3bde8ba800367347c"
+      "Hash": "ca27b2643e3593b7688244d035f2cd92"
     },
     "spocc": {
       "Package": "spocc",

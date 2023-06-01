@@ -268,7 +268,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Summarizing phylogenetic data</h1>
-        <p> Last updated on 2023-05-30 | 
+        <p> Last updated on 2023-06-01 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -509,7 +509,7 @@ objects, where the tip names are stored.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First, we check the names using the <code>gnr_resolve()</code>
 function. In <code>phylogeny</code>, tip names are stored in
@@ -644,7 +644,7 @@ new object based on the modified names.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -665,9 +665,9 @@ the distribution of branch lengths across our focal communities.</p>
 <h3 id="summarizing-with-hill-numbers">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a></h3>
 <p>In this section, we will extract some summary statistics about the
 pattern of phylogenetic diversity in our communities. As we discussed
-above, the relative phylogenetic distance among species and distribution
-of this distance can give insights into processes of community assembly.
-Here, we will make use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
+above, the relative phylogenetic distance among species and the
+distribution of this distance can give insights into processes of
+community assembly. Here, we will make use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
 numbers</a> to extract summaries of phylogenetic distances. To
 understand what they mean, let’s first explore their properties in a
 simple example.</p>
@@ -679,46 +679,16 @@ them.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text<span class="op">=</span><span class="st">'(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in read.tree(text = "(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);"): could not find function "read.tree"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb19">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tree1' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text<span class="op">=</span><span class="st">'(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);'</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span></span></code></pre>
 </div>
 <p>whereas tree 2 will represent a totally balanced pattern.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text<span class="op">=</span><span class="st">'(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in read.tree(text = "(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);"): could not find function "read.tree"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">tree2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tree2' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">tree2</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text<span class="op">=</span><span class="st">'(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);'</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">tree2</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Notice that both trees are ultrametric: all tips align at the end,
 representing extant taxa, which means branch lengths here represent the
@@ -727,16 +697,23 @@ the first and the second tree resides in the fate of each new lineage at
 a node. In the first tree, at each diversification event, one of the
 lineages always persists till the present with no change while the other
 undergoes another round of diversification. In the second tree, both
-lineages from each node split again, meaning that all extant species
-result from recent diversification (i.e., there are no old
-lineages).</p>
-<p>Now we will calculate the phylogenetic Hill number using the function
-<code>hill_phylo</code> from the <code>hillR</code> package. This
-function requires both a phylogeny and site-by-species matrix. For our
-fictional example, we will create a matrix with only one site containing
-all eight species (we will assign the value 1 to all species to indicate
-presence).</p>
-<div class="codewrapper sourceCode" id="cb25">
+lineages from each node undergo a new split. The consequence is that in
+tree 2, all extant species result from recent diversification (i.e.,
+they have a short evolutionary history before coalescing into their
+ancestor), whereas in tree 1 we have a mix of old and recent
+lineages.</p>
+<p>To visualize how these different patterns reflect in the diversity
+metric, we will calculate the phylogenetic Hill number using the
+function <code>hill_phylo</code> from the <code>hillR</code> package.
+This function takes in a global phylogeny as well as a site-by-species
+matrix, and returns phylo Hill numbers for each site based on which
+species are present there. For our fictional example, we will create a
+matrix with only one site where all eight species in the tree are
+present. We do that by creating a vector of the value <code>1</code>
+repeated 8 times, transforming that to a dataframe, and then naming the
+columns with the names of the species we take from our fictional
+trees.</p>
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -746,216 +723,229 @@ presence).</p>
 </div>
 <p>Using that matrix, we will calculate Hill numbers of order 0 to 2 for
 both trees:</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1_h0</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
+<span><span class="va">tree1_h0</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">tree1_h1</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">tree1_h2</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">tree2_h0</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">tree2_h1</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">tree2_h2</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree1, q = 0): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb28">
+<p>Let’s format this as a dataframe so we can visualize these numbers:
+the first column will be the order (our X axis), the second column will
+be the Hill values (our Y axis) and the third column will be the tree it
+belongs to (which we will use to draw different colored lines for
+comparison).</p>
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1_h1</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">phylo_h</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>order <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                      hill <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">tree1_h0</span>,<span class="va">tree1_h1</span>,<span class="va">tree2_h2</span>,<span class="va">tree2_h0</span>,<span class="va">tree2_h1</span>,<span class="va">tree2_h2</span><span class="op">)</span>,</span>
+<span>                      tree <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fu">rep</span><span class="op">(</span><span class="st">'tree1'</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fu">rep</span><span class="op">(</span><span class="st">'tree2'</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree1, q = 1): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb30">
+<p>Now we will call <code>plot</code> to generate a line plot for the
+values of the first tree, and then use <code>lines</code> to add a line
+containing the values for the second tree (we used boolean matching
+subsetting to choose what to plot at each time)</p>
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1_h2</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co">#Plotting values for tree 1</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">order</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree1'</span><span class="op">]</span>,</span>
+<span>     <span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree1'</span><span class="op">]</span>,</span>
+<span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'darkred'</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">'Order'</span>,ylab<span class="op">=</span><span class="st">'Hill values'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plotting values for tree 2</span></span>
+<span><span class="fu">lines</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">order</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree2'</span><span class="op">]</span>,</span>
+<span>     <span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree2'</span><span class="op">]</span>,</span>
+<span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'red'</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree1, q = 2): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb32">
+<p>From this plot, we can notice a few patterns:</p>
+<ol style="list-style-type: decimal"><li>The hill values for tree 1 are usually higher than those for tree 2,
+indicating that our community contains a deeper evolutionary history
+with tree 1 (i.e., lineages containg longer branches);</li>
+<li>The value of the hill numbers drop as the order goes up. This
+happens because higher orders are putting less and less emphasis on
+branch lengths that are not so common (like, for instance, the short
+branch lenghts in tree 1). In order words, higher order emphasize what
+is more common.</li>
+<li>The rate of change of the value as we increase the order is also
+different among trees. Tree 1 is a more uneven tree; it is composed
+mostly of somewhat long branches, and few short branches. So, when we
+change the order, we notice a significant change in the value (at least
+more significant than the change seen in tree2), because there’s a part
+of the tree we are starting to disconsider (i.e., those short branch
+lengths that are not so common). We observe a smaller change in tree 2
+because all branches have very similar lenghts, so changing the order
+does not affect the overall diversity (in other words, all branch
+lenghts are equally common, so emphasize more or less common lenghts
+does not change much the values).</li>
+</ol><p>What would happen if the taxa in our communities had different
+relative abundances? In this case, not only the relative frequency of a
+branch length would affect our summary statistic, but also how abundant
+is the taxon that has each branch length. For instance, in tree 1, even
+though long branches are over represented, maybe the species with long
+branches are actually super rare in our community, and the short-branch
+species are actually super abundant. As you can probably realize, this
+difference suggests something about the evolutionary history of our
+community, in this case that the most abundant species have a very
+recent evolutionary history. Similarly, even though branch lengths are
+very even in tree 2, if some of the species is more abundant than
+others, it suggests that the evolutionary history of the tree is
+unevenly represented in our community.</p>
+<p>Conveniently, the <code>hill_phylo</code> function will take into
+account both the relative frequency of branch lenghts <em>AND</em> the
+abundance of extant taxon in the phylogeny we provide. For our simple
+example, we can see how that changes our results by creating
+site-by-species matrix where abundance goes up from species A to species
+H (for simplicity, we’ll just use values from 1 to 8).</p>
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2_h0</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree2, q = 0): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2_h1</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree2, q = 1): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb36">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2_h2</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree2, q = 2): could not find function "hill_phylo"</code></pre>
-</div>
-<p>Patterns: - Tree 1 has overall higher values (more history) - Hill
-numbers go down as q goes up: putting more emphasis on common lengths -
-The rate of change is different: because longer branches are more common
-in tree1, hill numbers don’t go down as fast.</p>
-<p>What happens if our species have different relative abundances? Let’s
-make a site-by-species matrix where abundance goes down from species A
-to species B (for simplicity, we’ll just go down from 8 to 1)</p>
-<div class="codewrapper sourceCode" id="cb38">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span><span class="fu">rbind</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">8</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span><span class="fu">rbind</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">colnames</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'C'</span>,<span class="st">'D'</span>,<span class="st">'E'</span>,<span class="st">'F'</span>,<span class="st">'G'</span>,<span class="st">'H'</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Let’s calculate the same hill numbers with this new community:</p>
-<div class="codewrapper sourceCode" id="cb39">
+<p>Now, let’s calculate the same hill numbers with this new community.
+We save the values to objects with <code>_rel</code> at the end, to
+highlight in this case the taxa had different <em>rel</em>ative
+abundances.</p>
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1_h0_uneven</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">tree1_h0_rel</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">tree1_h1_rel</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">tree1_h2_rel</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">tree2_h0_rel</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">tree2_h1_rel</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">tree2_h2_rel</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree1, q = 0): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb41">
+<p>Then we add the new values to our <code>phylo_h</code> dataframe. We
+will signal they belong to <code>tree1_rel</code> and
+<code>tree2_rel</code>, meaning they came from a community with
+different <em>rel</em>ative abundance.</p>
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1_h1_uneven</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree1, q = 1): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb43">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1_h2_uneven</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree1</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree1, q = 2): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb45">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2_h0_uneven</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree2, q = 0): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb47">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2_h1_uneven</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree2, q = 1): could not find function "hill_phylo"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb49">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree2_h2_uneven</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">mat</span>,<span class="va">tree2</span>,q<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in hill_phylo(mat, tree2, q = 2): could not find function "hill_phylo"</code></pre>
-</div>
-<p>If we call these objects, we can see that…</p>
-<p>What would be a good way to better visualize these patterns in these
-summary statistics?</p>
-<p>Plotting hill in y and order in 0, and coloring by the tree and the
-even vs uneven.</p>
-<p>Doing it in your own tree leaving to a challenge. Discussion on what
-is found?</p>
-<p>Do the calculating for all islands in our simulated dataset using the
-species-by-site matrix created in previous episodes.</p>
-<p>==== Personal code for me to better understand phylogenetic hill
-numbers:</p>
-<div class="codewrapper sourceCode" id="cb51">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Creating a site matrix with one site and four taxa all present in the one site</span></span>
-<span><span class="va">site_m</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span><span class="fu">rbind</span><span class="op">(</span><span class="fu">rep</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">colnames</span><span class="op">(</span><span class="va">site_m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">'t'</span>,<span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">phylo_h</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">phylo_h</span>,</span>
+<span>                 <span class="fu">data.frame</span><span class="op">(</span>order <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                            hill <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">tree1_h0_rel</span>,<span class="va">tree1_h1_rel</span>,<span class="va">tree1_h2_rel</span>,</span>
+<span>                                     <span class="va">tree2_h0_rel</span>,<span class="va">tree2_h1_rel</span>,<span class="va">tree2_h2_rel</span><span class="op">)</span>,</span>
+<span>                            tree <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fu">rep</span><span class="op">(</span><span class="st">'tree1_rel'</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fu">rep</span><span class="op">(</span><span class="st">'tree2_rel'</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Six random trees</span></span>
-<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu">rmtopology</span><span class="op">(</span><span class="fl">6</span>,<span class="fl">4</span>,rooted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">trees</span>,FUN <span class="op">=</span> <span class="va">force.ultrametric</span><span class="op">)</span></span>
-<span><span class="va">hill_data</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span><span class="op">(</span><span class="va">trees</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">hill0</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>, <span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span>  <span class="va">hill1</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>, <span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="va">hill2</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">site_m</span>, <span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>  <span class="va">hill_data</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">hill_data</span>,<span class="fu">c</span><span class="op">(</span><span class="va">hill0</span>,<span class="va">hill1</span>,<span class="va">hill2</span>,<span class="va">trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">edge.length</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">colnames</span><span class="op">(</span><span class="va">hill_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'hill_0'</span>,<span class="st">'hill_1'</span>,<span class="st">'hill_2'</span>,<span class="fu">paste0</span><span class="op">(</span><span class="st">'edge_'</span>,<span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#Plotting values for tree 1</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">order</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree1'</span><span class="op">]</span>,</span>
+<span>     <span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree1'</span><span class="op">]</span>,</span>
+<span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'darkred'</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">'Order'</span>,ylab<span class="op">=</span><span class="st">'Hill values'</span>,</span>
+<span>     ylim <span class="op">=</span> <span class="fu">range</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Plotting SAD of branch lenghts for each tree</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">data.frame</span><span class="op">(</span><span class="fu">seq</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,<span class="fu">sort</span><span class="op">(</span><span class="va">hill_data</span><span class="op">[</span><span class="fl">6</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>,decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># Plotting values for tree 2</span></span>
+<span><span class="fu">lines</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">order</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree2'</span><span class="op">]</span>,</span>
+<span>     <span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree2'</span><span class="op">]</span>,</span>
+<span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'red'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plotting values for tree 2</span></span>
+<span><span class="fu">lines</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">order</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree1_rel'</span><span class="op">]</span>,</span>
+<span>     <span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree1_rel'</span><span class="op">]</span>,</span>
+<span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'darkblue'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plotting values for tree 2</span></span>
+<span><span class="fu">lines</span><span class="op">(</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">order</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree2_rel'</span><span class="op">]</span>,</span>
+<span>     <span class="va">phylo_h</span><span class="op">$</span><span class="va">hill</span><span class="op">[</span><span class="va">phylo_h</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'tree2_rel'</span><span class="op">]</span>,</span>
+<span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'lightblue'</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Personal notes: * Order 0 is just the sum of branch lengths… From
-order 1 and above, you weight by the abundance of that branch length in
-the tree… Like, how many branches have high length vs how many branchs
-have low length? In order one, if you have one branch that is super long
-and all others are super short, your hill number drops: your PD is
-driven by only one branch… If branch length is evenly distributed
-through the phylogeny (i.e., several branches with similar lenghts),
-then your PD increases… That is a Shannon entropy index basically… * As
-you increase the order of the hill number, you are giving more weight to
-highly abundant branch lenghts… Order 0 is just the sum of lenghts, 1 is
-weight by evenness, 2 is weighted by evenness giving more weight to
-values of branch lengths that are more abundant, 3 is the same but
-focusing even more on the most abundance values (i.e., as you increase
-the order, you decrease your focus on rare values)… So, like, if you
-have a phylogeny dminated by few branches that are very long, your hill
-number drops really fast as you move up in the orders… Because your hill
-number becomes dictated by only a few branches very fast… Whereas if you
-have a more even distribution of branch lenghts (several branch with
-similar values of length), the hill number doesn’t change as much as you
-move higher in the order, because even high orders still focus on most
-of the branches (as they are the most abundant, since they are equally
-abundant) * If all branches had the exact same branch length, then hill
-numbers wouldn’t change as you go up in the orders (i.e, evenness is
-perfect)</p>
+<p>Reminders: 1) red is equal abundance and blue is different
+abundances; 2) darker colors represent <code>tree1</code> (uneven branch
+length) and lighter colors represent <code>tree2</code> (equal branch
+lengths).</p>
+<p>From this second plot, we notice that:</p>
+<ol style="list-style-type: decimal"><li><p>Hill number values for tree 1 (darker colors) are still higher
+than those for tree 2 (lighter colors). This makes sense since the
+relative abundance is the same for both trees, so the overall pattern
+(i.e., longer branches in tree 1) remains;</p></li>
+<li><p>the Hill number of order 0 is the same regardless of whether you
+have different relative abundances among species, since order 0 is
+simply the sum of all branch lengths (i.e., it does not account for how
+the relative abundance of taxa);</p></li>
+<li><p>when we include different relative abundance among taxa, we have
+a higher rate of decrease in the Hill number value as we increase the
+order. This is because higher orders are now being calculated based on
+how common/rare each branch is in our community (based on our
+site-by-species matrix). If we take tree 1, for instance, we see that
+the Hill value for order 1 including different taxa abundance (darker
+blue line) is lower than the value where abundance is equal (darker red
+line). We can interpret this as our metric putting less weight on the
+longer branches of tree 1, which are rare in our community, and putting
+more weight on the shorter branches, which are more common but represent
+a more recent evolutionary history. We see a similar (although less
+accentuated) pattern with tree2. Calculating different order of hill
+numbers while incorporating species abundance therefore allows to have a
+single metric accounting for evolutionary history and species abundance
+distribution that is comparable across different regions.</p></li>
+</ol><div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
+  <h3 class="accordion-header" id="headingInstructor2">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb26">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">A</span> question that may arise from the audience is why for order 2 the matrix with different taxa abundance yields higher Hill number value <span class="er">(</span><span class="ex">i.e.,</span> it is the reverse of the pattern for order 1<span class="kw">)</span><span class="bu">.</span> This may give an opportunity to further discuss how Hill numbers are balancing out relative abundance with evolutionary history. I believe order 2 is reflecting that the high abundance of short branch taxa <span class="er">(</span><span class="ex">like</span> G and H<span class="kw">)</span> <span class="ex">yields</span> higher PD than when we don<span class="st">'t have thar relative abundance and are just focusing on the few long branch taxa (like A and B).</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge2" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+</h3>
+<div class="callout-content">
+<p>Now that you got an intuition on the information phylogenetic Hill
+numbers can give us, let’s move on to our actual data. For this
+challenge, you should calculate the phylogenetic Hill numbers of orders
+0, 1 and 2 for three islands we are working with throughout these
+episodes. The key objects here will be the <code>phylogeny</code> tree
+we imported earlier, as well as the <code>phylo_wide</code> object
+containing our site-by-species matrix modified to match the tips in our
+phylogeny. You should also plot the hill numbers for each island and
+discuss what the calculated values allow you to infer regarding the
+history of each community.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<!-- We gotta simulate the data to finalize this solution section. -->
+</div>
+</div>
+</div>
+</div>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
@@ -1016,9 +1006,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/phylo-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/phylo-data.html",
-  "dateCreated": "2023-05-18",
-  "dateModified": "2023-05-30",
-  "datePublished": "2023-05-30"
+  "dateCreated": "2023-06-01",
+  "dateModified": "2023-06-01",
+  "datePublished": "2023-06-01"
 }
 
   </script><script>
