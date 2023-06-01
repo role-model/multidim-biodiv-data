@@ -90,18 +90,20 @@ library(taxize)
 species_list <- unique(traits$GenSp)
 
 name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, canonical = TRUE)
-```
 
-```{.error}
-Error: Service Unavailable (HTTP 503)
-```
-
-```r
 head(name_resolve)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'name_resolve' not found
+```{.output}
+# A tibble: 6 × 5
+  user_supplied_name        submitted_name data_source_title score matched_name2
+  <chr>                     <chr>          <chr>             <dbl> <chr>        
+1 Xyleborus perforans       Xyleborus per… National Center … 0.988 Xyleborus pe…
+2 Agrotis chersotoides      Agrotis chers… Catalogue of Lif… 0.75  Agrotis      
+3 Oligotoma saundersii      Oligotoma sau… Wikispecies       0.988 Oligotoma sa…
+4 Drosophila humeralis      Drosophila hu… Wikispecies       0.988 Drosophila h…
+5 Entomobrya griseoolivata  Entomobrya gr… National Center … 0.988 Entomobrya g…
+6 Pseudosinella kalalauens… Pseudosinella… Encyclopedia of … 0.988 Pseudosinell…
 ```
 
 To quickly see which taxa are in conflict with `taxize`'s, use bracket
@@ -110,18 +112,19 @@ subsetting and boolean matching.
 
 ```r
 mismatches_traits <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'name_resolve' not found
-```
-
-```r
 mismatches_traits
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'mismatches_traits' not found
+```{.output}
+# A tibble: 5 × 2
+  user_supplied_name     matched_name2       
+  <chr>                  <chr>               
+1 Agrotis chersotoides   Agrotis             
+2 Trigonidium flelectens Trigonidium flectens
+3 Schrankia simplllex    Schrankia simplex   
+4 Holcobius insignigis   Holcobius insignis  
+5 Carposina mauiii       Carposina mauii     
 ```
 
 Fixing the names comes in two steps. First, we join the `traits`
@@ -164,24 +167,18 @@ The following objects are masked from 'package:base':
 
 ```r
 traits <- left_join(traits, name_resolve[, c("user_supplied_name", "matched_name2")], by = c("GenSp" = "user_supplied_name"))
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'name_resolve' not found
-```
-
-```r
 head(traits)
 ```
 
 ```{.output}
-                 GenSp   mass_g
-1  Xyleborus perforans 10.13036
-2  Xyleborus perforans 10.05684
-3  Xyleborus perforans 10.14838
-4  Xyleborus perforans 10.20234
-5  Xyleborus perforans 10.14719
-6 Agrotis chersotoides 24.25539
+                 GenSp   mass_g       matched_name2
+1  Xyleborus perforans 10.13036 Xyleborus perforans
+2  Xyleborus perforans 10.05684 Xyleborus perforans
+3  Xyleborus perforans 10.14838 Xyleborus perforans
+4  Xyleborus perforans 10.20234 Xyleborus perforans
+5  Xyleborus perforans 10.14719 Xyleborus perforans
+6 Agrotis chersotoides 24.25539             Agrotis
 ```
 
 Then, to replace *Agrotis chersotoides* with the updated *Peridroma
@@ -195,26 +192,20 @@ later use is good practice.
 
 ```r
 traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
-```
 
-```{.error}
-Error in `$<-.data.frame`(`*tmp*`, matched_name2, value = character(0)): replacement has 0 rows, data has 1440
-```
-
-```r
 colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 
 head(traits)
 ```
 
 ```{.output}
-                 GenSp   mass_g
-1  Xyleborus perforans 10.13036
-2  Xyleborus perforans 10.05684
-3  Xyleborus perforans 10.14838
-4  Xyleborus perforans 10.20234
-5  Xyleborus perforans 10.14719
-6 Agrotis chersotoides 24.25539
+                 GenSp   mass_g             final_name
+1  Xyleborus perforans 10.13036    Xyleborus perforans
+2  Xyleborus perforans 10.05684    Xyleborus perforans
+3  Xyleborus perforans 10.14838    Xyleborus perforans
+4  Xyleborus perforans 10.20234    Xyleborus perforans
+5  Xyleborus perforans 10.14719    Xyleborus perforans
+6 Agrotis chersotoides 24.25539 Peridroma chersotoides
 ```
 
 :::::::::::::::::: instructor
@@ -270,12 +261,6 @@ library(dplyr)
 traits_sumstats <- group_by(traits, final_name)
 ```
 
-```{.error}
-Error in `group_by()`:
-! Must group by variables found in `.data`.
-✖ Column `final_name` is not found.
-```
-
 `group_by()` just adds an index that tells any following `dplyr`
 functions to perform their calculations on the group the data frame was
 indexed by. So, to perform the actual calculations, we will use the
@@ -297,18 +282,20 @@ traits_sumstats <-
         median_mass_g = median(mass_g),
         sd_mass_g = sd(mass_g)
     )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
-```
-
-```r
 head(traits_sumstats)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
+```{.output}
+# A tibble: 6 × 4
+  final_name               mean_mass_g median_mass_g sd_mass_g
+  <chr>                          <dbl>         <dbl>     <dbl>
+1 Abanchogastra debilis           6.65          6.64    0.0890
+2 Acanthia procellaris           12.9          12.8     0.0726
+3 Actia eucosmae                 10.8          10.9     0.0945
+4 Adelencyrtus odonaspidis        5.99          6.00    0.0411
+5 Aedes albopictus               10.9          10.9     0.0548
+6 Aedes nocturnus                 6.84          6.83    0.0331
 ```
 
 Finally, you need to add the aggregated species-level information back
@@ -332,18 +319,25 @@ species-information for each species in each community.
 
 ```r
 traits_sumstats <- left_join(abundance_tallies, traits_sumstats, by = "final_name")
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
-```
-
-```r
 head(traits_sumstats)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
+```{.output}
+             site       island                         final_name abundance
+1 HawaiiIsland_01 HawaiiIsland               Acanthia procellaris         3
+2 HawaiiIsland_01 HawaiiIsland                     Actia eucosmae         4
+3 HawaiiIsland_01 HawaiiIsland Anomalochrysa fulvescens rhododora         2
+4 HawaiiIsland_01 HawaiiIsland             Anoplolepis gracilipes         5
+5 HawaiiIsland_01 HawaiiIsland                   Anurophorus lohi         2
+6 HawaiiIsland_01 HawaiiIsland                    Aphis citricola         3
+  mean_mass_g median_mass_g  sd_mass_g
+1   12.875661     12.840191 0.07255218
+2   10.836548     10.864682 0.09449608
+3    2.860058      2.855061 0.04633525
+4   12.366928     12.358811 0.01926359
+5    6.251880      6.234964 0.07793529
+6    3.822070      3.819887 0.12376448
 ```
 
 # Visualize trait distributions
@@ -387,19 +381,11 @@ hist(
     ylim = c(0, 0.11),
     freq = FALSE
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
-```
-
-```r
 lines(density(traits_sumstats$mean_mass_g))
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
-```
+<img src="fig/traits-data-rendered-density-all-1.png" style="display: block; margin: auto;" />
 
 In addition to quality control, knowing the distribution of trait data
 lends itself towards questions of what processes are shaping the
@@ -423,18 +409,12 @@ are the sites you intended to split by.
 ```r
 # split by site
 traits_sumstats_split <- split(traits_sumstats, traits_sumstats$site)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
-```
-
-```r
 names(traits_sumstats_split)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
+```{.output}
+[1] "HawaiiIsland_01" "Kauai_01"        "Maui_01"        
 ```
 
 To plot the data, you first need to initialize the plot with the
@@ -474,37 +454,19 @@ plot(
     ylim = c(0, 0.11)
     
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 lines(
     density(traits_sumstats_split$Kauai_01$mean_mass_g),
     lwd = 2,
     col = "#21908CFF"
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 lines(
     density(traits_sumstats_split$Maui_01$mean_mass_g),
     lwd = 2,
     col = "#FDE725FF"
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 legend(
     "topright",
     legend = c("Hawaii 01", "Kauai 01", "Maui 01"),
@@ -513,9 +475,7 @@ legend(
 )
 ```
 
-```{.error}
-Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
-```
+<img src="fig/traits-data-rendered-density-site-plot-1.png" style="display: block; margin: auto;" />
 
 It looks like Kauai insects have a higher average mass and more
 dispersed distribution of masses than Hawaii and Maui! Next, we'll take
@@ -574,18 +534,18 @@ Now, to create the traits dataframe you first need to remove the `site`,
 
 ```r
 traits_simple <- traits_sumstats[, -c(1, 2, 4, 6, 7)]
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats' not found
-```
-
-```r
 head(traits_simple)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
+```{.output}
+                          final_name mean_mass_g
+1               Acanthia procellaris   12.875661
+2                     Actia eucosmae   10.836548
+3 Anomalochrysa fulvescens rhododora    2.860058
+4             Anoplolepis gracilipes   12.366928
+5                   Anurophorus lohi    6.251880
+6                    Aphis citricola    3.822070
 ```
 
 Next, you need to filter for unique species in the dataframe.
@@ -593,18 +553,18 @@ Next, you need to filter for unique species in the dataframe.
 
 ```r
 traits_simple <- unique(traits_simple)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
-```
-
-```r
 head(traits_simple)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
+```{.output}
+                          final_name mean_mass_g
+1               Acanthia procellaris   12.875661
+2                     Actia eucosmae   10.836548
+3 Anomalochrysa fulvescens rhododora    2.860058
+4             Anoplolepis gracilipes   12.366928
+5                   Anurophorus lohi    6.251880
+6                    Aphis citricola    3.822070
 ```
 
 Finally, you need to set the species names to be row names and remove
@@ -615,18 +575,8 @@ dataframes into a vector.
 
 ```r
 row.names(traits_simple) <- traits_simple$final_name
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
-```
-
-```r
 traits_simple <- traits_simple[,-1, drop=F]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
 ```
 
 Next, you'll use the `hill_func()` function from the `hillR` package to
@@ -637,26 +587,10 @@ calculate Hill numbers 0-2 of body size across sites.
 library(hillR)
 
 traits_hill_0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
-```
-
-```r
 traits_hill_1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
-```
-
-```r
 traits_hill_2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_simple' not found
 ```
 
 The output of `hill_func()` returns quite a few Hill number options,
@@ -676,8 +610,13 @@ documentation is the:
 traits_hill_1
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill_1' not found
+```{.output}
+     HawaiiIsland_01     Kauai_01      Maui_01
+Q           4.288057     7.313327     4.807929
+FDis        3.061469     5.136366     3.602256
+D_q        38.330994    78.854310   103.950856
+MD_q      164.365495   576.687383   499.788382
+FD_q     6300.292831 45474.285521 51953.430115
 ```
 
 To gain an intuition for what this means, let's plot our data. First,
@@ -688,52 +627,18 @@ Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
 
 ```r
 traits_hill <- list(traits_hill_1[3,], traits_hill_2[3,])
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill_1' not found
-```
-
-```r
 traits_hill <- do.call(cbind, traits_hill)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill' not found
-```
-
-```r
 colnames(traits_hill) <- c("q1", "q2")
-```
 
-```{.error}
-Error: object 'traits_hill' not found
-```
-
-```r
 # convert to a dataframe
 traits_hill <- as.data.frame(traits_hill)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill' not found
-```
-
-```r
 # I don't like rownames for plotting, so making the rownames a column
 traits_hill$site <- row.names(traits_hill)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill' not found
-```
-
-```r
 row.names(traits_hill) <- NULL
-```
-
-```{.error}
-Error: object 'traits_hill' not found
 ```
 
 Let's look at how Hill q = 1 compare across sites.
@@ -743,9 +648,7 @@ Let's look at how Hill q = 1 compare across sites.
 plot(as.factor(traits_hill$site), traits_hill$q1, ylab = "Hill q = 1")
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill' not found
-```
+<img src="fig/traits-data-rendered-hill-plot-raw-1.png" style="display: block; margin: auto;" />
 
 Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
@@ -765,37 +668,18 @@ plot(
     ylim = c(0, 40),
     xlim = c(0, 135)
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 points(
     sort(traits_sumstats_split$Kauai_01$mean_mass_g, decreasing = TRUE),
     pch = 19,
     col = "#31688EFF"
 )
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 points(
     sort(traits_sumstats_split$Maui_01$mean_mass_g, decreasing = TRUE),
     pch = 19,
     col = "#35B779FF"
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 legend(
     "topright",
     legend = c("Hawaii 01", "Kauai 01", "Maui 01"),
@@ -804,9 +688,7 @@ legend(
 )
 ```
 
-```{.error}
-Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
-```
+<img src="fig/traits-data-rendered-hill-plot-rank-1.png" style="display: block; margin: auto;" />
 
 You can see clearly that the diversity differs across islands, where
 Maui has many more species than the other islands and a seemingly more
@@ -824,18 +706,12 @@ sp_counts <-
         nrow(traits_sumstats_split$Kauai_01),
         nrow(traits_sumstats_split$Maui_01)
     )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_sumstats_split' not found
-```
-
-```r
 traits_hill$q1 / sp_counts
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'traits_hill' not found
+```{.output}
+[1] 0.6496779 0.8388756 0.7643445
 ```
 
 Interestingly, we see that Kauai actually has a more even distribution
