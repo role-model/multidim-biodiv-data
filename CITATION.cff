@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Please cite these materials as follows."
+authors:
+  - family-names: Rominger
+    given-names: Andrew
+    orcid: https://orcid.org/0000-0003-3755-4480
+  - family-names: Mascarenhas
+    given-names: Rilquer
+    orcid: https://orcid.org/1234-5678-9101-1121 #update
+  - family-names: Diaz
+    given-names: Renata
+    orcid: https://orcid.org/0000-0003-0803-4734
+  - family-names: French
+    given-names: Connor
+    orcid: https://orcid.org/0000-0002-5255-3884
+  - family-names: Idec
+    given-names: Jacob
+    orcid: https://orcid.org/1234-5678-9101-1121 # update
+  - family-names: Overcast
+    given-names: Isaac
+    orcid: https://orcid.org/1234-5678-9101-1121 #update
+title: "Multidimensional Biodiversity Data - Management and Analysis in R"
+version: 0.1.0
+doi: foo
+date-released: 2023-06-01
