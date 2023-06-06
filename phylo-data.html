@@ -85,11 +85,11 @@
   Multidimensional biodiversity data: management and analysis
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 50%" class="percentage">
-    50%
+<aside class="col-md-12 lesson-progress"><div style="width: 75%" class="percentage">
+    75%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 50%" aria-valuenow="50" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 75%" aria-valuenow="75" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -153,7 +153,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="abundance-data.html">2. Abundance Data</a>
+        <a href="finding_data.html">2. Finding multi-dimensional biodiversity data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -162,7 +162,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="traits-data.html">3. Trait data</a>
+        <a href="care.html">3. The CARE principles and open data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -171,20 +171,16 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="popgen-data.html">4. Working with population genetic data</a>
+        <a href="abundance-data.html">4. Abundance Data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlushcurrent">
+<div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
-    <div class="accordion-header" id="flush-headingcurrent">
-        <span class="visually-hidden">Current Chapter</span>
-        <span class="current-chapter">
-        5. Summarizing phylogenetic data
-        </span>
-      
+    <div class="accordion-header" id="flush-heading6">
+        <a href="traits-data.html">5. Trait data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -193,17 +189,30 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="connecting-data-types.html">6. Connecting different data types</a>
+        <a href="popgen-data.html">6. Working with population genetic data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush8">
+<div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="finding_data.html">7. Finding multi-dimensional biodiversity data</a>
+    <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
+        <span class="visually-hidden">Current Chapter</span>
+        <span class="current-chapter">
+        7. Summarizing phylogenetic data
+        </span>
+      </button>
     </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#introduction-to-phylogenetic-data">Introduction to phylogenetic data</a></li>
+<li><a href="#working-with-phylogenetic-data-in-r">Working with phylogenetic data in R</a></li>
+<li><a href="#cleaning-phylogenetic-data">Cleaning phylogenetic data</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -211,7 +220,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="care.html">8. The CARE principles and open data</a>
+        <a href="connecting-data-types.html">8. Connecting different data types</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -268,7 +277,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Summarizing phylogenetic data</h1>
-        <p> Last updated on 2023-06-05 | 
+        <p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -287,10 +296,12 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>What are the common phylogeny data formats?</li>
+<ul><li>What information is contained in phylogenies?</li>
+<li>How to summarize and interpret phylogenies using Hill numbers?</li>
+<li>What are the common phylogeny data formats?</li>
 <li>How do you import and manipulate phylogeny data in R?</li>
 <li>How do you visualize phylogenies in R?</li>
-<li>How to summarize and interpret phylogenies using Hill numbers?</li>
+<li>How do you calculate Hill numbers with phylogenetic data?</li>
 </ul></div>
 </div>
 </div>
@@ -309,9 +320,9 @@ environment</li>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a></h3>
-<p>In this episode, we will explore how to extract information from
+<section id="introduction-to-phylogenetic-data"><h2 class="section-heading">Introduction to phylogenetic data<a class="anchor" aria-label="anchor" href="#introduction-to-phylogenetic-data"></a>
+</h2>
+<hr class="half-width"><p>In this episode, we will explore how to extract information from
 phylogenetic trees in order to complement our hypotheses and inferences
 about processes shaping biodiversity patterns. Phylogenetic trees have
 information about how the species in a taxonomic group are related to
@@ -319,6 +330,7 @@ each other and how much relative evolutionary change has accumulated
 among them. Since local communities differ in their phylogenetic
 composition, this information can give insights on why communities are
 how they are.</p>
+<p>[HERE INCLUDE VISUALS OF PHYLOGENIES]</p>
 <p>The relative phylogenetic distance among species in a community as
 well as the distribution of the amount of evolutionary history
 (represented by the length of the branches in a phylogeny) are a result
@@ -335,19 +347,18 @@ phylogeny. Coupled with information on ecological traits and rates of
 macroevolutionary processes, these patterns also allow to test for
 hypotheses regarding, for instance, ecological filtering or niche
 conservatism.</p>
-<!-- Maybe bring in the paragraph above explicit connections to our young vs older Hawaian islands examples. -->
 <p>Summarizing this phylogenetic information (i.e., phylogenetic
 distance and distribution of branch lenghts) is therefore crucial for
 inference. As we have seen in previous episodes, the use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
-numbers</a> is an informative approach to summarize biodiversity. In
-this episode, we will then go over 1) how to import and manipulate
-phylogenetic data in R; 2) how to calculate and interpret Hill numbers
-for different communities.</p>
-</div>
-<div class="section level3">
+numbers</a> is an informative approach to summarize biodiversity.</p>
+<p>[MORE HERE ON MEANING OF PHYLOGENETIC HILL, RELATING TO PHYLO
+CHARACTERISTICS]</p>
+</section><section id="working-with-phylogenetic-data-in-r"><h2 class="section-heading">Working with phylogenetic data in R<a class="anchor" aria-label="anchor" href="#working-with-phylogenetic-data-in-r"></a>
+</h2>
+<hr class="half-width"><div class="section level3">
 <h3 id="importing-phylogenetic-data">Importing phylogenetic data<a class="anchor" aria-label="anchor" href="#importing-phylogenetic-data"></a></h3>
 <p>Several file formats exist to store phylogenetic information. The
-most common formats are the <a href="http://evomics.org/resources/tree-formats/" class="external-link">Newick and Nexus
+most common formats are the <a href="https://evomics.org/resources/tree-formats/" class="external-link">Newick and Nexus
 formats</a>. Both these formats are plain text files storing different
 levels of information about the taxa relationship and evolutionary
 history. <code>Newick</code> files are the standard for representing
@@ -440,13 +451,45 @@ about tip labels and branch lengths are stored in that
 <p>Now that we learned how to import and visualize trees in R, let’s
 bring the phylogeny for the communities we are working with in this
 workshop. Our data so far consists of <a href="abundance-data.html">abundances</a> and <a href="traits-data.html">traits</a> of several taxa of arthropods
-collected across three islands in the Hawaian archipelago. Here, we will
-import a global phylogeny of arthropods, located at: &lt;&gt;</p>
+collected across three islands in the Hawaian archipelago. Let’s work
+though importing phylogenetic information for these species.</p>
+<p>First, we will get the OTT IDs for the species in our data:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">phylogeny</span> <span class="op">&lt;-</span> <span class="fu">read_tree</span><span class="op">(</span><span class="st">''</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">rotl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_raw.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">GenSp</span></span>
+<span></span>
+<span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Remove names that aren't a perfect match</span></span>
+<span></span>
+<span><span class="va">good_names</span> <span class="op">&lt;-</span> <span class="va">resolved_names</span><span class="op">[</span> <span class="op">!</span><span class="va">resolved_names</span><span class="op">$</span><span class="va">approximate_match</span>,<span class="op">]</span></span>
+<span><span class="va">good_names</span> <span class="op">&lt;-</span> <span class="va">good_names</span><span class="op">[</span> <span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">good_names</span><span class="op">$</span><span class="va">approximate_match</span><span class="op">)</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Remove a couple of ott ids that seem to confuse tol_induced_subtree</span></span>
+<span></span>
+<span><span class="va">good_names</span> <span class="op">&lt;-</span> <span class="va">good_names</span><span class="op">[</span> <span class="va">good_names</span><span class="op">$</span><span class="va">ott_id</span> <span class="op">!=</span> <span class="st">"3574707"</span>, <span class="op">]</span></span>
+<span><span class="va">good_names</span> <span class="op">&lt;-</span> <span class="va">good_names</span><span class="op">[</span> <span class="va">good_names</span><span class="op">$</span><span class="va">ott_id</span> <span class="op">!=</span> <span class="st">"737065"</span>, <span class="op">]</span></span></code></pre>
+</div>
+<p>Next, we can query the Open Tree of Life for those IDs using the
+<code>tol_induced_subtree</code> function.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arthro_tree</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="va">good_names</span><span class="op">$</span><span class="va">ott_id</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arthro_tree</span></span>
+<span><span class="fu">class</span><span class="op">(</span><span class="va">arthro_tree</span><span class="op">)</span></span></code></pre>
 </div>
 <p>This new object is way larger than the previous once, being a “real”
 phylogeny and all. You can inspect it again by directly calling the
@@ -455,19 +498,19 @@ object <code>phylogeny</code>. To plot it, we will use the
 Here, we used the option <code>'fan'</code>, to display a circular
 phylogeny (slightly better to show such a large phylogeny in the
 screen).</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">phylogeny</span>, type <span class="op">=</span> <span class="st">'fan'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">arthro_tree</span>, type <span class="op">=</span> <span class="st">'fan'</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre>
 </div>
 <p>How do we combine all this information with the community datasets we
 have so far for our three islands? First, we will have to perform some
 cleaning.</p>
 </div>
-<div class="section level3">
-<h3 id="cleaning-phylogenetic-data">Cleaning phylogenetic data<a class="anchor" aria-label="anchor" href="#cleaning-phylogenetic-data"></a></h3>
-<p>Often, when we want to include the phylogenetic relatedness of
+</section><section id="cleaning-phylogenetic-data"><h2 class="section-heading">Cleaning phylogenetic data<a class="anchor" aria-label="anchor" href="#cleaning-phylogenetic-data"></a>
+</h2>
+<hr class="half-width"><p>Often, when we want to include the phylogenetic relatedness of
 organisms in our biodiversity analyses, we will run into published
 phylogenetic trees for our focal taxon (that is the case of the tree we
 are using here). A couple issues arise in these cases. First, and maybe
@@ -479,168 +522,69 @@ dataset may not be explicitly represented in the phylogeny. In these
 cases, we will want to assign those “missing taxa” to one of the tips
 present in the tree, based on their known genus and/or family
 assignments.</p>
-<p>In this section, we will deal with these issues in order to prepare
-our data for community inferences. Our first issue will be dealt with in
-a challenge!</p>
-<div id="challenge1" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
-</h3>
-<div class="callout-content">
-<p>In previous episodes, we have used the package <code>taxize</code> to
-clean and standardize the taxonomic names in out dataset. Here, we will
-apply the same approach to the tip names of our phylogeny. We need to
-make sure the names we will accept from <code>taxize</code> will match
-the names we have accepted in previous episodes. Finally, after we
-decide on the names, we need to add them to the <code>phylogeny</code>
-objects, where the tip names are stored.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
-<div class="accordion-body">
-<p>First, we check the names using the <code>gnr_resolve()</code>
-function. In <code>phylogeny</code>, tip names are stored in
-<code>phylogeny$tip.label</code>, so we provide that vector to our
-function.</p>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
-<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
-</div>
-<p>We can see what taxa are in conflict with the names retrieved by
-<code>taxize</code> by subsetting <code>name_resolve</code> based on
-boolean matching.</p>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mismatches_phylo</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">mismatches_phylo</span></span></code></pre>
-</div>
-<p>From here, we can see that apparently there are no misspellings in
-our tree (as expected from a published phylogeny). Most of the
-mismatches seem to be related to changes in the taxonomic treatment of
-species. This is a common situation, since taxonomic treatments are
-often revised after new trees are published; it might be the case that
-<code>nameA</code> in our dataset was treated as <code>nameB</code> at
-the time the phylogeny was created.</p>
-<p>In the previous episodes, we used the names provided by
-<code>taxize</code> directly. Therefore, here we can just add those
-names directly to the phylogeny.</p>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span> <span class="op">==</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>The next issue we need to address is the fact that we may have
-species in our dataset that are not present in the phylogenetic tree we
-are using. We therefore need to 1) find out which species are not in the
-tree; 2) assign them to tips that are present in the tree.</p>
-<p>To check which species are not in the tree, we can use any of the
-objects we created so far that has the list of all the species in our
-communities. These could be: 1) the abundances we calculated per site
-and island in the <a href="abundance-data.html">abundances episode</a>,
-stored in the object <code>abundance_tallies</code>; 2) the <em>site by
-species matrix</em> we have created in the abundance episode (stored in
-the object <code>abundance_wide</code>); 3) the list of species with
-their respective trait values, created in the <a href="traits-data.html">traits episode</a> and stored in the
-<code>traits_simple</code> object. Since we are going to directly use
-the site-by-species matrix to calculate Hill numbers (next section),
-let’s focus on this object and retrieve the species name for it.</p>
-<p>We do that by accessing the <code>colnames()</code> of that object.
-We will also remove the first element, since it is just the header for
-the column with the <code>site</code> name.</p>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
-</div>
-<p>The taxonomic names in both the abundance data and in the
-phylogenetic tree were corrected using the same database from
-<code>taxize</code>; this therefore means that any names from our
-abundance data that are not found in the tree simply represent taxa that
-are not included in this phylogeny. We can use the boolean operator
-<code>%in%</code> coupled with <code>!</code> to check
-<code>species_names</code> that are not included in the
-<code>phylogeny$tip.label</code>. In summary, the expression
-<code>A %in% B</code> would return the positio of the elements in vector
-A that are present in vector B. The <code>!</code> (NOT) operator
-returns the opposite of that expression, in a way that
-<code>!(A %in% B)</code> will return the position of elements in vector
-A that are <em>NOT</em> present in vector B (precisely what we need
-right now).</p>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">not_present</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="op">(</span><span class="va">species_names</span> <span class="op">%in%</span> <span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span></span></code></pre>
-</div>
-<p>The object <code>not_present</code> is now a vector of the positions
-(or indexes) of the elements in <code>species_name</code> that are not
-found in <code>phylogeny$tip.label</code>. Let’s then check their names
-by using these indexes to subset <code>species_name</code>:</p>
-<div class="codewrapper sourceCode" id="cb13">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_name</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span></span></code></pre>
-</div>
-<p>Here, we can decide how we are going to assign these species to tips
-in our tree. For instance, we see that we do not have <em>XXX</em> in
-our tree, but we have <em>XXX</em>, which belongs to the same genus.
-Similarly…</p>
-<p>We can then give new names to these species, based on what tips in
-our tree we want them to match to. To do so, we will first duplicate our
-<code>species_name</code> vector, so we can keep the original names
-(just in case we want to check the original names again in the
-future).</p>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_name</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">new_names</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Now that we have a vector of updated named, all we need to do is
-modify those names in our site-by-species matrix. Similarly, we will
-first copy our matrix into another object (in order to keep the original
-abundance matrix intact), and then we will rename the columns of this
-new object based on the modified names.</p>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">phylo_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span></span>
-<span><span class="fu">colnames</span><span class="op">(</span><span class="va">phylo_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">new_names</span></span></code></pre>
-</div>
-
-<p>After solving these issues, we now have 1) a phylogenetic tree with
-tip labels taxonomically cleaned; 2) a site-by-species matrix where all
-species are represented in our tree. These two objects are the two bits
-of information that we need to summarize the phylogenetic diversity and
-the distribution of branch lengths across our focal communities.</p>
-</div>
+<p><strong>RMD commenting May 26. With taxize down, and using
+<code>rotl</code> for both name resolution and getting the phylogeny,
+there aren’t going to be mismatched names in the phylogeny.</strong></p>
+<p><strong>But, there is the potential for missing names…</strong></p>
+<p><strong>For now, RMD is commenting out the phylo cleaning section. If
+we end up continuing with <code>rotl</code> for both cleaning + phylo, I
+think there will be an opportunity to do name/broken taxon fixing. Some
+of this is covered in an R Open Tree of Life Carpentries lesson here: <a href="https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html" class="external-link uri">https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html</a>
+(which is what RMD is working from).</strong></p>
+<!-- In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge! -->
+<!-- ### Resolving taxonomic names -->
+<!-- ::: challenge -->
+<!-- In previous episodes, we have used the package `taxize` to clean and standardize the taxonomic names in out dataset. Here, we will apply the same approach to the tip names of our phylogeny. We need to make sure the names we will accept from `taxize` will match the names we have accepted in previous episodes. Finally, after we decide on the names, we need to add them to the `phylogeny` objects, where the tip names are stored. -->
+<!-- ::: solution -->
+<!-- First, we check the names using the `gnr_resolve()` function. In `phylogeny`, tip names are stored in `phylogeny$tip.label`, so we provide that vector to our function. -->
+<!-- ```{r phylo-resolve-sol1} -->
+<!-- library(taxize) -->
+<!-- name_resolve <- gnr_resolve(phylogeny$tip.label, best_match_only = TRUE, canonical = TRUE) -->
+<!-- head(name_resolve) -->
+<!-- ``` -->
+<!-- We can see what taxa are in conflict with the names retrieved by `taxize` by subsetting `name_resolve` based on boolean matching. -->
+<!-- ```{r phylo-resolve-sol2} -->
+<!-- mismatches_phylo <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")] -->
+<!-- mismatches_phylo -->
+<!-- ``` -->
+<!-- From here, we can see that apparently there are no misspellings in our tree (as expected from a published phylogeny). Most of the mismatches seem to be related to changes in the taxonomic treatment of species. This is a common situation, since taxonomic treatments are often revised after new trees are published; it might be the case that `nameA` in our dataset was treated as `nameB` at the time the phylogeny was created. -->
+<!-- In the previous episodes, we used the names provided by `taxize` directly. Therefore, here we can just add those names directly to the phylogeny. -->
+<!-- ```{r phylo-resolve-sol3} -->
+<!-- phylogeny$tip.label == name_resolve$matched_name2 -->
+<!-- ``` -->
+<!-- :::::::::::: -->
+<!-- :::::::::::: -->
+<!-- ### Resolving missing tip names -->
+<!-- The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree. -->
+<!-- For this, let's refer back to our original species list and cross-check it against the list of names we were able to find good OTT IDs for. -->
+<!-- ```{r} -->
+<!-- all_names <- tolower(abundances$GenSp) -->
+<!-- found_names <- good_names$search_string -->
+<!-- unfound_names <- setdiff(all_names, found_names) -->
+<!-- ``` -->
+<!-- The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now). -->
+<!-- ```{r} -->
+<!-- not_present <- !(species_names %in% phylogeny$tip.label) -->
+<!-- ``` -->
+<!-- The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`: -->
+<!-- ```{r} -->
+<!-- species_name[not_present] -->
+<!-- ``` -->
+<!-- Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly... -->
+<!-- We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future). -->
+<!-- ```{r} -->
+<!-- species_name[not_present] <- c() -->
+<!-- new_names[not_present] <- c() -->
+<!-- ``` -->
+<!-- Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names. -->
+<!-- ```{r} -->
+<!-- phylo_wide <- abundance_wide -->
+<!-- colnames(phylo_wide) <- new_names -->
+<!-- ``` -->
+<!-- :::::::::::::::::: instructor -->
+<!--     Another issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up. -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities. -->
 <div class="section level3">
 <h3 id="summarizing-with-hill-numbers">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a></h3>
 <p>In this section, we will extract some summary statistics about the
@@ -655,7 +599,7 @@ simple example.</p>
 will create two possibilities of phylogenetic relationship among
 them.</p>
 <p>Tree 1 will represent a totally unbalanced pattern…</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -663,7 +607,7 @@ them.</p>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span></span></code></pre>
 </div>
 <p>whereas tree 2 will represent a totally balanced pattern.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -693,7 +637,7 @@ present. We do that by creating a vector of the value <code>1</code>
 repeated 8 times, transforming that to a dataframe, and then naming the
 columns with the names of the species we take from our fictional
 trees.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -703,7 +647,7 @@ trees.</p>
 </div>
 <p>Using that matrix, we will calculate Hill numbers of order 0 to 2 for
 both trees:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -720,7 +664,7 @@ the first column will be the order (our X axis), the second column will
 be the Hill values (our Y axis) and the third column will be the tree it
 belongs to (which we will use to draw different colored lines for
 comparison).</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -732,7 +676,7 @@ comparison).</p>
 values of the first tree, and then use <code>lines</code> to add a line
 containing the values for the second tree (we used boolean matching
 subsetting to choose what to plot at each time)</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -786,7 +730,7 @@ abundance of extant taxon in the phylogeny we provide. For our simple
 example, we can see how that changes our results by creating
 site-by-species matrix where abundance goes up from species A to species
 H (for simplicity, we’ll just use values from 1 to 8).</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -797,7 +741,7 @@ H (for simplicity, we’ll just use values from 1 to 8).</p>
 We save the values to objects with <code>_rel</code> at the end, to
 highlight in this case the taxa had different <em>rel</em>ative
 abundances.</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -812,7 +756,7 @@ abundances.</p>
 will signal they belong to <code>tree1_rel</code> and
 <code>tree2_rel</code>, meaning they came from a community with
 different <em>rel</em>ative abundance.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -872,12 +816,12 @@ accentuated) pattern with tree2. Calculating different order of hill
 numbers while incorporating species abundance therefore allows to have a
 single metric accounting for evolutionary history and species abundance
 distribution that is comparable across different regions.</p></li>
-</ol><div id="challenge2" class="callout challenge">
+</ol><div id="challenge1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
 </h3>
 <div class="callout-content">
 <p>Now that you got an intuition on the information phylogenetic Hill
@@ -893,14 +837,14 @@ history of each community.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <!-- We gotta simulate the data to finalize this solution section. -->
 </div>
@@ -912,10 +856,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="popgen-data.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="connecting-data-types.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -967,9 +908,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/phylo-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/phylo-data.html",
-  "dateCreated": "2023-06-05",
-  "dateModified": "2023-06-05",
-  "datePublished": "2023-06-05"
+  "dateCreated": "2023-06-06",
+  "dateModified": "2023-06-06",
+  "datePublished": "2023-06-06"
 }
 
   </script><script>

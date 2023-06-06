@@ -85,11 +85,11 @@
   Multidimensional biodiversity data: management and analysis
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 75%" class="percentage">
-    75%
+<aside class="col-md-12 lesson-progress"><div style="width: 12%" class="percentage">
+    12%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 75%" aria-valuenow="75" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 12%" aria-valuenow="12" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -150,10 +150,14 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush3">
+<div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading3">
-        <a href="abundance-data.html">2. Abundance Data</a>
+    <div class="accordion-header" id="flush-headingcurrent">
+        <span class="visually-hidden">Current Chapter</span>
+        <span class="current-chapter">
+        2. Finding multi-dimensional biodiversity data
+        </span>
+      
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -162,7 +166,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="traits-data.html">3. Trait data</a>
+        <a href="care.html">3. The CARE principles and open data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -171,7 +175,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="popgen-data.html">4. Working with population genetic data</a>
+        <a href="abundance-data.html">4. Abundance Data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -180,7 +184,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="phylo-data.html">5. Summarizing phylogenetic data</a>
+        <a href="traits-data.html">5. Trait data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -189,20 +193,16 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="connecting-data-types.html">6. Connecting different data types</a>
+        <a href="popgen-data.html">6. Working with population genetic data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlushcurrent">
+<div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
-    <div class="accordion-header" id="flush-headingcurrent">
-        <span class="visually-hidden">Current Chapter</span>
-        <span class="current-chapter">
-        7. Finding multi-dimensional biodiversity data
-        </span>
-      
+    <div class="accordion-header" id="flush-heading8">
+        <a href="phylo-data.html">7. Summarizing phylogenetic data</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -211,7 +211,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="care.html">8. The CARE principles and open data</a>
+        <a href="connecting-data-types.html">8. Connecting different data types</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -258,17 +258,17 @@
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/connecting-data-types.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/care.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/connecting-data-types.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Connecting different</a>
+        <a class="chapter-link" href="../instructor/introduction.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Introduction</a>
         <a class="chapter-link float-end" href="../instructor/care.html" rel="next">Next: The CARE principles... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Finding multi-dimensional biodiversity data</h1>
-        <p> Last updated on 2023-06-05 | 
+        <p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -292,7 +292,7 @@
 <ul><li>Where do multi-dimensional biodiversity data live online?</li>
 <li>How can we use R APIs to quickly and reproducibly retrieve
 data?</li>
-<li>What are some patterns in how these APIs work?</li>
+<li>What about data that’s not in a database?</li>
 </ul></div>
 </div>
 </div>
@@ -309,37 +309,6 @@ principles to other databases</li>
 </ol></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section level1">
-<h1 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a></h1>
-<p>For this episode, we’ll be working with some R packages that wrap the
-APIs of online repositories. Let’s set those up now.</p>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-Attaching package: 'rotl'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>The following object is masked from 'package:spocc':
-
-    inspect</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-Attaching package: 'taxize'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>The following objects are masked from 'package:rotl':
-
-    synonyms, tax_name, tax_rank</code></pre>
 </div>
 </div>
 <div class="section level1">
@@ -370,18 +339,52 @@ database, such as reading, writing, updating, and deleting data. We
 can’t go over all of these databases in detail, but let’s cover some
 examples that illustrate some principles of how these APIs work for
 different types of biodiversity data.</p>
-<p>Hawaii is known for its diversity of <em>Tetragnatha</em>, a genus of
-orb weaver spiders. With this target in mind let’s download some
-occurrence data from GBIF, some sequence data from NCBI, and a phylogeny
-from OTOL.</p>
+<p>We can do this using the example of Hawaiian arthropods. Hawaii is
+known for its diversity of <em>Tetragnatha</em>, a genus of orb weaver
+spiders. With this target in mind let’s download some
+<em>occurrence</em> data from GBIF, some <em>sequence</em> data from
+NCBI, and a <em>phylogeny</em> for <em>Tetragnatha</em> spiders from
+OTOL.</p>
+<div class="section level3">
+<h3 id="using-apis-setup">Using APIs: Setup<a class="anchor" aria-label="anchor" href="#using-apis-setup"></a></h3>
+<p>For this episode, we’ll be working with some R packages that wrap the
+APIs of online repositories. Let’s set those up now.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Attaching package: 'rotl'</code></pre>
 </div>
-<div class="section level2">
-<h2 id="searching-by-taxon-getting-species-names">Searching by taxon: getting species names<a class="anchor" aria-label="anchor" href="#searching-by-taxon-getting-species-names"></a></h2>
-<p>We want records of only the genus <em>Tetragnatha</em>, but some APIs
-will require species names rather than the names of broader taxa like
-genus or family. We can use the taxize package for this.</p>
-<p>First we use get_uid() to get the identification number for the genus
-in the taxonomy (drawn from NCBI).</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>The following object is masked from 'package:spocc':
+
+    inspect</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Attaching package: 'taxize'</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>The following objects are masked from 'package:rotl':
+
+    synonyms, tax_name, tax_rank</code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="getting-consistent-species-names-using-taxize">Getting consistent species names using <code>taxize</code>
+<a class="anchor" aria-label="anchor" href="#getting-consistent-species-names-using-taxize"></a></h3>
+<p>We will want to source records of the genus <em>Tetragnatha</em>, but
+some APIs will require species names rather than the names of broader
+taxa like genus or family. We can use the <code>taxize</code> package
+for this. <code>taxize</code> links to a genus identification number,
+drawn from NCBI, for each genus. We use the <code>get_uid()</code>
+function to get this number:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -417,9 +420,20 @@ Retrieving data for taxon 'Tetragnatha'</code></pre>
 • Found: 1 
 • Not Found: 0</code></pre>
 </div>
-<p>Then we use the downstream() function to get all species in
-<em>Tetragnatha</em>. This also works on larger taxa like families and
-orders.</p>
+<p>Then, we use the <code>downstream()</code> function to get a list of
+all species in <em>Tetragnatha</em>.</p>
+<div id="callout1" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
+</h3>
+<div class="callout-content">
+<p>This also works on larger taxa like families and orders.</p>
+</div>
+</div>
+</div>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -444,95 +458,25 @@ See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-util
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span>
-<span><span class="va">species_names</span></span></code></pre>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] "Tetragnatha paludicola"              
- [2] "Tetragnatha boydi"                   
- [3] "Tetragnatha cavaleriei"              
- [4] "Tetragnatha virescens"               
- [5] "Tetragnatha josephi"                 
- [6] "Tetragnatha gui"                     
- [7] "Tetragnatha bituberculata"           
- [8] "Tetragnatha shinanoensis"            
- [9] "Tetragnatha chauliodus"              
-[10] "Tetragnatha cf. tincochacae DDC-2018"
-[11] "Tetragnatha similis"                 
-[12] "Tetragnatha riveti"                  
-[13] "Tetragnatha puella"                  
-[14] "Tetragnatha paschae"                 
-[15] "Tetragnatha caudicula"               
-[16] "Tetragnatha tanigawai"               
-[17] "Tetragnatha ceylonica"               
-[18] "Tetragnatha makiharai"               
-[19] "Tetragnatha iriomotensis"            
-[20] "Tetragnatha yesoensis"               
-[21] "Tetragnatha cf. vermiformis JJA-2017"
-[22] "Tetragnatha cf. moua sc_02763"       
-[23] "Tetragnatha lauta"                   
-[24] "Tetragnatha hasselti"                
-[25] "Tetragnatha geniculata"              
-[26] "Tetragnatha vermiformis"             
-[27] "Tetragnatha shoshone"                
-[28] "Tetragnatha caudata"                 
-[29] "Tetragnatha dearmata"                
-[30] "Tetragnatha squamata"                
-[31] "Tetragnatha praedonia"               
-[32] "Tetragnatha pinicola"                
-[33] "Tetragnatha extensa"                 
-[34] "Tetragnatha viridis"                 
-[35] "Tetragnatha javana"                  
-[36] "Tetragnatha obtusa"                  
-[37] "Tetragnatha nigrita"                 
-[38] "Tetragnatha rava"                    
-[39] "Tetragnatha punua"                   
-[40] "Tetragnatha nitens"                  
-[41] "Tetragnatha moua"                    
-[42] "Tetragnatha marquesiana"             
-[43] "Tetragnatha macilenta"               
-[44] "Tetragnatha montana"                 
-[45] "Tetragnatha straminea"               
-[46] "Tetragnatha guatemalensis"           
-[47] "Tetragnatha elongata"                
-[48] "Tetragnatha stelarobusta"            
-[49] "Tetragnatha perkinsi"                
-[50] "Tetragnatha pallescens"              
-[51] "Tetragnatha limu"                    
-[52] "Tetragnatha laboriosa"               
-[53] "Tetragnatha filiciphilia"            
-[54] "Tetragnatha eurychasma"              
-[55] "Tetragnatha obscura"                 
-[56] "Tetragnatha kukuiki"                 
-[57] "Tetragnatha macracantha"             
-[58] "Tetragnatha kikokiko"                
-[59] "Tetragnatha anuenue"                 
-[60] "Tetragnatha maxillosa"               
-[61] "Tetragnatha acuta"                   
-[62] "Tetragnatha pilosa"                  
-[63] "Tetragnatha quasimodo"               
-[64] "Tetragnatha tantalus"                
-[65] "Tetragnatha polychromata"            
-[66] "Tetragnatha perreirai"               
-[67] "Tetragnatha restricta"               
-[68] "Tetragnatha brevignatha"             
-[69] "Tetragnatha kamakou"                 
-[70] "Tetragnatha kukuhaa"                 
-[71] "Tetragnatha versicolor"              
-[72] "Tetragnatha kauaiensis"              
-[73] "Tetragnatha waikamoi"                
-[74] "Tetragnatha mandibulata"             
-[75] "Tetragnatha hawaiensis"              </code></pre>
+<pre class="output" tabindex="0"><code>[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
+[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       </code></pre>
 </div>
 </div>
-<div class="section level2">
-<h2 id="searching-by-taxon-querying-gbif-otol-and-ncbi">Searching by taxon: querying GBIF, OTOL, and NCBI<a class="anchor" aria-label="anchor" href="#searching-by-taxon-querying-gbif-otol-and-ncbi"></a></h2>
-<p>The spocc package is all about occurrence data and lets you download
-occurrences from all major occurrence databases. For GBIF access using
-the spocc package, we use the occ() function.</p>
-<p>We’ll put the species names we retrieved as the ‘query’ and specify
-gbif as our target database in the ‘from’ field.</p>
+<div class="section level3">
+<h3 id="occurrence-data-from-gbif">Occurrence data from GBIF<a class="anchor" aria-label="anchor" href="#occurrence-data-from-gbif"></a></h3>
+<p>The <code>spocc</code> package is all about occurrence data and lets
+you download occurrences from all major occurrence databases. For GBIF
+access using the spocc package, we use the <code>occ()</code>
+function.</p>
+<p>We’ll put the species names we retrieved as the <code>query</code>
+and specify <code>gbif</code> as our target database in the
+<code>from</code> field.</p>
 <p>Since the occurrences from spocc are organized as a list of
 dataframes, one per species, we use the bind_rows() function from dplyr
 to combine this into a single dataframe.</p>
@@ -568,7 +512,11 @@ Attaching package: 'dplyr'</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span><span class="op">)</span></span>
-<span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences</span><span class="op">$</span><span class="va">gbif</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">occurrences_gbif</span> <span class="op">&lt;-</span> <span class="va">occurrences</span><span class="op">$</span><span class="va">gbif</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences_gbif</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -591,12 +539,16 @@ Attaching package: 'dplyr'</code></pre>
 #   familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;,
 #   acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, …</code></pre>
 </div>
-<p>The rotl package provides an interface to the Open Tree of Life. To
-get a tree from this database, we have to match our species names to
-OTOL’s ids.</p>
-<p>We first use trns_match_names() to match our species names to OTOL’s
-taxonomy.</p>
-<p>Then we use ott_id() to get OTOL ids for these matched names.</p>
+</div>
+<div class="section level3">
+<h3 id="phylogenetic-trees-from-the-open-tree-of-life">Phylogenetic trees from the Open Tree of Life<a class="anchor" aria-label="anchor" href="#phylogenetic-trees-from-the-open-tree-of-life"></a></h3>
+<p>The <code>rotl</code> package provides an interface to the Open Tree
+of Life. To get a tree from this database, we have to match our species
+names to OTOL’s ids.</p>
+<p>We first use <code>trns_match_names()</code> to match our species
+names to OTOL’s taxonomy.</p>
+<p>Then we use <code>ott_id()</code> to get OTOL ids for these matched
+names.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -615,8 +567,11 @@ taxonomy.</p>
 <figure><img src="../fig/finding_data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Unfortunately we can see that the phylogenetic relationships between
 these species aren’t resolved in OTOL, so we may have to look elsewhere
 for a phylogeny.</p>
-<p>Let’s continue with the rentrez package, which provides an interface
-to NCBI.</p>
+</div>
+<div class="section level3">
+<h3 id="sequence-data-from-ncbi">Sequence data from NCBI<a class="anchor" aria-label="anchor" href="#sequence-data-from-ncbi"></a></h3>
+<p>Let’s continue with the <code>rentrez</code> package, which provides
+an interface to NCBI.</p>
 <p>NCBI’s API works with genera and larger ranks, but has a harder time
 with lists of species.</p>
 <p>For this reason, let’s just search for <em>Tetragnatha</em> using the
@@ -628,11 +583,11 @@ the query.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">search_results</span> <span class="op">&lt;-</span> <span class="fu">entrez_search</span><span class="op">(</span>db<span class="op">=</span><span class="st">"nucleotide"</span>, term<span class="op">=</span><span class="st">"Tetragnatha &amp; Genus[RANK]"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>UNLIKE spocc but SIMILARLY to rotol, this first search returns a set
-of IDs.</p>
-<p>We then have to use entrez_fetch() on the IDs in search_results to
-obtain the actual record information.</p>
-<p>We specify ‘db’ as ‘nucleotide’ and ‘rettype’ as ‘fasta’ to get fasta
+<p><em>Unlike</em> <code>spocc</code> but <em>similarly</em> to
+<code>rotol</code>, this first search returns a set of IDs.</p>
+<p>We then have to use <code>entrez_fetch()</code> on the IDs in
+search_results to obtain the actual record information.</p>
+<p>We specify ‘db’ as ‘nucleotide’ and ‘rettype’ as ‘fasta’ to get FASTA
 sequences</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -641,18 +596,17 @@ sequences</p>
 <code class="sourceCode R"><span><span class="va">sequences</span> <span class="op">&lt;-</span> <span class="fu">entrez_fetch</span><span class="op">(</span>db <span class="op">=</span> <span class="st">"nucleotide"</span>, id <span class="op">=</span> <span class="va">search_results</span><span class="op">$</span><span class="va">ids</span>, rettype <span class="op">=</span> <span class="st">"fasta"</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<div class="section level2">
-<h2 id="searching-by-location-querying-gbif-and-ncbi">Searching by location: querying GBIF and NCBI<a class="anchor" aria-label="anchor" href="#searching-by-location-querying-gbif-and-ncbi"></a></h2>
+<div class="section level3">
+<h3 id="searching-by-location-querying-gbif-and-ncbi">Searching by location: querying GBIF and NCBI<a class="anchor" aria-label="anchor" href="#searching-by-location-querying-gbif-and-ncbi"></a></h3>
 <p>In addition to or instead of querying by species, we can search for
-records in a given location in the world. Within spocc we need to pass
-location queries directly to GBIF using ‘gbifopts’. We’ll search in a
-lat-long bounding box around Hawaii.</p>
+records in a given location in the world. Within <code>spocc</code> we
+can pass location queries directly to GBIF using <code>gbifopts</code>.
+We’ll search in a lat-long bounding box around Hawaii.</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#df &lt;- occ(query = species_names, from = 'gbif', has_coords=TRUE, gbifopts=list("continent"#="north_america"))</span></span>
-<span><span class="va">occurences_df</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span>, has_coords<span class="op">=</span><span class="cn">TRUE</span>, </span>
+<code class="sourceCode R"><span><span class="va">occurences_df</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span>, has_coords<span class="op">=</span><span class="cn">TRUE</span>, </span>
 <span>                     gbifopts<span class="op">=</span><span class="fu">list</span><span class="op">(</span><span class="st">"decimalLatitude"</span><span class="op">=</span><span class="st">'18.910361,28.402123'</span>,</span>
 <span>                                   <span class="st">"decimalLongitude"</span><span class="op">=</span><span class="st">'-178.334698,-154.806773'</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
@@ -709,17 +663,48 @@ contained in the object we get from the query.</p>
 </div>
 </div>
 </div>
+</div>
+<div class="section level1">
+<h1 id="sources-of-mdbd-databases-without-apis">Sources of MDBD: Databases without APIs<a class="anchor" aria-label="anchor" href="#sources-of-mdbd-databases-without-apis"></a></h1>
+<p>Many excellent databases exist without specialized APIs or R packages
+to facilitate their use.</p>
+<p>For example, the BioTIME database is a compilation of timeseries of
+species ocurrence, abundance, and biomass data. It is <a href="https://biotime.st-andrews.ac.uk/" class="external-link">openly available</a> via the
+University of St. Andrews. The North American Breeding Bird Survey, run
+by the USGS, contains data on bird species abundances across the United
+States and Canada going back more than 50 years. These data are hosted
+on <a href="https://www.sciencebase.gov/catalog/item/52b1dfa8e4b0d9b325230cd9" class="external-link">ScienceBase</a>.</p>
+<p>Some of these databases can be accessed via the <a href="https://retriever.readthedocs.io/en/latest/" class="external-link">Data Retriever and
+accompanying R package the <code>rdataretriever</code>.</a></p>
+<p>Some are findable via <a href="https://search.dataone.org/data" class="external-link">DataONE</a> and the <a href="https://edirepository.org/" class="external-link">Ecological Data Initiative</a>.</p>
+<p>Others can be downloaded directly from the source.</p>
+</div>
 <div class="section level1">
 <h1 id="sources-of-mdbd-small-data-attached-to-papers">Sources of MDBD: “small data” attached to papers<a class="anchor" aria-label="anchor" href="#sources-of-mdbd-small-data-attached-to-papers"></a></h1>
-<p>A lot of useful data is not held in big databases, and is instead
-attached to papers. Searching on Google and Google Scholar can be an
-effective way to find such data. Let’s search for “mammal trait
-database” on Google Scholar.</p>
-<p>The first paper looks good, so let’s look at the Supplementary Data
-which will contain their data.</p>
-<p>Let’s download and unzip the data.</p>
-<p>Reading the metadata file, we see that a certain data file contains
-the traits. Great! Let’s read it into R.</p>
+<p>Finally, A lot of useful data is not held in databases, and is
+instead attached to papers. Searching manuscript databases or Google
+Scholar can be an effective way to find such data. You can filter Web of
+Science to find entries with “associated data”.</p>
+<p>However, this can still be a somewhat heterogeneous and
+time-consuming strategy!</p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Time-permitting, this could be an opportunity for a 15-minute
+breakout exercise where individuals or groups pick a database or website
+and search for data, then report back on what they found and what the
+process was like.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section level1">
 <h1 id="recap">Recap<a class="anchor" aria-label="anchor" href="#recap"></a></h1>
@@ -737,6 +722,8 @@ can be obtained</li>
 <li>While there are patterns in how these APIs work, there will always
 be differences between databases that make using each API a bit
 different.</li>
+<li>Standalone databases and even the supplemental data in manuscripts
+can also be re-used.</li>
 </ul></div>
 </div>
 </div>
@@ -750,12 +737,12 @@ any links that you are not going to use.
 
       </div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/connecting-data-types.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/care.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/connecting-data-types.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Connecting different</a>
+        <a class="chapter-link" href="../instructor/introduction.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Introduction</a>
         <a class="chapter-link float-end" href="../instructor/care.html" rel="next">Next: The CARE principles... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div> <!-- / div.primary-content.col-xs-12 -->
@@ -800,9 +787,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/finding_data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/finding_data.html",
-  "dateCreated": "2023-06-05",
-  "dateModified": "2023-06-05",
-  "datePublished": "2023-06-05"
+  "dateCreated": "2023-06-06",
+  "dateModified": "2023-06-06",
+  "datePublished": "2023-06-06"
 }
 
   </script><script>
