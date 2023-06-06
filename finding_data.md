@@ -12,7 +12,7 @@ editor_options:
     live online?
 -   How can we use R APIs to quickly and
     reproducibly retrieve data?
--   What are some patterns in how these APIs work?
+-   What about data that's not in a database?
 :::
 
 ::: objectives
@@ -26,35 +26,6 @@ participants will be able to:
     APIs and apply API principles to other
     databases
 :::
-
-# Setup
-
-For this episode, we'll be working with some R
-packages that wrap the APIs of online
-repositories. Let's set those up now.
-
-
-```{.output}
-
-Attaching package: 'rotl'
-```
-
-```{.output}
-The following object is masked from 'package:spocc':
-
-    inspect
-```
-
-```{.output}
-
-Attaching package: 'taxize'
-```
-
-```{.output}
-The following objects are masked from 'package:rotl':
-
-    synonyms, tax_name, tax_rank
-```
 
 # Sources of multidimensional biodiversity data: large open-access databases
 
@@ -102,22 +73,47 @@ cover some examples that illustrate some
 principles of how these APIs work for different
 types of biodiversity data.
 
-Hawaii is known for its diversity of
+We can do this using the example of Hawaiian arthropods. Hawaii is known for its diversity of
 *Tetragnatha*, a genus of orb weaver spiders. With
-this target in mind let's download some occurrence
-data from GBIF, some sequence data from NCBI, and
-a phylogeny from OTOL.
+this target in mind let's download some *occurrence*
+data from GBIF, some *sequence* data from NCBI, and
+a *phylogeny* for *Tetragnatha* spiders from OTOL.
 
-## Searching by taxon: getting species names
+### Using APIs: Setup
 
-We want records of only the genus *Tetragnatha*,
+For this episode, we'll be working with some R
+packages that wrap the APIs of online
+repositories. Let's set those up now.
+
+
+```{.output}
+
+Attaching package: 'rotl'
+```
+
+```{.output}
+The following object is masked from 'package:spocc':
+
+    inspect
+```
+
+```{.output}
+
+Attaching package: 'taxize'
+```
+
+```{.output}
+The following objects are masked from 'package:rotl':
+
+    synonyms, tax_name, tax_rank
+```
+
+### Getting consistent species names using `taxize`
+
+We will want to source records of the genus *Tetragnatha*,
 but some APIs will require species names rather
 than the names of broader taxa like genus or
-family. We can use the taxize package for this.
-
-First we use get_uid() to get the identification
-number for the genus in the taxonomy (drawn from
-NCBI).
+family. We can use the `taxize` package for this. `taxize` links to a genus identification number, drawn from NCBI, for each genus. We use the `get_uid()` function to get this number: 
 
 
 ```r
@@ -149,9 +145,15 @@ Retrieving data for taxon 'Tetragnatha'
 • Not Found: 0
 ```
 
-Then we use the downstream() function to get all
-species in *Tetragnatha*. This also works on
+Then, we use the `downstream()` function to get a list of all
+species in *Tetragnatha*. 
+
+::: callout
+
+This also works on
 larger taxa like families and orders.
+
+:::
 
 
 ```r
@@ -172,97 +174,25 @@ See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-util
 
 ```r
 species_names <- species_uids[[1]]$childtaxa_name
-species_names
+
+head(species_names)
 ```
 
 ```{.output}
- [1] "Tetragnatha paludicola"              
- [2] "Tetragnatha boydi"                   
- [3] "Tetragnatha cavaleriei"              
- [4] "Tetragnatha virescens"               
- [5] "Tetragnatha josephi"                 
- [6] "Tetragnatha gui"                     
- [7] "Tetragnatha bituberculata"           
- [8] "Tetragnatha shinanoensis"            
- [9] "Tetragnatha chauliodus"              
-[10] "Tetragnatha cf. tincochacae DDC-2018"
-[11] "Tetragnatha similis"                 
-[12] "Tetragnatha riveti"                  
-[13] "Tetragnatha puella"                  
-[14] "Tetragnatha paschae"                 
-[15] "Tetragnatha caudicula"               
-[16] "Tetragnatha tanigawai"               
-[17] "Tetragnatha ceylonica"               
-[18] "Tetragnatha makiharai"               
-[19] "Tetragnatha iriomotensis"            
-[20] "Tetragnatha yesoensis"               
-[21] "Tetragnatha cf. vermiformis JJA-2017"
-[22] "Tetragnatha cf. moua sc_02763"       
-[23] "Tetragnatha lauta"                   
-[24] "Tetragnatha hasselti"                
-[25] "Tetragnatha geniculata"              
-[26] "Tetragnatha vermiformis"             
-[27] "Tetragnatha shoshone"                
-[28] "Tetragnatha caudata"                 
-[29] "Tetragnatha dearmata"                
-[30] "Tetragnatha squamata"                
-[31] "Tetragnatha praedonia"               
-[32] "Tetragnatha pinicola"                
-[33] "Tetragnatha extensa"                 
-[34] "Tetragnatha viridis"                 
-[35] "Tetragnatha javana"                  
-[36] "Tetragnatha obtusa"                  
-[37] "Tetragnatha nigrita"                 
-[38] "Tetragnatha rava"                    
-[39] "Tetragnatha punua"                   
-[40] "Tetragnatha nitens"                  
-[41] "Tetragnatha moua"                    
-[42] "Tetragnatha marquesiana"             
-[43] "Tetragnatha macilenta"               
-[44] "Tetragnatha montana"                 
-[45] "Tetragnatha straminea"               
-[46] "Tetragnatha guatemalensis"           
-[47] "Tetragnatha elongata"                
-[48] "Tetragnatha stelarobusta"            
-[49] "Tetragnatha perkinsi"                
-[50] "Tetragnatha pallescens"              
-[51] "Tetragnatha limu"                    
-[52] "Tetragnatha laboriosa"               
-[53] "Tetragnatha filiciphilia"            
-[54] "Tetragnatha eurychasma"              
-[55] "Tetragnatha obscura"                 
-[56] "Tetragnatha kukuiki"                 
-[57] "Tetragnatha macracantha"             
-[58] "Tetragnatha kikokiko"                
-[59] "Tetragnatha anuenue"                 
-[60] "Tetragnatha maxillosa"               
-[61] "Tetragnatha acuta"                   
-[62] "Tetragnatha pilosa"                  
-[63] "Tetragnatha quasimodo"               
-[64] "Tetragnatha tantalus"                
-[65] "Tetragnatha polychromata"            
-[66] "Tetragnatha perreirai"               
-[67] "Tetragnatha restricta"               
-[68] "Tetragnatha brevignatha"             
-[69] "Tetragnatha kamakou"                 
-[70] "Tetragnatha kukuhaa"                 
-[71] "Tetragnatha versicolor"              
-[72] "Tetragnatha kauaiensis"              
-[73] "Tetragnatha waikamoi"                
-[74] "Tetragnatha mandibulata"             
-[75] "Tetragnatha hawaiensis"              
+[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
+[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       
 ```
 
-## Searching by taxon: querying GBIF, OTOL, and NCBI
+### Occurrence data from GBIF 
 
-The spocc package is all about occurrence data and
+The `spocc` package is all about occurrence data and
 lets you download occurrences from all major
 occurrence databases. For GBIF access using the
-spocc package, we use the occ() function.
+spocc package, we use the `occ()` function.
 
 We'll put the species names we retrieved as the
-'query' and specify gbif as our target database in
-the 'from' field.
+`query` and specify `gbif` as our target database in
+the `from` field.
 
 Since the occurrences from spocc are organized as
 a list of dataframes, one per species, we use the
@@ -294,7 +224,11 @@ The following objects are masked from 'package:base':
 
 ```r
 occurrences <- occ(query = species_names, from = 'gbif')
-occurrences_df <- bind_rows(occurrences$gbif$data)
+
+occurrences_gbif <- occurrences$gbif$data
+
+occurrences_df <- bind_rows(occurrences_gbif)
+
 head(occurrences_df)
 ```
 
@@ -317,14 +251,17 @@ head(occurrences_df)
 #   acceptedScientificName <chr>, kingdom <chr>, phylum <chr>, order <chr>, …
 ```
 
-The rotl package provides an interface to the Open
+### Phylogenetic trees from the Open Tree of Life
+
+
+The `rotl` package provides an interface to the Open
 Tree of Life. To get a tree from this database, we
 have to match our species names to OTOL's ids.
 
-We first use trns_match_names() to match our
+We first use `trns_match_names()` to match our
 species names to OTOL's taxonomy.
 
-Then we use ott_id() to get OTOL ids for these
+Then we use `ott_id()` to get OTOL ids for these
 matched names.
 
 
@@ -349,7 +286,9 @@ relationships between these species aren't
 resolved in OTOL, so we may have to look elsewhere
 for a phylogeny.
 
-Let's continue with the rentrez package, which
+### Sequence data from NCBI
+
+Let's continue with the `rentrez` package, which
 provides an interface to NCBI.
 
 NCBI's API works with genera and larger ranks, but
@@ -365,32 +304,31 @@ query.
 search_results <- entrez_search(db="nucleotide", term="Tetragnatha & Genus[RANK]")
 ```
 
-UNLIKE spocc but SIMILARLY to rotol, this first
+*Unlike* `spocc` but *similarly* to `rotol`, this first
 search returns a set of IDs.
 
-We then have to use entrez_fetch() on the IDs in
+We then have to use `entrez_fetch()` on the IDs in
 search_results to obtain the actual record
 information.
 
 We specify 'db' as 'nucleotide' and 'rettype' as
-'fasta' to get fasta sequences
+'fasta' to get FASTA sequences
 
 
 ```r
 sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, rettype = "fasta")
 ```
 
-## Searching by location: querying GBIF and NCBI
+### Searching by location: querying GBIF and NCBI
 
 In addition to or instead of querying by species,
 we can search for records in a given location in
-the world. Within spocc we need to pass location
-queries directly to GBIF using 'gbifopts'. We'll
+the world. Within `spocc` we can  pass location
+queries directly to GBIF using `gbifopts`. We'll
 search in a lat-long bounding box around Hawaii.
 
 
 ```r
-#df <- occ(query = species_names, from = 'gbif', has_coords=TRUE, gbifopts=list("continent"#="north_america"))
 occurences_df <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
                      gbifopts=list("decimalLatitude"='18.910361,28.402123',
                                    "decimalLongitude"='-178.334698,-154.806773')) 
@@ -439,22 +377,31 @@ for each species contained in the object we get
 from the query.
 :::
 
+# Sources of MDBD: Databases without APIs
+
+Many excellent databases exist without specialized APIs or R packages to facilitate their use. 
+
+For example, the BioTIME database is a compilation of timeseries of species ocurrence, abundance, and biomass data. It is [openly available](https://biotime.st-andrews.ac.uk/) via the University of St. Andrews. The North American Breeding Bird Survey, run by the USGS, contains data on bird species abundances across the United States and Canada going back more than 50 years. These data are hosted on [ScienceBase](https://www.sciencebase.gov/catalog/item/52b1dfa8e4b0d9b325230cd9).
+
+Some of these databases can be accessed via the [Data Retriever and accompanying R package the `rdataretriever`.](https://retriever.readthedocs.io/en/latest/) 
+
+Some are findable via [DataONE](https://search.dataone.org/data) and the [Ecological Data Initiative](https://edirepository.org/). 
+
+Others can be downloaded directly from the source. 
+
 # Sources of MDBD: "small data" attached to papers
 
-A lot of useful data is not held in big databases,
-and is instead attached to papers. Searching on
-Google and Google Scholar can be an effective way
-to find such data. Let's search for "mammal trait
-database" on Google Scholar.
+Finally, A lot of useful data is not held in  databases,
+and is instead attached to papers. Searching manuscript databases or Google Scholar can be an effective way
+to find such data. You can filter Web of Science to find entries with "associated data".
 
-The first paper looks good, so let's look at the
-Supplementary Data which will contain their data.
+However, this can still be a somewhat heterogeneous and time-consuming strategy!
 
-Let's download and unzip the data.
+::: instructor
 
-Reading the metadata file, we see that a certain
-data file contains the traits. Great! Let's read
-it into R.
+Time-permitting, this could be an opportunity for a 15-minute breakout exercise where individuals or groups pick a database or website and search for data, then report back on what they found and what the process was like. 
+
+:::
 
 # Recap
 
@@ -468,4 +415,5 @@ it into R.
     work, there will always be differences between
     databases that make using each API a bit
     different.
+-   Standalone databases and even the supplemental data in manuscripts can also be re-used. 
 :::

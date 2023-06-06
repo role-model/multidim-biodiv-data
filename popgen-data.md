@@ -7,6 +7,10 @@ editor_options:
     wrap: 50
 ---
 
+
+
+
+
 ## Pop gen data
 
 ::: questions
@@ -58,13 +62,13 @@ Genetic diversity is impacted by demographic events and natural selection that s
 
 The site frequency spectrum (SFS) is a summary of genetic variants across a population, similar to how abundances are summarized across a community. Specifically, it is the distribution of the allele frequencies of a given set of loci (generally single nucleotide polymorphisms, SNPs), in a population or sample. The best way to gain an intuition for what the SFS is, is to visualize it.
 
-<img src="fig/popgen-data-rendered-plot-SFS-1.png" style="display: block; margin: auto;" />
+
 
 The first bar of this plot indicates derived alleles (i.e. not ancestral) that appear once across the population. Approximately 35% of the sampled SNPs in the genome alignment are these "singletons". The second bar indicates derived alleles that appear twice across the population, where \~18% of the sampled SNPs are these "doubletons" and so forth.
 
 The shape of the SFS can tell us important information about the demographic history of a population and their history of selection. The above plot corresponds with a population that has experienced demographic stability. A couple other examples of the impact of demographic history on the SFS include:
 
-<img src="fig/popgen-data-rendered-plot-SFS-demography-1.png" width="50%" style="display: block; margin: auto;" /><img src="fig/popgen-data-rendered-plot-SFS-demography-2.png" width="50%" style="display: block; margin: auto;" />
+
 
 There are a variety of summary statistics that describe the shape of the SFS. The average number of pairwise nucleotide differences, a.k.a. Tajima's $\pi$, where a high value indicates a higher level of genetic diversity in the population, describes the average of the distribution. However, as you've seen above, the shape of the distribution contains important information about the population's history!
 
@@ -108,102 +112,12 @@ First, a FASTA file containing the sequences needs to be read in using the `read
 
 ```r
 library(msa)
-```
 
-```{.output}
-Loading required package: Biostrings
-```
-
-```{.output}
-Loading required package: BiocGenerics
-```
-
-```{.output}
-
-Attaching package: 'BiocGenerics'
-```
-
-```{.output}
-The following objects are masked from 'package:stats':
-
-    IQR, mad, sd, var, xtabs
-```
-
-```{.output}
-The following objects are masked from 'package:base':
-
-    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
-    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
-    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
-    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
-    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
-    table, tapply, union, unique, unsplit, which.max, which.min
-```
-
-```{.output}
-Loading required package: S4Vectors
-```
-
-```{.output}
-Loading required package: stats4
-```
-
-```{.output}
-
-Attaching package: 'S4Vectors'
-```
-
-```{.output}
-The following object is masked from 'package:utils':
-
-    findMatches
-```
-
-```{.output}
-The following objects are masked from 'package:base':
-
-    expand.grid, I, unname
-```
-
-```{.output}
-Loading required package: IRanges
-```
-
-```{.output}
-Loading required package: XVector
-```
-
-```{.output}
-Loading required package: GenomeInfoDb
-```
-
-```{.output}
-
-Attaching package: 'Biostrings'
-```
-
-```{.output}
-The following object is masked from 'package:base':
-
-    strsplit
-```
-
-```r
 seq_path <- "/Users/connorfrench/Dropbox/Old_Mac/School_Stuff/CUNY/Courses/Spring-2019/Machine-Learning/project/fasta/hypsiboas_seqs_aligned.fas"
 
 seqs <- readDNAStringSet(seq_path)
-```
 
-```{.error}
-Error in .Call2("new_input_filexp", filepath, PACKAGE = "XVector"): cannot open file '/Users/connorfrench/Dropbox/Old_Mac/School_Stuff/CUNY/Courses/Spring-2019/Machine-Learning/project/fasta/hypsiboas_seqs_aligned.fas'
-```
-
-```r
 seqs
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'seqs' not found
 ```
 
 To align the sequences using Clustal Omega, we use the `msa` function and specify the `method` as "ClustalOmega". There are more arguments that you can use to fine-tune the alignment, but these are not necessary for the vast majority of alignments.
@@ -211,18 +125,8 @@ To align the sequences using Clustal Omega, we use the `msa` function and specif
 
 ```r
 alignment <- msa(seqs, method = "ClustalOmega")
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'seqs' not found
-```
-
-```r
 alignment
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'alignment' not found
 ```
 
 If after you perform your alignment you find that an individual does not belong or is negatively impacting the alignment, you have to manipulate your unaligned sequence data and then re-align the sequences. For instance, say you didn't want to include the individual `ind_name` in the alignment. First, remove the individual from the `seqs` object.
@@ -231,18 +135,8 @@ If after you perform your alignment you find that an individual does not belong 
 ```r
 # remove individual
 seqs_filt <- seqs[!(names(seqs) %in% "Itar128")]
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'seqs' not found
-```
-
-```r
 seqs_filt
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'seqs_filt' not found
 ```
 
 Then, realign the new set of sequences.
@@ -250,18 +144,8 @@ Then, realign the new set of sequences.
 
 ```r
 alignment <- msa(seqs_filt, method = "ClustalOmega")
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'seqs_filt' not found
-```
-
-```r
 alignment
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'alignment' not found
 ```
 
 There are quite a few packages in R to work with sequence data, for example [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html), [phangorn](https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html), and [ape](https://cran.r-project.org/web/packages/ape/index.html). `ape` is the most versatile of these. But before we can use ape, the alignment must be converted to the `ape::DNAbin` format.
@@ -269,18 +153,8 @@ There are quite a few packages in R to work with sequence data, for example [seq
 
 ```r
 ape_align <- msaConvert(alignment, type = "ape::DNAbin")
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'alignment' not found
-```
-
-```r
 ape_align
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'ape_align' not found
 ```
 
 Although not necessary for this workshop, it's generally advisable to write your DNA alignment to a new file to use later or with other programs.
@@ -288,10 +162,6 @@ Although not necessary for this workshop, it's generally advisable to write your
 
 ```r
 ape::write.FASTA(ape_align, "path/to/alignment.fas")
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'ape_align' not found
 ```
 
 #### ape
@@ -305,25 +175,8 @@ In addition, the function outputs a series of helpful statistics to your console
 
 ```r
 library(ape)
-```
 
-```{.output}
-
-Attaching package: 'ape'
-```
-
-```{.output}
-The following object is masked from 'package:Biostrings':
-
-    complement
-```
-
-```r
 checkAlignment(ape_align, what = 1)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'ape_align' not found
 ```
 
 #### Calculate genetic diversity
@@ -333,48 +186,22 @@ Tajima's pi ("raw" pairwise difference)... Why pairwise deletion rather than ful
 
 ```r
 fas_gendist <- dist.dna(fas, model = "raw", pairwise.deletion = TRUE)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'fas' not found
-```
-
-```r
 fas_gendiv <- median(fas_gendist[upper.tri(fas_gendist)])
-```
-
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'median': object 'fas_gendist' not found
 ```
 
 
 ```r
 fas_gendist_pop <- lapply(fas_split, dist.dna, model = "raw", pairwise.deletion = TRUE)
-```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'X' in selecting a method for function 'lapply': object 'fas_split' not found
-```
-
-```r
 calc_pi <- function(x) {
     gd <- median(x[upper.tri(x)])
     return(gd)
 }
     
 fas_gendiv_pop <- sapply(fas_gendist_pop, calc_pi)
-```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'X' in selecting a method for function 'sapply': object 'fas_gendist_pop' not found
-```
-
-```r
 plot(fas_gendiv_pop)
-```
-
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'fas_gendiv_pop' not found
 ```
 
 ## SNPs
@@ -428,27 +255,13 @@ Individual-based genetic distances... Maybe mention PCA?
 snps_gendist_ind <- dist(snps_genind, method = "euclidean")
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'snps_genind' not found
-```
-
 Nei's genetic distance...
 
 
 ```r
 snps_genpop <- genind2genpop(snps_genind)
-```
 
-```{.error}
-Error in genind2genpop(snps_genind): could not find function "genind2genpop"
-```
-
-```r
 snps_gendist_pop <- dist.genpop(snps_genpop, method = 1)
-```
-
-```{.error}
-Error in dist.genpop(snps_genpop, method = 1): could not find function "dist.genpop"
 ```
 
 FST...
@@ -456,41 +269,11 @@ FST...
 
 ```r
 library(hierfstat)
-```
-
-```{.output}
-
-Attaching package: 'hierfstat'
-```
-
-```{.output}
-The following objects are masked from 'package:ape':
-
-    pcoa, varcomp
-```
-
-```r
 snps_hierfstat <- genind2hierfstat(snps_genind)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'snps_genind' not found
-```
-
-```r
 snps_fst <- pairwise.fst(snps_hierfstat, diploid = TRUE)
-```
 
-```{.error}
-Error in pairwise.fst(snps_hierfstat, diploid = TRUE): could not find function "pairwise.fst"
-```
-
-```r
 hist(snps_fst[upper.tri(snps_fst)])
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'snps_fst' not found
 ```
 
 # Summarize genetic diversity

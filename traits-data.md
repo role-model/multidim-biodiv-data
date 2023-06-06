@@ -7,11 +7,14 @@ editor_options:
     wrap: 72
 ---
 
+
+
+
+
 :::::::::::::::::::::::::::::::::::::: questions
 
--   How do you read in and clean trait data?
--   What visualization techniques help you perform quality control and
-    understand the distribution of your data?
+-   What information is captured via trait data? 
+-   How do you read, clean, and visualize trait data?
 -   What do Hill numbers convey in the context of trait data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -29,8 +32,18 @@ After following this episode, participants should be able to...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-We will work now with trait (i.e., phenotypic) data for communities in
-the Hawaiian islands. Similarly to abundance, investigating trait data
+## Introduction to traits
+
+Trait data is both old and new in ecology.
+
+::: discussion
+
+What have been your experiences with trait data? What are examples of traits you've looked at, or you imagine might be important?
+
+:::
+
+
+Similarly to abundance, investigating trait data
 can give insights into the ecological processes shaping different
 communities. Specifically, it would be interesting to answer questions
 like: 1) how much does a specific trait vary in a community?; 2) Are all
@@ -40,8 +53,24 @@ across different communities? Answering these questions can help us
 understand how species are interacting with the environment and/or with
 each other.
 
+Defining what exactly constitutes a trait, and measuring traits, can get complicated in ecology. (For example, there are lots of things we can measure about even just a leaf - but it's another story to understand which of those attributes are telling us something _ecologically_ meaningful). Ideally, we'd want to focus on a trait that is easily measureable and also linked to ecological features of interest. One such trait is _body size_. Body size is correlated with a whole host of ecologically meaningful traits, and is one of the easiest things to measure about an organism.
+
+Similarly to how we look at community-wide distributions of abundance, we can generate and interpret community-wide _trait_ distributions. 
+
+
+
+
+And, similar to how we can look at species abundance diversity using Hill numbers, we can look at trait diversity using a _trait_ Hill number. 
+
+
+
+
+## Working with trait data
+
+### Importing and cleaning trait data
+
 Here, we will work with a dataset containing values of **body mass** for
-the species in the Hawaiian islands. Similar to the abundance data, each
+the species in the Hawaiian islands. Unlike to the abundance data, each
 row represents one specimen: in this dataset, each row contains the body
 mass measured for that specimen. Our overall goal here is to clean this
 data and attach it to the species data, so we can investigate trait
@@ -51,7 +80,6 @@ We're starting with a challenge!
 
 :::::: challenge
 
-### Import and clean trait data
 
 In the abundance-data episode, you learned how to read in a `CSV` file
 with the `read.csv()` function. In addition, you learned how to clean
@@ -65,7 +93,7 @@ mass in grams, the metric of body size chosen for the study. The data
 also contain typos and a problem with the taxonomy that you must correct
 and investigate. Make sure to glance at the data before cleaning!
 
-Your trait data is located at: <http://bit.ly/41GsgvE>
+Your trait data is located at: <https://bit.ly/41GsgvE>
 
 :::
 
@@ -76,7 +104,7 @@ with the path to the data.
 
 
 ```r
-traits <- read.csv('http://bit.ly/41GsgvE')
+traits <- read.csv('https://bit.ly/41GsgvE')
 ```
 
 Check the names of the traits using the `gnr_resolve()` function. To
@@ -94,18 +122,6 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, canonical = TR
 head(name_resolve)
 ```
 
-```{.output}
-# A tibble: 6 × 5
-  user_supplied_name        submitted_name data_source_title score matched_name2
-  <chr>                     <chr>          <chr>             <dbl> <chr>        
-1 Xyleborus perforans       Xyleborus per… National Center … 0.988 Xyleborus pe…
-2 Agrotis chersotoides      Agrotis chers… Catalogue of Lif… 0.75  Agrotis      
-3 Oligotoma saundersii      Oligotoma sau… Wikispecies       0.988 Oligotoma sa…
-4 Drosophila humeralis      Drosophila hu… Wikispecies       0.988 Drosophila h…
-5 Entomobrya griseoolivata  Entomobrya gr… National Center … 0.988 Entomobrya g…
-6 Pseudosinella kalalauens… Pseudosinella… Encyclopedia of … 0.988 Pseudosinell…
-```
-
 To quickly see which taxa are in conflict with `taxize`'s, use bracket
 subsetting and boolean matching.
 
@@ -116,69 +132,19 @@ mismatches_traits <- name_resolve[name_resolve$user_supplied_name != name_resolv
 mismatches_traits
 ```
 
-```{.output}
-# A tibble: 5 × 2
-  user_supplied_name     matched_name2       
-  <chr>                  <chr>               
-1 Agrotis chersotoides   Agrotis             
-2 Trigonidium flelectens Trigonidium flectens
-3 Schrankia simplllex    Schrankia simplex   
-4 Holcobius insignigis   Holcobius insignis  
-5 Carposina mauiii       Carposina mauii     
-```
-
 Fixing the names comes in two steps. First, we join the `traits`
 dataframe with the `name_resolve` dataframe using the `left_join()`
 function. Note, we indicate that the `GenSp` and `user_supplied_name`
 columns have the same information by supplying a named vector to the
 `by =` argument.
 
-:::::::::::::::::: instructor
-
-```         
-Remember, left_join is like sticking two things together with a shared
-```
-
-column
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ```r
 library(dplyr)
-```
-
-```{.output}
-
-Attaching package: 'dplyr'
-```
-
-```{.output}
-The following objects are masked from 'package:stats':
-
-    filter, lag
-```
-
-```{.output}
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-```
-
-```r
 traits <- left_join(traits, name_resolve[, c("user_supplied_name", "matched_name2")], by = c("GenSp" = "user_supplied_name"))
 
 head(traits)
-```
-
-```{.output}
-                 GenSp   mass_g       matched_name2
-1  Xyleborus perforans 10.13036 Xyleborus perforans
-2  Xyleborus perforans 10.05684 Xyleborus perforans
-3  Xyleborus perforans 10.14838 Xyleborus perforans
-4  Xyleborus perforans 10.20234 Xyleborus perforans
-5  Xyleborus perforans 10.14719 Xyleborus perforans
-6 Agrotis chersotoides 24.25539             Agrotis
 ```
 
 Then, to replace *Agrotis chersotoides* with the updated *Peridroma
@@ -198,46 +164,11 @@ colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 head(traits)
 ```
 
-```{.output}
-                 GenSp   mass_g             final_name
-1  Xyleborus perforans 10.13036    Xyleborus perforans
-2  Xyleborus perforans 10.05684    Xyleborus perforans
-3  Xyleborus perforans 10.14838    Xyleborus perforans
-4  Xyleborus perforans 10.20234    Xyleborus perforans
-5  Xyleborus perforans 10.14719    Xyleborus perforans
-6 Agrotis chersotoides 24.25539 Peridroma chersotoides
-```
-
-:::::::::::::::::: instructor
-
-```         
-Cleaning: - Solving for the species, standardizing taxonomy (`taxize`
-                                                             package) - argument options and output of `taxize::gnr_resolve`
-```
-
-Get the one with maximum score
-
--   Coding for categorical data?
-    -   Collapsing individual trait data and getting mean, median, SD
--   Merging trait data from different sources (individual-based vs
-    species-based)
--   Creating a multi-dimensional trait database
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-<<<<<<< HEAD
-# Aggregation
-
-When analyzing trait data, it often needs to be summarized at a higher level than the individual. For instance, many community assembly
-=======
 :::
 
-    # Aggregation
-    
-When analyzing trait data, it often needs to be summarized at a higher
-level than the individual. For instance, many community assembly
->>>>>>> c86449c88ae44948adde76c7c0a39200bae38e26
-analyses require species-level summaries, rather than individual
+### Summarizing and cleaning trait data
+
+When analyzing trait data, it often needs to be summarized at a higher level than the individual. For instance, many community assembly analyses require species-level summaries, rather than individual
 measurements. So, we often want to calculate summary statistics of
 traits for each species. For numeric measurements, body size, statistics
 like the mean, median, and standard deviation give information about the
@@ -286,23 +217,11 @@ traits_sumstats <-
 head(traits_sumstats)
 ```
 
-```{.output}
-# A tibble: 6 × 4
-  final_name               mean_mass_g median_mass_g sd_mass_g
-  <chr>                          <dbl>         <dbl>     <dbl>
-1 Abanchogastra debilis           6.65          6.64    0.0890
-2 Acanthia procellaris           12.9          12.8     0.0726
-3 Actia eucosmae                 10.8          10.9     0.0945
-4 Adelencyrtus odonaspidis        5.99          6.00    0.0411
-5 Aedes albopictus               10.9          10.9     0.0548
-6 Aedes nocturnus                 6.84          6.83    0.0331
-```
-
 Finally, you need to add the aggregated species-level information back
 to the abundance data, so you have the summary statistics for each
 species at each site.
 
-First, read in the abundance tallies dataframe you made in the abundance
+First, read in the abundance data you used in the abundance
 episode.
 
 
@@ -323,24 +242,7 @@ traits_sumstats <- left_join(abundance_tallies, traits_sumstats, by = "final_nam
 head(traits_sumstats)
 ```
 
-```{.output}
-             site       island                         final_name abundance
-1 HawaiiIsland_01 HawaiiIsland               Acanthia procellaris         3
-2 HawaiiIsland_01 HawaiiIsland                     Actia eucosmae         4
-3 HawaiiIsland_01 HawaiiIsland Anomalochrysa fulvescens rhododora         2
-4 HawaiiIsland_01 HawaiiIsland             Anoplolepis gracilipes         5
-5 HawaiiIsland_01 HawaiiIsland                   Anurophorus lohi         2
-6 HawaiiIsland_01 HawaiiIsland                    Aphis citricola         3
-  mean_mass_g median_mass_g  sd_mass_g
-1   12.875661     12.840191 0.07255218
-2   10.836548     10.864682 0.09449608
-3    2.860058      2.855061 0.04633525
-4   12.366928     12.358811 0.01926359
-5    6.251880      6.234964 0.07793529
-6    3.822070      3.819887 0.12376448
-```
-
-# Visualize trait distributions
+## Visualizing trait distributions
 
 Histograms and density plots can help give you a quick look at the
 distribution of your data. For quality control purposes, they are useful
@@ -385,8 +287,6 @@ hist(
 lines(density(traits_sumstats$mean_mass_g))
 ```
 
-<img src="fig/traits-data-rendered-density-all-1.png" style="display: block; margin: auto;" />
-
 In addition to quality control, knowing the distribution of trait data
 lends itself towards questions of what processes are shaping the
 communities under study. Are the traits overdispersed? Underdispersed?
@@ -411,10 +311,6 @@ are the sites you intended to split by.
 traits_sumstats_split <- split(traits_sumstats, traits_sumstats$site)
 
 names(traits_sumstats_split)
-```
-
-```{.output}
-[1] "HawaiiIsland_01" "Kauai_01"        "Maui_01"        
 ```
 
 To plot the data, you first need to initialize the plot with the
@@ -475,8 +371,6 @@ legend(
 )
 ```
 
-<img src="fig/traits-data-rendered-density-site-plot-1.png" style="display: block; margin: auto;" />
-
 It looks like Kauai insects have a higher average mass and more
 dispersed distribution of masses than Hawaii and Maui! Next, we'll take
 a look at using Hill numbers to summarize the distribution of traits.
@@ -525,27 +419,14 @@ abundance_wide <- abundance_wide[,-1]
 
 :::::::::::::::::
 
-```         
-Now, to create the traits dataframe you first need to remove the `site`,
-```
 
-`island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
+Now, to create the traits dataframe you first need to remove the `site`, `island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
 
 
 ```r
 traits_simple <- traits_sumstats[, -c(1, 2, 4, 6, 7)]
 
 head(traits_simple)
-```
-
-```{.output}
-                          final_name mean_mass_g
-1               Acanthia procellaris   12.875661
-2                     Actia eucosmae   10.836548
-3 Anomalochrysa fulvescens rhododora    2.860058
-4             Anoplolepis gracilipes   12.366928
-5                   Anurophorus lohi    6.251880
-6                    Aphis citricola    3.822070
 ```
 
 Next, you need to filter for unique species in the dataframe.
@@ -555,16 +436,6 @@ Next, you need to filter for unique species in the dataframe.
 traits_simple <- unique(traits_simple)
 
 head(traits_simple)
-```
-
-```{.output}
-                          final_name mean_mass_g
-1               Acanthia procellaris   12.875661
-2                     Actia eucosmae   10.836548
-3 Anomalochrysa fulvescens rhododora    2.860058
-4             Anoplolepis gracilipes   12.366928
-5                   Anurophorus lohi    6.251880
-6                    Aphis citricola    3.822070
 ```
 
 Finally, you need to set the species names to be row names and remove
@@ -600,23 +471,13 @@ For simplicity's sake, we will look at `D_q`, which from the
 documentation is the:
 
 ```         
-> functional Hill number, the effective number of equally abundant and
-```
+> functional Hill number, the effective number of equally abundant and functionally equally distinct species
 
-> functionally equally distinct species
+```
 
 
 ```r
 traits_hill_1
-```
-
-```{.output}
-     HawaiiIsland_01     Kauai_01      Maui_01
-Q           4.288057     7.313327     4.807929
-FDis        3.061469     5.136366     3.602256
-D_q        38.330994    78.854310   103.950856
-MD_q      164.365495   576.687383   499.788382
-FD_q     6300.292831 45474.285521 51953.430115
 ```
 
 To gain an intuition for what this means, let's plot our data. First,
@@ -647,8 +508,6 @@ Let's look at how Hill q = 1 compare across sites.
 ```r
 plot(as.factor(traits_hill$site), traits_hill$q1, ylab = "Hill q = 1")
 ```
-
-<img src="fig/traits-data-rendered-hill-plot-raw-1.png" style="display: block; margin: auto;" />
 
 Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
@@ -688,8 +547,6 @@ legend(
 )
 ```
 
-<img src="fig/traits-data-rendered-hill-plot-rank-1.png" style="display: block; margin: auto;" />
-
 You can see clearly that the diversity differs across islands, where
 Maui has many more species than the other islands and a seemingly more
 even distribution than the others. However, species richness strongly
@@ -710,12 +567,20 @@ sp_counts <-
 traits_hill$q1 / sp_counts
 ```
 
-```{.output}
-[1] 0.6496779 0.8388756 0.7643445
-```
-
 Interestingly, we see that Kauai actually has a more even distribution
 of trait values than Maui when accounting for species richness!
 
+::: discussion
+
 What are some other interpretations from the plots, summary statistics,
-and what you know fr
+and what you know from your work?
+
+:::
+
+
+::: keypoints
+
+- Traits data contain more information about ecologially significant traits than just species IDs.
+- Traits data can be treated similarly to abundance data.
+
+:::
