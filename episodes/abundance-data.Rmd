@@ -198,6 +198,10 @@ Visual of how `left_join` works
 abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
 abundances$final_name <- abundances$matched_name2
+```
+
+```{r include = FALSE, eval = FALSE}
+write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"), row.names = F)
 
 ```
 
