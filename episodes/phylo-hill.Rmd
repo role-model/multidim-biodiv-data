@@ -30,8 +30,15 @@ Assumed to precede (?):
 
 :::
 
+# Intro
+
+Phylogenetic hill numbers incorporate information on both the phylogenetic structure of a system and the abundances of different species. We'll explore the behavior of some toy datasets to get an intuition for how these different components influence phylogenetic hill numbers. 
+
+## Toy datasets
+
 ```{r}
 library(ape)
+library(hillR)
 
 uneven_tree <- read.tree(text = '((A:0.5,B:0.5):2.5,C:3);')
 
@@ -61,11 +68,13 @@ even_community <- data.frame(
 )
 
 
+```
 
-library(hillR)
+## Changing the phylogeny
 
-## Even community
+First, let's see what happens if we have a hypothetical community that is completely even, and we vary the _phylogeny_.
 
+```{r} 
 ### Even tree
 
 even_even <- data.frame(
@@ -141,6 +150,47 @@ even_new
 :::
 
 :::
+
+## Changing species abundances with an even phylogeny
+
+```{r} 
+### Even tree
+
+even_even <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    scenario = "even community, even tree"
+)
+
+
+for(i in 1:nrow(even_even)) {
+    
+    even_even$hill_nb[i] <- hill_phylo(even_community, even_tree, q = even_even$q[i])
+
+}
+
+
+even_even
+
+
+### Uneven tree
+
+
+uneven1_even <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    scenario = "uneven community 1, even tree"
+)
+
+
+for(i in 1:nrow(uneven1_even)) {
+    even_uneven$hill_nb[i] <- hill_phylo(uneven_community1, ueven_tree, q = even_uneven$q[i])
+}
+
+
+uneven1_even
+```
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
