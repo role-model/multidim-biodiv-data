@@ -18,11 +18,10 @@ knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = TRUE)
 ::: questions
 
 - What information is contained in phylogenies?
-- How to summarize and interpret phylogenies using Hill numbers?
 - What are the common phylogeny data formats?
 - How do you import and manipulate phylogeny data in R?
 - How do you visualize phylogenies in R? 
-- How do you calculate Hill numbers with phylogenetic data?
+- How to summarize and interpret phylogenies using Hill numbers?
 
 :::::::::::::
 
