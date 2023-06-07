@@ -186,6 +186,8 @@ abundances$final_name <- abundances$matched_name2
 ```
 
 
+
+
 ::: instructor
 
 For now I am skipping cleaning the abundances name cleaning section because taxize is giving the server error. This may need some updating if there are duplicate species names once cleaned. _But_ that element of it will also probably change if we update the data (nestedness thing) so skippable for now.

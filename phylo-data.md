@@ -88,6 +88,8 @@ Now, we can visually inspect our tree using the `plot()` function:
 plot(example_tree)
 ```
 
+<img src="fig/phylo-data-rendered-plot-example-1.png" style="display: block; margin: auto;" />
+
 Can you visualize the text notation in that image? We can see the same information: A is closer related to B than C, and the branches leading to A and B have half the length of the branch leading to C.
 
 The `read.tree()` function creates an object of class `phylo`. We can further investigate this object by calling it in our console:
@@ -107,20 +109,37 @@ example_tree$tip.label
 example_tree$edge.length
 ```
 
-Now that we learned how to import and visualize trees in R, let's bring the phylogeny for the communities we are working with in this workshop. Our data so far consists of [abundances](abundance-data.Rmd) and [traits](traits-data.Rmd) of several taxa of arthropods collected across three islands in the Hawaian archipelago. Let's work though importing phylogenetic information for these species. 
+Now that we learned how to import and visualize trees in R, let's bring the phylogeny for the communities we are working with in this workshop. Our data so far consists of [abundances](abundance-data.Rmd) and [traits](traits-data.Rmd) of several taxa of arthropods collected across three islands in the Hawaian archipelago. Let's work though importing phylogenetic information for these species.
 
-First, we will get the OTT IDs for the species in our data:
+Because the entire tree of 
 
 
 ```r
 library(rotl)
 
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_raw.csv")
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_resolved.csv")
 
-species_names <- abundances$GenSp
+# This is kind of a mixed cleaning/analysis interlude that seems like it belongs below.
 
-resolved_names <- tnrs_match_names(species_names)
+resolved_names <-  tnrs_match_names(abundances$final_name)
+```
 
+```{.warning}
+Warning: Some names were duplicated: 'holcobius insignis', 'schrankia simplex',
+'trigonidium flectens', 'xyleborus vulcanus', 'aleurothrixus floccosus',
+'cardiocondyla wroughtonii', 'carposina mauii', 'fannia canicularis', 'syntormon
+distortitarsis'.
+```
+
+```{.warning}
+Warning: anomalochrysa fulvescens rhododora, tegonotus hibiscella, coccygomimus
+punicipes, heterocrossa plumbeonitida, pararrhaptica dermatopa, brontolaemus
+currax mauiensis, cremastus flavoorbitalis, cydia plicata, emperoptera
+zimmermani, heterocrossa atronotata, pararrhaptica perkinsana, phlyctaenia
+liopis are not matched
+```
+
+```r
 # Remove names that aren't a perfect match
 
 good_names <- resolved_names[ !resolved_names$approximate_match,]
@@ -136,7 +155,124 @@ Next, we can query the Open Tree of Life for those IDs using the `tol_induced_su
 
 
 ```r
-arthro_tree <- tol_induced_subtree(ott_ids = good_names$ott_id)
+arthro_tree <- tol_induced_subtree(ott_id = (good_names$ott_id))
+```
+
+```{.warning}
+Warning in collapse_singles(tr, show_progress): Dropping singleton nodes
+with labels: Mandibulata ott985907, mrcaott100ott705, mrcaott100ott131202,
+mrcaott100ott98461, Insecta ott1062253, Dicondylia ott983656, mrcaott100ott3046,
+Amphiesmenoptera ott436623, Lepidoptera ott965954, mrcaott100ott89153,
+mrcaott100ott89149, Glossata ott89155, mrcaott100ott14487, Heteroneura
+(parvorder in superorder Amphiesmenoptera) ott795150, mrcaott100ott1356,
+mrcaott100ott119406, mrcaott100ott91816, Ditrysia ott596629, mrcaott100ott29260,
+mrcaott100ott422158, mrcaott100ott371798, mrcaott100ott9946, mrcaott100ott9956,
+mrcaott100ott62459, mrcaott100ott2624, mrcaott2624ott4617, mrcaott2624ott9944,
+mrcaott2624ott3242, mrcaott3242ott4581, Ophiusa ott823720, mrcaott4392ott4777,
+mrcaott4777ott12094, mrcaott4777ott59111, mrcaott4777ott21220, Hadeninae
+ott627470, Leucania ott935040, Athetis ott692336, Bombycoidea ott596647,
+mrcaott4406ott14359, mrcaott4406ott11174, mrcaott4406ott195487,
+mrcaott4406ott4577, Sphingidae ott598255, Macroglossinae (subfamily in
+Protostomia) ott5227729, mrcaott3093348ott3093388, mrcaott3093388ott3094031,
+mrcaott3093388ott3094059, mrcaott3093388ott3093670, mrcaott3093388ott3093590,
+Philampelini ott5227874, Tinostoma ott3093591, mrcaott1363ott18439,
+mrcaott1363ott131472, mrcaott1363ott144110, mrcaott1363ott22028,
+mrcaott1363ott22025, mrcaott22025ott96804, Crambinae ott910673, Mestolobes
+ott3168439, mrcaott4615ott20828, mrcaott677ott95584, mrcaott677ott6210,
+mrcaott677ott3236, mrcaott677ott9938, mrcaott677ott2248, mrcaott2248ott103674,
+mrcaott2248ott8214, mrcaott12735ott103660, mrcaott12735ott24989,
+mrcaott12735ott28039, mrcaott28039ott31514, Nymphalinae ott809887,
+mrcaott28039ott125890, mrcaott28039ott47978, Nymphalini ott803100,
+mrcaott28039ott103027, mrcaott28039ott75325, mrcaott28039ott113234, Vanessa
+ott581035, mrcaott206773ott624275, mrcaott2980ott6188, mrcaott6188ott346969,
+mrcaott6188ott58611, mrcaott6188ott433422, mrcaott6188ott6195,
+mrcaott6188ott855018, mrcaott6188ott84028, mrcaott6188ott8912,
+mrcaott6188ott7874, mrcaott6188ott128114, mrcaott6188ott267747,
+mrcaott6188ott390106, mrcaott6188ott3142238, mrcaott6188ott272268,
+mrcaott6188ott3143370, mrcaott6188ott128096, mrcaott6188ott6837,
+mrcaott6188ott579538, mrcaott6188ott31414, mrcaott31414ott39138,
+mrcaott31414ott58608, mrcaott58608ott123537, mrcaott123537ott941752,
+mrcaott123537ott174789, mrcaott174789ott3147936, Lampides ott174793,
+mrcaott10883ott43864, mrcaott43864ott117178, mrcaott117178ott146833,
+mrcaott117178ott117616, Copromorphoidea ott371738, Carposinidae
+ott384724, mrcaott4942ott9053, mrcaott9053ott39947, Gelechiidae ott926504,
+mrcaott12981ott108952, Pexicopiinae ott765581, Pectinophora ott108954,
+mrcaott39244ott187325, Chrysopeleiinae ott299538, Stagmatophora ott3232562,
+Cosmopteriginae ott299539, mrcaott35093ott91777, mrcaott35093ott45523,
+mrcaott45523ott327236, mrcaott45523ott422164, Autostichidae ott736026,
+Autostichinae ott465581, Stoeberhinus ott369965, Hofmannophila ott922199,
+mrcaott3239ott8963, mrcaott8963ott996125, Tortricoidea ott596646, Tortricidae
+ott116636, mrcaott8963ott62467, Olethreutinae ott33152, mrcaott8963ott23795,
+mrcaott8963ott20818, mrcaott8963ott39951, Grapholitini ott94673,
+Cryptophlebia ott382084, Tortricinae ott930088, mrcaott10899ott19235,
+mrcaott19235ott146771, mrcaott19235ott68324, mrcaott19235ott240447, Archipini
+ott33138, Epiphyas ott930094, mrcaott6619ott45827, mrcaott6619ott14148,
+Gracillariidae ott741184, Philodoria ott3038696, mrcaott1360ott1366,
+mrcaott1360ott152422, mrcaott1360ott54997, mrcaott54997ott163491,
+mrcaott163491ott167487, Erechthiinae ott821290, Erechthias ott167489,
+mrcaott107ott8113, Diptera ott661378, mrcaott107ott1037379, mrcaott107ott460635,
+mrcaott107ott487056, mrcaott107ott633, mrcaott633ott7556, Calyptratae
+ott758893, mrcaott633ott638, mrcaott633ott15696, Oestroidea ott184522,
+mrcaott646ott52674, mrcaott646ott11187, mrcaott646ott351518, Tachininae
+ott511774, Siphonini ott115750, Actia ott535037, Calliphoridae ott1011003,
+Luciliinae ott240460, Muscidae ott484752, Coenosiinae ott573704, Coenosiini
+ott314922, Fanniidae ott672492, Fannia ott557410, mrcaott1874ott269894,
+mrcaott1874ott26327, Drosophilidae ott34905, Drosophilinae ott127994,
+mrcaott3952ott204763, mrcaott3952ott661518, mrcaott3952ott126940,
+mrcaott3952ott26987, mrcaott3952ott15290, mrcaott3952ott12789, virilis group
+ott812297, mrcaott12789ott660821, mrcaott32496ott63100, mrcaott63100ott91811,
+truncipenna subgroup ott91812, nudidrosophila group ott122997, Parascaptomyza
+ott584593, Grimshawomyia ott1047404, mrcaott4410ott86627, mrcaott4410ott34895,
+mrcaott4410ott34911, mrcaott4410ott35517, montium subgroup ott863010,
+mrcaott4410ott86632, mrcaott4410ott232128, mrcaott232128ott793217,
+Ephydrinae ott828141, Notiphila ott1075980, Ephydra ott936922, Discomyzinae
+ott732281, Psilopa ott755023, Chlorichaeta ott4424614, mrcaott4865ott749367,
+mrcaott4865ott24836, mrcaott4865ott108552, mrcaott4865ott769421,
+mrcaott4865ott6576, mrcaott11356ott11618, Tephritinae ott988300, Tephritini
+ott1038711, Tephritis genus group ott6886, mrcaott781866ott4402365,
+mrcaott4402390ott4405017, Phaeogramma ott4405016, Platystomatidae ott430300,
+Scholastinae ott5836021, Scholastes ott4407260, Piophilidae ott1007135,
+Piophilinae ott411501, Piophila ott713613, mrcaott16816ott138649,
+Chyromyidae ott919068, Chyromyinae ott602980, Gymnochiromyia ott940820,
+mrcaott8704ott21730, mrcaott21730ott110761, mrcaott21730ott43178,
+mrcaott21730ott316608, mrcaott21730ott793421, Canacidae ott723458, Canaceoides
+ott6262972, mrcaott338060ott667510, mrcaott338060ott545764, Chloropidae
+ott1008045, Mepachymerus ott4415191, Pipunculidae ott361757, Pipunculinae
+ott164981, Cephalopsini ott164980, Cephalops ott164983, Platypezoidea
+ott133927, mrcaott997ott377813, mrcaott997ott265153, mrcaott997ott108555,
+mrcaott997ott468461, Phoridae ott436667, Phorinae ott361756, Diplonevra
+ott860664, Empidoidea ott653879, mrcaott7667ott26692, mrcaott7667ott41715,
+mrcaott4332256ott4332346, mrcaott4332256ott5829684, mrcaott4332256ott5829685,
+mrcaott4332256ott4332376, mrcaott4332256ott4332289, mrcaott4332256ott4332257,
+mrcaott4332256ott4332265, mrcaott4332265ott4332320, mrcaott4332320ott4332387,
+mrcaott4332320ott4332467, mrcaott4332467ott5829696, Syntormon ott340994,
+Hydrophorinae ott758549, Sigmatineurum ott4339370, mrcaott3333ott6086,
+mrcaott6086ott13469, mrcaott13469ott61651, mrcaott13469ott621658,
+mrcaott13469ott206772, mrcaott13469ott134346, Stratiomyidae ott816777, Evaza
+ott4447725, mrcaott6301ott373197, mrcaott6301ott274230, mrcaott6301ott125716,
+Bibionomorpha ott860948, Sciaroidea ott199311, mrcaott6301ott185073,
+mrcaott6301ott36995, mrcaott6301ott20673, mrcaott20673ott730893, Cecidomyiidae
+ott933819, Cecidomyiinae ott286205, Cecidomyiidi ott496622, Cecidomyiini
+ott318540, Cecidomyia ott7283762, mrcaott451ott168961, mrcaott451ott2372,
+Chironomoidea ott722874, Orthocladiinae ott836368, Clunio ott158195,
+Chironominae ott821752, Chironomini ott175472, Polypedilum ott297468,
+Polypedilum subgenus Polypedilum ott6267673, Ceratopogonidae ott250528,
+Forcipomyiinae ott836375, Culicoidea ott722897, mrcaott605ott250527,
+Culicidae ott269670, Culicinae ott767855, Aedini ott134716, Stegomyia
+ott565822, mrcaott6635ott98011, Tipulomorpha ott860956, Tipuloidea
+ott722875, mrcaott6635ott38943, mrcaott6635ott561305, mrcaott6635ott53942,
+Limoniinae ott423691, Dicranomyia ott868228, Polyphaga (suborder in
+cohort Holometabola) ott684689, Cucujiformia ott684692, mrcaott387ott3369,
+mrcaott4971ott189433, mrcaott4971ott14239, mrcaott4971ott14229,
+mrcaott14229ott38993, mrcaott14229ott52345, Ciidae ott372251, Ciinae
+ott938293, mrcaott413ott53385, mrcaott413ott191511, mrcaott413ott58432,
+mrcaott413ott199885, mrcaott413ott13101, mrcaott413ott69410, mrcaott413ott11612,
+mrcaott413ott88943, mrcaott413ott3611, mrcaott413ott41088, Scolytinae
+ott7170362, mrcaott515ott149634, mrcaott515ott3411482, Anthribidae ott61017,
+Choraginae ott710616, Araecerus ott710605, Cyclominae ott352714, Listroderini
+ott353638, Listroderes ott980517, Belidae ott211889, mrcaott5668ott9643,
+mrcaott9643ott35271, Bruchinae ott190023, Pachymerini ott785323, Caryedon
+ott460612, mrcaott11244ott21732, mrcaott409ott14504, mrcaott409ott3
 ```
 
 
@@ -152,6 +288,8 @@ This new object is way larger than the previous once, being a "real" phylogeny a
 plot(arthro_tree, type = 'fan', show.tip.label = F)
 ```
 
+<img src="fig/phylo-data-rendered-plotting-phylogeny-1.png" style="display: block; margin: auto;" />
+
 How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some cleaning.
 
 ## Cleaning phylogenetic data
@@ -165,98 +303,151 @@ Often, when we want to include the phylogenetic relatedness of organisms in our 
 
 **For now, RMD is commenting out the phylo cleaning section. If we end up continuing with `rotl` for both cleaning + phylo, I think there will be an opportunity to do name/broken taxon fixing. Some of this is covered in an R Open Tree of Life Carpentries lesson here: https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html (which is what RMD is working from).**
 
-<!-- In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge! -->
+In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge!
 
-<!-- ### Resolving taxonomic names -->
+### Resolving taxonomic names
 
-<!-- ::: challenge -->
+::: challenge
 
-<!-- In previous episodes, we have used the package `taxize` to clean and standardize the taxonomic names in out dataset. Here, we will apply the same approach to the tip names of our phylogeny. We need to make sure the names we will accept from `taxize` will match the names we have accepted in previous episodes. Finally, after we decide on the names, we need to add them to the `phylogeny` objects, where the tip names are stored. -->
+In previous episodes, we have used the package `taxize` to clean and standardize the taxonomic names in out dataset. Here, we will apply the same approach to the tip names of our phylogeny. We need to make sure the names we will accept from `taxize` will match the names we have accepted in previous episodes. Finally, after we decide on the names, we need to add them to the `phylogeny` objects, where the tip names are stored.
 
-<!-- ::: solution -->
+::: solution
 
-<!-- First, we check the names using the `gnr_resolve()` function. In `phylogeny`, tip names are stored in `phylogeny$tip.label`, so we provide that vector to our function. -->
-
-<!-- ```{r phylo-resolve-sol1} -->
-<!-- library(taxize) -->
-<!-- name_resolve <- gnr_resolve(phylogeny$tip.label, best_match_only = TRUE, canonical = TRUE) -->
-<!-- head(name_resolve) -->
-<!-- ``` -->
-
-<!-- We can see what taxa are in conflict with the names retrieved by `taxize` by subsetting `name_resolve` based on boolean matching. -->
-
-<!-- ```{r phylo-resolve-sol2} -->
-<!-- mismatches_phylo <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")] -->
-
-<!-- mismatches_phylo -->
-<!-- ``` -->
-
-<!-- From here, we can see that apparently there are no misspellings in our tree (as expected from a published phylogeny). Most of the mismatches seem to be related to changes in the taxonomic treatment of species. This is a common situation, since taxonomic treatments are often revised after new trees are published; it might be the case that `nameA` in our dataset was treated as `nameB` at the time the phylogeny was created. -->
-
-<!-- In the previous episodes, we used the names provided by `taxize` directly. Therefore, here we can just add those names directly to the phylogeny. -->
-
-<!-- ```{r phylo-resolve-sol3} -->
-<!-- phylogeny$tip.label == name_resolve$matched_name2 -->
-
-<!-- ``` -->
-
-<!-- :::::::::::: -->
-
-<!-- :::::::::::: -->
-
-<!-- ### Resolving missing tip names -->
-
-<!-- The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree. -->
-
-<!-- For this, let's refer back to our original species list and cross-check it against the list of names we were able to find good OTT IDs for. -->
+First, we check the names using the `gnr_resolve()` function. In `phylogeny`, tip names are stored in `phylogeny$tip.label`, so we provide that vector to our function.
 
 
+```r
+library(taxize)
+```
 
-<!-- ```{r} -->
+```{.output}
 
-<!-- all_names <- tolower(abundances$GenSp) -->
+Attaching package: 'taxize'
+```
 
-<!-- found_names <- good_names$search_string -->
+```{.output}
+The following objects are masked from 'package:rotl':
 
-<!-- unfound_names <- setdiff(all_names, found_names) -->
+    synonyms, tax_name, tax_rank
+```
 
-<!-- ``` -->
+```r
+phylogeny <- arthro_tree
 
-<!-- The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now). -->
+phylo_tip_names <- phylogeny$tip.label
 
-<!-- ```{r} -->
-<!-- not_present <- !(species_names %in% phylogeny$tip.label) -->
-<!-- ``` -->
+for(i in 1:length(phylo_tip_names)) {
+    phylo_tip_names[i] <- strsplit(phylo_tip_names[i][1], "_ott")[[1]][1]
+     phylo_tip_names[i] <- gsub("_", " ", phylo_tip_names[i])
+}
 
-<!-- The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`: -->
 
-<!-- ```{r} -->
-<!-- species_name[not_present] -->
-<!-- ``` -->
+phylo_tip_names
 
-<!-- Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly... -->
+name_resolve <- gnr_resolve(phylo_tip_names, best_match_only = TRUE, canonical = TRUE)
+head(name_resolve)
+```
 
-<!-- We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future). -->
+We can see what taxa are in conflict with the names retrieved by `taxize` by subsetting `name_resolve` based on boolean matching.
 
-<!-- ```{r} -->
-<!-- species_name[not_present] <- c() -->
-<!-- new_names[not_present] <- c() -->
-<!-- ``` -->
 
-<!-- Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names. -->
+```r
+mismatches_phylo <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
 
-<!-- ```{r} -->
-<!-- phylo_wide <- abundance_wide -->
-<!-- colnames(phylo_wide) <- new_names -->
-<!-- ``` -->
+mismatches_phylo
+```
 
-<!-- :::::::::::::::::: instructor -->
+From here, we can see that apparently there are no misspellings in our tree (as expected from a published phylogeny). Most of the mismatches seem to be related to changes in the taxonomic treatment of species. This is a common situation, since taxonomic treatments are often revised after new trees are published; it might be the case that `nameA` in our dataset was treated as `nameB` at the time the phylogeny was created.
 
-<!--     Another issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up. -->
+In the previous episodes, we used the names provided by `taxize` directly. Therefore, here we can just add those names directly to the phylogeny.
 
-<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 
-<!-- After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities. -->
+```r
+phylogeny$tip.label <- name_resolve$matched_name2
+```
+
+::::::::::::
+
+::::::::::::
+
+### Resolving missing tip names
+
+The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree.
+
+For this, let's refer back to our original species list and cross-check it against the list of names we were able to find good OTT IDs for.
+
+
+
+
+```r
+all_names <- (abundances$final_name)
+
+found_names <- good_names$search_string
+
+unfound_names <- setdiff(all_names, found_names)
+```
+
+The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now).
+
+
+```r
+not_present <- !(all_names %in% (phylogeny$tip.label))
+```
+
+The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`:
+
+
+```r
+all_names[not_present]
+```
+
+Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly...
+
+We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future).
+
+
+```r
+species_name[not_present] <- c()
+```
+
+```{.error}
+Error: object 'species_name' not found
+```
+
+```r
+new_names[not_present] <- c()
+```
+
+```{.error}
+Error: object 'new_names' not found
+```
+
+Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names.
+
+
+```r
+phylo_wide <- abundance_wide
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'abundance_wide' not found
+```
+
+```r
+colnames(phylo_wide) <- new_names
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'new_names' not found
+```
+
+:::::::::::::::::: instructor
+
+    Another issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::
+
+After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities.
 
 ### Summarizing with hill numbers
 
