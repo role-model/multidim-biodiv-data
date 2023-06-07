@@ -30,9 +30,16 @@ Assumed to precede (?):
 
 :::
 
+# Intro
+
+Phylogenetic hill numbers incorporate information on both the phylogenetic structure of a system and the abundances of different species. We'll explore the behavior of some toy datasets to get an intuition for how these different components influence phylogenetic hill numbers. 
+
+## Toy datasets
+
 
 ```r
 library(ape)
+library(hillR)
 
 uneven_tree <- read.tree(text = '((A:0.5,B:0.5):2.5,C:3);')
 
@@ -67,13 +74,14 @@ even_community <- data.frame(
     B = 125,
     C = 125
 )
+```
+
+## Changing the phylogeny
+
+First, let's see what happens if we have a hypothetical community that is completely even, and we vary the _phylogeny_.
 
 
-
-library(hillR)
-
-## Even community
-
+```r
 ### Even tree
 
 even_even <- data.frame(
@@ -162,7 +170,7 @@ for(i in 1:nrow(even_new)) {
 plot(new_tree)
 ```
 
-<img src="fig/phylo-hill-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/phylo-hill-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
 ```r
 even_new
@@ -179,6 +187,70 @@ even_new
 :::
 
 :::
+
+## Changing species abundances with an even phylogeny
+
+
+```r
+### Even tree
+
+even_even <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    scenario = "even community, even tree"
+)
+
+
+for(i in 1:nrow(even_even)) {
+    
+    even_even$hill_nb[i] <- hill_phylo(even_community, even_tree, q = even_even$q[i])
+
+}
+
+
+even_even
+```
+
+```{.output}
+   hill_nb q                  scenario
+1 8.000000 0 even community, even tree
+2 7.494149 1 even community, even tree
+3 6.750000 2 even community, even tree
+4 5.891883 3 even community, even tree
+```
+
+```r
+### Uneven tree
+
+
+uneven1_even <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    scenario = "uneven community 1, even tree"
+)
+
+
+for(i in 1:nrow(uneven1_even)) {
+    even_uneven$hill_nb[i] <- hill_phylo(uneven_community1, ueven_tree, q = even_uneven$q[i])
+}
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ueven_tree' not found
+```
+
+```r
+uneven1_even
+```
+
+```{.output}
+  hill_nb q                      scenario
+1      NA 0 uneven community 1, even tree
+2      NA 1 uneven community 1, even tree
+3      NA 2 uneven community 1, even tree
+4      NA 3 uneven community 1, even tree
+```
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
