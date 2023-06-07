@@ -1720,7 +1720,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -2036,7 +2036,7 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3127,7 +3127,7 @@ objects, where the tip names are stored.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>First, we check the names using the <code>gnr_resolve()</code>
 function. In <code>phylogeny</code>, tip names are stored in
@@ -3582,7 +3582,7 @@ history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <!-- We gotta simulate the data to finalize this solution section. -->
 </div>
@@ -3809,11 +3809,23 @@ structures and community composition.</li>
 </div>
 </div>
 </div>
+<div class="section level1">
+<h1 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
+</h1>
+<p>Phylogenetic hill numbers incorporate information on both the
+phylogenetic structure of a system and the abundances of different
+species. We’ll explore the behavior of some toy datasets to get an
+intuition for how these different components influence phylogenetic hill
+numbers.</p>
+<div class="section level2">
+<h2 id="toy-datasets">Toy datasets<a class="anchor" aria-label="anchor" href="#toy-datasets"></a>
+</h2>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ape</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">uneven_tree</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span>text <span class="op">=</span> <span class="st">'((A:0.5,B:0.5):2.5,C:3);'</span><span class="op">)</span></span>
 <span></span>
@@ -3847,15 +3859,19 @@ structures and community composition.</li>
 <span>    A <span class="op">=</span> <span class="fl">125</span>,</span>
 <span>    B <span class="op">=</span> <span class="fl">125</span>,</span>
 <span>    C <span class="op">=</span> <span class="fl">125</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Even community</span></span>
-<span></span>
-<span><span class="co">### Even tree</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2 id="changing-the-phylogeny">Changing the phylogeny<a class="anchor" aria-label="anchor" href="#changing-the-phylogeny"></a>
+</h2>
+<p>First, let’s see what happens if we have a hypothetical community
+that is completely even, and we vary the <em>phylogeny</em>.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">### Even tree</span></span>
 <span></span>
 <span><span class="va">even_even</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
 <span>    hill_nb <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -3882,7 +3898,7 @@ structures and community composition.</li>
 3 6.750000 2 even community, even tree
 4 5.891883 3 even community, even tree</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3946,9 +3962,9 @@ numbers in a perfectly even community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3969,7 +3985,7 @@ numbers in a perfectly even community.</p>
 <span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">new_tree</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/phylo-hill-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb8">
+<figure><img src="fig/phylo-hill-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3988,6 +4004,79 @@ numbers in a perfectly even community.</p>
 </div>
 </div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="changing-species-abundances-with-an-even-phylogeny">Changing species abundances with an even phylogeny<a class="anchor" aria-label="anchor" href="#changing-species-abundances-with-an-even-phylogeny"></a>
+</h2>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">### Even tree</span></span>
+<span></span>
+<span><span class="va">even_even</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>    hill_nb <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    q <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>    scenario <span class="op">=</span> <span class="st">"even community, even tree"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">nrow</span><span class="op">(</span><span class="va">even_even</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="va">even_even</span><span class="op">$</span><span class="va">hill_nb</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">even_community</span>, <span class="va">even_tree</span>, q <span class="op">=</span> <span class="va">even_even</span><span class="op">$</span><span class="va">q</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="va">even_even</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>   hill_nb q                  scenario
+1 8.000000 0 even community, even tree
+2 7.494149 1 even community, even tree
+3 6.750000 2 even community, even tree
+4 5.891883 3 even community, even tree</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">### Uneven tree</span></span>
+<span></span>
+<span></span>
+<span><span class="va">uneven1_even</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
+<span>    hill_nb <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    q <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>    scenario <span class="op">=</span> <span class="st">"uneven community 1, even tree"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">nrow</span><span class="op">(</span><span class="va">uneven1_even</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">even_uneven</span><span class="op">$</span><span class="va">hill_nb</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">hill_phylo</span><span class="op">(</span><span class="va">uneven_community1</span>, <span class="va">ueven_tree</span>, q <span class="op">=</span> <span class="va">even_uneven</span><span class="op">$</span><span class="va">q</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ueven_tree' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">uneven1_even</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>  hill_nb q                      scenario
+1      NA 0 uneven community 1, even tree
+2      NA 1 uneven community 1, even tree
+3      NA 2 uneven community 1, even tree
+4      NA 3 uneven community 1, even tree</code></pre>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -4005,6 +4094,12 @@ structure (relative abundance of different species) contribute to
 phylogenetic hill numbers.</li>
 </ul>
 </div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
 </div>
 </div></section>
 </div>
