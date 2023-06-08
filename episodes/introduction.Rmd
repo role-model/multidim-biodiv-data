@@ -47,19 +47,21 @@ It is becoming agreed upon protocol that land acknowledgements should be given o
 :::
 
 
-Welcome everyone!  This workshop will engage with ethics around biodiversity data through the lens of Indigenous data sovereignty and governance.  With that in mind, many of the locations where this workshop might run will likely be unceded Indigenous lands.  As part of our introductions we'll think about where we are, where we come from, and our positionalities.  [Native Lands Digital]() is a great resource for understanding where we are geographically, and here is a great video by Dr. Kat Gardner-Vandy and Daniella Scalice demonstrating classical academic introductions and relational introductions that center positionality:
+Welcome everyone!  This workshop will engage with ethics around biodiversity data through the lens of Indigenous data sovereignty and governance.  With that in mind, many of the locations where this workshop might run will likely be unceded Indigenous lands.  As part of our introductions we'll think about where we are, where we come from, and our positionalities.  [Native Land Digital](https://native-land.ca/) is a great resource for understanding where we are geographically, and here is a great video by Dr. Kat Gardner-Vandy and Daniella Scalice demonstrating classical academic introductions and relational introductions that center positionality:
 
 <iframe src="https://www.youtube.com/embed/sY3LYVTTiH4?start=414&end=811" data-external= "1" > </iframe>
 
 ::: instructor
 
-If giving this curriculum live you could choose to demonstrate the different types of introductions modeled by Dr. Kat Gardner-Vandy and Daniella Scalice, or you could show the video.  Note that it's a legit consideration about the length of the relational introduction to allow time and space for everybody to get through their introductions; more people = more succinct intros.
+A note on Native Land Digital map: the map loads with a disclaimer that is important to read: the geospatial polygons are not necessarily approved by the groups they purport to represent.  Native Land Digital is Native-led and has a mechanism to verify polygons, but there might be more accurate map representations you can use for your areas.
+
+A note on relational intros: if giving this curriculum live you could choose to demonstrate yourselves (as instructors) the different types of introductions modeled by Dr. Kat Gardner-Vandy and Daniella Scalice, or you could show the video.  Note that it's a legit consideration about the length of the relational introduction to allow time and space for everybody to get through their introductions; more people = more succinct intros.
 
 :::
 
 ::: challenge
 
-Introductions! Please use this list to help guide your introductions of yourself:
+Introductions! Please use this list to help guide your introduction of yourself:
 
 * Your name
 * Your pronouns
