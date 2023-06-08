@@ -51,6 +51,11 @@ Welcome everyone!  This workshop will engage with ethics around biodiversity dat
 
 <iframe src="https://www.youtube.com/embed/sY3LYVTTiH4?start=414&end=811" data-external= "1" > </iframe>
 
+::: instructor
+
+If giving this curriculum live you could choose to demonstrate the different types of introductions modeled by Dr. Kat Gardner-Vandy and Daniella Scalice, or you could show the video.  Note that it's a legit consideration about the length of the relational introduction to allow time and space for everybody to get through their introductions; more people = more succinct intros.
+
+:::
 
 ::: challenge
 
@@ -74,7 +79,7 @@ Conversation/lecture around the following discussion questions:
 
 ::: discussion
 
-* What does "multidimensional biodiversity data mean to you?
+* What does "multidimensional biodiversity" data mean to you?
 * What types of data do you encounter in your work?
 * Have you ever looked at multiple types simultaneously? 
 
