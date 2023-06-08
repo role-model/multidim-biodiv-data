@@ -414,26 +414,16 @@ of yourself:</p>
 </div>
 </div>
 </div>
-</section><section id="introducing-multidimensional-biodiversity-data"><h2 class="section-heading">Introducing ‘multidimensional biodiversity data’<a class="anchor" aria-label="anchor" href="#introducing-multidimensional-biodiversity-data"></a>
-</h2>
-<hr class="half-width">
-<div id="discussion2" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion2"></a>
-</h3>
-<div class="callout-content">
-<ul>
-<li>What does “multidimensional biodiversity” data mean to you?</li>
-<li>What types of data do you encounter in your work?</li>
-<li>Have you ever looked at multiple types simultaneously?</li>
-</ul>
-</div>
-</div>
-</div>
-</section><section id="four-types-of-mdbd"><h2 class="section-heading">Four types of MDBD<a class="anchor" aria-label="anchor" href="#four-types-of-mdbd"></a>
+<!-- ## Introducing 'multidimensional biodiversity data' -->
+<!-- ::: instructor -->
+<!-- Conversation/lecture around the following discussion questions: -->
+<!-- ::: -->
+<!-- ::: discussion -->
+<!-- * What does "multidimensional biodiversity" data mean to you? -->
+<!-- * What types of data do you encounter in your work? -->
+<!-- * Have you ever looked at multiple types simultaneously?  -->
+<!-- ::: -->
+</section><section id="four-dimensions-of-biodiversity-data"><h2 class="section-heading">Four dimensions of biodiversity data<a class="anchor" aria-label="anchor" href="#four-dimensions-of-biodiversity-data"></a>
 </h2>
 <hr class="half-width">
 <p>In this workshop, we’ll be working with four types of biodiversity
@@ -449,16 +439,17 @@ analysis.</p>
 <p>To make this a little more interesting, let’s explore this with a
 “real-world” (or, close to real-world) example!</p>
 
-<div class="section level3">
-<h3 id="simulated-biodiversity-data-inspired-by-hawaiian-island-ecosystems">Simulated biodiversity data inspired by Hawaiian Island
-ecosystems<a class="anchor" aria-label="anchor" href="#simulated-biodiversity-data-inspired-by-hawaiian-island-ecosystems"></a>
-</h3>
 <p>For this workshop, we’ll be working with some <em>simulated</em> data
 based on real insect species found in the Hawaiian archipelago. The data
 contain real taxonomic names (so we can use workflows designed for
 dealing with taxonomic data) but the abundances and traits are simulated
 using a <em>process model</em> (more on that in Part II of this
-workshop.</p>
+workshop).</p>
+</section><section id="hawaiian-sovereignty"><h2 class="section-heading">Hawaiian sovereignty<a class="anchor" aria-label="anchor" href="#hawaiian-sovereignty"></a>
+</h2>
+<hr class="half-width">
+<iframe src="https://www.youtube.com/embed/RwWNigoZ5ro?start=89&amp;end=164" data-external="1">
+</iframe>
 <p>The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is
 about 5 million years old, while the Big Island is still forming.</p>
 <figure><img src="intro_img/intro_01.png" alt="" class="figure mx-auto d-block"><figcaption>A painting by John D. Dawson shows how the ecosystems
@@ -487,12 +478,12 @@ are simualted as an intermediate between those two extremes.</p>
 <figure><img src="intro_img/intro_04.png" alt="" class="figure mx-auto d-block"><figcaption>A figure showing the simulated abundance and body
 size data at three hypothetical arthropod sampling sites across the
 chronosequence: an old site on Kauai, a middle aged site on Maui, a
-young site on the Big Island.</figcaption></figure><div id="discussion3" class="callout discussion">
+young site on the Big Island.</figcaption></figure><div id="discussion2" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion3"></a>
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion2"></a>
 </h3>
 <div class="callout-content">
 <ul>
@@ -503,17 +494,16 @@ young site on the Big Island.</figcaption></figure><div id="discussion3" class="
 </div>
 </div>
 
-<div id="discussion4" class="callout discussion">
+<div id="discussion3" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion4"></a>
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion3"></a>
 </h3>
 <div class="callout-content">
 <p>How would you expect genetic diversity, species diversity, trait, or
 phylogenetic diversity to vary with island age?</p>
-</div>
 </div>
 </div>
 </div>
@@ -913,7 +903,7 @@ using the R APIs of GBIF, NCBI, and OTOL?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>NCBI and OTOL both require an initial search to obtain record IDs,
 then a second fetch to obtain the actual record data for each ID</p>
@@ -3951,7 +3941,7 @@ numbers in a perfectly even community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
