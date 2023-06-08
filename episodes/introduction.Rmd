@@ -71,24 +71,24 @@ Introductions! Please use this list to help guide your introduction of yourself:
 
 :::
 
-## Introducing 'multidimensional biodiversity data'
+<!-- ## Introducing 'multidimensional biodiversity data' -->
 
-::: instructor
+<!-- ::: instructor -->
 
-Conversation/lecture around the following discussion questions:
+<!-- Conversation/lecture around the following discussion questions: -->
 
-:::
+<!-- ::: -->
 
-::: discussion
+<!-- ::: discussion -->
 
-* What does "multidimensional biodiversity" data mean to you?
-* What types of data do you encounter in your work?
-* Have you ever looked at multiple types simultaneously? 
+<!-- * What does "multidimensional biodiversity" data mean to you? -->
+<!-- * What types of data do you encounter in your work? -->
+<!-- * Have you ever looked at multiple types simultaneously?  -->
 
-:::
+<!-- ::: -->
 
 
-## Four types of MDBD
+## Four dimensions of biodiversity data
 
 In this workshop, we'll be working with four types of biodiversity data: species **abundances**, **population genetics**, **traits**, and **phylogenetics**. These are data types you have probably worked with or heard of separately, but, depending on your area of specialization, you probably have not worked closely with all of them, or with all of them all at once! In this workshop, we'll brush up on skills for working with each data type separately, and then explore what we can accomplish when we integrate multiple data types into the same analysis. 
 
@@ -102,9 +102,13 @@ Transition to data narrative.
 :::
 
 
-### Simulated biodiversity data inspired by Hawaiian Island ecosystems
+For this workshop, we'll be working with some _simulated_ data based on real insect species found in the Hawaiian archipelago.  The data contain real taxonomic names (so we can use workflows designed for dealing with taxonomic data) but the abundances and traits are simulated using a *process model* (more on that in Part II of this workshop).
 
-For this workshop, we'll be working with some _simulated_ data based on real insect species found in the Hawaiian archipelago.  The data contain real taxonomic names (so we can use workflows designed for dealing with taxonomic data) but the abundances and traits are simulated using a *process model* (more on that in Part II of this workshop.
+## Hawaiian sovereignty
+
+<iframe src="https://www.youtube.com/embed/RwWNigoZ5ro?start=89&end=164" data-external= "1" > </iframe>
+
+
 
 
 
