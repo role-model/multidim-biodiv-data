@@ -201,7 +201,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="traits-data.html">3. Importing and summarizing trait data</a>
+        <a href="traits-data.html">3. Trait data</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -265,7 +265,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction</a></p>
 <hr>
-<p> Last updated on 2023-03-02 | 
+<p> Last updated on 2023-03-07 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -342,7 +342,7 @@ handling each</li>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 
 </div>
@@ -369,7 +369,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge2"></a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -432,7 +432,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-abundance-data"><p>Content from <a href="abundance-data.html">Abundance Data</a></p>
 <hr>
-<p> Last updated on 2023-03-03 | 
+<p> Last updated on 2023-03-07 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -529,6 +529,12 @@ Attaching package: 'dplyr'</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>This is vegan 2.6-2</code></pre>
 </div>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span></code></pre>
+</div>
 </div>
 <div class="section level1">
 <h1 id="data-import-and-cleaning">Data import and cleaning<a class="anchor" aria-label="anchor" href="#data-import-and-cleaning"></a>
@@ -541,15 +547,14 @@ Attaching package: 'dplyr'</code></pre>
 Carpentries’ Ecological Data lesson materials on databases</a> are a
 great place to start!</p>
 <p>Let’s load the data:</p>
-
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://github.com/role-model/multidim-biodiv-data/raw/main/episodes/data/abundance_data.csv"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"http://bit.ly/3INNA9V"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>And look at what we’ve got:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -578,7 +583,7 @@ individual observed.</p>
 can, in this case in the form of typos in data entry.</p>
 <p>The <code>taxize</code> R package can help identify and resolve
 simple typos in taxonomic names.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -587,7 +592,7 @@ simple typos in taxonomic names.</p>
 <span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                            canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># returns only name, not authority</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -607,7 +612,7 @@ simple typos in taxonomic names.</p>
 6 Pseudosinella kalalauensis Pseudosinella kalalauensis Encyclope… 0.988 Pseudo…
 # … with abbreviated variable names ¹​data_source_title, ²​matched_name2</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -641,28 +646,15 @@ in our data is resolved only to Agrotis. What’s up there?</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">==</span> <span class="st">"Agrotis chersotoides"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Agrotis chersotoides"</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
+<code class="sourceCode R"><span><span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">==</span> <span class="st">"Agrotis chersotoides"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Peridroma chersotoides"</span></span></code></pre>
 </div>
 <p>Now we need to add the newly-resolved names to our
 <code>abundnaces</code> data:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -677,7 +669,7 @@ in our data is resolved only to Agrotis. What’s up there?</p>
 <p>The data we have have one record per individual, but we’d like to
 have the <em>total</em> number of individuals of each species in our
 data.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -690,18 +682,17 @@ data.</p>
 <pre class="output" tabindex="0"><code>`summarise()` has grouped output by 'site', 'island'. You can override using
 the `.groups` argument.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abundance_tallies</span> <span class="op">&lt;-</span> <span class="fu">ungroup</span><span class="op">(</span><span class="va">abundance_tallies</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">abundance_tallies</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">abundance_tallies</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code># A tibble: 6 × 4
+# Groups:   site, island [1]
   site            island       final_name                         abundance
   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;                                  &lt;int&gt;
 1 HawaiiIsland_01 HawaiiIsland Acanthia procellaris                       3
@@ -711,26 +702,506 @@ the `.groups` argument.</code></pre>
 5 HawaiiIsland_01 HawaiiIsland Anurophorus lohi                           2
 6 HawaiiIsland_01 HawaiiIsland Aphis citricola                            3</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb23">
+<p>Write out the tallied data for later use:</p>
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">aggregate</span><span class="op">(</span><span class="va">abundances</span><span class="op">[</span>, <span class="st">'final_name'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="va">abundances</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">'final_name'</span>, <span class="st">'site'</span><span class="op">)</span><span class="op">]</span>, </span>
-<span>               <span class="va">length</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">abundance_tallies</span>,  <span class="st">"abundance_tallies.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2 id="site-by-species-matrix">Site-by-species matrix<a class="anchor" aria-label="anchor" href="#site-by-species-matrix"></a>
+</h2>
+<p>Often we’ll want to work with a <em>site by species matrix</em>,
+which has sites as rows and species as columns. We can get there using
+the <code>pivot_wider</code> function from the package
+<code>tidyr</code>:</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">abundance_tallies</span>, id_cols <span class="op">=</span> <span class="va">site</span>,</span>
+<span>                              names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
+<span>                              values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
+<span>                              values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">#is identical</span></span></code></pre>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>                          final_name            site final_name
-1               Acanthia procellaris HawaiiIsland_01          3
-2                     Actia eucosmae HawaiiIsland_01          4
-3 Anomalochrysa fulvescens rhododora HawaiiIsland_01          2
-4             Anoplolepis gracilipes HawaiiIsland_01          5
-5                   Anurophorus lohi HawaiiIsland_01          2
-6                    Aphis citricola HawaiiIsland_01          3</code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 3 × 10
+# Groups:   site [3]
+  site   Acant…¹ Actia…² Anoma…³ Anopl…⁴ Anuro…⁵ Aphis…⁶ Carph…⁷ Carpo…⁸ Carul…⁹
+  &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1 Hawai…       3       4       2       5       2       3       7       1       1
+2 Kauai…       0       0       0       0       0       0       0       0       0
+3 Maui_…       0       0       0       0       0       0       0       0       0
+# … with abbreviated variable names ¹​`Acanthia procellaris`, ²​`Actia eucosmae`,
+#   ³​`Anomalochrysa fulvescens rhododora`, ⁴​`Anoplolepis gracilipes`,
+#   ⁵​`Anurophorus lohi`, ⁶​`Aphis citricola`, ⁷​`Carphuroides pectinatus`,
+#   ⁸​`Carposina achroana`, ⁹​`Carulaspis minima`</code></pre>
 </div>
+<p>We’ll want this data to have <em>row names</em> based on the sites,
+so we’ll need some more steps:</p>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">$</span><span class="va">site</span></span>
+<span></span>
+<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                Acanthia procellaris Actia eucosmae
+HawaiiIsland_01                    3              4
+Kauai_01                           0              0
+Maui_01                            0              0
+                Anomalochrysa fulvescens rhododora Anoplolepis gracilipes
+HawaiiIsland_01                                  2                      5
+Kauai_01                                         0                      0
+Maui_01                                          0                      0
+                Anurophorus lohi Aphis citricola Carphuroides pectinatus
+HawaiiIsland_01                2               3                       7
+Kauai_01                       0               0                       0
+Maui_01                        0               0                       0
+                Carposina achroana Carulaspis minima Chlorichaeta albipennis
+HawaiiIsland_01                  1                 1                       2
+Kauai_01                         0                 0                       0
+Maui_01                          0                 0                       0
+                Cillaeopeplus dubius Cis insulicola Cis nudipennis
+HawaiiIsland_01                    2              1              2
+Kauai_01                           0              0              0
+Maui_01                            0              0              0
+                Cydia obliqua Dicranomyia hawaiiensis Drosophila lepidobregma
+HawaiiIsland_01             3                       1                       3
+Kauai_01                    0                       0                       0
+Maui_01                     0                       0                       0
+                Drosophila perkinsi Echthromorpha fuscator Elenchus melanias
+HawaiiIsland_01                   4                      4                 1
+Kauai_01                          0                      0                 0
+Maui_01                           0                      0                 0
+                Epiphanis tristis Eupelmus paraleucothrix Eupodes sigmoidensis
+HawaiiIsland_01                 1                      20                    8
+Kauai_01                        0                       0                    0
+Maui_01                         0                       0                    0
+                Fannia canicularis Hedylepta blackburni Heteropsylla cubana
+HawaiiIsland_01                  1                    5                   2
+Kauai_01                         0                    0                   0
+Maui_01                         10                    0                   0
+                Hypogastrura pahiku Ilburnia coprosmicola Laupala nigra
+HawaiiIsland_01                   4                     1             2
+Kauai_01                          0                     0             0
+Maui_01                           0                     0             0
+                Lispocephala fuscobrunnea Listroderes costirostris
+HawaiiIsland_01                         2                       13
+Kauai_01                                0                        0
+Maui_01                                 0                        0
+                Mecyclothorax purpuripennis Mestolobes droseropa
+HawaiiIsland_01                           7                    2
+Kauai_01                                  0                    0
+Maui_01                                   0                    0
+                Metaphycus anneckei Myllaena pacifica Neoscona theisi
+HawaiiIsland_01                   1                 1               5
+Kauai_01                          0                 0               0
+Maui_01                           0                 0               0
+                Nesogonia blackburni Nesomimesa hawaiiensis Notiphila insularis
+HawaiiIsland_01                   19                      1                   1
+Kauai_01                           0                      0                   0
+Maui_01                            0                      0                   0
+                Notoedres cati Nysius montivagus Omiodes anastrepta
+HawaiiIsland_01              9                10                 10
+Kauai_01                     0                 0                  0
+Maui_01                      0                 0                  0
+                Ophiusa disjungens Orthoea vincta Paratrechina bourbonica
+HawaiiIsland_01                  2              3                       6
+Kauai_01                         0              0                       0
+Maui_01                          0              0                       0
+                Pauahiana lineata Pediobius wilderi Pedronia cibotii
+HawaiiIsland_01                 1                 6                4
+Kauai_01                        0                 0                0
+Maui_01                         0                 0                0
+                Phytoseius hawaiiensis Pilorhagidia hirsuta Piophila casei
+HawaiiIsland_01                      2                    1              1
+Kauai_01                             0                    0              0
+Maui_01                              0                    0              0
+                Plagithmysus laticollis Projectothrips trespinus Psilopa olga
+HawaiiIsland_01                       1                        1            3
+Kauai_01                              0                        0            0
+Maui_01                               0                        0            0
+                Scaptomyza adunca Syrphophagus aphidivorus Tegonotus hibiscella
+HawaiiIsland_01                20                        1                    1
+Kauai_01                        0                        0                    0
+Maui_01                         0                        0                    0
+                Trigonidium kona Tympanococcus tympanistus Xyleborus vulcanus
+HawaiiIsland_01               16                         1                  1
+Kauai_01                       0                         0                 12
+Maui_01                        0                         0                  0
+                Aedes nocturnus Agrotis xiphias Aleurothrixus floccosus
+HawaiiIsland_01               0               0                       0
+Kauai_01                      1              23                       3
+Maui_01                       0               0                       6
+                Bembidion munroi brevicolle Brontolaemus nudicornis
+HawaiiIsland_01                           0                       0
+Kauai_01                                  8                       5
+Maui_01                                   0                       0
+                Campsicnemus penicillatus Cardiocondyla venustula
+HawaiiIsland_01                         0                       0
+Kauai_01                                7                      12
+Maui_01                                 0                       0
+                Cardiocondyla wroughtonii Carposina olivaceonitens
+HawaiiIsland_01                         0                        0
+Kauai_01                               19                       13
+Maui_01                                 7                        0
+                Carposina viridis Carulaspis giffardi Cheyletus eruditus
+HawaiiIsland_01                 0                   0                  0
+Kauai_01                        6                   4                 23
+Maui_01                         0                   0                  0
+                Chrysomphalus dictyospermi Chrysoperla comanche
+HawaiiIsland_01                          0                    0
+Kauai_01                                 3                    5
+Maui_01                                  0                    0
+                Cligenes marianensis Clunio vagans Coccygomimus punicipes
+HawaiiIsland_01                    0             0                      0
+Kauai_01                          15            14                      2
+Maui_01                            0             0                      0
+                Conioscinella formosa Contarinia sorghicola
+HawaiiIsland_01                     0                     0
+Kauai_01                            1                     4
+Maui_01                             0                     0
+                Cryptophlebia ombrodelta Dacnitus currax
+HawaiiIsland_01                        0               0
+Kauai_01                               5              14
+Maui_01                                0               0
+                Decadarchis penicillata Dialeurodes kirkaldyi
+HawaiiIsland_01                       0                     0
+Kauai_01                              6                     8
+Maui_01                               0                     0
+                Diplonevra peregrina Disenochus erythropus Drosophila humeralis
+HawaiiIsland_01                    0                     0                    0
+Kauai_01                          19                    15                   18
+Maui_01                            0                     0                    0
+                Drosophila ornata Drosophila papaalai Dyscritomyia fulgens
+HawaiiIsland_01                 0                   0                    0
+Kauai_01                        5                  12                    4
+Maui_01                         0                   0                    0
+                Entomobrya griseoolivata Epiphyas postvittana Evaza javanensis
+HawaiiIsland_01                        0                    0                0
+Kauai_01                              22                   13                7
+Maui_01                                0                    0                0
+                Friesea oleia Hawaiodillo sharpi Hemiberlesia rapax
+HawaiiIsland_01             0                  0                  0
+Kauai_01                   11                 11                  8
+Maui_01                     0                  0                  0
+                Heterocrossa plumbeonitida Holcobius frater Holcobius insignis
+HawaiiIsland_01                          0                0                  0
+Kauai_01                                33                4                 18
+Maui_01                                  0                0                  0
+                Hypocala deflorata Hyposmocoma centralis Hyposmocoma divisa
+HawaiiIsland_01                  0                     0                  0
+Kauai_01                         4                    11                  4
+Maui_01                          0                     0                  0
+                Hyposmocoma palmivora Hyposmocoma petroptilota
+HawaiiIsland_01                     0                        0
+Kauai_01                           12                        7
+Maui_01                             0                        0
+                Hyposmocoma sordidella Laupala kanaele Laupala wailua
+HawaiiIsland_01                      0               0              0
+Kauai_01                             7              10              9
+Maui_01                              0               0              0
+                Lycaena boetica Mesothriscus optimus Mesovelia mulsanti
+HawaiiIsland_01               0                    0                  0
+Kauai_01                     15                    3                 11
+Maui_01                       0                    0                  0
+                Nabis blackburni Nabis lolupe Necrobia ruficollis
+HawaiiIsland_01                0            0                   0
+Kauai_01                      18           10                   8
+Maui_01                        0            0                   0
+                Neelus minutus Nesiomiris seminotatus Nesodynerus sandwichensis
+HawaiiIsland_01              0                      0                         0
+Kauai_01                     7                     19                         6
+Maui_01                      0                      0                         0
+                Nipponorthezia guadalcanalia Oceanides humeralis
+HawaiiIsland_01                            0                   0
+Kauai_01                                   8                   3
+Maui_01                                    0                   0
+                Oliarus kauaiensis Oligota kauaiensis Oligotoma saundersii
+HawaiiIsland_01                  0                  0                    0
+Kauai_01                         8                 18                    8
+Maui_01                          0                  0                    0
+                Onychiurus folsomi Orthellia caesarion Oxytelus advena
+HawaiiIsland_01                  0                   0               0
+Kauai_01                        12                  14               6
+Maui_01                          0                   0               0
+                Paralabella curvicauda Pararrhaptica dermatopa
+HawaiiIsland_01                      0                       0
+Kauai_01                             3                      15
+Maui_01                              0                       0
+                Peridroma chersotoides Peridroma coniotis Phidippus audax
+HawaiiIsland_01                      0                  0               0
+Kauai_01                            15                  3              29
+Maui_01                              0                  0               0
+                Plagithmysus sugawai Polypedilum nubiferum Proterhinus setiger
+HawaiiIsland_01                    0                     0                   0
+Kauai_01                           8                    19                  15
+Maui_01                            0                     0                   0
+                Psammoechus insularis Pseudopterocheilus relictus
+HawaiiIsland_01                     0                           0
+Kauai_01                           12                           8
+Maui_01                             0                           0
+                Pseudosinella kalalauensis Quadristruma emmae Scaptomyza hardyi
+HawaiiIsland_01                          0                  0                 0
+Kauai_01                                 2                 10                 8
+Maui_01                                  0                  0                 0
+                Scholastes bimaculatus Schrankia altivolans Schrankia simplex
+HawaiiIsland_01                      0                    0                 0
+Kauai_01                             5                    7                 6
+Maui_01                              0                    0                 0
+                Scotorythra arboricolans Spolas delicata
+HawaiiIsland_01                        0               0
+Kauai_01                              10               2
+Maui_01                                0               0
+                Syntormon distortitarsis Tempyra biguttula
+HawaiiIsland_01                        0                 0
+Kauai_01                              12                17
+Maui_01                                3                 0
+                Tenuipalpus pacificus Thrips hawaiiensis Thyrocopa brevipalpis
+HawaiiIsland_01                     0                  0                     0
+Kauai_01                           15                  8                     5
+Maui_01                             0                  0                     0
+                Thyrocopa usitata Tinostoma smaragditis Trigonidium flectens
+HawaiiIsland_01                 0                     0                    0
+Kauai_01                        9                    15                   24
+Maui_01                         0                     0                    0
+                Trigonidium novena Trigonidium octonalis Udea calliastra
+HawaiiIsland_01                  0                     0               0
+Kauai_01                        10                     5               8
+Maui_01                          0                     0               0
+                Xyleborus perforans Abanchogastra debilis
+HawaiiIsland_01                   0                     0
+Kauai_01                          6                     0
+Maui_01                           0                     4
+                Adelencyrtus odonaspidis Aedes albopictus Agrotis tephrias
+HawaiiIsland_01                        0                0                0
+Kauai_01                               0                0                0
+Maui_01                                2                8                4
+                Amblyseius largoensis Anax strenuus Anisolabis eteronoma
+HawaiiIsland_01                     0             0                    0
+Kauai_01                            0             0                    0
+Maui_01                            10             2                    1
+                Aphidius obscuripes Araecerus fasciculatus Araecerus vieillardi
+HawaiiIsland_01                   0                      0                    0
+Kauai_01                          0                      0                    0
+Maui_01                           5                      2                    1
+                Atelothrus limbatus Athesapeuta cyperi Atheta coriaria
+HawaiiIsland_01                   0                  0               0
+Kauai_01                          0                  0               0
+Maui_01                           3                  8               1
+                Athetis thoracica Balclutha timberlakei
+HawaiiIsland_01                 0                     0
+Kauai_01                        0                     0
+Maui_01                         2                    10
+                Barypristus incendiarius Batrachedrodes supercincta
+HawaiiIsland_01                        0                          0
+Kauai_01                               0                          0
+Maui_01                                5                          5
+                Brontolaemus currax mauiensis Buenoa pallipes
+HawaiiIsland_01                             0               0
+Kauai_01                                    0               0
+Maui_01                                     4              11
+                Campsicnemus ephydrus Campsicnemus macula
+HawaiiIsland_01                     0                   0
+Kauai_01                            0                   0
+Maui_01                             1                   5
+                Campsicnemus philohydratus Canaceoides angulatus
+HawaiiIsland_01                          0                     0
+Kauai_01                                 0                     0
+Maui_01                                  3                     5
+                Carpophilus maculatus Carposina mauii Caryedon serratus
+HawaiiIsland_01                     0               0                 0
+Kauai_01                            0               0                 0
+Maui_01                             4              12                 2
+                Cephalops titanus Cheiracanthium diversum
+HawaiiIsland_01                 0                       0
+Kauai_01                        0                       0
+Maui_01                         9                       6
+                Chlorococcus straussiae Circulifer tenellus Cis immaturus
+HawaiiIsland_01                       0                   0             0
+Kauai_01                              0                   0             0
+Maui_01                               3                   3             7
+                Colpodiscus lucipetens Cremastus flavoorbitalis Cydia plicata
+HawaiiIsland_01                      0                        0             0
+Kauai_01                             0                        0             0
+Maui_01                              3                        5             4
+                Diestota occidentalis Drosophila disticha Drosophila kikkawai
+HawaiiIsland_01                     0                   0                   0
+Kauai_01                            0                   0                   0
+Maui_01                             5                   2                  13
+                Drosophila lemniscata Drosophila mediana Drosophila spectabilis
+HawaiiIsland_01                     0                  0                      0
+Kauai_01                            0                  0                      0
+Maui_01                             2                  3                      2
+                Drosophila truncipenna Drosophila virilis
+HawaiiIsland_01                      0                  0
+Kauai_01                             0                  0
+Maui_01                              3                  4
+                Dyscritomyia grimshawi Emperoptera zimmermani
+HawaiiIsland_01                      0                      0
+Kauai_01                             0                      0
+Maui_01                              4                      4
+                Entomobrya albocincta Ephydra millbrae Eupetinus laevigatus
+HawaiiIsland_01                     0                0                    0
+Kauai_01                            0                0                    0
+Maui_01                             4               12                    2
+                Eupetinus latimargo Eurynogaster spiniger
+HawaiiIsland_01                   0                     0
+Kauai_01                          0                     0
+Maui_01                           4                     3
+                Eurynogaster variabilis Forcipomyia hardyi Forcipomyia ingrami
+HawaiiIsland_01                       0                  0                   0
+Kauai_01                              0                  0                   0
+Maui_01                               4                  5                   1
+                Fornax longicornis Gymnochiromyia hawaiiensis
+HawaiiIsland_01                  0                          0
+Kauai_01                         0                          0
+Maui_01                         11                          4
+                Heterocrossa atronotata Hierodula patellifera
+HawaiiIsland_01                       0                     0
+Kauai_01                              0                     0
+Maui_01                               2                     3
+                Hofmannophila pseudospretella Hylaeus facilis
+HawaiiIsland_01                             0               0
+Kauai_01                                    0               0
+Maui_01                                     5              15
+                Hyposmocoma bitincta Hyposmocoma diffusa
+HawaiiIsland_01                    0                   0
+Kauai_01                           0                   0
+Maui_01                            5                   3
+                Hyposmocoma scepticella Leialoha mauiensis Leucania striata
+HawaiiIsland_01                       0                  0                0
+Kauai_01                              0                  0                0
+Maui_01                               2                 13               16
+                Liancalus metallicus Lispinodes mauiensis Lispocephala ascita
+HawaiiIsland_01                    0                    0                   0
+Kauai_01                           0                    0                   0
+Maui_01                            6                    6                   3
+                Lispocephala deceptiva Lispocephala pollinosa
+HawaiiIsland_01                      0                      0
+Kauai_01                             0                      0
+Maui_01                              3                      2
+                Lispocephala subseminigra Lispocephala xanthopleura
+HawaiiIsland_01                         0                         0
+Kauai_01                                0                         0
+Maui_01                                 3                         6
+                Macrosiphum solanifolii Mecaphesa hiatus Mecyclothorax rusticus
+HawaiiIsland_01                       0                0                      0
+Kauai_01                              0                0                      0
+Maui_01                               2                2                      5
+                Mecyclothorax unctus Metaphycus lounsburyi Myllaena vicina
+HawaiiIsland_01                    0                     0               0
+Kauai_01                           0                     0               0
+Maui_01                            2                     7               1
+                Nabis koelensis Neoclytarlus railliardiae
+HawaiiIsland_01               0                         0
+Kauai_01                      0                         0
+Maui_01                       2                         1
+                Neoscatella hawaiiensis Neseis ampliata Neseis haleakalae
+HawaiiIsland_01                       0               0                 0
+Kauai_01                              0               0                 0
+Maui_01                               2               3                 2
+                Nesiomiris cheliferus Nesomicromus brunnescens
+HawaiiIsland_01                     0                        0
+Kauai_01                            0                        0
+Maui_01                             4                       12
+                Nesosydne blackburni Nysius beardsleyi Nysius kinbergi
+HawaiiIsland_01                    0                 0               0
+Kauai_01                           0                 0               0
+Maui_01                            6                 5               1
+                Nysius longicollis Odynerus erythrostactes Odynerus nigripennis
+HawaiiIsland_01                  0                       0                    0
+Kauai_01                         0                       0                    0
+Maui_01                          2                       2                    4
+                Oeobia heterodoxa Oligota glabra Omiodes blackburni
+HawaiiIsland_01                 0              0                  0
+Kauai_01                        0              0                  0
+Maui_01                         1              1                  2
+                Orthezia insignis Pachodynerus nasidens Pagiopalus atomarius
+HawaiiIsland_01                 0                     0                    0
+Kauai_01                        0                     0                    0
+Maui_01                         3                     2                    6
+                Pararrhaptica perkinsana Pectinophora gossypiella
+HawaiiIsland_01                        0                        0
+Kauai_01                               0                        0
+Maui_01                                9                        8
+                Pentamerismus oregonensis Phaeogramma vittipennis
+HawaiiIsland_01                         0                       0
+Kauai_01                                0                       0
+Maui_01                                 8                       3
+                Phenacoccus madeirensis Philodoria dubauticola
+HawaiiIsland_01                       0                      0
+Kauai_01                              0                      0
+Maui_01                               9                      9
+                Phlyctaenia liopis Plagithmysus medeirosi
+HawaiiIsland_01                  0                      0
+Kauai_01                         0                      0
+Maui_01                          1                      4
+                Plagithmysus simillimus Plagithmysus smilacis
+HawaiiIsland_01                       0                     0
+Kauai_01                              0                     0
+Maui_01                               3                     6
+                Prognathogryllus kukui Proterhinus comes Proterhinus haleakalae
+HawaiiIsland_01                      0                 0                      0
+Kauai_01                             0                 0                      0
+Maui_01                              5                 3                     16
+                Proterhinus ruficollis Proterhinus tuberculiceps Psallus luteus
+HawaiiIsland_01                      0                         0              0
+Kauai_01                             0                         0              0
+Maui_01                              5                         3              1
+                Remaudiereana nigriceps Scaptomyza exigua Scaptomyza nasalis
+HawaiiIsland_01                       0                 0                  0
+Kauai_01                              0                 0                  0
+Maui_01                               5                 3                  3
+                Scaptomyza pallifrons Scatella femoralis Scotorythra brunnea
+HawaiiIsland_01                     0                  0                   0
+Kauai_01                            0                  0                   0
+Maui_01                            10                  2                   3
+                Sierola mauiensis Sigmatineurum nigrum Sinella kukae
+HawaiiIsland_01                 0                    0             0
+Kauai_01                        0                    0             0
+Maui_01                         2                    1             2
+                Stoeberhinus testaceus Tetragnatha acuta Tetragnatha hawaiensis
+HawaiiIsland_01                      0                 0                      0
+Kauai_01                             0                 0                      0
+Maui_01                              4                 3                      3
+                Tetragnatha macracantha Tetragnatha quasimodo
+HawaiiIsland_01                       0                     0
+Kauai_01                              0                     0
+Maui_01                               4                     2
+                Tetramorium tonganum Trigonidium pseudokua Trigonidium wahoi
+HawaiiIsland_01                    0                     0                 0
+Kauai_01                           0                     0                 0
+Maui_01                            2                     2                 6
+                Udea heterodoxa Vanessa tameamea Vespula pensylvanica
+HawaiiIsland_01               0                0                    0
+Kauai_01                      0                0                    0
+Maui_01                       7                1                   10
+                Xyleborinus saxeseni
+HawaiiIsland_01                    0
+Kauai_01                           0
+Maui_01                            1</code></pre>
+</div>
+<!-- ```{r or base r} -->
+<!-- x <- aggregate(abundances[, 'final_name', drop = FALSE], abundances[, c('final_name', 'site')],  -->
+<!--                length) -->
+<!-- head(x) #is identical -->
+<!-- ``` -->
 </div>
 </div>
 <div class="section level1">
@@ -739,7 +1210,7 @@ the `.groups` argument.</code></pre>
 <div class="section level2">
 <h2 id="separating-the-islands">Separating the islands<a class="anchor" aria-label="anchor" href="#separating-the-islands"></a>
 </h2>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -751,7 +1222,7 @@ the `.groups` argument.</code></pre>
 <div class="section level2">
 <h2 id="plotting-sads">Plotting SADs<a class="anchor" aria-label="anchor" href="#plotting-sads"></a>
 </h2>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -769,22 +1240,22 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/abundance-data-rendered-kauai%20sad%20plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb28">
+<figure><img src="fig/abundance-data-rendered-kauai%20sad%20plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -803,20 +1274,74 @@ the `.groups` argument.</code></pre>
 <div class="section level2">
 <h2 id="diversity-indices">Diversity indices<a class="anchor" aria-label="anchor" href="#diversity-indices"></a>
 </h2>
+<p>The <code>vegan</code> package is a widely-used toolset for
+calculating diversity indices on ecological abundance data.</p>
 <div class="section level3">
-<h3 id="simpsons-evenness">Simpson’s evenness<a class="anchor" aria-label="anchor" href="#simpsons-evenness"></a>
+<h3 id="species-richness">Species richness<a class="anchor" aria-label="anchor" href="#species-richness"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hawaii_richness</span> <span class="op">&lt;-</span> <span class="fu">length</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">final_name</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">hawaii_richness</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu">specnumber</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">richness</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 59</code></pre>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+             59              94             136 </code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="shannons-index">Shannon’s index<a class="anchor" aria-label="anchor" href="#shannons-index"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">shannon</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">abundance_wide</span>, index <span class="op">=</span> <span class="st">"shannon"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">shannon</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+       3.600169        4.361321        4.677393 </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb37">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">exp_shannon</span> <span class="op">&lt;-</span> <span class="fu">exp</span><span class="op">(</span><span class="va">shannon</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">exp_shannon</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+       36.60441        78.36057       107.48945 </code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="simpsons-evenness">Simpson’s evenness<a class="anchor" aria-label="anchor" href="#simpsons-evenness"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb39">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simpson</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">abundance_wide</span>, index <span class="op">=</span> <span class="st">"simpson"</span><span class="op">)</span></span>
+<span><span class="va">simpson</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+      0.9610713       0.9853324       0.9886889 </code></pre>
 </div>
 <div id="discussion3" class="callout discussion">
 <div class="callout-square">
@@ -826,7 +1351,121 @@ the `.groups` argument.</code></pre>
 <h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion3"></a>
 </h3>
 <div class="callout-content">
-<p>Compute richness on Maui and Kauai.</p>
+<p>Compute the <em>inverse</em> Simpson index.</p>
+<p>(Hint: use <code>?diversity</code> to get more information about the
+<code>diversity</code> function).</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb41">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">invsimpson</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">abundance_wide</span>, index <span class="op">=</span> <span class="st">"invsimpson"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">invsimpson</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+       25.68800        68.17769        88.40846 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="combining-values-into-a-dataframe">Combining values into a dataframe<a class="anchor" aria-label="anchor" href="#combining-values-into-a-dataframe"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb43">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">diversity_metrics</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">exp_shannon</span>, </span>
+<span>                           <span class="va">invsimpson</span>,</span>
+<span>                           <span class="va">richness</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">diversity_metrics</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>            HawaiiIsland_01 Kauai_01   Maui_01
+exp_shannon        36.60441 78.36057 107.48945
+invsimpson         25.68800 68.17769  88.40846
+richness           59.00000 94.00000 136.00000</code></pre>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="hill-numbers">Hill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers"></a>
+</h2>
+<div id="discussion4" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion4"></a>
+</h3>
+<div class="callout-content">
+<p>Hill numbers are a unifying framework.</p>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="calculating-hill-numbers">Calculating Hill numbers<a class="anchor" aria-label="anchor" href="#calculating-hill-numbers"></a>
+</h3>
+<p>The <code>hillR</code> package allows us to calculate Hill numbers in
+much the same way we calculate diversity indices in
+<code>vegan</code>.</p>
+<div class="codewrapper sourceCode" id="cb45">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">0</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="va">hill_0</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+             59              94             136 </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb47">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hill_1</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+       36.60441        78.36057       107.48945 </code></pre>
+</div>
+<div id="discussion5" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion5"></a>
+</h3>
+<div class="callout-content">
+<p>Calculate the hill numbers for q = 2.</p>
 </div>
 </div>
 </div>
@@ -837,348 +1476,21 @@ the `.groups` argument.</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb31">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">maui_richness</span> <span class="op">&lt;-</span> <span class="fu">length</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">final_name</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">maui_richness</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 136</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb33">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kauai_richness</span> <span class="op">&lt;-</span> <span class="fu">length</span><span class="op">(</span><span class="fu">unique</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">final_name</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">kauai_richness</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 94</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="shannons-index">Shannon’s index<a class="anchor" aria-label="anchor" href="#shannons-index"></a>
-</h3>
-<div class="codewrapper sourceCode" id="cb35">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hawaii_shannon</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
-<span><span class="va">hawaii_shannon</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 3.600169</code></pre>
-</div>
-<div id="discussion4" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion4"></a>
-</h3>
-<div class="callout-content">
-<p>Compute Shannon diversity on Maui and Kauai.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb37">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">maui_shannon</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">maui_shannon</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 4.677393</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb39">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kauai_shannon</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">kauai_shannon</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 4.361321</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="simpsons-evenness-1">Simpson’s evenness<a class="anchor" aria-label="anchor" href="#simpsons-evenness-1"></a>
-</h3>
-<div class="codewrapper sourceCode" id="cb41">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hawaii_invsimpson</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">abundance</span>, index <span class="op">=</span> <span class="st">"invsimpson"</span><span class="op">)</span></span>
-<span><span class="va">hawaii_invsimpson</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 25.688</code></pre>
-</div>
-<div id="discussion5" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion5"></a>
-</h3>
-<div class="callout-content">
-<p>Compute invsimpson evenness on Maui and Kauai.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
-  <h4 class="accordion-header" id="headingSolution5">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb43">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">maui_invsimpson</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span>, index <span class="op">=</span> <span class="st">"invsimpson"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">maui_invsimpson</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 88.40846</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb45">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kauai_invsimpson</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span>, index <span class="op">=</span> <span class="st">"invsimpson"</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">kauai_invsimpson</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 68.17769</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="combining-values-into-a-dataframe">Combining values into a dataframe<a class="anchor" aria-label="anchor" href="#combining-values-into-a-dataframe"></a>
-</h3>
-<div class="codewrapper sourceCode" id="cb47">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diversity_metrics</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span></span>
-<span>    island <span class="op">=</span> <span class="fu">as.factor</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"hawaiiisland"</span>, <span class="st">"maui"</span>, <span class="st">"kauai"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    shannon <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">hawaii_shannon</span>, <span class="va">maui_shannon</span>, <span class="va">kauai_shannon</span><span class="op">)</span>,</span>
-<span>    invsimpson <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">hawaii_invsimpson</span>, <span class="va">maui_invsimpson</span>, <span class="va">kauai_invsimpson</span><span class="op">)</span>,</span>
-<span>    richness <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">hawaii_richness</span>, <span class="va">maui_richness</span>, <span class="va">kauai_richness</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">diversity_metrics</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>        island  shannon invsimpson richness
-1 hawaiiisland 3.600169   25.68800       59
-2         maui 4.677393   88.40846      136
-3        kauai 4.361321   68.17769       94</code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">diversity_metrics</span><span class="op">$</span><span class="va">island</span>, <span class="va">diversity_metrics</span><span class="op">$</span><span class="va">shannon</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/abundance-data-rendered-plotting%20Shannon-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion6" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion6"></a>
-</h3>
-<div class="callout-content">
-<p>Plot invsimpson and species richness for the different islands.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
-  <h4 class="accordion-header" id="headingSolution6">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb50">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">diversity_metrics</span><span class="op">$</span><span class="va">island</span>, <span class="va">diversity_metrics</span><span class="op">$</span><span class="va">richness</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/abundance-data-rendered-richness%20plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb51">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">diversity_metrics</span><span class="op">$</span><span class="va">island</span>, <span class="va">diversity_metrics</span><span class="op">$</span><span class="va">invsimpson</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/abundance-data-rendered-invsimpson%20plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="hill-numbers">Hill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers"></a>
-</h2>
-<div id="discussion7" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion7"></a>
-</h3>
-<div class="callout-content">
-<p>Hill numbers are a unifying framework.</p>
-</div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="calculating-hill-numbers">Calculating Hill numbers<a class="anchor" aria-label="anchor" href="#calculating-hill-numbers"></a>
-</h3>
-<p>Here we have provided a function for calculating Hill numbers of a
-given order <code>q</code>.</p>
-
-<div class="codewrapper sourceCode" id="cb52">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">calculate_hill</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">q</span> <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    </span>
-<span>   </span>
-<span>   <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">n</span><span class="op">/</span><span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span>    </span>
-<span>    <span class="va">hill</span> <span class="op">&lt;-</span> <span class="fu">outer</span><span class="op">(</span><span class="va">n</span>, <span class="va">q</span>, <span class="st">'^'</span><span class="op">)</span></span>
-<span>    <span class="va">hill</span> <span class="op">&lt;-</span> <span class="fu">colSums</span><span class="op">(</span><span class="va">hill</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">q</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">hill</span><span class="op">[</span><span class="va">q</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">exp</span><span class="op">(</span><span class="fu">sum</span><span class="op">(</span><span class="op">-</span><span class="va">n</span> <span class="op">*</span> <span class="fu">log</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu">names</span><span class="op">(</span><span class="va">hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">q</span></span>
+<code class="sourceCode R"><span><span class="va">hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
-<span>    <span class="fu">as.data.frame</span><span class="op">(</span><span class="fu">t</span><span class="op">(</span><span class="va">hill</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre>
-</div>
-<p>Let’s use this function to calculate Hill numbers for Hawaii
-island.</p>
-<div class="codewrapper sourceCode" id="cb53">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hawaii_hill</span> <span class="op">&lt;-</span> <span class="fu">calculate_hill</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">hawaii_hill</span></span></code></pre>
+<span><span class="va">hill_2</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>   0        1      2
-1 59 36.60441 25.688</code></pre>
-</div>
-<div id="discussion8" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion8"></a>
-</h3>
-<div class="callout-content">
-<p>Calculate Hill numbers for Maui and Kauai.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution7" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution7" aria-expanded="false" aria-controls="collapseSolution7">
-  <h4 class="accordion-header" id="headingSolution7">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution7" class="accordion-collapse collapse" aria-labelledby="headingSolution7" data-bs-parent="#accordionSolution7">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb55">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">maui_hill</span> <span class="op">&lt;-</span> <span class="fu">calculate_hill</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">maui_hill</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>    0        1        2
-1 136 107.4895 88.40846</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb57">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kauai_hill</span> <span class="op">&lt;-</span> <span class="fu">calculate_hill</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">kauai_hill</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>   0        1        2
-1 94 78.36057 68.17769</code></pre>
+<pre class="output" tabindex="0"><code>HawaiiIsland_01        Kauai_01         Maui_01 
+       25.68800        68.17769        88.40846 </code></pre>
 </div>
 </div>
 </div>
@@ -1188,67 +1500,60 @@ island.</p>
 <div class="section level3">
 <h3 id="combining-and-plotting-hill-numbers">Combining and plotting Hill numbers<a class="anchor" aria-label="anchor" href="#combining-and-plotting-hill-numbers"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_numbers</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">hawaii_hill</span>, <span class="va">maui_hill</span>, <span class="va">kauai_hill</span><span class="op">)</span></span>
-<span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span> <span class="op">=</span> <span class="fu">as.factor</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"hawaiiisland"</span>, <span class="st">"maui"</span>, <span class="st">"kauai"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">hill_numbers</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">hill_0</span>, <span class="va">hill_1</span>, <span class="va">hill_2</span><span class="op">)</span></span>
+<span><span class="va">hill_numbers</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb60">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span>, <span class="va">hill_numbers</span><span class="op">$</span><span class="st">"0"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>       HawaiiIsland_01 Kauai_01   Maui_01
+hill_0        59.00000 94.00000 136.00000
+hill_1        36.60441 78.36057 107.48945
+hill_2        25.68800 68.17769  88.40846</code></pre>
 </div>
-<figure><img src="fig/abundance-data-rendered-plotting%20hill%20number%200-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion9" class="callout discussion">
+<div id="discussion6" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion9"></a>
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion6"></a>
 </h3>
 <div class="callout-content">
-<p>Plot the hill numbers for q = 1 and q = 2.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution8" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
-  <h4 class="accordion-header" id="headingSolution8">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution8" class="accordion-collapse collapse" aria-labelledby="headingSolution8" data-bs-parent="#accordionSolution8">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb61">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span>, <span class="va">hill_numbers</span><span class="op">$</span><span class="st">"1"</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/abundance-data-rendered-plotting%20hill%20number%201-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb62">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span>, <span class="va">hill_numbers</span><span class="op">$</span><span class="st">"2"</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/abundance-data-rendered-plotting%20hill%20number%202-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
-</div>
-</div>
-</div>
-</div>
-<div id="discussion10" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion10"></a>
-</h3>
-<div class="callout-content">
-<p>Compare the plots for the Hill numbers to the plots we generated
+<p>Compare the values for the Hill numbers to the values we generated
 earlier for richness, Shannon’s index, and the inverse Simpson.</p>
+<p>The following may help:</p>
+<div class="codewrapper sourceCode" id="cb53">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">diversity_metrics</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>            HawaiiIsland_01 Kauai_01   Maui_01
+exp_shannon        36.60441 78.36057 107.48945
+invsimpson         25.68800 68.17769  88.40846
+richness           59.00000 94.00000 136.00000</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb55">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hill_numbers</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>       HawaiiIsland_01 Kauai_01   Maui_01
+hill_0        59.00000 94.00000 136.00000
+hill_1        36.60441 78.36057 107.48945
+hill_2        25.68800 68.17769  88.40846</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1259,63 +1564,28 @@ earlier for richness, Shannon’s index, and the inverse Simpson.</p>
 </h2>
 <p>Let’s revisit the SAD plots we generated before, and think about
 these in terms of Hill numbers.</p>
-<p>Let’s start with species richness:</p>
-<div class="codewrapper sourceCode" id="cb63">
+<div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">par</span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">par</span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span>, <span class="va">hill_numbers</span><span class="op">$</span><span class="st">"0"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/abundance-data-rendered-richness%20plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion11" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion11"></a>
-</h3>
-<div class="callout-content">
-<p>Explore the same comparisons for q = 1 and q = 2.</p>
-</div>
-</div>
-</div>
-
-<div id="accordionSolution9" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution9" aria-expanded="false" aria-controls="collapseSolution9">
-  <h4 class="accordion-header" id="headingSolution9">
-  Show me the solution
-  </h4>
-</button>
-<div id="collapseSolution9" class="accordion-collapse collapse" aria-labelledby="headingSolution9" data-bs-parent="#accordionSolution9">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb64">
+<figure><img src="fig/abundance-data-rendered-sad%20again%20plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">par</span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span>, <span class="va">hill_numbers</span><span class="op">$</span><span class="st">"1"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">hill_numbers</span></span></code></pre>
 </div>
-<figure><img src="fig/abundance-data-rendered-q1%20plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb65">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">par</span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">hawaiiisland_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">kauai_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">sort</span><span class="op">(</span><span class="va">maui_abund</span><span class="op">$</span><span class="va">abundance</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">hill_numbers</span><span class="op">$</span><span class="va">island</span>, <span class="va">hill_numbers</span><span class="op">$</span><span class="st">"2"</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/abundance-data-rendered-q2%20plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
-</div>
-</div>
-</div>
+<pre class="output" tabindex="0"><code>       HawaiiIsland_01 Kauai_01   Maui_01
+hill_0        59.00000 94.00000 136.00000
+hill_1        36.60441 78.36057 107.48945
+hill_2        25.68800 68.17769  88.40846</code></pre>
 </div>
 </div>
 </div>
@@ -1349,7 +1619,7 @@ framework for describing the diversity of a system.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</div></section><section id="aio-traits-data"><p>Content from <a href="traits-data.html">Importing and summarizing trait data</a></p>
+</div></section><section id="aio-traits-data"><p>Content from <a href="traits-data.html">Trait data</a></p>
 <hr>
 <p> Last updated on 2023-03-03 | 
         
@@ -1365,10 +1635,10 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do you import trait data?</li>
-<li>How do you clean trait data?</li>
-<li>How do you summarize trait data?</li>
-<li>How do you visualize trait data?</li>
+<li>How do you read in and clean trait data?</li>
+<li>What visualization techniques help you perform quality control and
+understand the distribution of your data?</li>
+<li>What do Hill numbers convey in the context of trait data?</li>
 </ul>
 </div>
 </div>
@@ -1382,11 +1652,9 @@ any links that you are not going to use.
 <li>Import trait data in a CSV format into the R environment</li>
 <li>Clean taxonomic names using the <code>taxize</code> package</li>
 <li>Aggregate traits</li>
-<li>Calculate Hill numbers</li>
-<li>Interpret Hill numbers</li>
 <li>Visualize trait distributions</li>
-<li>Interpret trait distribution plots</li>
-<li>Connect trait distribution patterns to Hill numbers</li>
+<li>Calculate Hill numbers</li>
+<li>Interpret Hill numbers using ranked trait plots</li>
 </ol>
 </div>
 </div>
@@ -1416,16 +1684,19 @@ or per species (from the literature).</p>
 <h3 class="callout-title">Import and clean trait data<a class="anchor" aria-label="anchor" href="#discussion1"></a>
 </h3>
 <div class="callout-content">
-<p>In the <span class="math display">\[abundance episode\]</span>(), you
-learned how to read in a <code>CSV</code> file with the
-<code>read.csv()</code> function. In addition, you learned how to clean
-and standardize the taxonomic information in your data set using the
-<code>gnr_resolve()</code> function from the <code>taxize</code>
-package.</p>
+<p>In the abundance-data episode, you learned how to read in a
+<code>CSV</code> file with the <code>read.csv()</code> function. In
+addition, you learned how to clean and standardize the taxonomic
+information in your data set using the <code>gnr_resolve()</code>
+function from the <code>taxize</code> package.</p>
 <p>You’re going to use those skills to import and clean the trait data
-set, which is located in <code>episodes/data/traits.csv</code>. The data
-contain typos and a problem with the taxonomy that you must correct and
-investigate. Make sure to glance at the data before cleaning.</p>
+set. The trait data set contains two columns: <code>GenSp</code>, which
+contains the binomial species names, and <code>mass_g</code>, which
+contains the individual’s mass in grams, the metric of body size chosen
+for the study. The data also contain typos and a problem with the
+taxonomy that you must correct and investigate. Make sure to glance at
+the data before cleaning!</p>
+<p>Your trait data is located at: <a href="http://bit.ly/41GsgvE" class="external-link uri">http://bit.ly/41GsgvE</a></p>
 </div>
 </div>
 </div>
@@ -1436,7 +1707,7 @@ investigate. Make sure to glance at the data before cleaning.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -1444,7 +1715,7 @@ supplying it with the path to the data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">'episodes/data/abund.csv'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">'http://bit.ly/41GsgvE'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Check the names of the traits using the <code>gnr_resolve()</code>
 function. To streamline your efforts, supply only the unique species
@@ -1453,417 +1724,649 @@ names in your data to <code>gnr_resolve()</code>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># only need to check the unique names</span></span>
-<span><span class="va">spnames</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
+<span><span class="co"># only need to check the unique names</span></span>
+<span><span class="va">species_list</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">spnames</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 5
+  user_supplied_name         submitted_name             data_sou…¹ score match…²
+  &lt;chr&gt;                      &lt;chr&gt;                      &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;  
+1 Xyleborus perforans        Xyleborus perforans        National … 0.988 Xylebo…
+2 Agrotis chersotoides       Agrotis chersotoides       Catalogue… 0.75  Agrotis
+3 Oligotoma saundersii       Oligotoma saundersii       Wikispeci… 0.988 Oligot…
+4 Drosophila humeralis       Drosophila humeralis       Wikispeci… 0.988 Drosop…
+5 Entomobrya griseoolivata   Entomobrya griseoolivata   National … 0.988 Entomo…
+6 Pseudosinella kalalauensis Pseudosinella kalalauensis Encyclope… 0.988 Pseudo…
+# … with abbreviated variable names ¹​data_source_title, ²​matched_name2</code></pre>
 </div>
 <p>To quickly see which taxa are in conflict with <code>taxize</code>’s,
 use bracket subsetting and boolean matching.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_conflict</span> <span class="op">&lt;-</span> <span class="va">traits_resolve</span><span class="op">[</span><span class="va">traits_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">matched_name</span>,<span class="op">]</span></span></code></pre>
-</div>
-<p>If all of these look good to you, you can either add a new column to
-your traits data frame or replace the existing <code>GenSp</code> column
-with cleaned names. Unless space is at a premium, I like to add columns
-rather than modify existing columns, so I’m adding a new column called
-<code>GenSp_clean</code>.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp_clean</span> <span class="op">&lt;-</span> <span class="va">traits_resolve</span><span class="op">$</span><span class="va">matched_name</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">mismatches_traits</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">mismatches_traits</span></span></code></pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<p>Cleaning: - Solving for the species, standardizing taxonomy
-(<code>taxize</code> package) - argument options and output of
-<code>taxize::gnr_resolve</code></p>
-<p>Get the one with maximum score</p>
-<ul>
-<li>Coding for categorical data?</li>
-<li>Collapsing individual trait data and getting mean, median, SD</li>
-<li>Merging trait data from different sources (individual-based vs
-species-based)</li>
-<li>Creating a multi-dimensional trait database</li>
-</ul>
-</div>
-<div class="section level1">
-<h1 id="basic-visualization-of-trait-distribution">Basic visualization of trait distribution<a class="anchor" aria-label="anchor" href="#basic-visualization-of-trait-distribution"></a>
-</h1>
-<ul>
-<li>Visualizing the distribution of one trait (body size) over the
-community</li>
-</ul>
-</div>
-<div class="section level1">
-<h1 id="visualizing-with-abundance">Visualizing with abundance<a class="anchor" aria-label="anchor" href="#visualizing-with-abundance"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="summary-stats">Summary stats<a class="anchor" aria-label="anchor" href="#summary-stats"></a>
-</h1>
-<ol style="list-style-type: decimal">
-<li>Introduction</li>
-</ol>
-</div>
-<div class="section level1">
-<h1 id="chunks-of-code-to-keep">Chunks of code to keep<a class="anchor" aria-label="anchor" href="#chunks-of-code-to-keep"></a>
-</h1>
-<div class="section level2">
-<h2 id="code-for-the-workshop">code for the workshop<a class="anchor" aria-label="anchor" href="#code-for-the-workshop"></a>
-</h2>
-<ol style="list-style-type: decimal">
-<li>Import trait data in a CSV format into the R environment</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"episodes/data/body_size_data.csv"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 5 × 2
+  user_supplied_name     matched_name2       
+  &lt;chr&gt;                  &lt;chr&gt;               
+1 Agrotis chersotoides   Agrotis             
+2 Trigonidium flelectens Trigonidium flectens
+3 Schrankia simplllex    Schrankia simplex   
+4 Holcobius insignigis   Holcobius insignis  
+5 Carposina mauiii       Carposina mauii     </code></pre>
 </div>
-<ol style="list-style-type: decimal">
-<li>Clean taxonomic names using the <code>taxize</code> package</li>
-</ol>
-<p>Have to iterate over small chunks- using <code>http="post"</code>
-gets hung up, even though it’s supposed to work for large queries.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># get the unique names of all species in the data set</span></span>
-<span><span class="va">spnames</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># split the spnames vector into roughly equal sized chunks of 200</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">seq_along</span><span class="op">(</span><span class="va">spnames</span><span class="op">)</span></span>
-<span><span class="va">spnames_list</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">spnames</span>, <span class="fu">ceiling</span><span class="op">(</span><span class="va">x</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># run gnr_resolve() over each species chunk</span></span>
-<span><span class="va">resolved_list</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">spnames_list</span>, <span class="va">gnr_resolve</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># turn this back into a single data frame</span></span>
-<span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">do.call</span><span class="op">(</span><span class="va">rbind</span>, <span class="va">resolved_list</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dim</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
+<p>Fixing the names comes in two steps. First, we join the
+<code>traits</code> dataframe with the <code>name_resolve</code>
+dataframe using the <code>left_join()</code> function. Note, we indicate
+that the <code>GenSp</code> and <code>user_supplied_name</code> columns
+have the same information by supplying a named vector to the
+<code>by =</code> argument.</p>
 </div>
-<p>To see where your data doesn’t match the matched_name and make
-decisions about what to correct.</p>
+</div>
+</div>
+</div>
+
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">View</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">[</span><span class="va">resolved_names</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">resolved_names</span><span class="op">$</span><span class="va">matched_name</span>,<span class="op">]</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span></code></pre>
 </div>
-<p>From this list, there appear to be a few typical correction
-conventions:</p>
-<ol style="list-style-type: decimal">
-<li>
-<code>taxize</code> can only match a genus for the species
-<ul>
-<li>e.g. Neosciara molokaiensis –&gt; Neosciara</li>
-</ul>
-</li>
-<li>The species description citation is included in the name
-<ul>
-<li>Drosophila curtitarsus -&gt; Drosophila curtitarsus
-Hardy and Kaneshiro 2001</li>
-</ul>
-</li>
-<li>Subspecies are not present
-<ul>
-<li>Stenoptilodes taprobanes brachymorpha -&gt;
-Stenoptilodes taprobanes (Felder &amp; Rogenhofer, 1875)</li>
-</ul>
-</li>
-<li>There are undescribed species in your data
-<ul>
-<li>Hyposmocoma new species 25 -&gt; Hyposmocoma</li>
-</ul>
-</li>
-</ol>
-<p>In case 1, good practice would be to look up the species to make sure
-its name hasn’t changed. Case 2 basically confirms that you have a
-quality record and no change is necessary. In case 3, good practice
-would be to decide if subspecies rank is relevant for your analysis and,
-if it is, make sure that the specific subspecies classification is still
-recognized. In case 4, this requires knowledge of your system- is this a
-putative species that should be recognized and is relevant for the
-analysis?</p>
-<p>For this workshop, let’s assume that all species names are valid.</p>
-<ol style="list-style-type: decimal">
-<li>Aggregate traits</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span><span class="va">traits_grouped_sp</span> <span class="op">&lt;-</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">traits</span>, <span class="va">GenSp</span><span class="op">)</span></span>
-<span><span class="va">traits_agg_sp</span> <span class="op">&lt;-</span> <span class="fu">summarize</span><span class="op">(</span><span class="va">traits_grouped_sp</span>, mean_mass_mg <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mass_mg</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_agg_sp</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>
+Attaching package: 'dplyr'</code></pre>
 </div>
-<ol style="list-style-type: decimal">
-<li>Calculate Hill numbers **need to settle on how we’re calculating
-Hill numbers and what we’re aggregating across (i.e. there are no other
-identifiers in the body size data set besides <code>GenSp</code>). I’ve
-attached a function I adapted from Isaac’s python code. My comments
-refer to genetic distances, but it’s applicable to any number. Maybe we
-should package this function and make it available on github?</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">###### hill_calc ########</span></span>
-<span></span>
-<span><span class="co">## Get one hill number from a list of genetic distances. Original python code written by Isaac Overcast, with slight modifications (correct = TRUE implemented by CMF)</span></span>
-<span><span class="co">## dists are the OTU Tajima's pi</span></span>
-<span><span class="co">## order is the q order of the Hill number</span></span>
-<span><span class="co">## correct indicates if you want to correct for species richness or not. Default is TRUE</span></span>
-<span><span class="va">hill_calc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dists</span>, <span class="va">order</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">correct</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span> </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">order</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">return</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">dists</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">order</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">h1</span> <span class="op">=</span> <span class="fu">exp</span><span class="op">(</span><span class="fu">entropy</span><span class="fu">::</span><span class="fu">entropy</span><span class="op">(</span><span class="va">dists</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">correct</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="kw">return</span><span class="op">(</span><span class="va">h1</span> <span class="op">/</span> <span class="fu">length</span><span class="op">(</span><span class="va">dists</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">return</span><span class="op">(</span><span class="va">h1</span><span class="op">)</span></span>
-<span>    </span>
-<span>  <span class="op">}</span></span>
-<span>  <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="va">tot</span> <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">dists</span><span class="op">)</span></span>
-<span>    <span class="va">proportions</span> <span class="op">=</span> <span class="va">dists</span><span class="op">/</span><span class="va">tot</span></span>
-<span>    <span class="va">prop_order</span> <span class="op">=</span> <span class="va">proportions</span><span class="op">**</span><span class="va">order</span></span>
-<span>    <span class="va">h2</span> <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">prop_order</span><span class="op">)</span><span class="op">**</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">order</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">correct</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="kw">return</span><span class="op">(</span><span class="va">h2</span> <span class="op">/</span> <span class="fu">length</span><span class="op">(</span><span class="va">dists</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">return</span><span class="op">(</span><span class="va">h2</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span></span></code></pre>
+<pre class="output" tabindex="0"><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
 </div>
-<p>Read in (cleaned) abundance data.</p>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abund</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"episodes/data/abundance_data_cleaned.csv"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
 </div>
-<p>Join the traits data that has been summarized to species to the
-abundance data.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abund_traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abund</span>, <span class="va">traits_agg_sp</span>, by <span class="op">=</span> <span class="st">"GenSp"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Let’s check if any matches went wrong.</p>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">sum</span><span class="op">(</span><span class="fu">is.na</span><span class="op">(</span><span class="va">abund_traits</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, <span class="va">name_resolve</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span>, by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abund_traits' not found</code></pre>
+<pre class="output" tabindex="0"><code>                 GenSp   mass_g       matched_name2
+1  Xyleborus perforans 10.13036 Xyleborus perforans
+2  Xyleborus perforans 10.05684 Xyleborus perforans
+3  Xyleborus perforans 10.14838 Xyleborus perforans
+4  Xyleborus perforans 10.20234 Xyleborus perforans
+5  Xyleborus perforans 10.14719 Xyleborus perforans
+6 Agrotis chersotoides 24.25539             Agrotis</code></pre>
 </div>
-<ol style="list-style-type: decimal">
-<li>Interpret Hill numbers</li>
-<li>Visualize trait distributions</li>
-</ol>
-<p>Density plots</p>
-<div class="codewrapper sourceCode" id="cb14">
+<p>Then, to replace <em>Agrotis chersotoides</em> with the updated
+<em>Peridroma chersotoides</em>, which you discovered in abundance-data
+episode, use bracketed indexing, boolean matching, and assignment.</p>
+<p>In addition, although not necessary, changing the column name
+<code>matched_name2</code> to <code>final_name</code> to give it a more
+sensible name for later use is good practice.</p>
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># total</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="fu">density</span><span class="op">(</span><span class="va">abund_traits</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Average mass (mg)"</span>, main <span class="op">=</span> <span class="st">"All species"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">==</span> <span class="st">"Agrotis"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Peridroma chersotoides"</span></span>
+<span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span><span class="op">[</span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span> <span class="op">==</span> <span class="st">"matched_name2"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"final_name"</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                 GenSp   mass_g             final_name
+1  Xyleborus perforans 10.13036    Xyleborus perforans
+2  Xyleborus perforans 10.05684    Xyleborus perforans
+3  Xyleborus perforans 10.14838    Xyleborus perforans
+4  Xyleborus perforans 10.20234    Xyleborus perforans
+5  Xyleborus perforans 10.14719    Xyleborus perforans
+6 Agrotis chersotoides 24.25539 Peridroma chersotoides</code></pre>
+</div>
+
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregation</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">When</span> analyzing trait data, it often needs to be summarized at a higher</span></code></pre>
+</div>
+<p>level than the individual. For instance, many community assembly
+analyses require species-level summaries, rather than individual
+measurements. So, we often want to calculate summary statistics of
+traits for each species. For numeric measurements, body size, statistics
+like the mean, median, and standard deviation give information about the
+center and spread of the distribution of traits for the species. For
+this section, you will aggregate the trait data to the species level,
+calculating the mean, median, and mode of body size for each
+species.</p>
+<p>While there are methods to aggregate data in base R, the <a href="https://dplyr.tidyverse.org/" class="external-link">dplyr</a> makes this task and other
+data wrangling tasks much more intuitive. The function
+<code>group_by()</code> groups your data frame by a variable. The first
+argument to <code>group_by()</code> is your data frame, and all
+following unnamed arguments are the variables you want to group the data
+by. In our case, we want to group by species name, so we’ll supply
+<code>final_name</code>.</p>
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># per site</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># split by site</span></span>
-<span><span class="va">abund_traits_split</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">abund_traits</span>, <span class="va">abund_traits</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
+<span><span class="co"># group the data frame by species</span></span>
+<span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">traits</span>, <span class="va">final_name</span><span class="op">)</span></span></code></pre>
+</div>
+<p><code>group_by()</code> just adds an index that tells any following
+<code>dplyr</code> functions to perform their calculations on the group
+the data frame was indexed by. So, to perform the actual calculations,
+we will use the <code>summarize()</code> function
+(<code>summarise()</code> works too for non-Americans). The first
+argument you supply is the data frame, following by the calculations you
+want to perform on the grouped data and what you want to name the
+resulting variables. The structure is
+<code>new_var_name = function(original_var_name)</code> for each
+calculation. Here, we’re using the <code>mean()</code>,
+<code>median()</code>, and <code>sd()</code> functions. Then, we’ll take
+a look at the new data set with the <code>head()</code> function.</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># summarize the grouped data frame, so you're calculating the summary statistics for each species</span></span>
+<span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu">summarize</span><span class="op">(</span></span>
+<span>        <span class="va">traits_sumstats</span>,</span>
+<span>        mean_mass_g <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mass_g</span><span class="op">)</span>,</span>
+<span>        median_mass_g <span class="op">=</span> <span class="fu">median</span><span class="op">(</span><span class="va">mass_g</span><span class="op">)</span>,</span>
+<span>        sd_mass_g <span class="op">=</span> <span class="fu">sd</span><span class="op">(</span><span class="va">mass_g</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span></span>
-<span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">hawaiiisland_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 4
+  final_name               mean_mass_g median_mass_g sd_mass_g
+  &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+1 Abanchogastra debilis           6.65          6.64    0.0890
+2 Acanthia procellaris           12.9          12.8     0.0726
+3 Actia eucosmae                 10.8          10.9     0.0945
+4 Adelencyrtus odonaspidis        5.99          6.00    0.0411
+5 Aedes albopictus               10.9          10.9     0.0548
+6 Aedes nocturnus                 6.84          6.83    0.0331</code></pre>
+</div>
+<p>Finally, you need to add the aggregated species-level information
+back to the abundance data, so you have the summary statistics for each
+species at each site.</p>
+<p>First, read in the abundance tallies dataframe you made in the
+abundance episode.</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abundance_tallies</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"http://bit.ly/3L2OFxk"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>To join the data, you’ll use <code>left_join()</code>, which is
+hopefully getting familiar to you now!</p>
+<p><code>abundance_tallies</code> should be on the left side, since we
+want the species-information for each species in each community.</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abundance_tallies</span>, <span class="va">traits_sumstats</span>, by <span class="op">=</span> <span class="st">"final_name"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             site       island                         final_name abundance
+1 HawaiiIsland_01 HawaiiIsland               Acanthia procellaris         3
+2 HawaiiIsland_01 HawaiiIsland                     Actia eucosmae         4
+3 HawaiiIsland_01 HawaiiIsland Anomalochrysa fulvescens rhododora         2
+4 HawaiiIsland_01 HawaiiIsland             Anoplolepis gracilipes         5
+5 HawaiiIsland_01 HawaiiIsland                   Anurophorus lohi         2
+6 HawaiiIsland_01 HawaiiIsland                    Aphis citricola         3
+  mean_mass_g median_mass_g  sd_mass_g
+1   12.875661     12.840191 0.07255218
+2   10.836548     10.864682 0.09449608
+3    2.860058      2.855061 0.04633525
+4   12.366928     12.358811 0.01926359
+5    6.251880      6.234964 0.07793529
+6    3.822070      3.819887 0.12376448</code></pre>
+</div>
+</div>
+<div class="section level1">
+<h1 id="visualize-trait-distributions">Visualize trait distributions<a class="anchor" aria-label="anchor" href="#visualize-trait-distributions"></a>
+</h1>
+<p>Histograms and density plots can help give you a quick look at the
+distribution of your data. For quality control purposes, they are useful
+to see if there are any suspicious values due to human error. Let’s
+overlay the histogram and density plots to get an idea of what
+aggregated (histogram) and smoothed (density) representations of the
+data look like.</p>
+<p>The first argument to the <code>hist()</code> function is your data.
+<code>breaks</code> sets the number of histogram bars, which can be
+tuned heuristically to find a number of bars that best represents the
+distribution of your data. I found that <code>breaks = 40</code> is a
+reasonable value. <code>xlab</code>, <code>ylab</code>, and
+<code>main</code> are all used to specify labels for the x-axis, y-axis,
+and title, respectively. When scaling the plot, sometimes base R
+plotting functions aren’t as responsive to the data as we like. To fix
+this, you can use the <code>xlim</code> or <code>ylim</code> functions
+to set the value range of the x-axis and y-axis, respectively. Here, we
+set <code>ylim</code> to a vector <code>c(0, 0.11)</code>, which
+specifies the y-axis to range from 0 to 0.11.</p>
+<p>If you’re used to seeing histograms, the y-axis may look unfamiliar.
+To get the two plots to use the same scale, you set
+<code>freq = FALSE</code>, which converts the histogram counts to a
+density value. The density scales the distribution from 0-1, so the bar
+height (and line height on the density plot) is a fraction of the total
+distribution.</p>
+<p>Finally, to add the density line to the plot, you calculate the
+density of the trait distribution with the <code>density()</code>
+function and wrap it with the <code>lines()</code> function.</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span></span>
+<span>    <span class="va">traits_sumstats</span><span class="op">$</span><span class="va">mean_mass_g</span>,</span>
+<span>    breaks <span class="op">=</span> <span class="fl">40</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="st">"Average mass (g)"</span>,</span>
+<span>    ylab <span class="op">=</span> <span class="st">"Density"</span>,</span>
+<span>    main <span class="op">=</span> <span class="st">"All species"</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.11</span><span class="op">)</span>,</span>
+<span>    freq <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lines</span><span class="op">(</span><span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/traits-data-rendered-density-all-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In addition to quality control, knowing the distribution of trait
+data lends itself towards questions of what processes are shaping the
+communities under study. Are the traits overdispersed? Underdispersed?
+Does the average vary across communities? To get at these questions, you
+need to plot each site and compare among sites. To facilitate
+comparison, you’re going to layer the distributions on top of each other
+in a single plot. Histograms get cluttered quickly, so let’s use density
+plots for this task.</p>
+<p>To plot each site, you need a separate dataframe for each site. The
+easiest way to do this is with the <code>split()</code> function, which
+takes a dataframe followed by a variable to split the dataframe by. It
+then returns a list of data frames for each element in the variable.</p>
+<p>Running <code>head()</code> on the list returns a lot of output, so
+you can use the <code>names()</code> function to make sure the names of
+the dataframes in your list are the sites you intended to split by.</p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># split by site</span></span>
+<span><span class="va">traits_sumstats_split</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">traits_sumstats</span>, <span class="va">traits_sumstats</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "HawaiiIsland_01" "Kauai_01"        "Maui_01"        </code></pre>
+</div>
+<p>To plot the data, you first need to initialize the plot with the
+<code>plot()</code> function of a single site’s density. Here is also
+where you add the plot aesthetics (labels, colors, line characteristics,
+etc.). You’re labeling the title and axis labels with <code>main</code>,
+<code>xlab</code>, and <code>ylab</code>. The <code>lwd</code>
+(“linewidth”) function specifies the size of the line, and I found a
+value of two is reasonable. You then supply the color of the line
+(<code>col</code>) with a color name or hex code. I chose a hex
+representing a purple color from the <a href="https://sjmgarnier.github.io/viridisLite/index.html" class="external-link">viridis</a>
+color palette. Finally, you need to specify the x-axis limits and y-axis
+limits with <code>xlim</code> and <code>ylim</code>. While a negative
+mass doesn’t make biological sense, it is an artifact of the smoothing
+done by the <code>density</code> function.</p>
+<p>To add density lines to the plot, you use the <code>lines()</code>
+function with the data for the desired site as the first argument. You
+also need to specify the line-specific aesthetics for each line, which
+are the <code>lwd</code> and <code>col</code>. I chose the green and
+yellow colors from the <em>viridis</em> palette, but you can pick
+whatever your heart desires!</p>
+<p>Finally, you need a legend for the plot. Within the
+<code>legend()</code> function, you specify the position of the legend
+(“topright”), the legend labels, the line width, and colors to assign to
+the labels.</p>
+<div class="codewrapper sourceCode" id="cb26">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
+<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Average mass per study site"</span>,</span>
-<span>    xlab <span class="op">=</span> <span class="st">"Average mass (mg)"</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="st">"Average mass (g)"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Density"</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#440154FF"</span></span>
+<span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
+<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.11</span><span class="op">)</span></span>
+<span>    </span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">lines</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">kauai_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
+<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#31688EFF"</span></span>
+<span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">lines</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">maui_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
-<span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#35B779FF"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu">lines</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">molokai_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
+<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
-<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span>, <span class="st">"Molokai 01"</span><span class="op">)</span>,</span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#31688EFF"</span>, <span class="st">"#35B779FF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
+<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<p>Ranked plots</p>
-<div class="codewrapper sourceCode" id="cb16">
+<figure><img src="fig/traits-data-rendered-density-site-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>It looks like Kauai insects have a higher average mass and more
+dispersed distribution of masses than Hawaii and Maui! Next, we’ll take
+a look at using Hill numbers to summarize the distribution of
+traits.</p>
+</div>
+<div class="section level1">
+<h1 id="hill-numbers">Hill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers"></a>
+</h1>
+<p>Hill numbers are a useful and informative summary of trait diversity,
+in addition to other biodiversity variables (<a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Gaggiotti
+et al. 2018</a>). They contain signatures of the processes underlying
+community assembly. To calculate Hill numbers for traits, you’re going
+to use the <code>hill_func()</code> function from the <code>hillR</code>
+package. It requires two inputs- the site by species abundance dataframe
+and a traits dataframe that has species as rows and traits as
+columns.</p>
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion2"></a>
+</h3>
+<div class="callout-content">
+<p>Your first challenge, if you don’t have the site by species abundance
+dataframe, is to recreate it here. Remember, you’ll need to use the
+<code>pivot_wider()</code> function and the
+<code>abundance_tallies</code> data!</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span>    <span class="va">abundance_tallies</span>,</span>
+<span>    id_cols <span class="op">=</span> <span class="va">site</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">abundance</span>,</span>
+<span>    values_fill <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># tibbles don't like row names</span></span>
+<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">$</span><span class="va">site</span></span>
+<span></span>
+<span><span class="co"># remove the site column</span></span>
+<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Now,</span> to create the traits dataframe you first need to remove the <span class="kw">`</span><span class="ex">site</span><span class="kw">`</span>,</span></code></pre>
+</div>
+<p><code>island</code>, <code>abundance</code>,
+<code>median_mass_g</code>, and <code>sd_mass_g</code> columns.</p>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_sumstats</span><span class="op">[</span>, <span class="op">-</span><span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                          final_name mean_mass_g
+1               Acanthia procellaris   12.875661
+2                     Actia eucosmae   10.836548
+3 Anomalochrysa fulvescens rhododora    2.860058
+4             Anoplolepis gracilipes   12.366928
+5                   Anurophorus lohi    6.251880
+6                    Aphis citricola    3.822070</code></pre>
+</div>
+<p>Next, you need to filter for unique species in the dataframe.</p>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                          final_name mean_mass_g
+1               Acanthia procellaris   12.875661
+2                     Actia eucosmae   10.836548
+3 Anomalochrysa fulvescens rhododora    2.860058
+4             Anoplolepis gracilipes   12.366928
+5                   Anurophorus lohi    6.251880
+6                    Aphis citricola    3.822070</code></pre>
+</div>
+<p>Finally, you need to set the species names to be row names and remove
+the <code>final_name</code> column. Note, you have to use the
+<code>drop=F</code> argument because R has the funny behavior that it
+likes to convert single-column dataframes into a vector.</p>
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">$</span><span class="va">final_name</span></span>
+<span></span>
+<span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span>, drop<span class="op">=</span><span class="cn">F</span><span class="op">]</span></span></code></pre>
+</div>
+<p>Next, you’ll use the <code>hill_func()</code> function from the
+<code>hillR</code> package to calculate Hill numbers 0-2 of body size
+across sites.</p>
+<div class="codewrapper sourceCode" id="cb34">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<p>The output of <code>hill_func()</code> returns quite a few Hill
+number options, which are defined in <a href="https://www.annualreviews.org/doi/abs/10.1146/annurev-ecolsys-120213-091540" class="external-link">Chao
+et al. 2014</a>. For simplicity’s sake, we will look at
+<code>D_q</code>, which from the documentation is the:</p>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> functional <span class="ex">Hill</span> number, the effective number of equally abundant and</span></code></pre>
+</div>
+<blockquote>
+<p>functionally equally distinct species</p>
+</blockquote>
+<div class="codewrapper sourceCode" id="cb36">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits_hill_1</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>     HawaiiIsland_01     Kauai_01      Maui_01
+Q           4.288057     7.313327     4.807929
+FDis        3.061469     5.136366     3.602256
+D_q        38.330994    78.854310   103.950856
+MD_q      164.365495   576.687383   499.788382
+FD_q     6300.292831 45474.285521 51953.430115</code></pre>
+</div>
+<p>To gain an intuition for what this means, let’s plot our data. First,
+you will wrangle the output into a single dataframe to work with. Since
+Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
+2.</p>
+<div class="codewrapper sourceCode" id="cb38">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">list</span><span class="op">(</span><span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">do.call</span><span class="op">(</span><span class="va">cbind</span>, <span class="va">traits_hill</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"q1"</span>, <span class="st">"q2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># convert to a dataframe</span></span>
+<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># I don't like rownames for plotting, so making the rownames a column</span></span>
+<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre>
+</div>
+<p>Let’s look at how Hill q = 1 compare across sites.</p>
+<div class="codewrapper sourceCode" id="cb39">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">as.factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span><span class="op">)</span>, <span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/traits-data-rendered-hill-plot-raw-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
+middle on Kauai. But what does this mean? To gain an intuition for what
+a higher or lower trait Hill number means, you will make rank plots of
+the trait data, to make a plot analogous to the species abundance
+distribution.</p>
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">abund_traits</span><span class="op">$</span><span class="va">mean_mass_mg</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
-<span>    ylab <span class="op">=</span> <span class="st">"Average mass (mg)"</span>,</span>
-<span>    main <span class="op">=</span> <span class="st">"Average mass across species"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">hawaiiisland_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Average mass per study site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Average mass (mg)"</span>,</span>
-<span>    pwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#440154FF"</span></span>
+<span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">135</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">kauai_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
-<span>    pwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#31688EFF"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">maui_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
-<span>    pwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#35B779FF"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">abund_traits_split</span><span class="op">$</span><span class="va">molokai_01</span><span class="op">$</span><span class="va">mean_mass_mg</span><span class="op">)</span>,</span>
-<span>    pwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
-<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">legend</span><span class="op">(</span></span>
-<span>    <span class="st">"topleft"</span>,</span>
-<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span>, <span class="st">"Molokai 01"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"topright"</span>,</span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#31688EFF"</span>, <span class="st">"#35B779FF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
+<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#31688EFF"</span>, <span class="st">"#35B779FF"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<ol style="list-style-type: decimal">
-<li>Interpret trait distribution plots</li>
-<li>Connect trait distribution patterns to Hill numbers</li>
-</ol>
-</div>
-<div class="section level2">
-<h2 id="original-taxize-text">Original taxize text<a class="anchor" aria-label="anchor" href="#original-taxize-text"></a>
-</h2>
-<p>Trait data are often stored in the <code>.csv</code> format. Here,
-we’ll load body size data from the <code>data/</code> directory of this
-lesson with the function <code>read.csv</code> and take a peak at it
-with <code>head</code>. The data frame has two columns-
-<code>GenSp</code> and <code>mass_mg</code>, which contain species
-binomial name and the mass of the individual in milligrams,
-respectively.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<figure><img src="fig/traits-data-rendered-hill-plot-rank-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>You can see clearly that the diversity differs across islands, where
+Maui has many more species than the other islands and a seemingly more
+even distribution than the others. However, species richness strongly
+influences the calculation of a Hill number. To factor out the influence
+of the number of species from the Hill number and get a stronger
+indicator of “evenness”, you can divide the Hill number by the number of
+species, which you will do for Hill q = 1.</p>
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"episodes/data/body_size_data.csv"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">sp_counts</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu">c</span><span class="op">(</span></span>
+<span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">)</span>,</span>
+<span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">)</span>,</span>
+<span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
+<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span> <span class="op">/</span> <span class="va">sp_counts</span></span></code></pre>
 </div>
-<p>Biodiversity data sets are often collected from multiple sources,
-they include taxa the researcher is not familiar with, they contain
-historical data, etc. This can lead to problems with taxonomic
-consistency. In addition to careful scrutiny of your data set, the <a href="https://docs.ropensci.org/taxize/" class="external-link">taxize</a> R package helps to
-standardize species names by solving for the species name and
-standardizing taxonomy.</p>
-<p><a href="http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html" class="external-link">From
-the taxize vignette</a>:</p>
-<blockquote>
-<p>Taxize takes the approach that the user should be able to make
-decisions about what resource to trust, rather than making the decision.
-Both the EOL GNR and the TNRS services provide data from a variety of
-data sources. The user may trust a specific data source, thus may want
-to use the names from that data source. In the future, we may provide
-the ability for taxize to suggest the best match from a variety of
-sources.</p>
-</blockquote>
-<p>The main function we will use to resolve species names is the
-function <code>taxize::gnr_resolve()</code>. There are many options, but
-the simplest approach is to supply the binomial names of your species as
-a vector (remember: a data frame column is a vector) and set the
-<code>best_match_only</code> flag to true, which returns the single best
-match for each species name query. Note, the input names are spelled
-incorrectly, so <code>gnr_resolve()</code> should provide a result that
-corrects this error:</p>
-<div class="codewrapper sourceCode" id="cb19">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
-<span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span>sci <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Helianthos annus"</span>, <span class="st">"Homo saapiens"</span><span class="op">)</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.6496779 0.8388756 0.7643445</code></pre>
 </div>
-<p>And the output, which returns the supplied binomial names
-(<code>user_supplied_name</code>, <code>submitted_name</code>), the
-matched name (<code>matched_name</code>), the data source used for the
-matched name (<code>data_source_title</code>), and the score
-(<code>score</code>). Adding additional arguments may result in more
-columns of information being output. You may have noticed that “Homo
-sapiens Linnaeus, 1758” was returned for <em>Homo sapiens</em>. This
-includes the original citation in the name, which isn’t an issue in
-terms of data analysis as long as all individuals use the same format,
-but may be annoying when formatting plots and other output. You can
-either change this manually, or set the <code>best_match_only</code>
-flag to <code>FALSE</code> to include multiple names to choose from.</p>
-<p>If you have a specific database that you trust for the taxa at hand,
-find its id with the <code>gnr_datasources()</code> function and supply
-that id to the <code>data_source_ids</code> argument in
-<code>gnr_resolve()</code>. <a href="http://cran.nexr.com/web/packages/taxize/vignettes/taxize_vignette.html" class="external-link">From
-the taxize vignette</a>:</p>
-<blockquote>
-<p>taxize takes the approach that the user should be able to make
-decisions about what resource to trust, rather than making the decision.
-Both the EOL GNR and the TNRS services provide data from a variety of
-data sources. The user may trust a specific data source, thus may want
-to use the names from that data source.</p>
-</blockquote>
+<p>Interestingly, we see that Kauai actually has a more even
+distribution of trait values than Maui when accounting for species
+richness!</p>
+<p>What are some other interpretations from the plots, summary
+statistics, and what you know fr</p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</div>
 </div></section>
 </div>
     </main>
@@ -1913,8 +2416,8 @@ any links that you are not going to use.
   "url": "https://role-model.github.io/multidim-biodiv-data/aio.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/aio.html",
   "dateCreated": "2022-12-06",
-  "dateModified": "2023-03-03",
-  "datePublished": "2023-03-03"
+  "dateModified": "2023-03-07",
+  "datePublished": "2023-03-07"
 }
 
   </script><script>

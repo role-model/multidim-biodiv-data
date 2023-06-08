@@ -1,0 +1,23 @@
+update questions to include data wrangling
+
+decide whether learners have all the packages installed ahead.
+
+either way, checkpoint after package loads to make sure everyone has it.
+
+tinyurl, bit.ly for data path
+
+context on gnr_resolve - trade off instructors
+
+update Agrotis to Peridroma chersotoides
+
+decide how many and which approaches for aggregrate/summarize:
+    - see how folks do with groupsumungroup
+    - hide aggregate and try it if needed
+    - learn from this
+
+introduce par earlier? to look at sads side by side. and overlaid.
+
+site by species matrix (pivot_wider)
+
+switch to hillR - bug is fixed
+
