@@ -6,12 +6,15 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What are the four types of biodiversity data we'll be covering in this course? 
-- What are the four steps in handling each type?
-- What do the outcomes of analyzing multidimensional biodiversity data (MDBD) look like visualized? 
-- What are some strategies for connecting data types?
-- Where can you find MDBD?
-- What are are CARE principles and why are they important?
+- Where do abundance and trait data come from?
+- How can abundance and trait data be used to explore biodiversity hypotheses?
+- What will we be doing in this workshop?!
+<!-- - What are the four types of biodiversity data we'll be covering in this course?  -->
+<!-- - What are the four steps in handling each type? -->
+<!-- - What do the outcomes of analyzing multidimensional biodiversity data (MDBD) look like visualized?  -->
+<!-- - What are some strategies for connecting data types? -->
+<!-- - Where can you find MDBD? -->
+<!-- - What are are CARE principles and why are they important? -->
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -19,85 +22,45 @@ exercises: 2
 
 After following this episode, participants should be able to...
 
-1. Explain the four types of biodiversity data and the four steps in handling each
-2. Interpret plots of MDBD
-3. Find openly avaiable MDBD
-4. Connect data to the Local Contexts Hub
+1. Articulate goals and expectations of the workshop
+2. Identify motivating biological questions that necessitate the use of abundance and trait data
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
 
-- intro of instructors
-- expectations of learners
-- exciting data narrative 
-- system reqs
+In this first episode we will go over:
+- instructor introductions
+- discussing the expectations of the learners
+- introducing the toy data set we'll be using
+- system requirements
 
 
-## Exciting data narrative 
+## Our exciting (toy) data
 
-- young island dominated by immigration, neutrality
-- older island 
+We'll be using some fake data that we simulated using Hawaiian arthropods as inspiration.  The data contain real taxonomic names (so we can use workflows designed for dealing with taxonomic data) but the abundances and traits are compltely made up.
 
+However (!) we made up the abundances and traits to try to capture a realistic and compelling story.  The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is about 5 million years old, while the Big Island is still forming.
 
-::::::::::::::::::::::::::::::::::::: challenge 
+![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrates age of the islands, which the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](intro_img/intro_01.png)
 
-## Challenge 1
-
-What do you think this plot says about ecological process?
-
-:::::::::::::::::::::::: solution 
-
-## Output
-
-:::::::::::::::::::::::::::::::::
+This *chronosequence* provides a natural eco-evolutionary experiment where we might hypothesize different processes are more prevalent at different and less so at others
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+![A figure showing how hypothesized mechanisms might trade-off across the chronosequence: in communities on older substrates we might expect more time for evolution and consequently assembly by speciation and competitive coexistence being important.  In contrast on younger substrates we might expect less time for evolution and thus assembly by immigration and neutral ecological drift being important](intro_img/intro_02.png)
 
-:::::::::::::::::::::::: solution 
+What data could we bring to bear on exploring these hypothesized changes in assembly processes?  Abundance data and trait data are common go-to's in ecology and evolution
 
-You can add a line with at least three colons and a `solution` tag.
 
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
+![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](intro_img/intro_03.png)
 
-## Figures
+Using real taxonomic names from Hawaiian arthropods we simulated data based on the hypothesis that speciation and competitive coexistence drive assembly of communities on older substrates while immigration and evological neutrality drive assembly on younger sites.  Middle-age sites are simualted as an intermediate between those two extremes.
 
-You can also include figures generated from R Markdown:
+![A figure showing the simulated abundance and body size data at three hypothetical arthropod sampling sites across the chronosequence: an old site on Kauai, a middle aged site on Maui, a young site on the Big Island.](intro_img/intro_04.png)
 
-```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
-```
+::: discussion
 
-Or you can use standard markdown for static figures with the following syntax:
+- What patterns do you see in the data?
+- How could you summarize these data?
 
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
-
-::::::::::::::::::::::::::::::::::::: keypoints 
-
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-[r-markdown]: https://rmarkdown.rstudio.com/
+::::::::::::::
