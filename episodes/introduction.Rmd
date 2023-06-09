@@ -71,28 +71,21 @@ Introductions! Please use this list to help guide your introduction of yourself:
 
 :::
 
-<!-- ## Introducing 'multidimensional biodiversity data' -->
-
-<!-- ::: instructor -->
-
-<!-- Conversation/lecture around the following discussion questions: -->
-
-<!-- ::: -->
-
-<!-- ::: discussion -->
-
-<!-- * What does "multidimensional biodiversity" data mean to you? -->
-<!-- * What types of data do you encounter in your work? -->
-<!-- * Have you ever looked at multiple types simultaneously?  -->
-
-<!-- ::: -->
 
 
 ## Four dimensions of biodiversity data
 
-In this workshop, we'll be working with four types of biodiversity data: species **abundances**, **population genetics**, **traits**, and **phylogenetics**. These are data types you have probably worked with or heard of separately, but, depending on your area of specialization, you probably have not worked closely with all of them, or with all of them all at once! In this workshop, we'll brush up on skills for working with each data type separately, and then explore what we can accomplish when we integrate multiple data types into the same analysis. 
+::: discussion
 
-To make this a little more interesting, let's explore this with a "real-world" (or, close to real-world) example!
+* What does "multidimensional biodiversity" data mean to you?
+* What types of data do you encounter in your work?
+* Have you ever looked at multiple types simultaneously?
+
+:::
+
+In this workshop, we'll be working with four types of biodiversity data: species **abundances**, **traits**, **population genetics**, and **phylogenetics**. In this workshop, we'll cover skills for working with each data type separately, and conclude with what we can accomplish when we integrate multiple data types into the same analysis. 
+
+To make this a little more interesting, we'll ground our learning with a "real-world" (or, close to real-world) example!
 
 
 ::: instructor
@@ -102,42 +95,49 @@ Transition to data narrative.
 :::
 
 
-For this workshop, we'll be working with some _simulated_ data based on real insect species found in the Hawaiian archipelago.  The data contain real taxonomic names (so we can use workflows designed for dealing with taxonomic data) but the abundances and traits are simulated using a *process model* (more on that in Part II of this workshop).
+For this workshop, we'll be working with some _simulated_ data based on real insect species found in the Hawaiian Islands  The data contain real taxonomic names (so we can use workflows designed for dealing with real taxonomic data) but the abundances, traits, genetics, and phylogeny are simulated using a *process model* (more on that in Part II of this workshop).
 
 ## Hawaiian sovereignty
 
-<iframe src="https://www.youtube.com/embed/RwWNigoZ5ro?start=89&end=164" data-external= "1" > </iframe>
+::: instructor
+
+Instead of "...the Indigenous land where we gather..." you could reference the specific communities.
+
+:::
+
+Building from our acknowledgement of the Indigenous land where we gather for this workshop, we need to acknowledge that over a century of settler research has been conducted across the Hawaiian Islands without the consent of the Kanaka Maoli, the Native Hawaiians.  The aina, or lands, of the Kanaka Maoli were stolen, their sovereignty illegally stripped, their culture, communities, and bodies killed.  Sovereignty and the return of control of *data* to Indigenous people and communities is one of the learning objectives of this workshop.  To start us on that journey, here are the words ([watch on youtube](https://youtu.be/RwWNigoZ5ro?t=89)) of Dr. Haunani-Kay Trask, a leader in the Hawaiian sovereignty movement:
+
+> We are not Americans! We will die as Hawaiians! We will never be Americans! I am here to explain what sovereignty is. Sovereignty, as many people say, is a feeling. The other day in the paper I read sovereignty is aloha, it's love. Later on someone said it's pride. No. Sovereignty is government. Sovereignty is government! It is an attribute of nationhood. We already have aloha. We already have pride. We already know who we are. Are we sovereign? No! Because we don't have a government. Because we don't control a land base. Sovereignty is not a feeling, it is the power of government. It is political power! 
+
+![A portrait of Dr. Haunani-Kay Trask, a leader in the Hawaiian soveirgnity movement. Photo by Brett Uprichard](https://d1l18ops95qbzp.cloudfront.net/wp-content/2021/07/03134707/manoa-trask-h-uprichard.jpeg)
 
 
+One of the contributions we as researchers can make to rematriation and repatriation of resources is to cede control of legacy biological data back to Indigenous communities, and preferably to engage in co-produced research from the beginning, where consent, governance, and mutual benefit are agreed upon before research begins.  In Episode 3: CARE and FAIR principles, we will be learning about protocols developed by [ENRICH](https://www.enrich-hub.org/) and [Local Contexts](https://localcontexts.org/) that center Indigenous data sovereignty and governance.
 
 
+## More about our simulated data
 
 The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is about 5 million years old, while the Big Island is still forming.
 
-![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrates age of the islands, which the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](intro_img/intro_01.png)
+![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrate ages of the islands, with the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](intro_img/intro_01.png)
 
-This *chronosequence* provides a natural eco-evolutionary experiment where we might hypothesize different processes are more prevalent at different and less so at others
+This *chronosequence* allows us to observe in the Modern (as opposed to the fossil record) what we might hypothesize to be different eco-evolutionary stages, or "snapshots," of community assembly.  We might further hypothesize that different assembly processes are more or less prevalent at different snapshots, such as increased importance of immigration early on, and greater importance of *in situ* diversification later on.
 
 
 ![A figure showing how hypothesized mechanisms might trade-off across the chronosequence: in communities on older substrates we might expect more time for evolution and consequently assembly by speciation and competitive coexistence being important.  In contrast on younger substrates we might expect less time for evolution and thus assembly by immigration and neutral ecological drift being important](intro_img/intro_02.png)
 
-What data could we bring to bear on exploring these hypothesized changes in assembly processes?  Abundance data and trait data are common go-to's in ecology and evolution
+::: discussion
 
+What data could we bring to bear on exploring these hypothesized changes in assembly processes?  
+
+:::
 
 ![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](intro_img/intro_03.png)
 
 
-Using real taxonomic names from Hawaiian arthropods we simulated data based on the hypothesis that speciation and competitive coexistence drive assembly of communities on older substrates while immigration and evological neutrality drive assembly on younger sites.  Middle-age sites are simualted as an intermediate between those two extremes.
+<!-- Using real taxonomic names from Hawaiian arthropods we simulated data based on the hypothesis that speciation and competitive coexistence drive assembly of communities on older substrates while immigration and evological neutrality drive assembly on younger sites.  Middle-age sites are simualted as an intermediate between those two extremes. -->
 
 ![A figure showing the simulated abundance and body size data at three hypothetical arthropod sampling sites across the chronosequence: an old site on Kauai, a middle aged site on Maui, a young site on the Big Island.](intro_img/intro_04.png)
-
-::: discussion
-
-- What patterns do you see in the data?
-- How could you summarize these data?
-
-::::::::::::::
-
 
 
 ::: instructor
@@ -148,9 +148,18 @@ Breakout groups or collaborate on the white board.
 
 ::: discussion
 
+How do we express the patterns in these data
+- What patterns do you see in the data?
+- How could you summarize these data?
+
 How would you expect genetic diversity, species diversity, trait, or phylogenetic diversity to vary with island age?
 
-:::
+::::::::::::::
+
+
+
+
+
 
 ## Workshop logistics and preview
 
