@@ -185,6 +185,9 @@ abundances_phylo$final_name <- new_names
 
 **RM comment on this section: the abundances episode makes one site-by-species matrix containing all three islands. It would be nice to keep the same idea and do the same here: one new site-by-species matrix that now contains the taxa names corrected to fully match the phylogeny. However, this would mean it's unnecessary to prune the phylogeny for each island. Or we could keep the pruning (this way we can introduce the `keep.tip` function), and make one site-by-species matrix for each island (which would be different from the abundance episode). The latter option is how it is currently presented here.**
 
+**MODIFY THIS**
+**Add pruning to reduce phylogeny size, but not to prune for each community. This way we can still introduce `keep.tip` and be aligned with abundances episode creating just one site-by-species matrix**
+
 Now that we have a modified abundance dataset where all taxa names are present in our phylogeny, we can work on the two bits of information we need from each community to summarize phylogenetic diversity (PD) using Hill numbers: a local phylogeny and a local site-by-species matrix.
 
 We can filter our phylogeny for the taxa present in each community using the function `keep.tip` from the `ape` package. For this function, we provide the entire phylogeny plus the names of the tips we want to keep. We can retrieve those names from the new abundances dataset we create. We first need to retrieve only the names of taxa present in each island, and then provide those names to the function.
@@ -255,6 +258,7 @@ abundance_wide <- pivot_wider(abundances_phylo,
 
 ## Summarizing with hill numbers
 
+> Add the basic idea that hill number summarize amount of evolutionary change, with a simple example. Non-ultrametric trees with different branch lenghts?
 
 After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities.
 
