@@ -1427,7 +1427,7 @@ simple typos in taxonomic names.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>From the <code>taxize</code> documentation:</p>
 <blockquote>
@@ -1506,7 +1506,7 @@ in our data is resolved only to Agrotis. What’s up there?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>For now I am skipping cleaning the abundances name cleaning section
 because taxize is giving the server error. This may need some updating
@@ -1668,7 +1668,7 @@ numbers.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1893,7 +1893,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -2209,7 +2209,7 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3274,6 +3274,10 @@ each island. Or we could keep the pruning (this way we can introduce the
 <code>keep.tip</code> function), and make one site-by-species matrix for
 each island (which would be different from the abundance episode). The
 latter option is how it is currently presented here.</strong></p>
+<p><strong>MODIFY THIS</strong> <strong>Add pruning to reduce phylogeny
+size, but not to prune for each community. This way we can still
+introduce <code>keep.tip</code> and be aligned with abundances episode
+creating just one site-by-species matrix</strong></p>
 <p>Now that we have a modified abundance dataset where all taxa names
 are present in our phylogeny, we can work on the two bits of information
 we need from each community to summarize phylogenetic diversity (PD)
@@ -3377,7 +3381,7 @@ the <a href="abundance-data.html">abundances</a> episode.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First we split the new abundances data per island, using the
 <code>split</code> function`</p>
@@ -3457,6 +3461,11 @@ islands as sites</strong></p>
 </section><section id="summarizing-with-hill-numbers"><h2 class="section-heading">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a>
 </h2>
 <hr class="half-width">
+<blockquote>
+<p>Add the basic idea that hill number summarize amount of evolutionary
+change, with a simple example. Non-ultrametric trees with different
+branch lenghts?</p>
+</blockquote>
 <p>After solving these issues, we now have 1) a phylogenetic tree with
 tip labels taxonomically cleaned; 2) a site-by-species matrix where all
 species are represented in our tree. These two objects are the two bits
@@ -3703,7 +3712,7 @@ distribution that is comparable across different regions.</p></li>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3742,7 +3751,7 @@ history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <!-- We gotta simulate the data to finalize this solution section. -->
 </div>
@@ -3953,7 +3962,7 @@ objects, where the tip names are stored.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>First, we check the names using the <code>gnr_resolve()</code>
 function. In <code>phylogeny</code>, tip names are stored in
