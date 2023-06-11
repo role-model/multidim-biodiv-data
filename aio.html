@@ -337,7 +337,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -554,7 +554,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-finding_data"><p>Content from <a href="finding_data.html">Finding multi-dimensional biodiversity data</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1013,7 +1013,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-care"><p>Content from <a href="care.html">The CARE principles and open data</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/care.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1121,7 +1121,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-abundance-data"><p>Content from <a href="abundance-data.html">Abundance Data</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1506,7 +1506,7 @@ numbers.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1606,7 +1606,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-traits-data"><p>Content from <a href="traits-data.html">Trait data</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2258,7 +2258,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-popgen-data"><p>Content from <a href="popgen-data.html">Working with population genetic data</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/popgen-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2711,7 +2711,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-phylo-data"><p>Content from <a href="phylo-data.html">Summarizing phylogenetic data</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2881,6 +2881,7 @@ about tip labels and branch lengths are stored in that
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">example_tree</span><span class="op">$</span><span class="va">tip.label</span></span>
+<span></span>
 <span><span class="va">example_tree</span><span class="op">$</span><span class="va">edge.length</span></span></code></pre>
 </div>
 </div>
@@ -2890,29 +2891,44 @@ about tip labels and branch lengths are stored in that
 <p>Now that we learned how to import and visualize trees in R, let’s
 bring the phylogeny for the communities we are working with in this
 workshop. Our data so far consists of <a href="abundance-data.html">abundances</a> and <a href="traits-data.html">traits</a> of several taxa of arthropods
-collected across three islands in the Hawaian archipelago. Let’s work
+collected across three islands in the Hawaiian archipelago. Let’s work
 though importing phylogenetic information for these species.</p>
-<p><strong>Two options of getting phylogeny: either you have your
-favorite published phylogeny for your group, or you search from a
-database like Open Tree of Life</strong> - Bring <code>rotl</code> as an
-option, refer to <a href="https://mctavishlab.github.io/R_OpenTree_tutorials/" class="external-link">existing
-tutorial</a>. With otl, you will have your phylogeny ready and just need
-to filter for local communities. - The other option, using an existing
-published phylogeny, is what we are going for here. Issue to address: 1)
-species in local that are missing in phylo. &gt; Keep this issue for
-now, but check with Andy if will remove later.</p>
+<p>Two common approaches to retrieving a phylogeny for a focal group are
+1) relying on a published phylogeny for the group, or 2) surveying
+public phylogenetic databases based on your taxa list. A common option
+for the latter is the <a href="https://tree.opentreeoflife.org/about/taxonomy-version/ott3.2" class="external-link">Open
+Tree of Life Taxonomy</a>, a public database that synthesizes taxonomic
+information from different sources. You can even interact with this
+database using the R package <code>rotl</code>. A few tutorials to do so
+exist online, like <a href="https://mctavishlab.github.io/R_OpenTree_tutorials/" class="external-link">this one</a>.
+Using a public database is a good approach when working with taxonomic
+groups that are not heavily investigated regarding their phylogenetic
+relationships (the well-known <a href="https://doi.org/10.1146/annurev-ecolsys-112414-054400" class="external-link">Darwinian
+shortfall</a>). In such cases, databases like OTL will give you a
+summary phylogeny already filtered for the taxa you have in hand and
+cross-checked for synonyms and misspellings.</p>
+<p>For this workshop, since we are using simulated data, we will work
+with the first option: a “published” arthropod phylogeny. Let’s load
+this phylogeny into R using the function <code>read.tree</code> we
+learned earlier.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">arthro_tree</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">arthro_tree</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span><span class="st">'link_to_phylogeny'</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning in file(file, "r"): cannot open file 'link_to_phylogeny': No such file
+or directory</code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'arthro_tree' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in file(file, "r"): cannot open the connection</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2925,12 +2941,13 @@ now, but check with Andy if will remove later.</p>
 </div>
 <p>This new <code>phylo</code> object is way larger than the previous
 one, being a “real” phylogeny and all. You can inspect it again by
-directly calling the object <code>phylogeny</code>. To plot it, we will
-use the <code>type</code> argument to modify how our tree will be
+directly calling the object <code>arthro_tree</code>. To plot it, we
+will use the <code>type</code> argument to modify how our tree will be
 displayed. Here, we used the option <code>'fan'</code>, to display a
 circular phylogeny (slightly better to show such a large phylogeny in
-the screen).</p>
-<div class="codewrapper sourceCode" id="cb10">
+the screen). We also set the <code>show.tip.label</code> argument to
+<code>False</code>.</p>
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2943,174 +2960,343 @@ the screen).</p>
 </div>
 <p>How do we combine all this information with the community datasets we
 have so far for our three islands? First, we will have to perform some
-cleaning.</p>
-<p>Often, when we want to include the phylogenetic relatedness of
-organisms in our biodiversity analyses, we will run into published
-phylogenetic trees for our focal taxon (that is the case of the tree we
-are using here). A couple issues arise in these cases. First, and maybe
-most importantly, we need to make sure that the taxonomic names used
-across the different datasets in our analyses (phylogenies included) are
-the same. A second issue is that, depending on the resolution of the
-published phylogeny, it may be the case that some taxa in our community
-dataset may not be explicitly represented in the phylogeny. In these
-cases, we will want to assign those “missing taxa” to one of the tips
-present in the tree, based on their known genus and/or family
-assignments.</p>
+name checking and filtering.</p>
 <div class="section level3">
-<h3 id="resolving-missing-tip-names">Resolving missing tip names<a class="anchor" aria-label="anchor" href="#resolving-missing-tip-names"></a>
+<h3 id="checking-for-missing-tips">Checking for missing tips<a class="anchor" aria-label="anchor" href="#checking-for-missing-tips"></a>
 </h3>
-<p>The next issue we need to address is the fact that we may have
-species in our dataset that are not present in the phylogenetic tree we
-are using. We therefore need to 1) find out which species are not in the
-tree; 2) assign them to tips that are present in the tree.</p>
-<p>For this, let’s refer back to our original species list and
-cross-check it against the list of names we were able to find good OTT
-IDs for.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<p><strong>Do we still want to keep this issue? Or simply skip ahead to
+pruning the phylogeny for each community?</strong></p>
+<p>Since this is a “published” arthropod phylogeny, we will likely not
+have any misspelling in the tip names of the object. However, one
+important issue that may arise is that, depending on the resolution of
+the phylogeny, it may be the case that some taxa in our community
+dataset may not be explicitly represented in the phylogeny. For
+instance, the tips in our phylogeny might be represented by one species
+for each genus, or one genus for each family. This is usually the case
+when the goal of the original publication was to elucidate the
+phylogenetic relationship for such higher taxonomic levels, with less
+focus on the more recent evolutionary history. In these cases, some taxa
+in our <a href="abundance-data.html">abundances</a> dataset may not be
+found in the phylogeny, which will yield errors when we try to summarize
+phylogenetic diversity. Therefore, we will want to assign those “missing
+taxa” to one of the tips present in the tree, based on their known genus
+and/or family assignments.</p>
+<p>Let’s first find out what are those “missing taxa”. For this, we’ll
+refer back to our original species list, from the
+<code>abundances</code> object:</p>
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">all_names</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">all_names</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">found_names</span> <span class="op">&lt;-</span> <span class="va">good_names</span><span class="op">$</span><span class="va">search_string</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'good_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">unfound_names</span> <span class="op">&lt;-</span> <span class="fu">setdiff</span><span class="op">(</span><span class="va">all_names</span>, <span class="va">found_names</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'all_names' not found</code></pre>
-</div>
-<p>The taxonomic names in both the abundance data and in the
-phylogenetic tree were corrected using the same database from
-<code>taxize</code>; this therefore means that any names from our
-abundance data that are not found in the tree simply represent taxa that
-are not included in this phylogeny. We can use the boolean operator
-<code>%in%</code> coupled with <code>!</code> to check
-<code>species_names</code> that are not included in the
-<code>phylogeny$tip.label</code>. In summary, the expression
-<code>A %in% B</code> would return the positio of the elements in vector
-A that are present in vector B. The <code>!</code> (NOT) operator
+<p>To cross-check this list against the list of names in our phylogeny,
+we can use the Boolean operator <code>%in%</code> coupled with
+<code>!</code>. This will allow us to check for names in
+<code>all_names</code> that are not included in the
+<code>arthro_tree$tip.label</code>. In summary, the expression
+<code>A %in% B</code> would return the position of the elements in
+vector A that are present in vector B. The <code>!</code> (NOT) operator
 returns the opposite of that expression, in a way that
 <code>!(A %in% B)</code> will return the position of elements in vector
 A that are <em>NOT</em> present in vector B (precisely what we need
 right now).</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">not_present</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="op">(</span><span class="va">all_names</span> <span class="op">%in%</span> <span class="op">(</span><span class="va">phylogeny</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">not_found</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="op">(</span><span class="va">all_names</span> <span class="op">%in%</span> <span class="op">(</span><span class="va">arthro_tree</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'all_names' not found</code></pre>
 </div>
-<p>The object <code>not_present</code> is now a vector of the positions
-(or indexes) of the elements in <code>species_name</code> that are not
-found in <code>phylogeny$tip.label</code>. Let’s then check their names
-by using these indexes to subset <code>species_name</code>:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<p>The object <code>not_found</code> is now a vector of the positions
+(or <em>indexes</em>) of the elements in <code>all_names</code> that are
+not found in <code>arthro_tree$tip.label</code>. Let’s then check these
+names by using these indexes to subset <code>all_names</code>:</p>
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">all_names</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">all_names</span><span class="op">[</span><span class="va">not_found</span><span class="op">]</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'all_names' not found</code></pre>
 </div>
+<p><strong>EDIT THIS NEXT PARAGRAPH WHEN PHYLOGENY IS
+AVAILABLE</strong></p>
 <p>Here, we can decide how we are going to assign these species to tips
 in our tree. For instance, we see that we do not have <em>XXX</em> in
 our tree, but we have <em>XXX</em>, which belongs to the same genus.
 Similarly…</p>
 <p>We can then give new names to these species, based on what tips in
 our tree we want them to match to. To do so, we will first duplicate our
-<code>species_name</code> vector, so we can keep the original names
-(just in case we want to check the original names again in the
-future).</p>
-<div class="codewrapper sourceCode" id="cb22">
+<code>all_names</code> vector into the <code>new_names</code> vector.
+This way, we can make our changes in <code>new_names</code> while
+keeping the original names intact, just in case we need to refer back to
+them in the future.</p>
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_name</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">new_names</span> <span class="op">&lt;-</span> <span class="va">all_names</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'species_name' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'all_names' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb24">
+<p>Now we use the indexes saved in <code>not_found</code> to replace the
+names in the positions with the ones we want:</p>
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">new_names</span><span class="op">[</span><span class="va">not_present</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">new_names</span><span class="op">[</span><span class="va">not_found</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'ADD_LIST_HERE'</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="error" tabindex="0"><code>Error: object 'new_names' not found</code></pre>
 </div>
-<p>Now that we have a vector of updated named, all we need to do is
-modify those names in our site-by-species matrix. Similarly, we will
-first copy our matrix into another object (in order to keep the original
-abundance matrix intact), and then we will rename the columns of this
-new object based on the modified names.</p>
-<div class="codewrapper sourceCode" id="cb26">
+<p>Now that we have a vector where all names match to a position in our
+phylogeny, we need to bring these corrected names back to our abundance
+data. Here, we will again first copy our <code>abundances</code> object
+into another object, in order to keep the original data intact. Then, we
+will change the column <code>final_name</code> based on the vector
+<code>new_names</code>.</p>
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">phylo_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">abundances_phylo</span> <span class="op">&lt;-</span> <span class="va">abundances</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundance_wide' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">colnames</span><span class="op">(</span><span class="va">phylo_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">new_names</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">abundances_phylo</span><span class="op">$</span><span class="va">final_name</span> <span class="op">&lt;-</span> <span class="va">new_names</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'new_names' not found</code></pre>
 </div>
-
 </div>
 <div class="section level3">
-<h3 id="filtering-for-local-communities">Filtering for local communities<a class="anchor" aria-label="anchor" href="#filtering-for-local-communities"></a>
+<h3 id="pruning-for-local-communities">Pruning for local communities<a class="anchor" aria-label="anchor" href="#pruning-for-local-communities"></a>
 </h3>
+<p><strong>RM comment on this section: the abundances episode makes one
+site-by-species matrix containing all three islands. It would be nice to
+keep the same idea and do the same here: one new site-by-species matrix
+that now contains the taxa names corrected to fully match the phylogeny.
+However, this would mean it’s unnecessary to prune the phylogeny for
+each island. Or we could keep the pruning (this way we can introduce the
+<code>keep.tip</code> function), and make one site-by-species matrix for
+each island (which would be different from the abundance episode). The
+latter option is how it is currently presented here.</strong></p>
+<p>Now that we have a modified abundance dataset where all taxa names
+are present in our phylogeny, we can work on the two bits of information
+we need from each community to summarize phylogenetic diversity (PD)
+using Hill numbers: a local phylogeny and a local site-by-species
+matrix.</p>
+<p>We can filter our phylogeny for the taxa present in each community
+using the function <code>keep.tip</code> from the <code>ape</code>
+package. For this function, we provide the entire phylogeny plus the
+names of the tips we want to keep. We can retrieve those names from the
+new abundances dataset we create. We first need to retrieve only the
+names of taxa present in each island, and then provide those names to
+the function.</p>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HawaiiIsland_taxa</span> <span class="op">&lt;-</span> <span class="va">abundances_phylo</span><span class="op">$</span><span class="va">final_name</span><span class="op">[</span><span class="va">abundances_phylo</span><span class="op">$</span><span class="va">island</span> <span class="op">==</span> <span class="st">'HawaiiIsland'</span><span class="op">]</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances_phylo' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HawaiiIsland_tree</span> <span class="op">&lt;-</span> <span class="fu">keep.tip</span><span class="op">(</span><span class="va">arthro_tree</span>, <span class="va">HawaiiIsland_taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'arthro_tree' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Kauai_taxa</span> <span class="op">&lt;-</span> <span class="va">abundances_phylo</span><span class="op">$</span><span class="va">final_name</span><span class="op">[</span><span class="va">abundances_phylo</span><span class="op">$</span><span class="va">island</span> <span class="op">==</span> <span class="st">'Kauai'</span><span class="op">]</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances_phylo' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Kauai_tree</span> <span class="op">&lt;-</span> <span class="fu">keep.tip</span><span class="op">(</span><span class="va">arthro_tree</span>, <span class="va">Kauai_taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'arthro_tree' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Maui_taxa</span> <span class="op">&lt;-</span> <span class="va">abundances_phylo</span><span class="op">$</span><span class="va">final_name</span><span class="op">[</span><span class="va">abundances_phylo</span><span class="op">$</span><span class="va">island</span> <span class="op">==</span> <span class="st">'Maui'</span><span class="op">]</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances_phylo' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb37">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Maui_tree</span> <span class="op">&lt;-</span> <span class="fu">keep.tip</span><span class="op">(</span><span class="va">arthro_tree</span>, <span class="va">Maui_taxa</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'arthro_tree' not found</code></pre>
+</div>
+<p>Now, let’s move on to create a site-by-species matrix for each
+island. We have done such a matrix in the <a href="abundance-data.html">abundances</a> episode before, so let’s cover
+this in a challenge.</p>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+</h3>
+<div class="callout-content">
+<p>Make a site-by-species matrix for each community. Hint: you will
+first want to filter the abundance data per community, and then
+transpose that data into the site-by-species matrix as done previouslyin
+the <a href="abundance-data.html">abundances</a> episode.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>First we split the new abundances data per island, using the
+<code>split</code> function`</p>
+<div class="codewrapper sourceCode" id="cb39">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">island_abundances_phylo</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">abundances_phylo</span>, f <span class="op">=</span> <span class="va">abundances_phylo</span><span class="op">$</span><span class="va">island</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Then we use <code>pivot_wider</code> from the package
+<code>tidyr</code> to create a site-by-species matrix for each
+island.</p>
+<div class="codewrapper sourceCode" id="cb40">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HawaiiIsland_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">island_abundances_phylo</span><span class="op">$</span><span class="va">HawaiiIsland</span>,</span>
+<span>                          names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
+<span>                          values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
+<span>                          values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in pivot_wider(island_abundances_phylo$HawaiiIsland, names_from = final_name, : could not find function "pivot_wider"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb42">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Kauai_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">island_abundances_phylo</span><span class="op">$</span><span class="va">Kauai</span>,</span>
+<span>                          names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
+<span>                          values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
+<span>                          values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in pivot_wider(island_abundances_phylo$Kauai, names_from = final_name, : could not find function "pivot_wider"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb44">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Maui_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">island_abundances_phylo</span><span class="op">$</span><span class="va">Maui</span>,</span>
+<span>                          names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
+<span>                          values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
+<span>                          values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in pivot_wider(island_abundances_phylo$Maui, names_from = final_name, : could not find function "pivot_wider"</code></pre>
+</div>
+<p><strong>Alternative creating just one site-by-species matrix with
+islands as sites</strong></p>
+<div class="codewrapper sourceCode" id="cb46">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">abundances_phylo</span>,</span>
+<span>                          id_cols <span class="op">=</span> <span class="va">site</span>,</span>
+<span>                          names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
+<span>                          values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
+<span>                          values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in pivot_wider(abundances_phylo, id_cols = site, names_from = final_name, : could not find function "pivot_wider"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="summarizing-with-hill-numbers"><h2 class="section-heading">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a>
+</h2>
+<hr class="half-width">
 <p>After solving these issues, we now have 1) a phylogenetic tree with
 tip labels taxonomically cleaned; 2) a site-by-species matrix where all
 species are represented in our tree. These two objects are the two bits
 of information that we need to summarize the phylogenetic diversity and
 the distribution of branch lengths across our focal communities.</p>
-</div>
-</section><section id="summarizing-with-hill-numbers"><h2 class="section-heading">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a>
-</h2>
-<hr class="half-width">
 <p>In this section, we will extract some summary statistics about the
 pattern of phylogenetic diversity in our communities. As we discussed
 above, the relative phylogenetic distance among species and the
@@ -3123,7 +3309,7 @@ simple example.</p>
 will create two possibilities of phylogenetic relationship among
 them.</p>
 <p>Tree 1 will represent a totally unbalanced pattern…</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3131,7 +3317,7 @@ them.</p>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span></span></code></pre>
 </div>
 <p>whereas tree 2 will represent a totally balanced pattern.</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3161,7 +3347,7 @@ present. We do that by creating a vector of the value <code>1</code>
 repeated 8 times, transforming that to a dataframe, and then naming the
 columns with the names of the species we take from our fictional
 trees.</p>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3171,7 +3357,7 @@ trees.</p>
 </div>
 <p>Using that matrix, we will calculate Hill numbers of order 0 to 2 for
 both trees:</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3188,7 +3374,7 @@ the first column will be the order (our X axis), the second column will
 be the Hill values (our Y axis) and the third column will be the tree it
 belongs to (which we will use to draw different colored lines for
 comparison).</p>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3200,7 +3386,7 @@ comparison).</p>
 values of the first tree, and then use <code>lines</code> to add a line
 containing the values for the second tree (we used boolean matching
 subsetting to choose what to plot at each time)</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3256,7 +3442,7 @@ abundance of extant taxon in the phylogeny we provide. For our simple
 example, we can see how that changes our results by creating
 site-by-species matrix where abundance goes up from species A to species
 H (for simplicity, we’ll just use values from 1 to 8).</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3267,7 +3453,7 @@ H (for simplicity, we’ll just use values from 1 to 8).</p>
 We save the values to objects with <code>_rel</code> at the end, to
 highlight in this case the taxa had different <em>rel</em>ative
 abundances.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3282,7 +3468,7 @@ abundances.</p>
 will signal they belong to <code>tree1_rel</code> and
 <code>tree2_rel</code>, meaning they came from a community with
 different <em>rel</em>ative abundance.</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3344,12 +3530,12 @@ numbers while incorporating species abundance therefore allows to have a
 single metric accounting for evolutionary history and species abundance
 distribution that is comparable across different regions.</p></li>
 </ol>
-<div id="challenge1" class="callout challenge">
+<div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
 </h3>
 <div class="callout-content">
 <p>Now that you got an intuition on the information phylogenetic Hill
@@ -3365,14 +3551,14 @@ history of each community.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <!-- We gotta simulate the data to finalize this solution section. -->
 </div>
@@ -3383,7 +3569,7 @@ history of each community.</p>
 </h2>
 <hr class="half-width">
 <p>Because the entire tree of</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3412,7 +3598,7 @@ currax mauiensis, cremastus flavoorbitalis, cydia plicata, emperoptera
 zimmermani, heterocrossa atronotata, pararrhaptica perkinsana, phlyctaenia
 liopis are not matched</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3428,7 +3614,7 @@ liopis are not matched</code></pre>
 </div>
 <p>Next, we can query the Open Tree of Life for those IDs using the
 <code>tol_induced_subtree</code> function.</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb62">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3558,12 +3744,12 @@ a challenge!</p>
 <div class="section level3">
 <h3 id="resolving-taxonomic-names">Resolving taxonomic names<a class="anchor" aria-label="anchor" href="#resolving-taxonomic-names"></a>
 </h3>
-<div id="challenge2" class="callout challenge">
+<div id="challenge3" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge3"></a>
 </h3>
 <div class="callout-content">
 <p>In previous episodes, we have used the package <code>taxize</code> to
@@ -3576,20 +3762,20 @@ objects, where the tip names are stored.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>First, we check the names using the <code>gnr_resolve()</code>
 function. In <code>phylogeny</code>, tip names are stored in
 <code>phylogeny$tip.label</code>, so we provide that vector to our
 function.</p>
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3608,7 +3794,7 @@ Attaching package: 'taxize'</code></pre>
 
     synonyms, tax_name, tax_rank</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb67">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3630,7 +3816,7 @@ Attaching package: 'taxize'</code></pre>
 <p>We can see what taxa are in conflict with the names retrieved by
 <code>taxize</code> by subsetting <code>name_resolve</code> based on
 boolean matching.</p>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb68">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3648,7 +3834,7 @@ the time the phylogeny was created.</p>
 <p>In the previous episodes, we used the names provided by
 <code>taxize</code> directly. Therefore, here we can just add those
 names directly to the phylogeny.</p>
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb69">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3667,6 +3853,25 @@ we end up continuing with <code>rotl</code> for both cleaning + phylo, I
 think there will be an opportunity to do name/broken taxon fixing. Some
 of this is covered in an R Open Tree of Life Carpentries lesson here: <a href="https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html" class="external-link uri">https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html</a>
 (which is what RMD is working from).</strong></p>
+<p>We will use the <code>setdiff</code> function to see the differences
+between the list of names from <code>abundances</code> and the one from
+the phylogeny.</p>
+<div class="codewrapper sourceCode" id="cb70">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">phylo_names</span> <span class="op">&lt;-</span> <span class="va">arthro_tree</span><span class="op">$</span><span class="va">tip.label</span></span>
+<span></span>
+<span><span class="va">unfound_names</span> <span class="op">&lt;-</span> <span class="fu">setdiff</span><span class="op">(</span><span class="va">all_names</span>, <span class="va">phylo_names</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'all_names' not found</code></pre>
+</div>
+<hr>
+<p>Another option, that uses the <code>%in%</code> operator and the
+indexing rationale for sub-setting.</p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
@@ -3674,7 +3879,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-connecting-data-types"><p>Content from <a href="connecting-data-types.html">Connecting different data types</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/connecting-data-types.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3851,7 +4056,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-phylo-hill"><p>Content from <a href="phylo-hill.html">phylo_hill</a></p>
 <hr>
-<p> Last updated on 2023-06-10 | 
+<p> Last updated on 2023-06-11 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-hill.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4227,9 +4432,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/aio.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/aio.html",
-  "dateCreated": "2023-06-10",
-  "dateModified": "2023-06-10",
-  "datePublished": "2023-06-10"
+  "dateCreated": "2023-06-11",
+  "dateModified": "2023-06-11",
+  "datePublished": "2023-06-11"
 }
 
   </script><script>
