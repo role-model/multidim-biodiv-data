@@ -108,91 +108,155 @@ One way to access the components of this object and better explore it is to use 
 
 ```{r calling-tips-edge}
 example_tree$tip.label
+
 example_tree$edge.length
 ```
 
 ## Cleaning and filtering phylogenetic data
 
-Now that we learned how to import and visualize trees in R, let's bring the phylogeny for the communities we are working with in this workshop. Our data so far consists of [abundances](abundance-data.Rmd) and [traits](traits-data.Rmd) of several taxa of arthropods collected across three islands in the Hawaian archipelago. Let's work though importing phylogenetic information for these species.
+Now that we learned how to import and visualize trees in R, let's bring the phylogeny for the communities we are working with in this workshop. Our data so far consists of [abundances](abundance-data.Rmd) and [traits](traits-data.Rmd) of several taxa of arthropods collected across three islands in the Hawaiian archipelago. Let's work though importing phylogenetic information for these species.
 
-**Two options of getting phylogeny: either you have your favorite published phylogeny for your group, or you search from a database like Open Tree of Life**
-- Bring `rotl` as an option, refer to [existing tutorial](https://mctavishlab.github.io/R_OpenTree_tutorials/). With otl, you will have your phylogeny ready and just need to filter for local communities.
-- The other option, using an existing published phylogeny, is what we are going for here. Issue to address: 1) species in local that are missing in phylo.
-> Keep this issue for now, but check with Andy if will remove later.
+Two common approaches to retrieving a phylogeny for a focal group are 1) relying on a published phylogeny for the group, or 2) surveying public phylogenetic databases based on your taxa list. A common option for the latter is the [Open Tree of Life Taxonomy](https://tree.opentreeoflife.org/about/taxonomy-version/ott3.2), a public database that synthesizes taxonomic information from different sources. You can even interact with this database using the R package `rotl`. A few tutorials to do so exist online, like [this one](https://mctavishlab.github.io/R_OpenTree_tutorials/). Using a public database is a good approach when working with taxonomic groups that are not heavily investigated regarding their phylogenetic relationships (the well-known [Darwinian shortfall](https://doi.org/10.1146/annurev-ecolsys-112414-054400)). In such cases, databases like OTL will give you a summary phylogeny already filtered for the taxa you have in hand and cross-checked for synonyms and misspellings.
 
-```{r}
-arthro_tree
+For this workshop, since we are using simulated data, we will work with the first option: a "published" arthropod phylogeny. Let's load this phylogeny into R using the function `read.tree` we learned earlier.
+
+```{r reading-arthro-phylo}
+arthro_tree <- read.tree('link_to_phylogeny')
+
 class(arthro_tree)
 ```
 
-This new `phylo` object is way larger than the previous one, being a "real" phylogeny and all. You can inspect it again by directly calling the object `phylogeny`. To plot it, we will use the `type` argument to modify how our tree will be displayed. Here, we used the option `'fan'`, to display a circular phylogeny (slightly better to show such a large phylogeny in the screen).
+This new `phylo` object is way larger than the previous one, being a "real" phylogeny and all. You can inspect it again by directly calling the object `arthro_tree`. To plot it, we will use the `type` argument to modify how our tree will be displayed. Here, we used the option `'fan'`, to display a circular phylogeny (slightly better to show such a large phylogeny in the screen). We also set the `show.tip.label` argument to `False`.
 
 ```{r plotting-phylogeny}
 plot(arthro_tree, type = 'fan', show.tip.label = F)
 ```
 
-How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some cleaning.
+How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some name checking and filtering.
 
-Often, when we want to include the phylogenetic relatedness of organisms in our biodiversity analyses, we will run into published phylogenetic trees for our focal taxon (that is the case of the tree we are using here). A couple issues arise in these cases. First, and maybe most importantly, we need to make sure that the taxonomic names used across the different datasets in our analyses (phylogenies included) are the same. A second issue is that, depending on the resolution of the published phylogeny, it may be the case that some taxa in our community dataset may not be explicitly represented in the phylogeny. In these cases, we will want to assign those "missing taxa" to one of the tips present in the tree, based on their known genus and/or family assignments.
+### Checking for missing tips
 
-### Resolving missing tip names
+**Do we still want to keep this issue? Or simply skip ahead to pruning the phylogeny for each community?**
 
-The next issue we need to address is the fact that we may have species in our dataset that are not present in the phylogenetic tree we are using. We therefore need to 1) find out which species are not in the tree; 2) assign them to tips that are present in the tree.
+Since this is a "published" arthropod phylogeny, we will likely not have any misspelling in the tip names of the object. However, one important issue that may arise is that, depending on the resolution of the phylogeny, it may be the case that some taxa in our community dataset may not be explicitly represented in the phylogeny. For instance, the tips in our phylogeny might be represented by one species for each genus, or one genus for each family. This is usually the case when the goal of the original publication was to elucidate the phylogenetic relationship for such higher taxonomic levels, with less focus on the more recent evolutionary history. In these cases, some taxa in our [abundances](abundance-data.Rmd) dataset may not be found in the phylogeny, which will yield errors when we try to summarize phylogenetic diversity. Therefore, we will want to assign those "missing taxa" to one of the tips present in the tree, based on their known genus and/or family assignments.
 
-For this, let's refer back to our original species list and cross-check it against the list of names we were able to find good OTT IDs for.
-
-```{r}
-
-all_names <- (abundances$final_name)
-
-found_names <- good_names$search_string
-
-unfound_names <- setdiff(all_names, found_names)
-
-```
-
-The taxonomic names in both the abundance data and in the phylogenetic tree were corrected using the same database from `taxize`; this therefore means that any names from our abundance data that are not found in the tree simply represent taxa that are not included in this phylogeny. We can use the boolean operator `%in%` coupled with `!` to check `species_names` that are not included in the `phylogeny$tip.label`. In summary, the expression `A %in% B` would return the positio of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now).
+Let's first find out what are those "missing taxa". For this, we'll refer back to our original species list, from the `abundances` object:
 
 ```{r}
-not_present <- !(all_names %in% (phylogeny$tip.label))
+all_names <- abundances$final_name
 ```
 
-The object `not_present` is now a vector of the positions (or indexes) of the elements in `species_name` that are not found in `phylogeny$tip.label`. Let's then check their names by using these indexes to subset `species_name`:
+To cross-check this list against the list of names in our phylogeny, we can use the Boolean operator `%in%` coupled with `!`. This will allow us to check for names in `all_names` that are not included in the `arthro_tree$tip.label`. In summary, the expression `A %in% B` would return the position of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now).
 
 ```{r}
-all_names[not_present]
+not_found <- !(all_names %in% (arthro_tree$tip.label))
 ```
+
+The object `not_found` is now a vector of the positions (or *indexes*) of the elements in `all_names` that are not found in `arthro_tree$tip.label`. Let's then check these names by using these indexes to subset `all_names`:
+
+```{r}
+all_names[not_found]
+```
+
+**EDIT THIS NEXT PARAGRAPH WHEN PHYLOGENY IS AVAILABLE**
 
 Here, we can decide how we are going to assign these species to tips in our tree. For instance, we see that we do not have _XXX_ in our tree, but we have _XXX_, which belongs to the same genus. Similarly...
 
-We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `species_name` vector, so we can keep the original names (just in case we want to check the original names again in the future).
+We can then give new names to these species, based on what tips in our tree we want them to match to. To do so, we will first duplicate our `all_names` vector into the `new_names` vector. This way, we can make our changes in `new_names` while keeping the original names intact, just in case we need to refer back to them in the future.
 
 ```{r}
-species_name[not_present] <- c()
-new_names[not_present] <- c()
+new_names <- all_names
 ```
 
-Now that we have a vector of updated named, all we need to do is modify those names in our site-by-species matrix. Similarly, we will first copy our matrix into another object (in order to keep the original abundance matrix intact), and then we will rename the columns of this new object based on the modified names.
+Now we use the indexes saved in `not_found` to replace the names in the positions with the ones we want:
 
 ```{r}
-phylo_wide <- abundance_wide
-colnames(phylo_wide) <- new_names
+new_names[not_found] <- c('ADD_LIST_HERE')
 ```
 
-:::::::::::::::::: instructor
+Now that we have a vector where all names match to a position in our phylogeny, we need to bring these corrected names back to our abundance data. Here, we will again first copy our `abundances` object into another object, in order to keep the original data intact. Then, we will change the column `final_name` based on the vector `new_names`.
 
-    Another issue that can arise with phylogenies is that when we assign species to a tip, we may end up with duplicates in the site-by-species matrix. We will not show this here, but it might be something important to bring up.
+```{r}
+abundances_phylo <- abundances
+abundances_phylo$final_name <- new_names
+```
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::
+### Pruning for local communities
 
-### Filtering for local communities
+**RM comment on this section: the abundances episode makes one site-by-species matrix containing all three islands. It would be nice to keep the same idea and do the same here: one new site-by-species matrix that now contains the taxa names corrected to fully match the phylogeny. However, this would mean it's unnecessary to prune the phylogeny for each island. Or we could keep the pruning (this way we can introduce the `keep.tip` function), and make one site-by-species matrix for each island (which would be different from the abundance episode). The latter option is how it is currently presented here.**
 
+Now that we have a modified abundance dataset where all taxa names are present in our phylogeny, we can work on the two bits of information we need from each community to summarize phylogenetic diversity (PD) using Hill numbers: a local phylogeny and a local site-by-species matrix.
 
+We can filter our phylogeny for the taxa present in each community using the function `keep.tip` from the `ape` package. For this function, we provide the entire phylogeny plus the names of the tips we want to keep. We can retrieve those names from the new abundances dataset we create. We first need to retrieve only the names of taxa present in each island, and then provide those names to the function.
+
+```{r}
+
+HawaiiIsland_taxa <- abundances_phylo$final_name[abundances_phylo$island == 'HawaiiIsland']
+HawaiiIsland_tree <- keep.tip(arthro_tree, HawaiiIsland_taxa)
+
+Kauai_taxa <- abundances_phylo$final_name[abundances_phylo$island == 'Kauai']
+Kauai_tree <- keep.tip(arthro_tree, Kauai_taxa)
+
+Maui_taxa <- abundances_phylo$final_name[abundances_phylo$island == 'Maui']
+Maui_tree <- keep.tip(arthro_tree, Maui_taxa)
+
+```
+
+Now, let's move on to create a site-by-species matrix for each island. We have done such a matrix in the [abundances](abundance-data.Rmd) episode before, so let's cover this in a challenge.
+
+::: challenge
+
+Make a site-by-species matrix for each community.
+Hint: you will first want to filter the abundance data per community, and then transpose that data into the site-by-species matrix as done previouslyin the [abundances](abundance-data.Rmd) episode.
+
+::: solution
+
+First we split the new abundances data per island, using the `split` function`
+
+```{r separate islands using split, eval =F}
+
+island_abundances_phylo <- split(abundances_phylo, f = abundances_phylo$island)
+
+```
+
+Then we use `pivot_wider` from the package `tidyr` to create a site-by-species matrix for each island.
+
+```{r}
+
+HawaiiIsland_wide <- pivot_wider(island_abundances_phylo$HawaiiIsland,
+                          names_from = final_name,
+                          values_from = abundance, 
+                          values_fill = 0)
+
+Kauai_wide <- pivot_wider(island_abundances_phylo$Kauai,
+                          names_from = final_name,
+                          values_from = abundance, 
+                          values_fill = 0)
+
+Maui_wide <- pivot_wider(island_abundances_phylo$Maui,
+                          names_from = final_name,
+                          values_from = abundance, 
+                          values_fill = 0)
+```
+
+**Alternative creating just one site-by-species matrix with islands as sites**
+
+```{r}
+abundance_wide <- pivot_wider(abundances_phylo,
+                          id_cols = site,
+                          names_from = final_name,
+                          values_from = abundance, 
+                          values_fill = 0)
+```
+
+::::::::::::
+
+::::::::::::
+
+## Summarizing with hill numbers
 
 
 After solving these issues, we now have 1) a phylogenetic tree with tip labels taxonomically cleaned; 2) a site-by-species matrix where all species are represented in our tree. These two objects are the two bits of information that we need to summarize the phylogenetic diversity and the distribution of branch lengths across our focal communities.
-
-## Summarizing with hill numbers
 
 In this section, we will extract some summary statistics about the pattern of phylogenetic diversity in our communities. As we discussed above, the relative phylogenetic distance among species and the distribution of this distance can give insights into processes of community assembly. Here, we will make use of [Hill numbers](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593) to extract summaries of phylogenetic distances. To understand what they mean, let's first explore their properties in a simple example.
 
@@ -433,4 +497,17 @@ phylogeny$tip.label <- name_resolve$matched_name2
 
 **For now, RMD is commenting out the phylo cleaning section. If we end up continuing with `rotl` for both cleaning + phylo, I think there will be an opportunity to do name/broken taxon fixing. Some of this is covered in an R Open Tree of Life Carpentries lesson here: https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html (which is what RMD is working from).**
 
+
+We will use the `setdiff` function to see the differences between the list of names from `abundances` and the one from the phylogeny.
+
+```{r checking-missing-tips}
+
+phylo_names <- arthro_tree$tip.label
+
+unfound_names <- setdiff(all_names, phylo_names)
+
+```
+
+---
+Another option, that uses the `%in%` operator and the indexing rationale for sub-setting.
 
