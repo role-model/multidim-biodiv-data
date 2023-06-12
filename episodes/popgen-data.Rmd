@@ -37,7 +37,7 @@ GEOBON, in their description of Essential Biodiversity Variables, [define intras
 
 How is this genetic diversity generated? At a proximal level, genetic diversity is generated through the processes of recombination and mutation. These two mechanisms lay the foundation for evolutionary forces like genetic drift, natural selection, and gene flow to shape the distribution of genetic diversity within populations and across communities.
 
-Perhaps one of the most elegant theoretical frameworks for modeling genetic diversity is coalescent theory. Coalescent theory is a model of how alleles sampled from a population may have originated from a common ancestor. Under the assumptions of no recombination, no natural selection, no gene flow, and no population structure, i.e. neutrality, it estimates the time to the most recent common ancestor (TMRCA) between two sampled alleles and the variance of this estimate. When a population is especially large (i.e. many breeding individuals), the TMRCA of two randomly sampled alleles is large. This is because the per-generation probability of two alleles coalescing is `1 / 2Ne`, where `Ne`, the effective population size, is the number of breeding individuals in an idealized population that follows the assumptions stated above. Under neutral conditions, `Ne` represents the diversity of a population. The intuition is best understood through visualization.
+Perhaps one of the most elegant theoretical frameworks for modeling genetic diversity is coalescent theory. Coalescent theory is a model of how alleles sampled from a population may have originated from a common ancestor. Under the assumptions of no recombination, no natural selection, no gene flow, and no population structure, i.e. neutrality, it estimates the time to the most recent common ancestor (TMRCA) between two sampled alleles and the variance of this estimate. When a population is especially large (i.e. many breeding individuals), the TMRCA of two randomly sampled alleles is large. This is because the per-generation probability of two alleles coalescing is `1 / 2Ne`, where `Ne`, the effective population size, is the number of breeding individuals in an idealized population that follows the assumptions stated above. In most, if not all, natural environments conditions are not ideal and `Ne` does not perfectly represent the census size of a population (see [Lewontin's paradox](https://www.biorxiv.org/content/10.1101/2021.02.03.429633v2)). While the relationship between `Ne` and census population size is not perfect, in most cases `Ne` increases as population size increases and can be used to understand the relative sizes of populations or size changes over time. The intuition is best understood through visualization.
 
 For a population of 10 diploid individuals (20 allele copies), the probability of two randomly sampled allele coalescing each generation is 1 / (2 \* 10), or 1/20. In this single simulation (conducted using [Graham Coop's code](https://github.com/cooplab/popgen-notes/blob/master/Rcode/track_alleles.R)) , the two sampled alleles, whose genealogy is traced in blue and red, coalesce 16 generations in the past.
 
@@ -71,17 +71,21 @@ One of the simplest and most widespread estimators of `Ne` is the average number
 
     -   visualize coalescent genealogies with different numbers of individuals in a population and different numbers of generations
 
--    [coaltrace app](https://bedford.io/projects/coaltrace/)
+-   [coaltrace app](https://bedford.io/projects/coaltrace/)
 
-    -   a dynamic and interactive visualization of coalescent genealogies with the ability to change parameters on the fly
+```         
+-   a dynamic and interactive visualization of coalescent genealogies with the ability to change parameters on the fly
+```
 
 -   [Bedford lab slides](https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/)
 
     -   a great set of slides that explains the coalescent in a complementary way to Graham Coop's notes
 
--    [cdmuir app](https://cdmuir.shinyapps.io/genetree-to-phylogeny/)
+-   [cdmuir app](https://cdmuir.shinyapps.io/genetree-to-phylogeny/)
 
-    -   uses the coalescent to simulate gene trees and mutations along sequences
+```         
+-   uses the coalescent to simulate gene trees and mutations along sequences
+```
 
 ## What does genetic diversity say about community assembly?
 
@@ -101,9 +105,7 @@ Distinguishing a small, constant-sized population from a large population that's
 
 {{pi across species neutral viz}}
 
-{{pi across species filtering viz}}
-
-{{pi across species competition viz}}
+{{pi across species non-neutral viz}}
 
 ### Hill numbers of genetic diversity across species
 
@@ -124,7 +126,7 @@ GATCCCCAATTGGGG
 
 This is perhaps the most common way to store sequence information as it is simple and has historical inertia. For more information, see the [the NCBI page](https://www.ncbi.nlm.nih.gov/genbank/fastaformat/#:~:text=In%20FASTA%20format%20the%20line,should%20not%20contain%20any%20spaces.).
 
-#### Alignment
+### Alignment
 
 Prior to analysis, sequence data must be aligned if they haven't been already. A sequence alignment is necessary to identify regions of DNA that are similar or that vary. There are [many pieces of software to perform alignments](https://en.wikipedia.org/wiki/List_of_sequence_alignment_software) and all have their advantages and disadvantages, but we will choose a single program, [Clustal Omega](https://www.ebi.ac.uk/Tools/msa/clustalo/), which is fast and robust for short sequence alignments. While Clustal Omega can be run from the command line, we will use the R package [msa](https://bioconductor.org/packages/release/bioc/html/msa.html) to keep everything in the R environment.
 
@@ -192,7 +194,7 @@ Although not necessary for this workshop, it's generally advisable to write your
 ape::write.FASTA(ape_align, "path/to/alignment.fas")
 ```
 
-#### ape
+### ape
 
 #### Check alignment
 
@@ -208,40 +210,90 @@ checkAlignment(ape_align, what = 1)
 
 #### Calculate genetic diversity
 
-The average number of pairwise genetic differences between a set of sequences, i.e. nucleotide diversity or 𝜋, first introduced by [Nei and Li 1979](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC413122/), is one of the most common estimates of genetic diversity. It is considered a simple estimator of the effective population size, `Ne`. The name "effective population size" invokes a comparison between `Ne` and abundance. However, the word "effective" carries a lot of weight here. Under ideal conditions, `Ne` represents the number of breeding individuals in a population. In most, if not all, natural environments conditions are not ideal and this relationship breaks down (see [Lewontin's paradox](https://www.biorxiv.org/content/10.1101/2021.02.03.429633v2)). While the relationship between `Ne` and abundance is not perfect, in most cases `Ne` increases as population abundance increases and can be used to understand the relative sizes of populations or population size changes over time.
+Now we're going to calculate the average number of pairwise genetic differences among these sequences. `ape` has the `dist.dna()` function to calculate various genetic distance metrics for an alignment.
 
-Explain the dist.dna function... model = "raw"...
-
-When calculating the number of pairwise genetic differences, you have to choose whether you want missing data to be deleted across the entire alignment (`pairwise.deletion = FALSE`) or only between the two sequences being compared (`pairwise.deletion = TRUE`). Since we want to take advantage of as much data as possible when computing 𝜋, we'll set `pairwise.deletion = TRUE`.
-
-We take the upper triangle because...
+You use the argument `model = "raw"` to specify that you want to use the average number of pairwise differences as your metric. When calculating the number of pairwise genetic differences, you have to choose whether you want missing data to be deleted across the entire alignment (`pairwise.deletion = FALSE`) or only between the two sequences being compared (`pairwise.deletion = TRUE`). Since we want to take advantage of as much data as possible when computing 𝜋, we'll set `pairwise.deletion = TRUE`.
 
 ```{r fas-full-pi}
-fas_gendist <- dist.dna(fas, model = "raw", pairwise.deletion = TRUE)
+fas_gendist <- dist.dna(ape_align, model = "raw", pairwise.deletion = TRUE)
 
-fas_gendiv <- median(fas_gendist[upper.tri(fas_gendist)])
+fas_gendist
 ```
 
-Need to regenerate fas_split...
+The function returns a distance matrix containing the pairwise differences among all sequences in the data set. To take a quick peak at their distribution, we can use the `hist()` function on the distance matrix.
+
+```{r fas-hist}
+hist(fas_gendist)
+```
+
+Since we want the average of these differences, we need to take their average. However, you may have noticed the distribution of genetic distances is non-normal, with mostly low genetic diversities. This is the case with most genetic data sets. So, instead of taking the mean, the `median()` will provide a better estimate of the center of the distribution.
+
+```{r fas-full-upper-tri}
+fas_gendiv <- median(fas_gendist)
+
+fas_gendiv
+```
+
+To calculate this for multiple populations...
+
+read in fasta alignments...
+
+`lapply` explanation...
+
+```{r fas-read-multipop}
+fas_paths <- list.files("...", full.names = TRUE)
+
+fas_alignments <- lapply(fas_paths, read.dna)
+
+```
+
+Now we can use `lapply` to calculate the pairwise genetic distances for each species\...
+
+`sapply` is similar to `lapply`, except it returns a vector instead of a list. This is useful when you know the function is returning the same data type, like in our case where a number is being returned.
 
 ```{r fas-pop-pi}
-fas_gendist_pop <- lapply(fas_split, dist.dna, model = "raw", pairwise.deletion = TRUE)
-
-calc_pi <- function(x) {
-    gd <- median(x[upper.tri(x)])
-    return(gd)
-}
+fas_gendist_pop <- lapply(fas_alignments, dist.dna, model = "raw", pairwise.deletion = TRUE)
     
-fas_gendiv_pop <- sapply(fas_gendist_pop, calc_pi)
+fas_gendiv_pop <- sapply(fas_gendist_pop, median)
 
 plot(fas_gendiv_pop)
 ```
 
+### Hill numbers
+
+**How are we calculating genetic Hill numbers?**
+
 ## ASVs and Metabarcoding
 
-According to [Wikipedia](https://en.wikipedia.org/wiki/Amplicon_sequence_variant), an amplicon sequence variant (ASV) is any one of the sequences inferred from a high-throughput sequencing experiment. These sequences are free from errors and may diverge by as little as a single base pair from each other. They are considered a substitute for operational taxonomic units (OTUs) for evaluating ecological diversity given their higher resolution, reproducibility, and no need for a reference database.
+Metabarcoding is rapidly growing DNA sequencing method used for biodiversity assessment. It involves sequencing a short, variable region of DNA sequence across a sample that may contain many taxa. This can be used to rapidly assess the diversity of a particular sampling site with low sampling effort. Some common applications include [microbiome diversity assessments, environmental DNA, and community DNA](https://en.wikipedia.org/wiki/Metabarcoding). In many applications where a data base of species identities for sequence variants is not available or desired, the diversity of sequences is inferred, rather than the diversity of species. Additionally, while [there are caveats](https://onlinelibrary-wiley-com.ezproxy.gc.cuny.edu/doi/full/10.1111/1755-0998.12902), the relative abundance of sequences can be considered analogous to the relative abundance of species across a community.
 
-What the number of ASVs in a sample means...
+The basic unit of diversity used in most studies is the [amplicon sequence variant (ASV)](https://en.wikipedia.org/wiki/Amplicon_sequence_variant). An ASV is any one of the sequences inferred from a high-throughput sequencing experiment. These sequences are free from errors and may diverge by as little as a single base pair from each other. They are considered a substitute for operational taxonomic units (OTUs) for evaluating ecological diversity given their higher resolution, reproducibility, and no need for a reference database.
+
+### Sequence table
+
+The basic unit of analysis used for metabarcoding studies is the sequence table. It is a matrix with named rows corresponding to the samples and named columns corresponding to the ASVs. Each cell contains the count of each variant in each sample. Here's an example with 5 samples and 4 sequence variants:
+
+|          | asv_1 | asv_2 | asv_3 | asv_4 |
+|----------|-------|-------|-------|-------|
+| sample_1 | 0     | 276   | 200   | 10    |
+| sample_2 | 10    | 1009  | 0     | 0     |
+| sample_3 | 0     | 0     | 234   | 15    |
+| sample_4 | 129   | 1992  | 0     | 485   |
+| sample_5 | 1001  | 10    | 1847  | 178   |
+
+sample_1 may correspond to a soil sample collected in a forest, while the variants represent different ASVs, which could look like this:
+
+asv_1: GTTCA
+
+asv_2: GTACA
+
+asv_3: GATCA
+
+asv_4: CTTCA
+
+This looks similiar to a site-species matrix, where the rows are a sampling locality, the columns are the species, and the cell values are the abundance of a species at a particular site.
+
+While for this workshop we will focus on the analysis of a sequence table, we'll briefly go over how the data makes its way from raw sequencing data to the sequence table.
 
 ### FASTQ
 
@@ -296,13 +348,9 @@ Different sequencing technologies (e.g. Illumina) have standardized description 
 
 There are more available to further assess the quality of the data and map the data to taxonomic databases, but the core output of DADA2 and similar software pipelines is the sequence table.
 
-### Sequence table
-
-Go over metabarcoding table structure and provide our example data
-
 ### Hill numbers
 
-Calculate hill numbers, plot, etc.
+I assume we're calculating Hill numbers using hillR::hill_taxa, but is that correct?
 
 # Extra
 
