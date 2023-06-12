@@ -1,17 +1,17 @@
 ---
 title: "Introduction"
-teaching: 10
-exercises: 2
+teaching: 20
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What are the four types of biodiversity data we'll be covering in this course? 
-- What are the four steps in handling each type?
-- What do the outcomes of analyzing multidimensional biodiversity data (MDBD) look like visualized? 
-- What are some strategies for connecting data types?
-- Where can you find MDBD?
-- What are are CARE principles and why are they important?
+
+1. What do we mean by "multidimensional biodiversity data?
+1. What are the four types of data we'll be covering in this workshop?
+1. What types of questions can we explore with these data?
+1. How will this workshop be structured? Where do I find course materials, etc?
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -19,299 +19,153 @@ exercises: 2
 
 After following this episode, participants should be able to...
 
-1. Explain the four types of biodiversity data and the four steps in handling each
-2. Interpret plots of MDBD
-3. Find openly avaiable MDBD
-4. Connect data to the Local Contexts Hub
+
+1. Articulate a shared understanding of what "multidimensional biodiversity data" is
+1. List the types of data to be covered in this workshop, and potential applications of MBDB
+1. Locate course resources.
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
+## Welcome
 
-- intro of instructors
-- expectations of learners
-- exciting data narrative 
-- system reqs
+::: instructor
 
+Given that this curriculum deals explicitly with Indigenous data sovereignty and governance, it is advisable to start with a land acknowledgement. 
 
-## Exciting data narrative 
+For Albuquerque, NM (the location of the first offering of this curriculum) here is info UNM's land acknowledgement and the process leading up to it:
+- https://diverse.unm.edu/about-dei-at-unm/land-labor-acknowledgement.html
+- https://diverse.unm.edu/assets/documents/unm-indigenous-peoples-land-and-territory-acknowledgment-brown-paper.pdf
 
-- young island dominated by immigration, neutrality
-- older island 
+Any land acknowledgement should be done in the context of growing awareness that the intentions of many land acknowledgements, while aspiring to be good intentions, where ill-informed and the acknowledgements have led to harm in some cases.  Here are resources to read about that:
+- https://nativegov.org/news/beyond-land-acknowledgment-guide/
+- https://hyperallergic.com/769024/your-land-acknowledgment-is-not-enough/
+- https://www.pbs.org/newshour/nation/analysis-how-well-meaning-land-acknowledgements-can-erase-indigenous-people-and-sanitize-history
 
+It is becoming agreed upon protocol that land acknowledgements should be given only in the context of how the event or institution presenting the land acknowledgement engages with activities beyond an otherwise hollow "acknowledgement" of unceded lands.  
 
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1
-
-What do you think this plot says about ecological process?
-
-:::::::::::::::::::::::: solution 
-
-## Output
-
-:::::::::::::::::::::::::::::::::
+:::
 
 
-## Outline
+Welcome everyone!  This workshop will engage with ethics around biodiversity data through the lens of Indigenous data sovereignty and governance.  With that in mind, many of the locations where this workshop might run will likely be unceded Indigenous lands.  As part of our introductions we'll think about where we are, where we come from, and our positionalities.  [Native Land Digital](https://native-land.ca/) is a great resource for understanding where we are geographically, and here is a great video by Dr. Kat Gardner-Vandy and Daniella Scalice demonstrating classical academic introductions and relational introductions that center positionality:
 
-Below is a rough outline of episodes
+<iframe src="https://www.youtube.com/embed/sY3LYVTTiH4?start=414&end=811" data-external= "1" > </iframe>
 
+::: instructor
 
-## Intro
+A note on Native Land Digital map: the map loads with a disclaimer that is important to read: the geospatial polygons are not necessarily approved by the groups they purport to represent.  Native Land Digital is Native-led and has a mechanism to verify polygons, but there might be more accurate map representations you can use for your areas.
 
-an overview of what we're going to cover but in "reverse order"---i.e., start with a cool analysis/visualization of data, then talk about the steps we need to take to get to that cool output, those steps will be the content of each subsequent episode
+A note on relational intros: if giving this curriculum live you could choose to demonstrate yourselves (as instructors) the different types of introductions modeled by Dr. Kat Gardner-Vandy and Daniella Scalice, or you could show the video.  Note that it's a legit consideration about the length of the relational introduction to allow time and space for everybody to get through their introductions; more people = more succinct intros.
 
-- Abundance data
-    - import
-    - clean
-    - summarize
-    - visualize 
-- Trait data
-    - import
-    - clean
-    - summarize
-    - visualize
-- Phylo data
-    - import
-    - clean
-    - summarize
-    - visualize
-- Pop gen data
-    - import
-    - clean
-    - summarize
-    - visualize
-- Methods of connecting different data types
-- Finding multi-dimensional data
-- Contributing multi-dimensional data
-- Incorporating CARE principles by connecting data to Local Contexts Hub
+:::
 
+::: challenge
 
-Below I list `questions` and `objectives` for each episode
+Introductions! Please use this list to help guide your introduction of yourself:
 
-## Abundance data
+* Your name
+* Your pronouns
+* Your positionality 
+* Your institution
+* Something you're excited or curious about for the workshop
 
-::: questions 
-
-- How do you import abundance data?
-- How do you clean abundance data?
-- How do you summarize abundance data?
-- How do you visualize abundance data?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. Import abundance data in a CSV format into the R environment
-2. Clean taxonomic names using the `taxize` package
-3. Aggregate abundances
-4. Calculate Hill numbers 
-5. Interpret Hill numbers
-6. Visualize species abundance distributions
-7. Interpret species abundance distribution plots
-8. Connect species abundance patterns to Hill numbers
-
-::::::::::::::
-
-
-### NOTES
-
-- using `taxize` comes up again and again, maybe it would be better suited for the data integration section? integrating data is when clean names become important anyway!
-- for abundance especially we should talk about long vs. wide format
-- we should also talk about (in the context of long format) when rows are species (and columns are abundances) vs. when rows are individuals and there is a collumn for species ID
-
-
-## Trait data
-
-::: questions 
-
-- How do you import trait data?
-- How do you clean trait data?
-- How do you summarize trait data?
-- How do you visualize trait data?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. Import trait data in a CSV format into the R environment
-2. Clean taxonomic names using the `taxize` package
-3. Aggregate traits
-4. Calculate Hill numbers 
-5. Interpret Hill numbers
-6. Visualize trait distributions
-7. Interpret trait distribution plots
-8. Connect trait distribution patterns to Hill numbers
-
-::::::::::::::
+:::
 
 
 
+## Four dimensions of biodiversity data
 
-## Phylo data
+::: discussion
 
-::: questions 
+* What does "multidimensional biodiversity" data mean to you?
+* What types of data do you encounter in your work?
+* Have you ever looked at multiple types simultaneously?
 
-- What are the common phylogeny data formats?
-- How do you import phylogeny data?
-- How do you clean phylogeny data?
-- How do you summarize phylogeny data?
-- How do you visualize phylogeny data?
+:::
 
-:::::::::::::
+In this workshop, we'll be working with four types of biodiversity data: species **abundances**, **traits**, **population genetics**, and **phylogenetics**. In this workshop, we'll cover skills for working with each data type separately, and conclude with what we can accomplish when we integrate multiple data types into the same analysis. 
+
+To make this a little more interesting, we'll ground our learning with a "real-world" (or, close to real-world) example!
 
 
-::: objectives
+::: instructor
 
-After following this episode, we intend that participants will be able to:
+Transition to data narrative.
 
-1. Identify key features of different phylogenetic data formats 
-1. Import phylogenetic data in multiple formats into the R environment
-2. Clean taxonomic names using the `taxize` package
-3. Manipulate phylogenies by adding and removing branches
-4. Calculate Hill numbers 
-5. Interpret Hill numbers
-6. Visualize phylogenies
-8. Connect phylogenetic shapes to Hill numbers
+:::
+
+
+For this workshop, we'll be working with some _simulated_ data based on real insect species found in the Hawaiian Islands  The data contain real taxonomic names (so we can use workflows designed for dealing with real taxonomic data) but the abundances, traits, genetics, and phylogeny are simulated using a *process model* (more on that in Part II of this workshop).
+
+## Hawaiian sovereignty
+
+::: instructor
+
+Instead of "...the Indigenous land where we gather..." you could reference the specific communities.
+
+:::
+
+Building from our acknowledgement of the Indigenous land where we gather for this workshop, we need to acknowledge that over a century of settler research has been conducted across the Hawaiian Islands without the consent of the Kanaka Maoli, the Native Hawaiians.  The aina, or lands, of the Kanaka Maoli were stolen, their sovereignty illegally stripped, their culture, communities, and bodies killed.  Sovereignty and the return of control of *data* to Indigenous people and communities is one of the learning objectives of this workshop.  To start us on that journey, here are the words ([watch on youtube](https://youtu.be/RwWNigoZ5ro?t=89)) of Dr. Haunani-Kay Trask, a leader in the Hawaiian sovereignty movement:
+
+> We are not Americans! We will die as Hawaiians! We will never be Americans! I am here to explain what sovereignty is. Sovereignty, as many people say, is a feeling. The other day in the paper I read sovereignty is aloha, it's love. Later on someone said it's pride. No. Sovereignty is government. Sovereignty is government! It is an attribute of nationhood. We already have aloha. We already have pride. We already know who we are. Are we sovereign? No! Because we don't have a government. Because we don't control a land base. Sovereignty is not a feeling, it is the power of government. It is political power! 
+
+![A portrait of Dr. Haunani-Kay Trask, a leader in the Hawaiian soveirgnity movement. Photo by Brett Uprichard](https://d1l18ops95qbzp.cloudfront.net/wp-content/2021/07/03134707/manoa-trask-h-uprichard.jpeg)
+
+
+One of the contributions we as researchers can make to rematriation and repatriation of resources is to cede control of legacy biological data back to Indigenous communities, and preferably to engage in co-produced research from the beginning, where consent, governance, and mutual benefit are agreed upon before research begins.  In Episode 3: CARE and FAIR principles, we will be learning about protocols developed by [ENRICH](https://www.enrich-hub.org/) and [Local Contexts](https://localcontexts.org/) that center Indigenous data sovereignty and governance.
+
+
+## More about our simulated data
+
+The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is about 5 million years old, while the Big Island is still forming.
+
+![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrate ages of the islands, with the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](intro_img/intro_01.png)
+
+This *chronosequence* allows us to observe in the Modern (as opposed to the fossil record) what we might hypothesize to be different eco-evolutionary stages, or "snapshots," of community assembly.  We might further hypothesize that different assembly processes are more or less prevalent at different snapshots, such as increased importance of immigration early on, and greater importance of *in situ* diversification later on.
+
+
+![A figure showing how hypothesized mechanisms might trade-off across the chronosequence: in communities on older substrates we might expect more time for evolution and consequently assembly by speciation and competitive coexistence being important.  In contrast on younger substrates we might expect less time for evolution and thus assembly by immigration and neutral ecological drift being important](intro_img/intro_02.png)
+
+::: discussion
+
+What data could we bring to bear on exploring these hypothesized changes in assembly processes?  
+
+:::
+
+![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](intro_img/intro_03.png)
+
+
+<!-- Using real taxonomic names from Hawaiian arthropods we simulated data based on the hypothesis that speciation and competitive coexistence drive assembly of communities on older substrates while immigration and evological neutrality drive assembly on younger sites.  Middle-age sites are simualted as an intermediate between those two extremes. -->
+
+![A figure showing the simulated abundance and body size data at three hypothetical arthropod sampling sites across the chronosequence: an old site on Kauai, a middle aged site on Maui, a young site on the Big Island.](intro_img/intro_04.png)
+
+
+::: instructor
+
+Breakout groups or collaborate on the white board. 
+
+:::
+
+::: discussion
+
+How do we express the patterns in these data
+- What patterns do you see in the data?
+- How could you summarize these data?
+
+How would you expect genetic diversity, species diversity, trait, or phylogenetic diversity to vary with island age?
 
 ::::::::::::::
 
 
 
-## Pop gen data
-
-::: questions 
-
-- What are the common pop gen data formats?
-- How do you import pop gen data?
-- How do you clean pop gen data?
-- How do you summarize pop gen data?
-- How do you visualize pop gen data?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. Identify key features of different pop gen data formats 
-1. Import pop gen data in multiple formats into the R environment
-2. Clean taxonomic names using the `taxize` package
-3. Manipulate pop gen data by adding and removing sequences
-3. Alignment??
-3. Site frequency spectrum??
-3. Calculate genetic diversity $\pi$
-4. Calculate Hill numbers 
-5. Interpret Hill numbers
-6. Visualize SFS??
-6. Visualize genetic diversity distributions
-8. Connect genetic diversity distributions to Hill numbers
-
-
-## Methods for connecting different data types
-
-::: questions
-
-- How do you put all these different types of data together?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. Identify when data from different dimensions can and cannot be synthesized (based, e.g., on sufficient overlap in taxonomy and similar spatial extent/resolution)
-1. Join data by space, time, and taxonomy
-1. Visualize joint data plots (flesh this out more, e.g. traits on a phylo, phylo and gen div, gen div and abund, etc)
-
-::::::::::::::
 
 
 
+## Workshop logistics and preview
 
+For the rest of the workshop, we'll take a tour of the data types and then bring them together.
 
-## Finding multi-dimensional data
+### Helpful links
 
-
-::: questions
-
-- Where do multi-dimensional biodiversity data live online?
-- How can we combine online resources to assemble multi-dimensional datasets?
-- How can we use R to retrieve data?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. List online repositories (kinda lame)
-1. Retrieve data from xyz (insert repo names here, e.g. GEOME) using R and APIs
-1. Assemble a synthetic data set of multiple dimensions of biodiversity from multiple online sources
-
-::::::::::::::
-
-### NOTES
-
-- do we talk about metadata standards here? or under each data type episode? or below under contributing data????
-
-
-## Contributing multi-dimensional data
-
-
-::: questions
-
-- How do you share your own data?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. Describe their data using community metadata standards (e.g. Darwin Core, MIxS, etc)
-2. Create a data record on GEOME
-
-::::::::::::::
-
-
-
-
-## Incorporating CARE principles by connecting data to Local Contexts Hub
-
-::: questions
-
-- What is Indigenous data sovereignty?
-- What are the CARE principles?
-- How can we incorperate these principles into our data work?
-
-:::::::::::::
-
-
-::: objectives
-
-After following this episode, we intend that participants will be able to:
-
-1. Articulate the mission of Local Contexts Hub in the context of the CARE and FAIR principles
-1. Apply Bio-Cultural and Traditional Knowledge Notices appropriately to datasets
-1. Create an account on Local Contexts Hub
-1. Create a project on Local Contexts Hub
-1. Query the Local Contexts Hub API to link a dataset with project IDs on Local Contexts Hub
-
-::::::::::::::
-
-
-
-
+Course website: https://role-model.github.io/multidim-biodiv-data/
 
