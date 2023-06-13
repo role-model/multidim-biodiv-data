@@ -337,7 +337,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 30 minutes </p>
@@ -657,7 +657,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-finding_data"><p>Content from <a href="finding_data.html">Finding multi-dimensional biodiversity data</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -845,38 +845,19 @@ No ENTREZ API key provided
  Get one via taxize::use_entrez()
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
-proceeding to next if there is one</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in names(output) &lt;- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_uids' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
+[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       </code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -892,7 +873,7 @@ and specify <code>gbif</code> as our target database in the
 <p>Since the occurrences from spocc are organized as a list of
 dataframes, one per species, we use the bind_rows() function from dplyr
 to combine this into a single dataframe.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -919,49 +900,37 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu">occ</span><span class="op">(</span>query <span class="op">=</span> <span class="va">species_names</span>, from <span class="op">=</span> <span class="st">'gbif'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">occurrences_gbif</span> <span class="op">&lt;-</span> <span class="va">occurrences</span><span class="op">$</span><span class="va">gbif</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences_gbif</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">occurrences_gbif</span> <span class="op">&lt;-</span> <span class="va">occurrences</span><span class="op">$</span><span class="va">gbif</span><span class="op">$</span><span class="va">data</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb26">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences_gbif</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences_gbif' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences_df' not found</code></pre>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 192
+  name           longitude latitude issues prov  key   scientificName datasetKey
+  &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     
+1 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+2 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+3 Tetragnatha p…     -156.     20.8 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+4 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+5 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+6 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
+# ℹ 184 more variables: publishingOrgKey &lt;chr&gt;, installationKey &lt;chr&gt;,
+#   hostingOrganizationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
+#   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, basisOfRecord &lt;chr&gt;,
+#   individualCount &lt;int&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;,
+#   kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;,
+#   familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;,
+#   acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, …</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -974,52 +943,22 @@ names to OTOL’s ids.</p>
 names to OTOL’s taxonomy.</p>
 <p>Then we use <code>ott_id()</code> to get OTOL ids for these matched
 names.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb32">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">otol_ids</span> <span class="op">&lt;-</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'resolved_names' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span>
+<span><span class="va">otol_ids</span> <span class="op">&lt;-</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Finally, we get the tree containing these IDs as tips.</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'resolved_names' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb36">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tr' not found</code></pre>
-</div>
-<p>Unfortunately we can see that the phylogenetic relationships between
+<figure><img src="../fig/finding_data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Unfortunately we can see that the phylogenetic relationships between
 these species aren’t resolved in OTOL, so we may have to look elsewhere
 for a phylogeny.</p>
 </div>
@@ -1033,7 +972,7 @@ with lists of species.</p>
 <p>For this reason, let’s just search for <em>Tetragnatha</em> using the
 ‘term’ argument, which takes a string in a specific format describing
 the query.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1045,7 +984,7 @@ the query.</p>
 search_results to obtain the actual record information.</p>
 <p>We specify ‘db’ as ‘nucleotide’ and ‘rettype’ as ‘fasta’ to get FASTA
 sequences</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1059,7 +998,7 @@ sequences</p>
 records in a given location in the world. Within <code>spocc</code> we
 can pass location queries directly to GBIF using <code>gbifopts</code>.
 We’ll search in a lat-long bounding box around Hawaii.</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1067,14 +1006,9 @@ We’ll search in a lat-long bounding box around Hawaii.</p>
 <span>                     gbifopts<span class="op">=</span><span class="fu">list</span><span class="op">(</span><span class="st">"decimalLatitude"</span><span class="op">=</span><span class="st">'18.910361,28.402123'</span>,</span>
 <span>                                   <span class="st">"decimalLongitude"</span><span class="op">=</span><span class="st">'-178.334698,-154.806773'</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'species_names' not found</code></pre>
-</div>
 <p>For NCBI, we can add the state of Hawaii to the query string. HI is
 the abbreviation for Hawaii.</p>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1200,7 +1134,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-care"><p>Content from <a href="care.html">The CARE principles and open data</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/care.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1309,7 +1243,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-abundance-data"><p>Content from <a href="abundance-data.html">Abundance Data</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1493,7 +1427,7 @@ simple typos in taxonomic names.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>From the <code>taxize</code> documentation:</p>
 <blockquote>
@@ -1572,7 +1506,7 @@ in our data is resolved only to Agrotis. What’s up there?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>For now I am skipping cleaning the abundances name cleaning section
 because taxize is giving the server error. This may need some updating
@@ -1734,7 +1668,7 @@ numbers.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1834,7 +1768,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-traits-data"><p>Content from <a href="traits-data.html">Trait data</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1959,7 +1893,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -2275,7 +2209,7 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2487,7 +2421,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-popgen-data"><p>Content from <a href="popgen-data.html">Working with population genetic data</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/popgen-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -2552,18 +2486,709 @@ genetic diversity</a> as:</p>
 <p>The variation in DNA sequences among individuals of the same
 species.</p>
 </blockquote>
-<p>This is a broad definition…</p>
+<p>How is this genetic diversity generated? At a proximal level, genetic
+diversity is generated through the processes of recombination and
+mutation. These two mechanisms lay the foundation for evolutionary
+forces like genetic drift, natural selection, and gene flow to shape the
+distribution of genetic diversity within populations and across
+communities.</p>
+<p>Perhaps one of the most elegant theoretical frameworks for modeling
+genetic diversity is coalescent theory. Coalescent theory is a model of
+how alleles sampled from a population may have originated from a common
+ancestor. Under the assumptions of no recombination, no natural
+selection, no gene flow, and no population structure, i.e. neutrality,
+it estimates the time to the most recent common ancestor (TMRCA) between
+two sampled alleles and the variance of this estimate. When a population
+is especially large (i.e. many breeding individuals), the TMRCA of two
+randomly sampled alleles is large. This is because the per-generation
+probability of two alleles coalescing is <code>1 / 2Ne</code>, where
+<code>Ne</code>, the effective population size, is the number of
+breeding individuals in an idealized population that follows the
+assumptions stated above. In most, if not all, natural environments
+conditions are not ideal and <code>Ne</code> does not perfectly
+represent the census size of a population (see <a href="https://www.biorxiv.org/content/10.1101/2021.02.03.429633v2" class="external-link">Lewontin’s
+paradox</a>). While the relationship between <code>Ne</code> and census
+population size is not perfect, in most cases <code>Ne</code> increases
+as population size increases and can be used to understand the relative
+sizes of populations or size changes over time. The intuition is best
+understood through visualization.</p>
+<p>For a population of 10 diploid individuals (20 allele copies), the
+probability of two randomly sampled allele coalescing each generation is
+1 / (2 * 10), or 1/20. In this single simulation (conducted using <a href="https://github.com/cooplab/popgen-notes/blob/master/Rcode/track_alleles.R" class="external-link">Graham
+Coop’s code</a>) , the two sampled alleles, whose genealogy is traced in
+blue and red, coalesce 16 generations in the past.</p>
+<figure><img src="http://127.0.0.1:26201/graphics/10d9d9fc-fe25-474e-8d09-ff197b99e224.png" class="figure mx-auto d-block"></figure><p>However, when the population is smaller (5 individuals, 10 allele
+copies), the probability of coalescence each generation is 1 / (2 * 5)
+or 1/10. In this simulation, two randomly sampled alleles coalesce after
+6 generations.</p>
+<figure><img src="http://127.0.0.1:26201/graphics/21826093-5257-4379-a9df-aba895384e41.png" alt="" class="figure mx-auto d-block"><figure><img src="http://127.0.0.1:26201/graphics/21826093-5257-4379-a9df-aba895384e41.png" class="figure mx-auto d-block"></figure></figure><p>The TMRCA of the two sampled alleles corresponds with the smaller
+<code>Ne</code> of this idealized population.</p>
+<p>Visualizing this path of ancestry as a tree would look something like
+this for 5 sampled allele copies.</p>
+<p><a href="https://cdmuir.shinyapps.io/genetree-to-phylogeny/" class="external-link"><img src="../images/gene%20tree%20no%20mutations.png" class="figure"></a></p>
+<p>Overlaying mutations on the genealogy results in generally more
+mutations occurring on longer branches, although because this is a
+stochastic process, the relationship isn’t always perfect (note- this is
+a tree from a different simulation to the one above).</p>
+<p><a href="https://cdmuir.shinyapps.io/genetree-to-phylogeny/" class="external-link"><img src="../images/genetree%20with%20mutations-01.png" alt="This represents a genealogy of 5 sampled allele copies from a population, with mutations represented as red boxes. Multiple numbers inside the boxes indicate more mutations." class="figure"></a></p>
+<p>As empirical biologists, what we have to work with are sequence data.
+The accumulation of mutations along a sequence enables us to estimate
+the TMRCA of a sample of alleles, leading to an estimate of the
+<code>Ne</code> of the population.</p>
+<p>One of the simplest and most widespread estimators of <code>Ne</code>
+is the average number of pairwise differences between sequences sampled
+from a population (𝞹, nucleotide diversity, <a href="https://www.pnas.org/doi/abs/10.1073/pnas.76.10.5269" class="external-link">Nei and Li
+1979</a>). The basic idea underlying 𝞹 is that more sequence differences
+among a sample of sequences results from longer branch lengths in the
+genealogy of the sample, leading to a longer TMRCA and larger
+<code>Ne</code>. Given its simplicity and ubiquity, we will cover how to
+calculate the average number of pairwise differences between sequences
+and summarize this value across assemblages.</p>
+<div class="section level4">
+<h4 id="resources-for-understanding-the-coalescent">Resources for understanding the coalescent<a class="anchor" aria-label="anchor" href="#resources-for-understanding-the-coalescent"></a>
+</h4>
+<ul>
+<li>
+<a href="http://cooplab.github.io/popgen-notes/" class="external-link">Graham Coop’s
+popgen notes</a>
+<ul>
+<li>awesome resource for population genetics in general</li>
+</ul>
+</li>
+<li>
+<a href="https://phytools.shinyapps.io/coalescent-plot/" class="external-link">learnPopGen
+app</a>
+<ul>
+<li>visualize coalescent genealogies with different numbers of
+individuals in a population and different numbers of generations</li>
+</ul>
+</li>
+<li>
+<a href="https://bedford.io/projects/coaltrace/" class="external-link">coaltrace app</a>
+<ul>
+<li>a dynamic and interactive visualization of coalescent genealogies
+with the ability to change parameters on the fly</li>
+</ul>
+</li>
+<li>
+<a href="https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/" class="external-link">Bedford
+lab slides</a>
+<ul>
+<li>a great set of slides that explains the coalescent in a
+complementary way to Graham Coop’s notes</li>
+</ul>
+</li>
+<li>
+<a href="https://cdmuir.shinyapps.io/genetree-to-phylogeny/" class="external-link">cdmuir
+app</a>
+<ul>
+<li>uses the coalescent to simulate gene trees and mutations along
+sequences</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section level2">
-<h2 id="what-does-it-say-about-community-assembly">What does it say about community assembly?<a class="anchor" aria-label="anchor" href="#what-does-it-say-about-community-assembly"></a>
+<h2 id="what-does-genetic-diversity-say-about-community-assembly">What does genetic diversity say about community assembly?<a class="anchor" aria-label="anchor" href="#what-does-genetic-diversity-say-about-community-assembly"></a>
 </h2>
-<p>Genetic diversity is impacted by demographic events and natural
-selection that shape the composition of the local community…</p>
+<p>Under neutrality and stable demographic histories, variation in
+genetic diversity across a community reflects differences in long-term
+population sizes across the community. Rather than a snapshot of
+present-day abundance, this can be thought of as an average abundance
+across generations.</p>
+<p>In much the same way as a community with a few, highly abundant
+species and many low abundance species may indicate a non-neutral
+community assembly process like environmental filtering, a community
+that contains a few species with high genetic diversity and many species
+with low genetic diversity may indicate similar non-neutral community
+assembly processes over a longer timescale.</p>
+<p>In addition, genetic diversity is impacted by demographic events and
+natural selection. Populations that have undergone a demographic
+expansion or contraction in the recent past will have distinct
+coalescent genealogies and therefore different genetic diversities. For
+instance, a population that has experienced a recent demographic
+expansion will have a TMRCA more recent than a population with the same
+population size that has remained stable through the same time period,
+illustrated below.</p>
+<p><a href="https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/20" class="external-link"><img src="../images/changing_pop_size_1.png" alt="Image of coalescent genealogies traced from stable and growing populations. From the Bedford Lab coalescent slides." class="figure"></a></p>
+<p>Distinguishing a small, constant-sized population from a large
+population that’s grown dramatically in the recent past is difficult
+with single-locus data typical of large-scale biodiversity studies.
+However, when paired with other data like traits and abundances, we can
+make more refined interpretations of the shape of genetic diversity
+across the community. For instance, the interpretation of a community
+with a few highly diverse species paired with many species with low
+genetic diversity may reflect a community with a few species that were
+not impacted by a historical environmental disturbance alongside many
+species that had their populations dramatically reduced, but have
+rapidly grown to larger modern population sizes.</p>
 </div>
 </div>
 <div class="section level1">
-<h1 id="visualizing-genetic-diversity">Visualizing genetic diversity<a class="anchor" aria-label="anchor" href="#visualizing-genetic-diversity"></a>
+<h1 id="summarizing-genetic-diversity-across-species">Summarizing genetic diversity across species<a class="anchor" aria-label="anchor" href="#summarizing-genetic-diversity-across-species"></a>
 </h1>
+<div class="section level3">
+<h3 id="genetic-diversity-distributions">Genetic diversity distributions<a class="anchor" aria-label="anchor" href="#genetic-diversity-distributions"></a>
+</h3>
+<p>{{pi across species neutral viz}}</p>
+<p>{{pi across species non-neutral viz}}</p>
+</div>
+<div class="section level3">
+<h3 id="hill-numbers-of-genetic-diversity-across-species">Hill numbers of genetic diversity across species<a class="anchor" aria-label="anchor" href="#hill-numbers-of-genetic-diversity-across-species"></a>
+</h3>
+<p>In the context of summarizing species abundances, Hill numbers are
+the effective number of species in a community, where each exponent
+(q-value) increasingly weights rare species more heavily. The
+interpretation is similar when summarizing genetic diversity. Hill
+numbers are the effective number of species in a community, where each
+q-value increasingly weights species with lower genetic diversity more
+heavily. Rather than measuring an effective diversity of abundances,
+this is an effective diversity of genetic diversities.</p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="work-with-pop-gen-data">Work with pop gen data<a class="anchor" aria-label="anchor" href="#work-with-pop-gen-data"></a>
+</h1>
+<div class="section level2">
+<h2 id="sequences">Sequences<a class="anchor" aria-label="anchor" href="#sequences"></a>
+</h2>
+<div class="section level3">
+<h3 id="fasta">FASTA<a class="anchor" aria-label="anchor" href="#fasta"></a>
+</h3>
+<p>A FASTA file contains one or more DNA sequences, where the DNA
+sequence is preceded by a line with a carat (“&gt;”) followed by an
+unique sequence ID:</p>
+<pre><code>&gt;seq0010
+GATCCCCAATTGGGG</code></pre>
+<p>This is perhaps the most common way to store sequence information as
+it is simple and has historical inertia. For more information, see the
+<a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/#:~:text=In%20FASTA%20format%20the%20line,should%20not%20contain%20any%20spaces." class="external-link">the
+NCBI page</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="alignment">Alignment<a class="anchor" aria-label="anchor" href="#alignment"></a>
+</h3>
+<p>Prior to analysis, sequence data must be aligned if they haven’t been
+already. A sequence alignment is necessary to identify regions of DNA
+that are similar or that vary. There are <a href="https://en.wikipedia.org/wiki/List_of_sequence_alignment_software" class="external-link">many
+pieces of software to perform alignments</a> and all have their
+advantages and disadvantages, but we will choose a single program, <a href="https://www.ebi.ac.uk/Tools/msa/clustalo/" class="external-link">Clustal Omega</a>,
+which is fast and robust for short sequence alignments. While Clustal
+Omega can be run from the command line, we will use the R package <a href="https://bioconductor.org/packages/release/bioc/html/msa.html" class="external-link">msa</a>
+to keep everything in the R environment.</p>
+<p>First, a FASTA file containing the sequences needs to be read in
+using the <code>readDNAStringSet()</code> function.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">msa</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">seq_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/connorfrench/Dropbox/Old_Mac/School_Stuff/CUNY/Courses/Spring-2019/Machine-Learning/project/fasta/hypsiboas_seqs_aligned.fas"</span></span>
+<span></span>
+<span><span class="va">seqs</span> <span class="op">&lt;-</span> <span class="fu">readDNAStringSet</span><span class="op">(</span><span class="va">seq_path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">seqs</span></span></code></pre>
+</div>
+<p>To align the sequences using Clustal Omega, we use the
+<code>msa</code> function and specify the <code>method</code> as
+“ClustalOmega”. There are more arguments that you can use to fine-tune
+the alignment, but these are not necessary for the vast majority of
+scenarios.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">alignment</span> <span class="op">&lt;-</span> <span class="fu">msa</span><span class="op">(</span><span class="va">seqs</span>, method <span class="op">=</span> <span class="st">"ClustalOmega"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">alignment</span></span></code></pre>
+</div>
+<p>If after you perform your alignment you find that an individual does
+not belong or is negatively impacting the alignment, you have to
+manipulate your unaligned sequence data and then re-align the sequences.
+For instance, say you didn’t want to include the individual
+<code>ind_name</code> in the alignment. First, remove the individual
+from the <code>seqs</code> object.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># remove individual</span></span>
+<span><span class="va">seqs_filt</span> <span class="op">&lt;-</span> <span class="va">seqs</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="fu">names</span><span class="op">(</span><span class="va">seqs</span><span class="op">)</span> <span class="op">%in%</span> <span class="st">"Itar128"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">seqs_filt</span></span></code></pre>
+</div>
+<p>This nifty filtering approach takes advantage of the powerful
+<code>%in%</code> function. In English, this function takes the vector
+on the left side of the <code>%in%</code> and checks if each element
+matches any of the elements on the right side. The left side contains
+the elements in the data you want to check, while the right side
+contains what you want to compare them against. So in this case,</p>
+<p><code>names(seqs) %in% "Itar128"</code></p>
+<p>checks to see if “Itar128” is present in any of the sequence names,
+returns <code>TRUE</code> if so and <code>FALSE</code> if not. Since we
+want to remove the “Itar128” sequence, we want the opposite of this
+result. To do this, we wrap this expression with the bang
+(<code>!</code>) operator, which negates the result of a boolean
+expression. So, the following expression returns <code>TRUE</code> for
+all sequence names that are not “Itar128” and <code>FALSE</code>
+otherwise.</p>
+<p><code>!(names(seqs) %in% "Itar128"</code></p>
+<p>Using bracket indexing, you then return all sequences that do not
+have the name “Itar128”.</p>
+<p><code>seqs[!(names(seqs) %in% "Itar128"</code></p>
+<p>Following the filtering, you need to realign the new set of
+sequences.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">alignment</span> <span class="op">&lt;-</span> <span class="fu">msa</span><span class="op">(</span><span class="va">seqs_filt</span>, method <span class="op">=</span> <span class="st">"ClustalOmega"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">alignment</span></span></code></pre>
+</div>
+<p>There are quite a few packages in R to work with sequence data, for
+example <a href="https://cran.r-project.org/web/packages/seqinr/index.html" class="external-link">seqinr</a>,
+<a href="https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html" class="external-link">phangorn</a>,
+and <a href="https://cran.r-project.org/web/packages/ape/index.html" class="external-link">ape</a>.
+<code>ape</code> is the most versatile of these. But before we can use
+<code>ape</code>, the alignment must be converted to the
+<code>ape::DNAbin</code> format.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ape_align</span> <span class="op">&lt;-</span> <span class="fu">msaConvert</span><span class="op">(</span><span class="va">alignment</span>, type <span class="op">=</span> <span class="st">"ape::DNAbin"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ape_align</span></span></code></pre>
+</div>
+<p>Although not necessary for this workshop, it’s generally advisable to
+write your DNA alignment to a new file to use later or with other
+programs.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ape</span><span class="fu">::</span><span class="fu">write.FASTA</span><span class="op">(</span><span class="va">ape_align</span>, <span class="st">"path/to/alignment.fas"</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="ape">ape<a class="anchor" aria-label="anchor" href="#ape"></a>
+</h3>
+<div class="section level4">
+<h4 id="check-alignment">Check alignment<a class="anchor" aria-label="anchor" href="#check-alignment"></a>
+</h4>
+<p><code>ape</code> has a useful utility that allows you perform a
+series of diagnostics on your alignment to make sure nothing is fishy.
+The function can output multiple plots, but let’s just visualize the
+alignment plot. If the colors seem jumbled in a region, this indicates
+that an alignment error may have occurred and to inspect your sequences
+for any problems.</p>
+<p>In addition, the function outputs a series of helpful statistics to
+your console. Ideally, your alignment should have few gaps and a number
+of segregating sites that is reasonable for the number of sites in your
+alignment and the evolutionary divergence of the sequences included in
+the alignment, e.g., for an alignment with 970 sites of a single bird
+species, around 40 segregating sites is reasonable, but 200 segregating
+sites may indicate that something went wrong with your alignment or a
+species was misidentified. In addition, for diploid species a vast
+majority, if not all of the sites should contain one or two observed
+bases.</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ape</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">checkAlignment</span><span class="op">(</span><span class="va">ape_align</span>, what <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+<div class="section level4">
+<h4 id="calculate-genetic-diversity">Calculate genetic diversity<a class="anchor" aria-label="anchor" href="#calculate-genetic-diversity"></a>
+</h4>
+<p>Now we’re going to calculate the average number of pairwise genetic
+differences among these sequences. <code>ape</code> has the
+<code>dist.dna()</code> function to calculate various genetic distance
+metrics for an alignment.</p>
+<p>You use the argument <code>model = "raw"</code> to specify that you
+want to use the average number of pairwise differences as your metric.
+When calculating the number of pairwise genetic differences, you have to
+choose whether you want missing data to be deleted across the entire
+alignment (<code>pairwise.deletion = FALSE</code>) or only between the
+two sequences being compared (<code>pairwise.deletion = TRUE</code>).
+Since we want to take advantage of as much data as possible when
+computing 𝜋, we’ll set <code>pairwise.deletion = TRUE</code>.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fas_gendist</span> <span class="op">&lt;-</span> <span class="fu">dist.dna</span><span class="op">(</span><span class="va">ape_align</span>, model <span class="op">=</span> <span class="st">"raw"</span>, pairwise.deletion <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fas_gendist</span></span></code></pre>
+</div>
+<p>The function returns a distance matrix containing the pairwise
+differences among all sequences in the data set. To take a quick peak at
+their distribution, we can use the <code>hist()</code> function on the
+distance matrix.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">fas_gendist</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Since we want the average of these differences, we need to take their
+average. However, you may have noticed the distribution of genetic
+distances is non-normal, with mostly low genetic diversities. This is
+the case with most genetic data sets. So, instead of taking the mean,
+the <code>median()</code> will provide a better estimate of the center
+of the distribution.</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fas_gendiv</span> <span class="op">&lt;-</span> <span class="fu">median</span><span class="op">(</span><span class="va">fas_gendist</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fas_gendiv</span></span></code></pre>
+</div>
+<p>To calculate this for multiple populations…</p>
+<p>read in fasta alignments…</p>
+<p><code>lapply</code> explanation…</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fas_paths</span> <span class="op">&lt;-</span> <span class="fu">list.files</span><span class="op">(</span><span class="st">"..."</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fas_alignments</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">fas_paths</span>, <span class="va">read.dna</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now we can use <code>lapply</code> to calculate the pairwise genetic
+distances for each species...</p>
+<p><code>sapply</code> is similar to <code>lapply</code>, except it
+returns a vector instead of a list. This is useful when you know the
+function is returning the same data type, like in our case where a
+number is being returned.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fas_gendist_pop</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">fas_alignments</span>, <span class="va">dist.dna</span>, model <span class="op">=</span> <span class="st">"raw"</span>, pairwise.deletion <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    </span>
+<span><span class="va">fas_gendiv_pop</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">fas_gendist_pop</span>, <span class="va">median</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">fas_gendiv_pop</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="hill-numbers">Hill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers"></a>
+</h3>
+<p><strong>How are we calculating genetic Hill numbers?</strong></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="asvs-and-metabarcoding">ASVs and Metabarcoding<a class="anchor" aria-label="anchor" href="#asvs-and-metabarcoding"></a>
+</h2>
+<p>Metabarcoding is rapidly growing DNA sequencing method used for
+biodiversity assessment. It involves sequencing a short, variable region
+of DNA sequence across a sample that may contain many taxa. This can be
+used to rapidly assess the diversity of a particular sampling site with
+low sampling effort. Some common applications include <a href="https://en.wikipedia.org/wiki/Metabarcoding" class="external-link">microbiome diversity
+assessments, environmental DNA, and community DNA</a>. In many
+applications where a data base of species identities for sequence
+variants is not available or desired, the diversity of sequences is
+inferred, rather than the diversity of species. Additionally, while <a href="https://onlinelibrary-wiley-com.ezproxy.gc.cuny.edu/doi/full/10.1111/1755-0998.12902" class="external-link">there
+are caveats</a>, the relative abundance of sequences can be considered
+analogous to the relative abundance of species across a community.</p>
+<p>The basic unit of diversity used in most studies is the <a href="https://en.wikipedia.org/wiki/Amplicon_sequence_variant" class="external-link">amplicon
+sequence variant (ASV)</a>. An ASV is any one of the sequences inferred
+from a high-throughput sequencing experiment. These sequences are free
+from errors and may diverge by as little as a single base pair from each
+other. They are considered a substitute for operational taxonomic units
+(OTUs) for evaluating ecological diversity given their higher
+resolution, reproducibility, and no need for a reference database.</p>
+<div class="section level3">
+<h3 id="sequence-table">Sequence table<a class="anchor" aria-label="anchor" href="#sequence-table"></a>
+</h3>
+<p>The basic unit of analysis used for metabarcoding studies is the
+sequence table. It is a matrix with named rows corresponding to the
+samples and named columns corresponding to the ASVs. Each cell contains
+the count of each variant in each sample. Here’s an example with 5
+samples and 4 sequence variants:</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>asv_1</th>
+<th>asv_2</th>
+<th>asv_3</th>
+<th>asv_4</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>sample_1</td>
+<td>0</td>
+<td>276</td>
+<td>200</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>sample_2</td>
+<td>10</td>
+<td>1009</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>sample_3</td>
+<td>0</td>
+<td>0</td>
+<td>234</td>
+<td>15</td>
+</tr>
+<tr class="even">
+<td>sample_4</td>
+<td>129</td>
+<td>1992</td>
+<td>0</td>
+<td>485</td>
+</tr>
+<tr class="odd">
+<td>sample_5</td>
+<td>1001</td>
+<td>10</td>
+<td>1847</td>
+<td>178</td>
+</tr>
+</tbody>
+</table>
+<p>sample_1 may correspond to a soil sample collected in a forest, while
+the variants represent different ASVs, which could look like this:</p>
+<p>asv_1: GTTCA</p>
+<p>asv_2: GTACA</p>
+<p>asv_3: GATCA</p>
+<p>asv_4: CTTCA</p>
+<p>This looks similiar to a site-species matrix, where the rows are a
+sampling locality, the columns are the species, and the cell values are
+the abundance of a species at a particular site.</p>
+<p>While for this workshop we will focus on the analysis of a sequence
+table, we’ll briefly go over how the data makes its way from raw
+sequencing data to the sequence table.</p>
+</div>
+<div class="section level3">
+<h3 id="fastq">FASTQ<a class="anchor" aria-label="anchor" href="#fastq"></a>
+</h3>
+<p>The FASTQ file format is similar to the FASTA format introduced
+earlier, but includes additional data about the contained sequences.
+This enables more flexible data manipulation and filtering capabilities,
+and is popular with high-throughput sequencing technologies. When
+working with ASVs, this is the most common file format you will
+encounter.</p>
+<p>A FASTA formatted sequence may look like this,</p>
+<pre><code>&gt;seq1
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT</code></pre>
+<p>while a FASTQ version of the same sequence may look like this:</p>
+<pre><code>@seq1
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65</code></pre>
+<p>If your eyes glaze over at the seemingly random numbers below the
+sequence, don’t fret! They mean something, but usually your machine does
+the interpreting for you. A FASTQ file is formatted as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>An ‘@’ symbol followed by a sequence identifier and an optional
+description</p></li>
+<li><p>The raw sequence letters</p></li>
+<li><p>A ‘+’ character that is optionally followed by the sequence
+identifier and more description</p></li>
+<li><p>Quality encodings for the raw sequence letters in field 2. There
+must be the same number of encoding symbols as there are sequence
+letters.</p></li>
+</ol>
+<p>The symbols are bytes representing quality, ranging from 0x21 (lowest
+quality; ‘!’ in ASCII) to 0x7e (highest quality; ‘~’ in ASCII). Here,
+they’re arranged in order of quality from lowest on the left to highest
+on the right:</p>
+<pre><code>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~</code></pre>
+<p>Fortunately, whatever bioinformatic program you use will generally do
+the interpreting for you.</p>
+<p>Different sequencing technologies (e.g. Illumina) have standardized
+description strings which contain more information about the sequences
+and can be useful when filtering sequences or performing QC. For
+examples, see <a href="https://en.wikipedia.org/wiki/FASTQ_format" class="external-link">the
+Wikipedia page</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="dada2">DADA2<a class="anchor" aria-label="anchor" href="#dada2"></a>
+</h3>
+<p><a href="https://benjjneb.github.io/dada2/index.html" class="external-link">DADA2</a> is
+one of the most powerful and commonly used software packages for
+processing raw ASV sequencing data to turn it into a table of ASVs for
+each sample. This workshop assumes you are using the output from this
+workflow for further analysis, but for clarity the steps to the workflow
+include:</p>
+<ol style="list-style-type: decimal">
+<li>read quality assessment</li>
+<li>filtering and trimming FASTQ files</li>
+<li>learning sequencing error rates, so the algorithm can correct for
+them</li>
+<li>infer the sequence variants</li>
+<li>merging paired reads (if sequencing was done with forward and
+reverse read pairs)</li>
+<li>constructing a sequence table</li>
+</ol>
+<p>There are more available to further assess the quality of the data
+and map the data to taxonomic databases, but the core output of DADA2
+and similar software pipelines is the sequence table.</p>
+</div>
+<div class="section level3">
+<h3 id="hill-numbers-1">Hill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers-1"></a>
+</h3>
+<p>I assume we’re calculating Hill numbers using hillR::hill_taxa, but
+is that correct?</p>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="extra">Extra<a class="anchor" aria-label="anchor" href="#extra"></a>
+</h1>
+<div class="section level2">
+<h2 id="snps">SNPs<a class="anchor" aria-label="anchor" href="#snps"></a>
+</h2>
+<div class="section level3">
+<h3 id="vcf">VCF<a class="anchor" aria-label="anchor" href="#vcf"></a>
+</h3>
+<p>Here are a few things about a VCF file… tab delimited… fields…
+size…</p>
+<div class="section level4">
+<h4 id="vcfr">vcfR<a class="anchor" aria-label="anchor" href="#vcfr"></a>
+</h4>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">vcfR</span><span class="op">)</span></span>
+<span><span class="va">snps</span> <span class="op">&lt;-</span> <span class="fu">read.vcfR</span><span class="op">(</span><span class="va">vcf_path</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+<div class="section level4">
+<h4 id="manipulate-data">Manipulate data<a class="anchor" aria-label="anchor" href="#manipulate-data"></a>
+</h4>
+<p>Filter individuals Filter based on quality, missingness</p>
+</div>
+<div class="section level4">
+<h4 id="export-to-genind">Export to genind<a class="anchor" aria-label="anchor" href="#export-to-genind"></a>
+</h4>
+<p>A bit about genind and <code>adegenet</code>… If you have many SNPs,
+genlight may be a more appropriate format…</p>
+<p><code>vcfR2genind</code> also takes arguments for the function
+<code>df2genind</code> from the <code>adegenet</code> package. There are
+a couple things we can do to speed up the conversion, like specifying
+the ploidy of the file and setting the <code>check.ploidy</code> flag to
+<code>FALSE</code>.</p>
+<p>To add populations…</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">adegenet</span><span class="op">)</span></span>
+<span><span class="va">snps_genind</span> <span class="op">&lt;-</span> <span class="fu">vcfR2genind</span><span class="op">(</span></span>
+<span>    <span class="va">snps</span>, </span>
+<span>    n.cores <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>    ploidy <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>    check.ploidy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    pop <span class="op">=</span> <span class="va">pops</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="va">snps_genind</span></span></code></pre>
+</div>
+</div>
+<div class="section level4">
+<h4 id="calculate-genetic-diversity-1">Calculate genetic diversity<a class="anchor" aria-label="anchor" href="#calculate-genetic-diversity-1"></a>
+</h4>
+<p>If you didn’t specify populations when converting or reading in the
+genind file, do so now…</p>
+<p>Individual-based genetic distances… Maybe mention PCA?</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">snps_gendist_ind</span> <span class="op">&lt;-</span> <span class="fu">dist</span><span class="op">(</span><span class="va">snps_genind</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Nei’s genetic distance…</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">snps_genpop</span> <span class="op">&lt;-</span> <span class="fu">genind2genpop</span><span class="op">(</span><span class="va">snps_genind</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">snps_gendist_pop</span> <span class="op">&lt;-</span> <span class="fu">dist.genpop</span><span class="op">(</span><span class="va">snps_genpop</span>, method <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
+</div>
+<p>FST…</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hierfstat</span><span class="op">)</span></span>
+<span><span class="va">snps_hierfstat</span> <span class="op">&lt;-</span> <span class="fu">genind2hierfstat</span><span class="op">(</span><span class="va">snps_genind</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">snps_fst</span> <span class="op">&lt;-</span> <span class="fu">pairwise.fst</span><span class="op">(</span><span class="va">snps_hierfstat</span>, diploid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="va">snps_fst</span><span class="op">[</span><span class="fu">upper.tri</span><span class="op">(</span><span class="va">snps_fst</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="summarize-genetic-diversity">Summarize genetic diversity<a class="anchor" aria-label="anchor" href="#summarize-genetic-diversity"></a>
+</h1>
+<div class="section level2">
+<h2 id="calculate-hill-numbers-within-speciespopulations">Calculate Hill numbers within species/populations<a class="anchor" aria-label="anchor" href="#calculate-hill-numbers-within-speciespopulations"></a>
+</h2>
+<p><em>* Going to need a SNP matrix</em></p>
+<p>Hill numbers of intraspecific allele frequencies are the
+<em>effective number of SNPs</em> in the population/species.</p>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
+<span>    </span>
+<span><span class="co"># columns are SNPs, rows are individuals</span></span>
+<span><span class="co"># treat it like abundances </span></span>
+<span><span class="va">intra_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hillR</span><span class="fu">::</span><span class="fu">hill_taxa</span><span class="op">(</span><span class="va">snp_matrix</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="interpret-refer-back-to-visualizations">Interpret (refer back to visualizations)<a class="anchor" aria-label="anchor" href="#interpret-refer-back-to-visualizations"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="calculate-hill-numbers-across-species">Calculate Hill numbers across species<a class="anchor" aria-label="anchor" href="#calculate-hill-numbers-across-species"></a>
+</h2>
+<p><em>Need species alignments from ape</em></p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calculate pairwise distance matrices</span></span>
+<span><span class="va">per_species_dist</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">species_alignments</span>, <span class="fu">ape</span><span class="fu">::</span><span class="va">dist.dna</span>, model <span class="op">=</span> <span class="st">"raw"</span>, as.matrix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mat_avg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fu">upper.tri</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span></span>
+<span>    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span>    <span class="kw">return</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">per_species_pi</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">per_species_dist</span>, <span class="va">mat_avg</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="va">per_species_pi</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="interpret-refer-back-to-visualizations-1">Interpret (refer back to visualizations)<a class="anchor" aria-label="anchor" href="#interpret-refer-back-to-visualizations-1"></a>
+</h3>
+</div>
+</div>
 <div class="section level2">
 <h2 id="within-species">Within-species<a class="anchor" aria-label="anchor" href="#within-species"></a>
 </h2>
@@ -2589,8 +3214,8 @@ demographic stability. A couple other examples of the impact of
 demographic history on the SFS include:</p>
 <p>There are a variety of summary statistics that describe the shape of
 the SFS. The average number of pairwise nucleotide differences, a.k.a.
-Tajima’s <span class="math inline">\(\pi\)</span>, where a high value
-indicates a higher level of genetic diversity in the population,
+Tajima’s/Nei’s <span class="math inline">\(\pi\)</span>, where a high
+value indicates a higher level of genetic diversity in the population,
 describes the average of the distribution. However, as you’ve seen
 above, the shape of the distribution contains important information
 about the population’s history!</p>
@@ -2605,343 +3230,19 @@ interpretation is similar when summarizing within-population genetic
 diversity. Hill numbers of within-population allele frequencies convey
 the <em>effective number of alleles</em> in a population, where each
 q-value increasingly weights rarer alleles more heavily.</p>
+<p><em>Something about when we’d use</em> <em>pi vs Hill</em></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="across-species">Across species<a class="anchor" aria-label="anchor" href="#across-species"></a>
-</h2>
-<p>{{pi across species neutral viz}}</p>
-<p>{{pi across species filtering viz}}</p>
-<p>{{pi across species competition viz}}</p>
-<div class="section level3">
-<h3 id="hill-numbers-of-genetic-diversity-across-species">Hill numbers of genetic diversity across species<a class="anchor" aria-label="anchor" href="#hill-numbers-of-genetic-diversity-across-species"></a>
-</h3>
-<p>In the context of summarizing species abundances, Hill numbers are
-the effective number of species in a community, where each exponent
-(q-value) increasingly weights rare species more heavily. The
-interpretation is similar when summarizing genetic diversity. Hill
-numbers are the effective number species in a community, where each
-q-value increasingly weights species with lower genetic diversity more
-heavily. Rather than measuring an effective diversity of abundances,
-this is an effective diversity of genetic diversities.</p>
-<p>Something about correcting for species richness to just get
-evenness…</p>
-</div>
-</div>
-</div>
-<div class="section level1">
-<h1 id="work-with-pop-gen-data">Work with pop gen data<a class="anchor" aria-label="anchor" href="#work-with-pop-gen-data"></a>
-</h1>
-<div class="section level2">
-<h2 id="sequences">Sequences<a class="anchor" aria-label="anchor" href="#sequences"></a>
-</h2>
-<div class="section level3">
-<h3 id="fasta">FASTA<a class="anchor" aria-label="anchor" href="#fasta"></a>
-</h3>
-<p>A FASTA file contains one or more DNA sequences, where the DNA
-sequence is preceded by a line with a carat (“&gt;”) followed by an
-unique sequence ID:</p>
-<p>&gt; seq0010<br>
-GATCCCCAATTGGGG</p>
-<p>This is perhaps the most common way to store sequence information as
-it is simple and has historical inertia. For more information, see the
-<a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/#:~:text=In%20FASTA%20format%20the%20line,should%20not%20contain%20any%20spaces." class="external-link">the
-NCBI page</a>.</p>
-<div class="section level4">
-<h4 id="alignment">Alignment<a class="anchor" aria-label="anchor" href="#alignment"></a>
-</h4>
-<p>Prior to analysis, sequence data must be aligned if they haven’t been
-already. A sequence alignment is necessary to identify regions of DNA
-that are similar or that vary. There are <a href="https://en.wikipedia.org/wiki/List_of_sequence_alignment_software" class="external-link">many
-pieces of software to perform alignments</a> and all have their
-advantages and disadvantages, but we will choose a single program, <a href="https://www.ebi.ac.uk/Tools/msa/clustalo/" class="external-link">Clustal Omega</a>,
-which is fast and robust for short sequence alignments. While Clustal
-Omega can be run from the command line, we will use the R package <a href="https://bioconductor.org/packages/release/bioc/html/msa.html" class="external-link">msa</a>
-to keep everything in the R environment.</p>
-<p>First, a FASTA file containing the sequences needs to be read in
-using the <code>readDNAStringSet()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">msa</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">seq_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/connorfrench/Dropbox/Old_Mac/School_Stuff/CUNY/Courses/Spring-2019/Machine-Learning/project/fasta/hypsiboas_seqs_aligned.fas"</span></span>
-<span></span>
-<span><span class="va">seqs</span> <span class="op">&lt;-</span> <span class="fu">readDNAStringSet</span><span class="op">(</span><span class="va">seq_path</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">seqs</span></span></code></pre>
-</div>
-<p>To align the sequences using Clustal Omega, we use the
-<code>msa</code> function and specify the <code>method</code> as
-“ClustalOmega”. There are more arguments that you can use to fine-tune
-the alignment, but these are not necessary for the vast majority of
-alignments.</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">alignment</span> <span class="op">&lt;-</span> <span class="fu">msa</span><span class="op">(</span><span class="va">seqs</span>, method <span class="op">=</span> <span class="st">"ClustalOmega"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">alignment</span></span></code></pre>
-</div>
-<p>If after you perform your alignment you find that an individual does
-not belong or is negatively impacting the alignment, you have to
-manipulate your unaligned sequence data and then re-align the sequences.
-For instance, say you didn’t want to include the individual
-<code>ind_name</code> in the alignment. First, remove the individual
-from the <code>seqs</code> object.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># remove individual</span></span>
-<span><span class="va">seqs_filt</span> <span class="op">&lt;-</span> <span class="va">seqs</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="fu">names</span><span class="op">(</span><span class="va">seqs</span><span class="op">)</span> <span class="op">%in%</span> <span class="st">"Itar128"</span><span class="op">)</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">seqs_filt</span></span></code></pre>
-</div>
-<p>Then, realign the new set of sequences.</p>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">alignment</span> <span class="op">&lt;-</span> <span class="fu">msa</span><span class="op">(</span><span class="va">seqs_filt</span>, method <span class="op">=</span> <span class="st">"ClustalOmega"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">alignment</span></span></code></pre>
-</div>
-<p>There are quite a few packages in R to work with sequence data, for
-example <a href="https://cran.r-project.org/web/packages/seqinr/index.html" class="external-link">seqinr</a>,
-<a href="https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html" class="external-link">phangorn</a>,
-and <a href="https://cran.r-project.org/web/packages/ape/index.html" class="external-link">ape</a>.
-<code>ape</code> is the most versatile of these. But before we can use
-ape, the alignment must be converted to the <code>ape::DNAbin</code>
-format.</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ape_align</span> <span class="op">&lt;-</span> <span class="fu">msaConvert</span><span class="op">(</span><span class="va">alignment</span>, type <span class="op">=</span> <span class="st">"ape::DNAbin"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ape_align</span></span></code></pre>
-</div>
-<p>Although not necessary for this workshop, it’s generally advisable to
-write your DNA alignment to a new file to use later or with other
-programs.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ape</span><span class="fu">::</span><span class="fu">write.FASTA</span><span class="op">(</span><span class="va">ape_align</span>, <span class="st">"path/to/alignment.fas"</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-<div class="section level4">
-<h4 id="ape">ape<a class="anchor" aria-label="anchor" href="#ape"></a>
-</h4>
-</div>
-<div class="section level4">
-<h4 id="check-alignment">Check alignment<a class="anchor" aria-label="anchor" href="#check-alignment"></a>
-</h4>
-<p><code>ape</code> has a useful utility that allows you perform a
-series of diagnostics on your alignment to make sure nothing is fishy.
-The function can output multiple plots, but let’s just visualize the
-alignment plot. If the colors seem jumbled in a region, this indicates
-that an alignment error may have occurred and to inspect your sequences
-for any problems.</p>
-<p>In addition, the function outputs a series of helpful statistics to
-your console. Ideally, your alignment should have few gaps and a number
-of segregating sites that is reasonable for the number of sites in your
-alignment and the evolutionary divergence of the sequences included in
-the alignment, e.g., for an alignment with 970 sites of a single bird
-species, around 40 segregating sites is reasonable, but 200 segregating
-sites may indicate that something went wrong with your alignment or a
-species was misidentified. In addition, for diploid species a vast
-majority, if not all of the sites should contain one or two observed
-bases.</p>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">ape</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">checkAlignment</span><span class="op">(</span><span class="va">ape_align</span>, what <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-<div class="section level4">
-<h4 id="calculate-genetic-diversity">Calculate genetic diversity<a class="anchor" aria-label="anchor" href="#calculate-genetic-diversity"></a>
-</h4>
-<p>Tajima’s pi (“raw” pairwise difference)… Why pairwise deletion rather
-than full deletion…</p>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fas_gendist</span> <span class="op">&lt;-</span> <span class="fu">dist.dna</span><span class="op">(</span><span class="va">fas</span>, model <span class="op">=</span> <span class="st">"raw"</span>, pairwise.deletion <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fas_gendiv</span> <span class="op">&lt;-</span> <span class="fu">median</span><span class="op">(</span><span class="va">fas_gendist</span><span class="op">[</span><span class="fu">upper.tri</span><span class="op">(</span><span class="va">fas_gendist</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fas_gendist_pop</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">fas_split</span>, <span class="va">dist.dna</span>, model <span class="op">=</span> <span class="st">"raw"</span>, pairwise.deletion <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">calc_pi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">gd</span> <span class="op">&lt;-</span> <span class="fu">median</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu">upper.tri</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="kw">return</span><span class="op">(</span><span class="va">gd</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span>    </span>
-<span><span class="va">fas_gendiv_pop</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">fas_gendist_pop</span>, <span class="va">calc_pi</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">fas_gendiv_pop</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="snps">SNPs<a class="anchor" aria-label="anchor" href="#snps"></a>
-</h2>
-<div class="section level3">
-<h3 id="vcf">VCF<a class="anchor" aria-label="anchor" href="#vcf"></a>
-</h3>
-<p>Here are a few things about a VCF file… tab delimited… fields…
-size…</p>
-<div class="section level4">
-<h4 id="vcfr">vcfR<a class="anchor" aria-label="anchor" href="#vcfr"></a>
-</h4>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">vcfR</span><span class="op">)</span></span>
-<span><span class="va">snps</span> <span class="op">&lt;-</span> <span class="fu">read.vcfR</span><span class="op">(</span><span class="va">vcf_path</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-<div class="section level4">
-<h4 id="manipulate-data">Manipulate data<a class="anchor" aria-label="anchor" href="#manipulate-data"></a>
-</h4>
-<p>Filter individuals Filter based on quality, missingness</p>
-</div>
-<div class="section level4">
-<h4 id="export-to-genind">Export to genind<a class="anchor" aria-label="anchor" href="#export-to-genind"></a>
-</h4>
-<p>A bit about genind and <code>adegenet</code>… If you have many SNPs,
-genlight may be a more appropriate format…</p>
-<p><code>vcfR2genind</code> also takes arguments for the function
-<code>df2genind</code> from the <code>adegenet</code> package. There are
-a couple things we can do to speed up the conversion, like specifying
-the ploidy of the file and setting the <code>check.ploidy</code> flag to
-<code>FALSE</code>.</p>
-<p>To add populations…</p>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">adegenet</span><span class="op">)</span></span>
-<span><span class="va">snps_genind</span> <span class="op">&lt;-</span> <span class="fu">vcfR2genind</span><span class="op">(</span></span>
-<span>    <span class="va">snps</span>, </span>
-<span>    n.cores <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>    ploidy <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    check.ploidy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    pop <span class="op">=</span> <span class="va">pops</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
-<span><span class="va">snps_genind</span></span></code></pre>
-</div>
-</div>
-<div class="section level4">
-<h4 id="calculate-genetic-diversity-1">Calculate genetic diversity<a class="anchor" aria-label="anchor" href="#calculate-genetic-diversity-1"></a>
-</h4>
-<p>If you didn’t specify populations when converting or reading in the
-genind file, do so now…</p>
-<p>Individual-based genetic distances… Maybe mention PCA?</p>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">snps_gendist_ind</span> <span class="op">&lt;-</span> <span class="fu">dist</span><span class="op">(</span><span class="va">snps_genind</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Nei’s genetic distance…</p>
-<div class="codewrapper sourceCode" id="cb13">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">snps_genpop</span> <span class="op">&lt;-</span> <span class="fu">genind2genpop</span><span class="op">(</span><span class="va">snps_genind</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">snps_gendist_pop</span> <span class="op">&lt;-</span> <span class="fu">dist.genpop</span><span class="op">(</span><span class="va">snps_genpop</span>, method <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<p>FST…</p>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hierfstat</span><span class="op">)</span></span>
-<span><span class="va">snps_hierfstat</span> <span class="op">&lt;-</span> <span class="fu">genind2hierfstat</span><span class="op">(</span><span class="va">snps_genind</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">snps_fst</span> <span class="op">&lt;-</span> <span class="fu">pairwise.fst</span><span class="op">(</span><span class="va">snps_hierfstat</span>, diploid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">hist</span><span class="op">(</span><span class="va">snps_fst</span><span class="op">[</span><span class="fu">upper.tri</span><span class="op">(</span><span class="va">snps_fst</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section level1">
-<h1 id="summarize-genetic-diversity">Summarize genetic diversity<a class="anchor" aria-label="anchor" href="#summarize-genetic-diversity"></a>
-</h1>
-<div class="section level2">
-<h2 id="calculate-hill-numbers-within-speciespopulations">Calculate Hill numbers within species/populations<a class="anchor" aria-label="anchor" href="#calculate-hill-numbers-within-speciespopulations"></a>
-</h2>
-<p><em>* Going to need a SNP matrix</em></p>
-<p>Hill numbers of intraspecific allele frequencies are the
-<em>effective number of SNPs</em> in the population/species.</p>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
-<span>    </span>
-<span><span class="co"># columns are SNPs, rows are individuals</span></span>
-<span><span class="co"># treat it like abundances </span></span>
-<span><span class="va">intra_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hillR</span><span class="fu">::</span><span class="fu">hill_taxa</span><span class="op">(</span><span class="va">snp_matrix</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="interpret-refer-back-to-visualizations">Interpret (refer back to visualizations)<a class="anchor" aria-label="anchor" href="#interpret-refer-back-to-visualizations"></a>
-</h3>
-</div>
-</div>
-<div class="section level2">
-<h2 id="calculate-hill-numbers-across-species">Calculate Hill numbers across species<a class="anchor" aria-label="anchor" href="#calculate-hill-numbers-across-species"></a>
-</h2>
-<p><em>Need species alignments from ape</em></p>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># calculate pairwise distance matrices</span></span>
-<span><span class="va">per_species_dist</span> <span class="op">&lt;-</span> <span class="fu">lapply</span><span class="op">(</span><span class="va">species_alignments</span>, <span class="fu">ape</span><span class="fu">::</span><span class="va">dist.dna</span>, model <span class="op">=</span> <span class="st">"raw"</span>, as.matrix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">mat_avg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fu">upper.tri</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span></span>
-<span>    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span>    <span class="kw">return</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">per_species_pi</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">per_species_dist</span>, <span class="va">mat_avg</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">hist</span><span class="op">(</span><span class="va">per_species_pi</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="interpret-refer-back-to-visualizations-1">Interpret (refer back to visualizations)<a class="anchor" aria-label="anchor" href="#interpret-refer-back-to-visualizations-1"></a>
-</h3>
+<h2 id="section"></h2>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</div>
 </div></section><section id="aio-phylo-data"><p>Content from <a href="phylo-data.html">Summarizing phylogenetic data</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -3385,7 +3686,7 @@ corrected to match the phylogeny. Hint: you may want to refer to the <a href="ab
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>To create our site-by-species matrix, we will use the
 <code>pivot_wider</code> function from the <code>tidyr</code>
@@ -3988,7 +4289,7 @@ to infer regarding the history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
@@ -4093,7 +4394,7 @@ examples:</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>A few points of discussion…</p>
 </div>
@@ -4305,7 +4606,7 @@ objects, where the tip names are stored.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>First, we check the names using the <code>gnr_resolve()</code>
 function. In <code>phylogeny</code>, tip names are stored in
@@ -4415,7 +4716,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-connecting-data-types"><p>Content from <a href="connecting-data-types.html">Connecting different data types</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/connecting-data-types.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -4623,7 +4924,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-phylo-hill"><p>Content from <a href="phylo-hill.html">phylo_hill</a></p>
 <hr>
-<p> Last updated on 2023-06-12 | 
+<p> Last updated on 2023-06-13 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-hill.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -4668,7 +4969,7 @@ structures and community composition.</li>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Assumed to follow:</p>
 <ul>
@@ -4836,7 +5137,7 @@ numbers in a perfectly even community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5023,9 +5324,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
-  "dateCreated": "2023-06-12",
-  "dateModified": "2023-06-12",
-  "datePublished": "2023-06-12"
+  "dateCreated": "2023-06-13",
+  "dateModified": "2023-06-13",
+  "datePublished": "2023-06-13"
 }
 
   </script><script>
