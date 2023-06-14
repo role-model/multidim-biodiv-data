@@ -33,7 +33,7 @@ source: 'https://github.com/role-model/multidim-biodiv-data'
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'biodataworkshop2023@gmail.com'
 
 # Navigation ------------------------------------------------
 #
@@ -60,14 +60,13 @@ contact: 'team@carpentries.org'
 # Order of episodes in your lesson
 episodes:
 - introduction.Rmd
-- finding_data.Rmd
 - care.Rmd
 - abundance-data.Rmd
 - traits-data.Rmd
 - popgen-data.Rmd
 - phylo-data.Rmd
 - connecting-data-types.Rmd
-- phylo-hill.Rmd
+- finding_data.Rmd
 
 # Information for Learners
 learners:
