@@ -121,7 +121,7 @@ Two common approaches to retrieving a phylogeny for a focal group are 1) relying
 For this workshop, since we are using simulated data, we will work with the first option: a "published" arthropod phylogeny. Let's load this phylogeny into R using the function `read.tree` we learned earlier.
 
 ```{r reading-arthro-phylo}
-arthro_tree <- read.tree('LINK_TO_PHYLOGENY')
+arthro_tree <- read.tree('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/phylo_raw.nwk')
 
 class(arthro_tree)
 ```
