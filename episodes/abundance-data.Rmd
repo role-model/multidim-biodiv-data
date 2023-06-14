@@ -59,7 +59,7 @@ There's a huge diversity of applications of abundance data. Here, we'll focus on
 
 Let's make this more concrete. If we plot the abundances of all the species in a system, sorted from most to least abundant, we end up with something like this:
 
-```{r first SAD visual, echo = F, include = F}
+```{r first-SAD-visual, echo = F, include = F}
 
 
 
@@ -97,7 +97,7 @@ Ok, so how about we do some actual coding?
 
 For this episode, we'll be working with a couple of specialized packages for biological data. 
 
-```{r load packages, include = T, eval = F}
+```{r load-packages, include = T, eval = F}
 
 library(dplyr)
 library(taxize)
@@ -115,13 +115,13 @@ We'll be working with ecological species abundance data stored in `.csv` files. 
 Let's load the data:
 
 
-```{r load data}
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_raw.csv")
+```{r load-data}
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
 ```
 
 And look at what we've got:
 
-```{r examine data}
+```{r examine-data}
 
 head(abundances)
 
@@ -135,7 +135,7 @@ The first thing we'll want to do is check for human error wherever we can, in th
 
 The `taxize` R package can help identify and resolve simple typos in taxonomic names. 
 
-```{r taxize nameresolve}
+```{r taxize-nameresolve}
 
 species_list <- abundances$GenSp
 
@@ -146,40 +146,52 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE,
 
 ::: instructor
 
-From the `taxize` documentation:
+Sometimes `gnr_resolve` doesnt work. From the `taxize` documentation:
 
 > 503 Service Unavailable: This is typically a temporary problem; often given when a server is handling too many requests, and is briefly down.
-
-Note that RMD is getting this error consistently Friday afternoon 5/19 and Monday morning 5/22.
 
 :::
 
 
-```{r explore taxise outcomes}
+```{r explore-taxise-outcomes}
 head(name_resolve)
 ```
 
-```{r find mismatches}
+```{r find-mismatches}
 
 
-mismatches <- name_resolve[ name_resolve$matched_name2 != name_resolve$user_supplied_name, ]
+mismatches <- name_resolve[ name_resolve$matched_name2 !=
+                                name_resolve$user_supplied_name, ]
 
 mismatches[, c("user_supplied_name", "matched_name2")]
 
 ```
 
-Four of these are just typos. But `Agrotis chersotoides` in our data is resolved only to Agrotis. What's up there?
+Four of these are just typos. But `Agrotis chersotoides` in our data is resolved only to `Agrotis` and `Metrothorax deverilli` is resolved to `Metrothorax`. What's up there?
 
 ::: discussion
 
-Agrotis taxonomic resolution
+*Agrotis* and *Metrothorax* taxonomic resolution
 
 :::
 
 
-```{r fix agrotis}
+::: instructor
 
-name_resolve$matched_name2[name_resolve$user_supplied_name == "Agrotis chersotoides"] <- "Peridroma chersotoides"
+Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it dosen't show up in GNR.
+
+:::
+
+
+```{r fix-agrotis-metrothorax}
+
+name_resolve$matched_name2[
+    name_resolve$user_supplied_name == "Agrotis chersotoides"] <- 
+    "Peridroma chersotoides"
+
+name_resolve$matched_name2[
+    name_resolve$user_supplied_name == "Metrothorax deverilli"] <- 
+    "Metrothorax deverilli"
 
 ```
 
@@ -194,10 +206,12 @@ Visual of how `left_join` works
 :::
 
 
-```{r join abundances and names}
+```{r join-abundances-names}
 abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
 abundances$final_name <- abundances$matched_name2
+
+head(abundances)
 ```
 
 ```{r include = FALSE, eval = FALSE}
@@ -206,13 +220,8 @@ write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"),
 ```
 
 
-::: instructor
 
-For now I am skipping cleaning the abundances name cleaning section because taxize is giving the server error. This may need some updating if there are duplicate species names once cleaned. _But_ that element of it will also probably change if we update the data (nestedness thing) so skippable for now.
-
-:::
-
-```{r, include = F, eval = T}
+```{r, include = FALSE, eval = FALSE}
 
 abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_tallies.csv")
 
@@ -234,36 +243,42 @@ Usual practice is to plot distributions of abundance as the species abundance on
 
 Now, we'll construct a plot with lines for the abundances of species on each island. 
 
-```{r base R plots of SADs, eval = T}
+```{r base-R-SAD-plots, eval = TRUE}
+# figure out max number of species at a site for axis limit setting below
+max_sp <- sapply(island_abundances, nrow)
+max_sp <- max(max_sp)
 
 plot(
-    sort(island_abundances$HawaiiIsland$abundance, decreasing = T),
+    sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
     xlab = "Rank",
     ylab = "Abundance",
     lwd = 2,
     col = "#440154FF",
-    xlim = c(0, 140),
-    ylim = c(0, 40)
+    xlim = c(1, max_sp),
+    ylim = c(1, max(abundances$abundance)), 
+    log = 'y'
 )
 
 points(
-    sort(island_abundances$Kauai$abundance, decreasing = T),
+    sort(island_abundances$Maui$abundance, decreasing = T),
     lwd = 2,
     col = "#21908CFF"
 )
 
 points(
-    sort(island_abundances$Maui$abundance, decreasing = T),
+    sort(island_abundances$BigIsland$abundance, decreasing = T),
     lwd = 2,
     col = "#FDE725FF"
 )
 
 legend(
     "topright",
-    legend = c("Hawaii", "Kauai", "Maui"),
-    lwd = 2,
-    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+    legend = c("Kauai", "Maui", "Hawaii"),
+    pch = 1,
+    pt.lwd = 2,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF"),
+    bty = "n"
 )
 
 ```
@@ -286,7 +301,7 @@ For this, we'll need what's known as a **site by species matrix**. This is a ver
 
 A site by species sites as rows and species as columns. We can get there using the `pivot_wider` function from the package `tidyr`:
 
-```{r site by species matrix via pivot wider}
+```{r site-by-species-matrix}
 
 abundance_wide <- pivot_wider(abundances, id_cols = site,
                               names_from = final_name,
@@ -299,7 +314,7 @@ head(abundance_wide[,1:10])
 
 We'll want this data to have _row names_ based on the sites, so we'll need some more steps:
 
-```{r site by species matrix row names}
+```{r sbys-row-names}
 
 abundance_wide <- as.data.frame(abundance_wide)
 
@@ -315,15 +330,15 @@ head(abundance_wide)
 
 The `hillR` package allows us to calculate Hill numbers. 
 
-```{r hill 0}
+```{r hill0}
 
-hill_0 <- hill_taxa(abundance_wide, q = 0 )
+hill_0 <- hill_taxa(abundance_wide, q = 0)
 
 hill_0
 
 ```
 
-```{r hill 1}
+```{r hill1}
 
 hill_1 <- hill_taxa(abundance_wide, q = 1)
 
@@ -339,7 +354,7 @@ Calculate the hill numbers for q = 2.
 
 ::: solution
 
-```{r hill 2}
+```{r hill2}
 
 hill_2 <- hill_taxa(abundance_wide, q = 2)
 
@@ -356,42 +371,45 @@ hill_2
 
 Let's revisit the SAD plots we generated before, and think about these in terms of Hill numbers. 
 
-```{r render SAD plots again}
-
+```{r render-SAD-plots-again}
 plot(
-    sort(island_abundances$HawaiiIsland$abundance, decreasing = T),
+    sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
     xlab = "Rank",
     ylab = "Abundance",
     lwd = 2,
     col = "#440154FF",
-    xlim = c(0, 140),
-    ylim = c(0, 40)
+    xlim = c(1, max_sp),
+    ylim = c(1, max(abundances$abundance)), 
+    log = 'y'
 )
 
 points(
-    sort(island_abundances$Kauai$abundance, decreasing = T),
+    sort(island_abundances$Maui$abundance, decreasing = T),
     lwd = 2,
     col = "#21908CFF"
 )
 
 points(
-    sort(island_abundances$Maui$abundance, decreasing = T),
+    sort(island_abundances$BigIsland$abundance, decreasing = T),
     lwd = 2,
     col = "#FDE725FF"
 )
 
 legend(
     "topright",
-    legend = c("Hawaii", "Kauai", "Maui"),
-    lwd = 2,
-    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+    legend = c("Kauai", "Maui", "Hawaii"),
+    pch = 1,
+    pt.lwd = 2,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF"),
+    bty = "n"
 )
 
 ```
 
 
-```{r look at hill numbers again}
+```{r look-at-hill-numbers-again}
+hill_numbers <- rbind(hill_0, hill_1, hill_2)
 hill_numbers
 
 ```
