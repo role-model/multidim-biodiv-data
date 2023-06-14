@@ -102,7 +102,7 @@ mass in grams, the metric of body size chosen for the study. The data
 also contain typos and a problem with the taxonomy that you must correct
 and investigate. Make sure to glance at the data before cleaning!
 
-Your trait data is located at: <https://bit.ly/41GsgvE>
+Your trait data is located at: <https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv>
 
 :::
 
@@ -112,7 +112,9 @@ Read in the traits data using the `read.csv` function and supplying it
 with the path to the data.
 
 ```{r trait-import-sol}
-traits <- read.csv('https://bit.ly/41GsgvE')
+traits <- read.csv('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv')
+
+head(traits)
 ```
 
 Check the names of the traits using the `gnr_resolve()` function. To
@@ -124,7 +126,8 @@ library(taxize)
 # only need to check the unique names
 species_list <- unique(traits$GenSp)
 
-name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, canonical = TRUE)
+name_resolve <- gnr_resolve(species_list, best_match_only = TRUE, 
+                            canonical = TRUE)
 
 head(name_resolve)
 ```
@@ -133,7 +136,9 @@ To quickly see which taxa are in conflict with `taxize`'s, use bracket
 subsetting and boolean matching.
 
 ```{r trait-resolve-sol2}
-mismatches_traits <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
+mismatches_traits <- 
+    name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, 
+                 c("user_supplied_name", "matched_name2")]
 
 mismatches_traits
 ```
@@ -147,21 +152,24 @@ columns have the same information by supplying a named vector to the
 
 ```{r trait-resolve-sol3}
 library(dplyr)
-traits <- left_join(traits, name_resolve[, c("user_supplied_name", "matched_name2")], by = c("GenSp" = "user_supplied_name"))
+
+traits <- left_join(traits, 
+                    name_resolve[, c("user_supplied_name", "matched_name2")], 
+                    by = c("GenSp" = "user_supplied_name"))
 
 head(traits)
 ```
 
-Then, to replace *Agrotis chersotoides* with the updated *Peridroma
-chersotoides*, which you discovered in abundance-data episode, use
-bracketed indexing, boolean matching, and assignment.
+Then, to fix *Agrotis chersotoides* and *Metrothorax deverilli*, as in abundance-data episode, use bracketed indexing, boolean matching, and assignment.
 
-In addition, although not necessary, changing the column name
-`matched_name2` to `final_name` to give it a more sensible name for
-later use is good practice.
+In addition, although not necessary, changing the column name `matched_name2` to `final_name` to give it a more sensible name for later use is good practice.
 
 ```{r trait-resolve-sol4}
-traits$matched_name2[traits$matched_name2 == "Agrotis"] <- "Peridroma chersotoides"
+traits$matched_name2[traits$matched_name2 == "Agrotis"] <- 
+    "Peridroma chersotoides"
+
+traits$matched_name2[traits$matched_name2 == "Metrothorax"] <- 
+    "Metrothorax deverilli"
 
 colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 
@@ -224,22 +232,25 @@ Finally, you need to add the aggregated species-level information back
 to the abundance data, so you have the summary statistics for each
 species at each site.
 
-First, read in the abundance data you used in the abundance
+First, re-read in the abundance data you used in the abundance
 episode.
 
 ```{r read-abundance}
-abundance_tallies <- read.csv("http://bit.ly/3L2OFxk")
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv")
 
+head(abundances)
 ```
 
 To join the data, you'll use `left_join()`, which is hopefully getting
 familiar to you now!
 
-`abundance_tallies` should be on the left side, since we want the
+`abundances` should be on the left side, since we want the
 species-information for each species in each community.
 
 ```{r traits-sumstats-join}
-traits_sumstats <- left_join(abundance_tallies, traits_sumstats, by = "final_name")
+traits_sumstats <- left_join(abundances, 
+                             traits_sumstats, 
+                             by = "final_name")
 
 head(traits_sumstats)
 ```
@@ -282,7 +293,6 @@ hist(
     xlab = "Average mass (g)",
     ylab = "Density",
     main = "All species",
-    ylim = c(0, 0.11),
     freq = FALSE
 )
 
@@ -341,40 +351,37 @@ the line width, and colors to assign to the labels.
 
 ```{r density-site-plot}
 plot(
-    density(traits_sumstats_split$HawaiiIsland_01$mean_mass_g),
+    density(traits_sumstats_split$KA_01$mean_mass_g),
     main = "Average mass per study site",
     xlab = "Average mass (g)",
     ylab = "Density",
     lwd = 2,
     col = "#440154FF",
-    xlim = c(-3, 40),
-    ylim = c(0, 0.11)
-    
+    xlim = c(-3, 20),
+    ylim = c(0, 0.25)
 )
 
 lines(
-    density(traits_sumstats_split$Kauai_01$mean_mass_g),
+    density(traits_sumstats_split$MA_01$mean_mass_g),
     lwd = 2,
     col = "#21908CFF"
 )
 
 lines(
-    density(traits_sumstats_split$Maui_01$mean_mass_g),
+    density(traits_sumstats_split$BI_01$mean_mass_g),
     lwd = 2,
     col = "#FDE725FF"
 )
 
 legend(
     "topright",
-    legend = c("Hawaii 01", "Kauai 01", "Maui 01"),
+    legend = c("Kauai", "Maui", "Big Island"),
     lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF")
 )
 ```
 
-It looks like Kauai insects have a higher average mass and more
-dispersed distribution of masses than Hawaii and Maui! Next, we'll take
-a look at using Hill numbers to summarize the distribution of traits.
+It looks like Kauai insects have a smoother distribution of body masses, while Maui and Big Island show more clumped distributions, possibly due to higher immigration on those islands.
 
 # Hill numbers
 
@@ -391,7 +398,7 @@ rows and traits as columns.
 
 Your first challenge, if you don't have the site by species abundance
 dataframe, is to recreate it here. Remember, you'll need to use the
-`pivot_wider()` function and the `abundance_tallies` data!
+`pivot_wider()` function and the `abundances` data!
 
 :::
 
@@ -401,7 +408,7 @@ dataframe, is to recreate it here. Remember, you'll need to use the
 library(tidyr)
 
 abundance_wide <- pivot_wider(
-    abundance_tallies,
+    abundances,
     id_cols = site,
     names_from = final_name,
     values_from = abundance,
@@ -420,10 +427,10 @@ abundance_wide <- abundance_wide[,-1]
 :::::::::::::::::
 
 
-Now, to create the traits dataframe you first need to remove the `site`, `island`, `abundance`, `median_mass_g`, and `sd_mass_g` columns.
+Now, to create the traits dataframe for Hill number calculations purposed, we just need the taxonomic names and trait mean.
 
 ```{r traits-remove-cols}
-traits_simple <- traits_sumstats[, -c(1, 2, 4, 6, 7)]
+traits_simple <- traits_sumstats[, c("final_name", "mean_mass_g")]
 
 head(traits_simple)
 ```
@@ -437,14 +444,16 @@ head(traits_simple)
 ```
 
 Finally, you need to set the species names to be row names and remove
-the `final_name` column. Note, you have to use the `drop=F` argument
+the `final_name` column. Note, you have to use the `drop = FALSE` argument
 because R has the funny behavior that it likes to convert single-column
 dataframes into a vector.
 
 ```{r traits-set-rownames}
 row.names(traits_simple) <- traits_simple$final_name
 
-traits_simple <- traits_simple[,-1, drop=F]
+traits_simple <- traits_simple[, -1, drop = FALSE]
+
+head(traits_simple)
 ```
 
 Next, you'll use the `hill_func()` function from the `hillR` package to
@@ -481,14 +490,9 @@ Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
 2.
 
 ```{r traits-hill-df}
-traits_hill <- list(traits_hill_1[3,], traits_hill_2[3,])
-
-traits_hill <- do.call(cbind, traits_hill)
-
-colnames(traits_hill) <- c("q1", "q2")
-
-# convert to a dataframe
-traits_hill <- as.data.frame(traits_hill)
+traits_hill <- data.frame(q0 = traits_hill_0[3, ], 
+                          q1 = traits_hill_1[3, ], 
+                          q2 = traits_hill_2[3, ])
 
 # I don't like rownames for plotting, so making the rownames a column
 traits_hill$site <- row.names(traits_hill)
@@ -499,67 +503,120 @@ row.names(traits_hill) <- NULL
 Let's look at how Hill q = 1 compare across sites.
 
 ```{r hill-plot-raw}
-plot(as.factor(traits_hill$site), traits_hill$q1, ylab = "Hill q = 1")
+plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")), 
+     traits_hill$q1, ylab = "Hill q = 1")
 ```
 
-Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
+Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
 a higher or lower trait Hill number means, you will make rank plots of
 the trait data, to make a plot analogous to the species abundance
 distribution.
 
 ```{r hill-plot-rank}
+# figure out max number of species at a site for axis limit setting below
+max_sp <- sapply(traits_sumstats_split, nrow)
+max_sp <- max(max_sp)
+
+
 plot(
-    sort(traits_sumstats_split$HawaiiIsland_01$mean_mass_g, decreasing = TRUE),
+    sort(traits_sumstats_split$KA_01$mean_mass_g, decreasing = TRUE),
     main = "Average mass per study site",
     xlab = "Rank",
     ylab = "Average mass (mg)",
     pch = 19,
     col = "#440154FF",
-    ylim = c(0, 40),
-    xlim = c(0, 135)
+    xlim = c(1, max_sp),
+    ylim = c(0, max(traits_simple$mean_mass_g))
 )
 
 points(
-    sort(traits_sumstats_split$Kauai_01$mean_mass_g, decreasing = TRUE),
+    sort(traits_sumstats_split$MA_01$mean_mass_g, decreasing = TRUE),
     pch = 19,
-    col = "#31688EFF"
+    col = "#21908CFF"
 )
+
 points(
-    sort(traits_sumstats_split$Maui_01$mean_mass_g, decreasing = TRUE),
+    sort(traits_sumstats_split$BI_01$mean_mass_g, decreasing = TRUE),
     pch = 19,
-    col = "#35B779FF"
+    col = "#FDE725FF"
 )
 
 legend(
     "topright",
-    legend = c("Hawaii 01", "Kauai 01", "Maui 01"),
+    legend = c("Kauai", "Maui", "Big Island"),
     pch = 19,
-    col = c("#440154FF", "#31688EFF", "#35B779FF")
+    col = c("#440154FF", "#21908CFF", "#FDE725FF")
 )
+
+
 ```
 
-You can see clearly that the diversity differs across islands, where
-Maui has many more species than the other islands and a seemingly more
-even distribution than the others. However, species richness strongly
-influences the calculation of a Hill number. To factor out the influence
-of the number of species from the Hill number and get a stronger
-indicator of "evenness", you can divide the Hill number by the number of
-species, which you will do for Hill q = 1.
+You can see clearly that the trait distributions differ across islands, where
+Maui has more species than the other islands and a seemingly more
+even distribution than Kauai. Kauai seems to have a greater spread of trait values, however, species abundance strongly influences the calculation of a Hill number. To visualize the role of abundance, we can replicate each species mean by the abundance of that species
 
-```{r hill-divide}
-sp_counts <-
-    c(
-        nrow(traits_sumstats_split$HawaiiIsland_01),
-        nrow(traits_sumstats_split$Kauai_01),
-        nrow(traits_sumstats_split$Maui_01)
-    )
+```{r individuals-traits-plot}
+# replicate abundances
+biIndividualsTrt <- rep(traits_sumstats_split$BI_01$mean_mass_g, 
+                        traits_sumstats_split$BI_01$abundance)
+maIndividualsTrt <- rep(traits_sumstats_split$MA_01$mean_mass_g, 
+                        traits_sumstats_split$MA_01$abundance)
+kaIndividualsTrt <- rep(traits_sumstats_split$KA_01$mean_mass_g, 
+                        traits_sumstats_split$KA_01$abundance)
 
-traits_hill$q1 / sp_counts
+
+plot(
+    sort(kaIndividualsTrt, decreasing = TRUE),
+    main = "Average mass across individuals",
+    xlab = "Rank",
+    ylab = "Average mass (mg)",
+    pch = 19,
+    col = "#440154FF",
+    ylim = c(0, max(traits_simple$mean_mass_g))
+)
+
+points(
+    sort(maIndividualsTrt, decreasing = TRUE),
+    pch = 19,
+    col = "#21908CFF"
+)
+
+points(
+    sort(biIndividualsTrt, decreasing = TRUE),
+    pch = 19,
+    col = "#FDE725FF"
+)
+
+legend(
+    "topright",
+    legend = c("Kauai", "Maui", "Big Island"),
+    pch = 19,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+)
+
 ```
 
-Interestingly, we see that Kauai actually has a more even distribution
-of trait values than Maui when accounting for species richness!
+What we can see from the individuals-level plot is that much of the range of trait values on Kauai are broght by very rare species, these rare species do not contribute substantially to the diversity as expressed by Hill numbers.
+
+<!-- To factor out the influence -->
+<!-- of the number of species from the Hill number and get a stronger -->
+<!-- indicator of "evenness", you can divide the Hill number by the number of -->
+<!-- species, which you will do for Hill q = 1. -->
+
+<!-- ```{r hill-divide} -->
+<!-- sp_counts <- -->
+<!--     c( -->
+<!--         nrow(traits_sumstats_split$HawaiiIsland_01), -->
+<!--         nrow(traits_sumstats_split$Kauai_01), -->
+<!--         nrow(traits_sumstats_split$Maui_01) -->
+<!--     ) -->
+
+<!-- traits_hill$q1 / sp_counts -->
+<!-- ``` -->
+
+<!-- Interestingly, we see that Kauai actually has a more even distribution -->
+<!-- of trait values than Maui when accounting for species richness! -->
 
 ::: discussion
 
@@ -572,6 +629,6 @@ and what you know from your work?
 ::: keypoints
 
 - Traits data contain more information about ecologially significant traits than just species IDs.
-- Traits data can be treated similarly to abundance data.
+- Traits data can be analyed with Hill numbers and visualized with rank plots similarly to abundance data.
 
 :::
