@@ -398,7 +398,7 @@ contains the individual’s mass in grams, the metric of body size chosen
 for the study. The data also contain typos and a problem with the
 taxonomy that you must correct and investigate. Make sure to glance at
 the data before cleaning!</p>
-<p>Your trait data is located at: <a href="https://bit.ly/41GsgvE" class="external-link uri">https://bit.ly/41GsgvE</a></p>
+<p>Your trait data is located at: <a href="https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv" class="external-link uri">https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv</a></p>
 </div>
 </div>
 </div>
@@ -417,7 +417,9 @@ supplying it with the path to the data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">'https://bit.ly/41GsgvE'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">'https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Check the names of the traits using the <code>gnr_resolve()</code>
 function. To streamline your efforts, supply only the unique species
@@ -430,7 +432,8 @@ names in your data to <code>gnr_resolve()</code>.</p>
 <span><span class="co"># only need to check the unique names</span></span>
 <span><span class="va">species_list</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                            canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
 </div>
@@ -440,7 +443,9 @@ use bracket subsetting and boolean matching.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mismatches_traits</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">mismatches_traits</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="va">name_resolve</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span>, </span>
+<span>                 <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">mismatches_traits</span></span></code></pre>
 </div>
@@ -455,13 +460,16 @@ have the same information by supplying a named vector to the
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, <span class="va">name_resolve</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span>, by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, </span>
+<span>                    <span class="va">name_resolve</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>                    by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Then, to replace <em>Agrotis chersotoides</em> with the updated
-<em>Peridroma chersotoides</em>, which you discovered in abundance-data
-episode, use bracketed indexing, boolean matching, and assignment.</p>
+<p>Then, to fix <em>Agrotis chersotoides</em> and <em>Metrothorax
+deverilli</em>, as in abundance-data episode, use bracketed indexing,
+boolean matching, and assignment.</p>
 <p>In addition, although not necessary, changing the column name
 <code>matched_name2</code> to <code>final_name</code> to give it a more
 sensible name for later use is good practice.</p>
@@ -469,7 +477,11 @@ sensible name for later use is good practice.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">==</span> <span class="st">"Agrotis"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Peridroma chersotoides"</span></span>
+<code class="sourceCode R"><span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">==</span> <span class="st">"Agrotis"</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="st">"Peridroma chersotoides"</span></span>
+<span></span>
+<span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">traits</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">==</span> <span class="st">"Metrothorax"</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="st">"Metrothorax deverilli"</span></span>
 <span></span>
 <span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span><span class="op">[</span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span> <span class="op">==</span> <span class="st">"matched_name2"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"final_name"</span></span>
 <span></span>
@@ -538,23 +550,27 @@ a look at the new data set with the <code>head()</code> function.</p>
 <p>Finally, you need to add the aggregated species-level information
 back to the abundance data, so you have the summary statistics for each
 species at each site.</p>
-<p>First, read in the abundance data you used in the abundance
+<p>First, re-read in the abundance data you used in the abundance
 episode.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abundance_tallies</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"http://bit.ly/3L2OFxk"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span></code></pre>
 </div>
 <p>To join the data, you’ll use <code>left_join()</code>, which is
 hopefully getting familiar to you now!</p>
-<p><code>abundance_tallies</code> should be on the left side, since we
-want the species-information for each species in each community.</p>
+<p><code>abundances</code> should be on the left side, since we want the
+species-information for each species in each community.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abundance_tallies</span>, <span class="va">traits_sumstats</span>, by <span class="op">=</span> <span class="st">"final_name"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">traits_sumstats</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abundances</span>, </span>
+<span>                             <span class="va">traits_sumstats</span>, </span>
+<span>                             by <span class="op">=</span> <span class="st">"final_name"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">traits_sumstats</span><span class="op">)</span></span></code></pre>
 </div>
@@ -598,7 +614,6 @@ function and wrap it with the <code>lines()</code> function.</p>
 <span>    xlab <span class="op">=</span> <span class="st">"Average mass (g)"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Density"</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"All species"</span>,</span>
-<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.11</span><span class="op">)</span>,</span>
 <span>    freq <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -656,40 +671,38 @@ the labels.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
+<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">KA_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Average mass per study site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Average mass (g)"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Density"</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
-<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">40</span><span class="op">)</span>,</span>
-<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.11</span><span class="op">)</span></span>
-<span>    </span>
+<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">20</span><span class="op">)</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">lines</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
+<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">MA_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">lines</span><span class="op">(</span></span>
-<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
+<span>    <span class="fu">density</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">BI_01</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
-<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span><span class="op">)</span>,</span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Big Island"</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<p>It looks like Kauai insects have a higher average mass and more
-dispersed distribution of masses than Hawaii and Maui! Next, we’ll take
-a look at using Hill numbers to summarize the distribution of
-traits.</p>
+<p>It looks like Kauai insects have a smoother distribution of body
+masses, while Maui and Big Island show more clumped distributions,
+possibly due to higher immigration on those islands.</p>
 </section><div class="section level1">
 <h1 id="hill-numbers">Hill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers"></a></h1>
 <p>Hill numbers are a useful and informative summary of trait diversity,
@@ -710,8 +723,8 @@ columns.</p>
 <div class="callout-content">
 <p>Your first challenge, if you don’t have the site by species abundance
 dataframe, is to recreate it here. Remember, you’ll need to use the
-<code>pivot_wider()</code> function and the
-<code>abundance_tallies</code> data!</p>
+<code>pivot_wider()</code> function and the <code>abundances</code>
+data!</p>
 </div>
 </div>
 </div>
@@ -731,7 +744,7 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
-<span>    <span class="va">abundance_tallies</span>,</span>
+<span>    <span class="va">abundances</span>,</span>
 <span>    id_cols <span class="op">=</span> <span class="va">site</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">abundance</span>,</span>
@@ -750,14 +763,13 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
 </div>
 </div>
 </div>
-<p>Now, to create the traits dataframe you first need to remove the
-<code>site</code>, <code>island</code>, <code>abundance</code>,
-<code>median_mass_g</code>, and <code>sd_mass_g</code> columns.</p>
+<p>Now, to create the traits dataframe for Hill number calculations
+purposed, we just need the taxonomic names and trait mean.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_sumstats</span><span class="op">[</span>, <span class="op">-</span><span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_sumstats</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"final_name"</span>, <span class="st">"mean_mass_g"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
 </div>
@@ -772,15 +784,17 @@ dataframe, is to recreate it here. Remember, you’ll need to use the
 </div>
 <p>Finally, you need to set the species names to be row names and remove
 the <code>final_name</code> column. Note, you have to use the
-<code>drop=F</code> argument because R has the funny behavior that it
-likes to convert single-column dataframes into a vector.</p>
+<code>drop = FALSE</code> argument because R has the funny behavior that
+it likes to convert single-column dataframes into a vector.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">$</span><span class="va">final_name</span></span>
 <span></span>
-<span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span>, drop<span class="op">=</span><span class="cn">F</span><span class="op">]</span></span></code></pre>
+<span><span class="va">traits_simple</span> <span class="op">&lt;-</span> <span class="va">traits_simple</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, you’ll use the <code>hill_func()</code> function from the
 <code>hillR</code> package to calculate Hill numbers 0-2 of body size
@@ -817,14 +831,9 @@ Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">list</span><span class="op">(</span><span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">do.call</span><span class="op">(</span><span class="va">cbind</span>, <span class="va">traits_hill</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">colnames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"q1"</span>, <span class="st">"q2"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># convert to a dataframe</span></span>
-<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>q0 <span class="op">=</span> <span class="va">traits_hill_0</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
+<span>                          q1 <span class="op">=</span> <span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
+<span>                          q2 <span class="op">=</span> <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># I don't like rownames for plotting, so making the rownames a column</span></span>
 <span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
@@ -836,9 +845,10 @@ Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">as.factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span><span class="op">)</span>, <span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"KA_01"</span>, <span class="st">"MA_01"</span>, <span class="st">"BI_01"</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>     <span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Hill q = 1 is smallest on Hawaii Island, largest on Maui, and in the
+<p>Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
 a higher or lower trait Hill number means, you will make rank plots of
 the trait data, to make a plot analogous to the species abundance
@@ -847,58 +857,109 @@ distribution.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="co"># figure out max number of species at a site for axis limit setting below</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">traits_sumstats_split</span>, <span class="va">nrow</span><span class="op">)</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">max_sp</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span></span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">KA_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Average mass per study site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Average mass (mg)"</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
-<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span>,</span>
-<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">135</span><span class="op">)</span></span>
+<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="va">max_sp</span><span class="op">)</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fu">max</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">MA_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#31688EFF"</span></span>
+<span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">BI_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"#35B779FF"</span></span>
+<span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
-<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii 01"</span>, <span class="st">"Kauai 01"</span>, <span class="st">"Maui 01"</span><span class="op">)</span>,</span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Big Island"</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#31688EFF"</span>, <span class="st">"#35B779FF"</span><span class="op">)</span></span>
+<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<p>You can see clearly that the diversity differs across islands, where
-Maui has many more species than the other islands and a seemingly more
-even distribution than the others. However, species richness strongly
-influences the calculation of a Hill number. To factor out the influence
-of the number of species from the Hill number and get a stronger
-indicator of “evenness”, you can divide the Hill number by the number of
-species, which you will do for Hill q = 1.</p>
+<p>You can see clearly that the trait distributions differ across
+islands, where Maui has more species than the other islands and a
+seemingly more even distribution than Kauai. Kauai seems to have a
+greater spread of trait values, however, species abundance strongly
+influences the calculation of a Hill number. To visualize the role of
+abundance, we can replicate each species mean by the abundance of that
+species</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sp_counts</span> <span class="op">&lt;-</span></span>
-<span>    <span class="fu">c</span><span class="op">(</span></span>
-<span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">HawaiiIsland_01</span><span class="op">)</span>,</span>
-<span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Kauai_01</span><span class="op">)</span>,</span>
-<span>        <span class="fu">nrow</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">Maui_01</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># replicate abundances</span></span>
+<span><span class="va">biIndividualsTrt</span> <span class="op">&lt;-</span> <span class="fu">rep</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">BI_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, </span>
+<span>                        <span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">BI_01</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
+<span><span class="va">maIndividualsTrt</span> <span class="op">&lt;-</span> <span class="fu">rep</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">MA_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, </span>
+<span>                        <span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">MA_01</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
+<span><span class="va">kaIndividualsTrt</span> <span class="op">&lt;-</span> <span class="fu">rep</span><span class="op">(</span><span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">KA_01</span><span class="op">$</span><span class="va">mean_mass_g</span>, </span>
+<span>                        <span class="va">traits_sumstats_split</span><span class="op">$</span><span class="va">KA_01</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span> <span class="op">/</span> <span class="va">sp_counts</span></span></code></pre>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span></span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">kaIndividualsTrt</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    main <span class="op">=</span> <span class="st">"Average mass across individuals"</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
+<span>    ylab <span class="op">=</span> <span class="st">"Average mass (mg)"</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fu">max</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">$</span><span class="va">mean_mass_g</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">points</span><span class="op">(</span></span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">maIndividualsTrt</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">points</span><span class="op">(</span></span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">biIndividualsTrt</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">legend</span><span class="op">(</span></span>
+<span>    <span class="st">"topright"</span>,</span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Big Island"</span><span class="op">)</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
-<p>Interestingly, we see that Kauai actually has a more even
-distribution of trait values than Maui when accounting for species
-richness!</p>
+<p>What we can see from the individuals-level plot is that much of the
+range of trait values on Kauai are broght by very rare species, these
+rare species do not contribute substantially to the diversity as
+expressed by Hill numbers.</p>
+<!-- To factor out the influence -->
+<!-- of the number of species from the Hill number and get a stronger -->
+<!-- indicator of "evenness", you can divide the Hill number by the number of -->
+<!-- species, which you will do for Hill q = 1. -->
+<!-- ```{r hill-divide} -->
+<!-- sp_counts <- -->
+<!--     c( -->
+<!--         nrow(traits_sumstats_split$HawaiiIsland_01), -->
+<!--         nrow(traits_sumstats_split$Kauai_01), -->
+<!--         nrow(traits_sumstats_split$Maui_01) -->
+<!--     ) -->
+<!-- traits_hill$q1 / sp_counts -->
+<!-- ``` -->
+<!-- Interestingly, we see that Kauai actually has a more even distribution -->
+<!-- of trait values than Maui when accounting for species richness! -->
 <div id="discussion4" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -922,7 +983,8 @@ statistics, and what you know from your work?</p>
 <div class="callout-content">
 <ul><li>Traits data contain more information about ecologially significant
 traits than just species IDs.</li>
-<li>Traits data can be treated similarly to abundance data.</li>
+<li>Traits data can be analyed with Hill numbers and visualized with
+rank plots similarly to abundance data.</li>
 </ul></div>
 </div>
 </div>
