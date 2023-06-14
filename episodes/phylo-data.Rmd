@@ -11,8 +11,10 @@ editor_options:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = TRUE)
-
+knitr::opts_chunk$set(echo = FALSE,  results = FALSE, eval = TRUE)
+library(tidyverse)
+library(ape)
+library(hillR)
 ```
 
 ::: questions
@@ -60,7 +62,7 @@ Several file formats exist to store phylogenetic information. The most common fo
 
 The basic structure of a tree in a `Newick` format is therefore as follows:
 
-((A,B),C);
+`((A,B),C);`
 
 The notation above indicates that:
 1. we have three taxa in our tree, named `A`, `B` and `C`;
@@ -69,7 +71,7 @@ The notation above indicates that:
 
 In addition, `Newick` files can also store information on the branch leading to it tip and node. We do that by adding `:` after each tip/node.
 
-((A:0.5,B:0.5):0.5,C:1);
+`((A:0.5,B:0.5):0.5,C:1);`
 
 The notation above indicates that:
 1. the branches containing A and B have each a length = 0.5;
@@ -121,7 +123,7 @@ Two common approaches to retrieving a phylogeny for a focal group are 1) relying
 For this workshop, since we are using simulated data, we will work with the first option: a "published" arthropod phylogeny. Let's load this phylogeny into R using the function `read.tree` we learned earlier.
 
 ```{r reading-arthro-phylo}
-arthro_tree <- read.tree('LINK_TO_PHYLOGENY')
+arthro_tree <- read.tree('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/phylo_raw.nwk')
 
 class(arthro_tree)
 ```
@@ -142,7 +144,7 @@ Since this is a "published" arthropod phylogeny, we will likely not have any mis
 
 Let's first find out what are those "missing taxa". For this, we'll refer back to our original species list, from the `abundances` object:
 
-```{r}
+```{r eval=FALSE}
 all_names <- abundances$final_name
 ```
 
@@ -187,7 +189,7 @@ Now that we have a modified abundance dataset where all taxa names are present i
 
 We can prune our phylogeny using the function `keep.tip` from the `ape` package. For this function, we provide the entire phylogeny plus the names of the tips we want to keep. Here, we will retrieve those names from the new abundances dataset we create, with names corrected to match the phylogeny.
 
-```{r}
+```{r eval=FALSE}
 arthro_tree_pruned <- keep.tip(arthro_tree,abundances_phylo$final_name)
 ```
 
