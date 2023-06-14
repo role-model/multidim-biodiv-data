@@ -934,7 +934,7 @@ using the R APIs of GBIF, NCBI, and OTOL?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>NCBI and OTOL both require an initial search to obtain record IDs,
 then a second fetch to obtain the actual record data for each ID</p>
@@ -1428,7 +1428,8 @@ on each island.</p>
 <span>    pch <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    pt.lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span>,</span>
-<span>    bty <span class="op">=</span> <span class="st">"n"</span></span>
+<span>    bty <span class="op">=</span> <span class="st">"n"</span>, </span>
+<span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion6" class="callout discussion">
@@ -1579,7 +1580,8 @@ these in terms of Hill numbers.</p>
 <span>    pch <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    pt.lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span>,</span>
-<span>    bty <span class="op">=</span> <span class="st">"n"</span></span>
+<span>    bty <span class="op">=</span> <span class="st">"n"</span>, </span>
+<span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb17">
@@ -3538,7 +3540,7 @@ corrected to match the phylogeny. Hint: you may want to refer to the <a href="ab
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>To create our site-by-species matrix, we will use the
 <code>pivot_wider</code> function from the <code>tidyr</code>
@@ -4141,7 +4143,7 @@ to infer regarding the history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
@@ -4611,7 +4613,7 @@ numbers in a perfectly even community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
