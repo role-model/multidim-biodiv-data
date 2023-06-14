@@ -72,10 +72,8 @@ One of the simplest and most widespread estimators of `Ne` is the average number
     -   visualize coalescent genealogies with different numbers of individuals in a population and different numbers of generations
 
 -   [coaltrace app](https://bedford.io/projects/coaltrace/)
-
-```         
--   a dynamic and interactive visualization of coalescent genealogies with the ability to change parameters on the fly
-```
+    
+    -   a dynamic and interactive visualization of coalescent genealogies with the ability to change parameters on the fly
 
 -   [Bedford lab slides](https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/)
 
@@ -83,9 +81,8 @@ One of the simplest and most widespread estimators of `Ne` is the average number
 
 -   [cdmuir app](https://cdmuir.shinyapps.io/genetree-to-phylogeny/)
 
-```         
--   uses the coalescent to simulate gene trees and mutations along sequences
-```
+    -   uses the coalescent to simulate gene trees and mutations along sequences
+
 
 ## What does genetic diversity say about community assembly?
 
@@ -98,6 +95,8 @@ In addition, genetic diversity is impacted by demographic events and natural sel
 [![Image of coalescent genealogies traced from stable and growing populations. From the Bedford Lab coalescent slides.](images/changing_pop_size_1.png)](https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/20)
 
 Distinguishing a small, constant-sized population from a large population that's grown dramatically in the recent past is difficult with single-locus data typical of large-scale biodiversity studies. However, when paired with other data like traits and abundances, we can make more refined interpretations of the shape of genetic diversity across the community. For instance, the interpretation of a community with a few highly diverse species paired with many species with low genetic diversity may reflect a community with a few species that were not impacted by a historical environmental disturbance alongside many species that had their populations dramatically reduced, but have rapidly grown to larger modern population sizes.
+
+**Coalescent challenge**
 
 # Summarizing genetic diversity across species
 
@@ -193,6 +192,10 @@ Although not necessary for this workshop, it's generally advisable to write your
 ```{r alignment-write}
 ape::write.FASTA(ape_align, "path/to/alignment.fas")
 ```
+
+**perform alignments for multiple species challenge**
+
+-   I might introduce `lapply` here and make the calculating diversities across multiple species section a challenge
 
 ### ape
 
@@ -325,7 +328,7 @@ If your eyes glaze over at the seemingly random numbers below the sequence, don'
 
 4.  Quality encodings for the raw sequence letters in field 2. There must be the same number of encoding symbols as there are sequence letters.
 
-The symbols are bytes representing quality, ranging from 0x21 (lowest quality; '!' in ASCII) to 0x7e (highest quality; '\~' in ASCII). Here, they're arranged in order of quality from lowest on the left to highest on the right:
+The symbols are bytes representing quality, ranging from 0x21 (lowest quality; '!' in ASCII) to 0x7e (highest quality; '~' in ASCII). Here, they're arranged in order of quality from lowest on the left to highest on the right:
 
 ```         
 !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
@@ -497,7 +500,7 @@ ggplot() +
 
 ```
 
-The first bar of this plot indicates derived alleles (i.e. not ancestral) that appear once across the population. Approximately 35% of the sampled SNPs in the genome alignment are these "singletons". The second bar indicates derived alleles that appear twice across the population, where \~18% of the sampled SNPs are these "doubletons" and so forth.
+The first bar of this plot indicates derived alleles (i.e. not ancestral) that appear once across the population. Approximately 35% of the sampled SNPs in the genome alignment are these "singletons". The second bar indicates derived alleles that appear twice across the population, where ~18% of the sampled SNPs are these "doubletons" and so forth.
 
 The shape of the SFS can tell us important information about the demographic history of a population and their history of selection. The above plot corresponds with a population that has experienced demographic stability. A couple other examples of the impact of demographic history on the SFS include:
 
