@@ -256,7 +256,8 @@ legend(
     pch = 1,
     pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),
-    bty = "n"
+    bty = "n", 
+    cex = 0.8
 )
 ```
 
@@ -377,7 +378,8 @@ legend(
     pch = 1,
     pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),
-    bty = "n"
+    bty = "n", 
+    cex = 0.8
 )
 ```
 
