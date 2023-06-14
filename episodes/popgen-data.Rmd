@@ -34,12 +34,11 @@ After following this episode, we intend that participants will be able to:
 1.  Understand what genetic diversity is
 2.  Visualize genetic diversity distributions
 3.  Connect genetic diversity distributions to Hill numbers
-4.  Identify key features of different sequence data formats
-5.  Import population genetic data in multiple formats into the R environment
-6.  Manipulate pop gen data by adding and removing sequences
+5.  Import population genetic data into the R environment
+6.  Manipulate pop gen data
 7.  Calculate genetic diversity $\pi$
-8.  Calculate Hill numbers
-9.  Interpret Hill numbers
+8.  Calculate and interpret Hill numbers of genetic diversity
+9.  Import 
 
 :::::::::::::
 
@@ -116,17 +115,11 @@ Distinguishing a small, constant-sized population from a large population that's
 
 **Coalescent challenge**
 
-# Summarizing genetic diversity across species
-
-### Genetic diversity distributions
-
-{{pi across species neutral viz}}
-
-{{pi across species non-neutral viz}}
-
 ### Hill numbers of genetic diversity across species
 
 In the context of summarizing species abundances, Hill numbers are the effective number of species in a community, where each exponent (q-value) increasingly weights rare species more heavily. The interpretation is similar when summarizing genetic diversity. Hill numbers are the effective number of species in a community, where each q-value increasingly weights species with lower genetic diversity more heavily. Rather than measuring an effective diversity of abundances, this is an effective diversity of genetic diversities.
+
+{{pi distribution}} {{hill 1 through 5}}
 
 # Work with pop gen data
 
