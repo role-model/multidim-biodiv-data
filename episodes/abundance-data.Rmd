@@ -214,7 +214,7 @@ abundances$final_name <- abundances$matched_name2
 head(abundances)
 ```
 
-```{r include = FALSE, eval = TRUE}
+```{r include = FALSE, eval = FALSE}
 write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"), row.names = F)
 
 ```
