@@ -522,8 +522,7 @@ We can directly calculate Hill numbers using the `hill_phylo` function along wit
 ```{r}
 hill_values <- vector('list',length = 4)
 for (i in seq(0,3)) {
-  #hill_values[[i+1]] <- hill_phylo(phylo_wide,arthro_tree_pruned, q = i)
-  hill_values[[i+1]] <- hill_phylo(even_comm,even_tree, q = i)
+  hill_values[[i+1]] <- hill_phylo(phylo_wide,arthro_tree_pruned, q = i)
 }
 ```
 
@@ -562,107 +561,3 @@ lines(seq(0,3),hill_phylo_nbs[2,2:5],
 A few points of discussion...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Graveyard
-
-Because the entire tree of 
-
-```{r rotl ott ids}
-library(rotl)
-
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_resolved.csv")
-
-# This is kind of a mixed cleaning/analysis interlude that seems like it belongs below.
-
-resolved_names <-  tnrs_match_names(abundances$final_name)
-
-# Remove names that aren't a perfect match
-
-good_names <- resolved_names[ !resolved_names$approximate_match,]
-good_names <- good_names[ !is.na(good_names$approximate_match), ]
-
-# Remove a couple of ott ids that seem to confuse tol_induced_subtree
-
-good_names <- good_names[ good_names$ott_id != "3574707", ]
-good_names <- good_names[ good_names$ott_id != "737065", ]
-```
-
-Next, we can query the Open Tree of Life for those IDs using the `tol_induced_subtree` function.
-
-```{r tol subtree}
-
-arthro_tree <- tol_induced_subtree(ott_id = (good_names$ott_id))
-
-```
-
-In this section, we will deal with these issues in order to prepare our data for community inferences. Our first issue will be dealt with in a challenge!
-
-### Resolving taxonomic names
-
-::: challenge
-
-In previous episodes, we have used the package `taxize` to clean and standardize the taxonomic names in out dataset. Here, we will apply the same approach to the tip names of our phylogeny. We need to make sure the names we will accept from `taxize` will match the names we have accepted in previous episodes. Finally, after we decide on the names, we need to add them to the `phylogeny` objects, where the tip names are stored.
-
-::: solution
-
-First, we check the names using the `gnr_resolve()` function. In `phylogeny`, tip names are stored in `phylogeny$tip.label`, so we provide that vector to our function.
-
-```{r phylo-resolve-sol1}
-library(taxize)
-phylogeny <- arthro_tree
-
-phylo_tip_names <- phylogeny$tip.label
-
-for(i in 1:length(phylo_tip_names)) {
-    phylo_tip_names[i] <- strsplit(phylo_tip_names[i][1], "_ott")[[1]][1]
-     phylo_tip_names[i] <- gsub("_", " ", phylo_tip_names[i])
-}
-
-
-phylo_tip_names
-
-name_resolve <- gnr_resolve(phylo_tip_names, best_match_only = TRUE, canonical = TRUE)
-head(name_resolve)
-```
-
-We can see what taxa are in conflict with the names retrieved by `taxize` by subsetting `name_resolve` based on boolean matching.
-
-```{r phylo-resolve-sol2}
-mismatches_phylo <- name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2, c("user_supplied_name", "matched_name2")]
-
-mismatches_phylo
-```
-
-From here, we can see that apparently there are no misspellings in our tree (as expected from a published phylogeny). Most of the mismatches seem to be related to changes in the taxonomic treatment of species. This is a common situation, since taxonomic treatments are often revised after new trees are published; it might be the case that `nameA` in our dataset was treated as `nameB` at the time the phylogeny was created.
-
-In the previous episodes, we used the names provided by `taxize` directly. Therefore, here we can just add those names directly to the phylogeny.
-
-```{r phylo-resolve-sol3}
-phylogeny$tip.label <- name_resolve$matched_name2
-
-```
-
-::::::::::::
-
-::::::::::::
-
-**RMD commenting May 26. With taxize down, and using `rotl` for both name resolution and getting the phylogeny, there aren't going to be mismatched names in the phylogeny.**
-
-**But, there is the potential for missing names...**
-
-**For now, RMD is commenting out the phylo cleaning section. If we end up continuing with `rotl` for both cleaning + phylo, I think there will be an opportunity to do name/broken taxon fixing. Some of this is covered in an R Open Tree of Life Carpentries lesson here: https://mctavishlab.github.io/R_OpenTree_tutorials/03-broken-taxa/index.html (which is what RMD is working from).**
-
-
-We will use the `setdiff` function to see the differences between the list of names from `abundances` and the one from the phylogeny.
-
-```{r checking-missing-tips}
-
-phylo_names <- arthro_tree$tip.label
-
-unfound_names <- setdiff(all_names, phylo_names)
-
-```
-
----
-Another option, that uses the `%in%` operator and the indexing rationale for sub-setting.
-
