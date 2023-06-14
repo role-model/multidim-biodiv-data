@@ -1,44 +1,44 @@
 "island","site","GenSp","abundance"
-"Big Island","BI_01","Cis signatus",544
-"Big Island","BI_01","Acanthia procellaris",32
-"Big Island","BI_01","Spoles solitaria",59
-"Big Island","BI_01","Laupala pruna",153
-"Big Island","BI_01","Toxeuma hawaiiensis",82
-"Big Island","BI_01","Chrysotus parthenus",27
-"Big Island","BI_01","Metrothorax deverilli",63
-"Big Island","BI_01","Drosophila obscuricornis",6
-"Big Island","BI_01","Cis bimaculatus",12
-"Big Island","BI_01","Nysius lichenicola",9
-"Big Island","BI_01","Agonosmus argentiferus",9
-"Big Island","BI_01","Agrotis chersotoides",2
-"Big Island","BI_01","Scaptomyza villosa",2
-"Maui","MA_01","Cis bimaculatus",457
-"Maui","MA_01","Drosophila obscuricornis",76
-"Maui","MA_01","Lispocephala dentata",43
-"Maui","MA_01","Hylaeus facilis",229
-"Maui","MA_01","Toxeuma hawaiiensis",23
-"Maui","MA_01","Laupala vespertina",8
+"BigIsland","BI_01","Cis signatus",541
+"BigIsland","BI_01","Acanthia procellaris",64
+"BigIsland","BI_01","Spoles solitaria",34
+"BigIsland","BI_01","Laupala pruna",21
+"BigIsland","BI_01","Toxeuma hawaiiensis",111
+"BigIsland","BI_01","Chrysotus parthenus",208
+"BigIsland","BI_01","Metrothorax deverilli",11
+"BigIsland","BI_01","Drosophila obscuricornis",2
+"BigIsland","BI_01","Cis bimaculatus",4
+"BigIsland","BI_01","Nysius lichenicola",1
+"BigIsland","BI_01","Agonosmus argentiferus",1
+"BigIsland","BI_01","Agrotis chersotoides",1
+"BigIsland","BI_01","Scaptomyza villosa",1
+"Maui","MA_01","Cis bimaculatus",149
+"Maui","MA_01","Drosophila obscuricornis",83
+"Maui","MA_01","Lispocephala dentata",123
+"Maui","MA_01","Hylaeus facilis",74
+"Maui","MA_01","Toxeuma hawaiiensis",102
+"Maui","MA_01","Laupala vespertina",52
 "Maui","MA_01","Proterhenus punctipennis",51
-"Maui","MA_01","Nesomicromus haleakalae",17
-"Maui","MA_01","Acanthia procellaris",42
-"Maui","MA_01","Scaptomyza villosa",40
-"Maui","MA_01","Chrysotus parthenus",3
-"Maui","MA_01","Cis signatus",4
-"Maui","MA_01","Odynerus erythrostactes",3
-"Maui","MA_01","Agrotis chersotoides",1
-"Maui","MA_01","Nysius lichenicola",1
-"Maui","MA_01","Eurynogaster vittata",1
-"Maui","MA_01","Elmoea lanceolata",1
-"Kauai","KA_01","Proterhinus punctipennis",596
-"Kauai","KA_01","Xyletobius collingei",92
-"Kauai","KA_01","Metrothorax deverilli",11
-"Kauai","KA_01","Nesodynerus mimus",75
-"Kauai","KA_01","Scaptomyza vagabunda",16
-"Kauai","KA_01","Lucilia graphita",104
-"Kauai","KA_01","Eudonia lycopodiae",79
-"Kauai","KA_01","Atelothrus depressus",1
-"Kauai","KA_01","Mecyclothorax longulus",5
-"Kauai","KA_01","Laupala pruna",10
-"Kauai","KA_01","Hylaeus sphecodoides",8
-"Kauai","KA_01","Hyposmocoma sagittata",2
+"Maui","MA_01","Nesomicromus haleakalae",76
+"Maui","MA_01","Acanthia procellaris",53
+"Maui","MA_01","Scaptomyza villosa",63
+"Maui","MA_01","Chrysotus parthenus",27
+"Maui","MA_01","Cis signatus",52
+"Maui","MA_01","Odynerus erythrostactes",34
+"Maui","MA_01","Agrotis chersotoides",23
+"Maui","MA_01","Nysius lichenicola",16
+"Maui","MA_01","Eurynogaster vittata",6
+"Maui","MA_01","Elmoea lanceolata",16
+"Kauai","KA_01","Proterhinus punctipennis",434
+"Kauai","KA_01","Xyletobius collingei",41
+"Kauai","KA_01","Metrothorax deverilli",190
+"Kauai","KA_01","Nesodynerus mimus",30
+"Kauai","KA_01","Scaptomyza vagabunda",81
+"Kauai","KA_01","Lucilia graphita",49
+"Kauai","KA_01","Eudonia lycopodiae",110
+"Kauai","KA_01","Atelothrus depressus",10
+"Kauai","KA_01","Mecyclothorax longulus",11
+"Kauai","KA_01","Laupala pruna",12
+"Kauai","KA_01","Hylaeus sphecodoides",4
+"Kauai","KA_01","Hyposmocoma sagittata",27
 "Kauai","KA_01","Campsicnemus nigricollis",1

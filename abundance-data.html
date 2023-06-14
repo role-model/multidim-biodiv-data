@@ -419,7 +419,7 @@ great place to start!</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_raw.csv"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>And look at what we’ve got:</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -461,12 +461,15 @@ simple typos in taxonomic names.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mismatches</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">!=</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span>, <span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">mismatches</span> <span class="op">&lt;-</span> <span class="va">name_resolve</span><span class="op">[</span> <span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span> <span class="op">!=</span></span>
+<span>                                <span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="va">mismatches</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span></code></pre>
 </div>
 <p>Four of these are just typos. But <code>Agrotis chersotoides</code>
-in our data is resolved only to Agrotis. What’s up there?</p>
+in our data is resolved only to <code>Agrotis</code> and
+<code>Metrothorax deverilli</code> is resolved to
+<code>Metrothorax</code>. What’s up there?</p>
 <div id="discussion4" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -475,15 +478,22 @@ in our data is resolved only to Agrotis. What’s up there?</p>
 <h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion4"></a>
 </h3>
 <div class="callout-content">
-<p>Agrotis taxonomic resolution</p>
+<p><em>Agrotis</em> and <em>Metrothorax</em> taxonomic resolution</p>
 </div>
 </div>
 </div>
+
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span><span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">==</span> <span class="st">"Agrotis chersotoides"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Peridroma chersotoides"</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span></span>
+<span>    <span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">==</span> <span class="st">"Agrotis chersotoides"</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="st">"Peridroma chersotoides"</span></span>
+<span></span>
+<span><span class="va">name_resolve</span><span class="op">$</span><span class="va">matched_name2</span><span class="op">[</span></span>
+<span>    <span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span> <span class="op">==</span> <span class="st">"Metrothorax deverilli"</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="st">"Metrothorax deverilli"</span></span></code></pre>
 </div>
 <p>Now we need to add the newly-resolved names to our
 <code>abundances</code> data. For this, we’ll use a function called
@@ -506,9 +516,10 @@ in our data is resolved only to Agrotis. What’s up there?</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">abundances</span>, <span class="va">name_resolve</span>, by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">matched_name2</span></span></code></pre>
+<span><span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">matched_name2</span></span>
+<span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span></code></pre>
 </div>
-
 </div>
 <div class="section level2">
 <h2 id="visualizing-species-abundance-distributions">Visualizing species abundance distributions<a class="anchor" aria-label="anchor" href="#visualizing-species-abundance-distributions"></a></h2>
@@ -536,37 +547,44 @@ on each island.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">HawaiiIsland</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="co"># figure out max number of species at a site for axis limit setting below</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">island_abundances</span>, <span class="va">nrow</span><span class="op">)</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">max_sp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span></span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Kauai</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Species abundances at each site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Abundance"</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
-<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">140</span><span class="op">)</span>,</span>
-<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span></span>
+<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="va">max_sp</span><span class="op">)</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">max</span><span class="op">(</span><span class="va">abundances</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    log <span class="op">=</span> <span class="st">'y'</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Kauai</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Maui</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Maui</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">BigIsland</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
-<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii"</span>, <span class="st">"Kauai"</span>, <span class="st">"Maui"</span><span class="op">)</span>,</span>
-<span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Hawaii"</span><span class="op">)</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    pt.lwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span>,</span>
+<span>    bty <span class="op">=</span> <span class="st">"n"</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/abundance-data-rendered-base%20R%20plots%20of%20SADs-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion6" class="callout discussion">
+<figure><img src="fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion6" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -625,7 +643,7 @@ numbers.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">0</span> <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hill_0</span></span></code></pre>
 </div>
@@ -681,45 +699,44 @@ these in terms of Hill numbers.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">HawaiiIsland</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Kauai</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Species abundances at each site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Abundance"</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#440154FF"</span>,</span>
-<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">140</span><span class="op">)</span>,</span>
-<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span></span>
+<span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="va">max_sp</span><span class="op">)</span>,</span>
+<span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">max</span><span class="op">(</span><span class="va">abundances</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    log <span class="op">=</span> <span class="st">'y'</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Kauai</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Maui</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">points</span><span class="op">(</span></span>
-<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Maui</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">BigIsland</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
-<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hawaii"</span>, <span class="st">"Kauai"</span>, <span class="st">"Maui"</span><span class="op">)</span>,</span>
-<span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span></span>
+<span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Hawaii"</span><span class="op">)</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    pt.lwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#FDE725FF"</span><span class="op">)</span>,</span>
+<span>    bty <span class="op">=</span> <span class="st">"n"</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/abundance-data-rendered-render%20SAD%20plots%20again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb17">
+<figure><img src="fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_numbers</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hill_numbers' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">hill_numbers</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">hill_0</span>, <span class="va">hill_1</span>, <span class="va">hill_2</span><span class="op">)</span></span>
+<span><span class="va">hill_numbers</span></span></code></pre>
 </div>
 </div>
 </div>
