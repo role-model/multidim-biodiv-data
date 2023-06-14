@@ -172,15 +172,29 @@ No ENTREZ API key provided
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
 ```
 
+```{.warning}
+Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
+proceeding to next if there is one
+```
+
+```{.error}
+Error in names(output) <- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]
+```
+
 ```r
 species_names <- species_uids[[1]]$childtaxa_name
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_uids' not found
+```
+
+```r
 head(species_names)
 ```
 
-```{.output}
-[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
-[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
 ```
 
 ### Occurrence data from GBIF 
@@ -224,31 +238,34 @@ The following objects are masked from 'package:base':
 
 ```r
 occurrences <- occ(query = species_names, from = 'gbif')
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
+```
+
+```r
 occurrences_gbif <- occurrences$gbif$data
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences' not found
+```
+
+```r
 occurrences_df <- bind_rows(occurrences_gbif)
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_gbif' not found
+```
+
+```r
 head(occurrences_df)
 ```
 
-```{.output}
-# A tibble: 6 × 192
-  name           longitude latitude issues prov  key   scientificName datasetKey
-  <chr>              <dbl>    <dbl> <chr>  <chr> <chr> <chr>          <chr>     
-1 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-2 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-3 Tetragnatha p…     -156.     20.8 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-4 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-5 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-6 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-# ℹ 184 more variables: publishingOrgKey <chr>, installationKey <chr>,
-#   hostingOrganizationKey <chr>, publishingCountry <chr>, protocol <chr>,
-#   lastCrawled <chr>, lastParsed <chr>, crawlId <int>, basisOfRecord <chr>,
-#   individualCount <int>, occurrenceStatus <chr>, taxonKey <int>,
-#   kingdomKey <int>, phylumKey <int>, classKey <int>, orderKey <int>,
-#   familyKey <int>, genusKey <int>, speciesKey <int>, acceptedTaxonKey <int>,
-#   acceptedScientificName <chr>, kingdom <chr>, phylum <chr>, order <chr>, …
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_df' not found
 ```
 
 ### Phylogenetic trees from the Open Tree of Life
@@ -267,7 +284,18 @@ matched names.
 
 ```r
 resolved_names <- tnrs_match_names(species_names)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
+```
+
+```r
 otol_ids <- ott_id(resolved_names)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'resolved_names' not found
 ```
 
 Finally, we get the tree containing these IDs as
@@ -276,10 +304,19 @@ tips.
 
 ```r
 tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'resolved_names' not found
+```
+
+```r
 plot(tr)
 ```
 
-<img src="fig/finding_data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'tr' not found
+```
 
 Unfortunately we can see that the phylogenetic
 relationships between these species aren't
@@ -332,6 +369,10 @@ search in a lat-long bounding box around Hawaii.
 occurences_df <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
                      gbifopts=list("decimalLatitude"='18.910361,28.402123',
                                    "decimalLongitude"='-178.334698,-154.806773')) 
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
 ```
 
 For NCBI, we can add the state of Hawaii to the
