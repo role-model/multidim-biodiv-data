@@ -104,7 +104,7 @@ Let's load the data:
 
 
 ```r
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/rmd-review/episodes/data/abundances_raw.csv")
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
 ```
 
 And look at what we've got:
@@ -132,11 +132,9 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE,
 
 ::: instructor
 
-From the `taxize` documentation:
+Sometimes `gnr_resolve` doesnt work. From the `taxize` documentation:
 
 > 503 Service Unavailable: This is typically a temporary problem; often given when a server is handling too many requests, and is briefly down.
-
-Note that RMD is getting this error consistently Friday afternoon 5/19 and Monday morning 5/22.
 
 :::
 
@@ -148,23 +146,37 @@ head(name_resolve)
 
 
 ```r
-mismatches <- name_resolve[ name_resolve$matched_name2 != name_resolve$user_supplied_name, ]
+mismatches <- name_resolve[ name_resolve$matched_name2 !=
+                                name_resolve$user_supplied_name, ]
 
 mismatches[, c("user_supplied_name", "matched_name2")]
 ```
 
-Four of these are just typos. But `Agrotis chersotoides` in our data is resolved only to Agrotis. What's up there?
+Four of these are just typos. But `Agrotis chersotoides` in our data is resolved only to `Agrotis` and `Metrothorax deverilli` is resolved to `Metrothorax`. What's up there?
 
 ::: discussion
 
-Agrotis taxonomic resolution
+*Agrotis* and *Metrothorax* taxonomic resolution
+
+:::
+
+
+::: instructor
+
+Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it dosen't show up in GNR.
 
 :::
 
 
 
 ```r
-name_resolve$matched_name2[name_resolve$user_supplied_name == "Agrotis chersotoides"] <- "Peridroma chersotoides"
+name_resolve$matched_name2[
+    name_resolve$user_supplied_name == "Agrotis chersotoides"] <- 
+    "Peridroma chersotoides"
+
+name_resolve$matched_name2[
+    name_resolve$user_supplied_name == "Metrothorax deverilli"] <- 
+    "Metrothorax deverilli"
 ```
 
 
@@ -183,16 +195,13 @@ Visual of how `left_join` works
 abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
 abundances$final_name <- abundances$matched_name2
+
+head(abundances)
 ```
 
 
 
 
-::: instructor
-
-For now I am skipping cleaning the abundances name cleaning section because taxize is giving the server error. This may need some updating if there are duplicate species names once cleaned. _But_ that element of it will also probably change if we update the data (nestedness thing) so skippable for now.
-
-:::
 
 
 
@@ -213,38 +222,45 @@ Now, we'll construct a plot with lines for the abundances of species on each isl
 
 
 ```r
+# figure out max number of species at a site for axis limit setting below
+max_sp <- sapply(island_abundances, nrow)
+max_sp <- max(max_sp)
+
 plot(
-    sort(island_abundances$HawaiiIsland$abundance, decreasing = T),
+    sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
     xlab = "Rank",
     ylab = "Abundance",
     lwd = 2,
     col = "#440154FF",
-    xlim = c(0, 140),
-    ylim = c(0, 40)
+    xlim = c(1, max_sp),
+    ylim = c(1, max(abundances$abundance)), 
+    log = 'y'
 )
 
 points(
-    sort(island_abundances$Kauai$abundance, decreasing = T),
+    sort(island_abundances$Maui$abundance, decreasing = T),
     lwd = 2,
     col = "#21908CFF"
 )
 
 points(
-    sort(island_abundances$Maui$abundance, decreasing = T),
+    sort(island_abundances$BigIsland$abundance, decreasing = T),
     lwd = 2,
     col = "#FDE725FF"
 )
 
 legend(
     "topright",
-    legend = c("Hawaii", "Kauai", "Maui"),
-    lwd = 2,
-    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+    legend = c("Kauai", "Maui", "Hawaii"),
+    pch = 1,
+    pt.lwd = 2,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF"),
+    bty = "n"
 )
 ```
 
-<img src="fig/abundance-data-rendered-base R plots of SADs-1.png" style="display: block; margin: auto;" />
+<img src="fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" />
 
 ::: discussion
 
@@ -293,7 +309,7 @@ The `hillR` package allows us to calculate Hill numbers.
 
 
 ```r
-hill_0 <- hill_taxa(abundance_wide, q = 0 )
+hill_0 <- hill_taxa(abundance_wide, q = 0)
 
 hill_0
 ```
@@ -332,46 +348,46 @@ Let's revisit the SAD plots we generated before, and think about these in terms 
 
 ```r
 plot(
-    sort(island_abundances$HawaiiIsland$abundance, decreasing = T),
+    sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
     xlab = "Rank",
     ylab = "Abundance",
     lwd = 2,
     col = "#440154FF",
-    xlim = c(0, 140),
-    ylim = c(0, 40)
+    xlim = c(1, max_sp),
+    ylim = c(1, max(abundances$abundance)), 
+    log = 'y'
 )
 
 points(
-    sort(island_abundances$Kauai$abundance, decreasing = T),
+    sort(island_abundances$Maui$abundance, decreasing = T),
     lwd = 2,
     col = "#21908CFF"
 )
 
 points(
-    sort(island_abundances$Maui$abundance, decreasing = T),
+    sort(island_abundances$BigIsland$abundance, decreasing = T),
     lwd = 2,
     col = "#FDE725FF"
 )
 
 legend(
     "topright",
-    legend = c("Hawaii", "Kauai", "Maui"),
-    lwd = 2,
-    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+    legend = c("Kauai", "Maui", "Hawaii"),
+    pch = 1,
+    pt.lwd = 2,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF"),
+    bty = "n"
 )
 ```
 
-<img src="fig/abundance-data-rendered-render SAD plots again-1.png" style="display: block; margin: auto;" />
+<img src="fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" />
 
 
 
 ```r
+hill_numbers <- rbind(hill_0, hill_1, hill_2)
 hill_numbers
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'hill_numbers' not found
 ```
 
 
