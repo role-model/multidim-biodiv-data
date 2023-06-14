@@ -21,7 +21,7 @@ keywords: 'software, data, lesson, The Carpentries'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha'
+life_cycle: 'alpha'
 
 # License of the lesson
 license: 'CC-BY 4.0'
@@ -58,7 +58,7 @@ contact: 'team@carpentries.org'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
 - introduction.Rmd
 - finding_data.Rmd
 - care.Rmd
@@ -70,14 +70,14 @@ episodes:
 - phylo-hill.Rmd
 
 # Information for Learners
-learners: 
+learners:
 - setup.md
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #
