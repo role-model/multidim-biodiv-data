@@ -136,7 +136,13 @@ plot(arthro_tree, type = 'fan', show.tip.label = F)
 
 How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some name checking and filtering.
 
-### Checking for missing tips
+### Cleaning and checking phylogeny taxa
+
+The issue of underscore:
+
+```{r}
+arthro_tree$tip.label <- gsub('_',' ',arthro_tree$tip.label)
+```
 
 **Do we still want to keep this issue? Or simply skip ahead to pruning the phylogeny?**
 
@@ -145,7 +151,7 @@ Since this is a "published" arthropod phylogeny, we will likely not have any mis
 Let's first find out what are those "missing taxa". For this, we'll refer back to our original species list, from the `abundances` object:
 
 ```{r eval=FALSE}
-all_names <- abundances$final_name
+all_names <- unique(abundances$final_name)
 ```
 
 To cross-check this list against the list of names in our phylogeny, we can use the Boolean operator `%in%` coupled with `!`. This will allow us to check for names in `all_names` that are not included in the `arthro_tree$tip.label`. In summary, the expression `A %in% B` would return the position of the elements in vector A that are present in vector B. The `!` (NOT) operator returns the opposite of that expression, in a way that `!(A %in% B)` will return the position of elements in vector A that are *NOT* present in vector B (precisely what we need right now).
@@ -176,6 +182,9 @@ Now we use the indexes saved in `not_found` to replace the names in the position
 new_names[not_found] <- c('ADD_LIST_HERE')
 ```
 
+* Here I am changing the abundance to match the phylogeny. IT SHOULD BE THE OTHER WAY AROUND.*
+* Make change tip labels a challenge. *
+
 Now that we have a vector where all names match to a position in our phylogeny, we need to bring these corrected names back to our abundance data. Here, we will again first copy our `abundances` object into another object, in order to keep the original data intact. Then, we will change the column `final_name` based on the vector `new_names`.
 
 ```{r}
@@ -196,6 +205,8 @@ arthro_tree_pruned <- keep.tip(arthro_tree,abundances_phylo$final_name)
 Now, that we have a pruned more manageable phylogeny for our communities, let's move on to the next bit of information we need to summarize phylogenetic diversity: a site-by-species matrix. As we saw in the [abundances](abundance-data.Rmd) episode, such a matrix can be used to calculate Hill numbers and help us compare patterns across the different communities. In this episode, we are following the same approach to calculate Hill numbers, with the addition that, on top of the abundance, we will also be using phylogenetic information, i.e. the length of the branches in the phylogenetic tree leading to the taxa present in each community.
 
 Here, we need to make a site-by-species matrix using the new taxa names corrected to match the phylogeny. Since we have done this in a previous episode, we'll cover this in a challenge.
+
+* REMOVE THIS CHALLENGE *
 
 ::: challenge
 
@@ -301,9 +312,9 @@ lines(even_comm_nb$q[even_comm_nb$tree=='long'],
      even_comm_nb$hill_nb[even_comm_nb$tree=='long'],
      type='b',col='darkred')
 ```
-This figure clearly shows that the tree with longer branches (dark red line) harbors higher evolutionary history, and therefore higher PD, as calculated by Hill numbers. It also shows that the Hill number value decreases as the order goes up, since higher orders focus on branch lengths that are common.
+This figure clearly shows that the tree with longer branches (dark red line) harbors higher evolutionary history, and therefore higher PD, as calculated by Hill numbers. It also shows that the Hill number value decreases as the order goes up, since higher orders focus on branch lengths that are more common.
 
-What would happen if the abundance of species in our community was uneven (a more realistic case)? In this case, both branch lengths and how abundant each branch is will have an effect on the calculated value. To visualize, let's repeat the calculations above for the uneven community.
+What would happen if the abundance of species in our community was uneven (a more realistic scenario)? In this case, both branch lengths and how abundant each branch is will have an effect on the calculated value. To visualize, let's repeat the calculations above for the uneven community.
 
 ```{r}
 # Uneven comm with short tree
@@ -360,8 +371,8 @@ lines(uneven_comm_nb$q[uneven_comm_nb$tree=='long'],
 From this picture, we can take a few insights:
 1. longer branches still yield higher Hill numbers, regardless of the evenness in the community abundance;
 2. the Hill number for q = 0 remains the same, regardless of the evenness.
-3. As already observed, the value of the hill numbers drop as the order goes up. In the even community, since species have the same abundance, this decrease reflects higher orders focusing on more common values of branch length. In the uneven community, where species have different abundance, this decrease reflects higher orders focusing less and less on rare taxa. In other words, higher orders emphasize what is more common; when community is even, they emphasize the value of branch length that is common. When community is uneven, they emphasize the more common taxa (i.e., the branch that are over represented).
-4. For q = 1 to 3, Hill numbers are always lower for uneven communities. This suggests that although branch lengths are the same (e.g., both dark red and dark blue lines represent the long tree), these branches are unevenly represented in the community due to uneven abundance of species. This unevenness is represented by the lower values of Hill number on higher order. In other words, some branches in the tree "dominate" the community more than others. We can summarize this by saying that the higher the unevenness the lower the value of the Hill number will be. 
+3. As already observed, the value of the hill numbers drop as the order goes up. In the even community, since species have the same abundance, this decrease reflects higher orders focusing on more common values of branch lengths. In the uneven community, where species have different abundances, this decrease reflects higher orders focusing less and less on branches leading to rare taxa.
+4. For q = 1 to 3, Hill numbers are always lower for uneven communities. This suggests that although branch lengths are the same (e.g., both dark red and dark blue lines represent the long tree), these branches are unevenly represented in the community due to uneven abundance of species. This unevenness is represented by the lower values of Hill number on higher orders. In other words, some branches in the tree "dominate" the community more than others. We can summarize this by saying that the higher the unevenness the lower the value of the Hill number will be.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
@@ -374,16 +385,16 @@ From this picture, we can take a few insights:
 
 So far, we have learned that Hill numbers are affected by both the sum of branch lengths and the relative representation of each branch (in terms of species abundance) in the community. For example 1, we have used a perfectly balanced tree, i.e., all extant taxa have equal branch length. In example 2, we will explore the effects of the uneven distribution of cladogenesis event along the tree, leading to different phylogeny structures.
 
-Let's create a totally balanced tree called `even_tree`...
+Let's create a totally balanced tree...
 
 ```{r, eval=FALSE}
-even_tree <- read.tree(text='(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);')
+balanced_tree <- read.tree(text='(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);')
 ```
 
-... and a totally unbalanced tree called `uneven_tree`.
+... and a totally unbalanced tree.
 
 ```{r, eval=FALSE}
-uneven_tree <- read.tree(text='(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);')
+unbalanced_tree <- read.tree(text='(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);')
 ```
 
 Let's plot both trees for comparison:
