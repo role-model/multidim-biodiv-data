@@ -223,7 +223,8 @@ write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"),
 
 ```{r, include = FALSE, eval = FALSE}
 
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundance_tallies.csv")
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
+
 
 ```
 
@@ -278,7 +279,8 @@ legend(
     pch = 1,
     pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),
-    bty = "n"
+    bty = "n", 
+    cex = 0.8
 )
 
 ```
@@ -402,7 +404,8 @@ legend(
     pch = 1,
     pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),
-    bty = "n"
+    bty = "n", 
+    cex = 0.8
 )
 
 ```
