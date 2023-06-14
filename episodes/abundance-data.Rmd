@@ -234,7 +234,7 @@ Now that we have cleaned data, we can generate plots of how abundance is distrib
 
 Because we'll want to look at each island separately, we'll use the `split` command to break the `abundances` data frame apart by island. `split` will split a dataframe into groups defined by the `f` argument (for "factor") - in this case, the different values of the `island` column of the `abundances` data frame:
 
-```{r separate islands using split, eval =T}
+```{r use-split, eval =T}
 
 island_abundances <- split(abundances, f = abundances$island)
 
