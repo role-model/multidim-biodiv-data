@@ -1,3 +1,19 @@
+---
+title: "Working with population genetic data"
+teaching: 10
+exercises: 2
+editor_options: 
+  markdown: 
+    wrap: 50
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+
+```
+
 ## Pop gen data
 
 ::: questions
@@ -63,25 +79,27 @@ One of the simplest and most widespread estimators of `Ne` is the average number
 
 #### Resources for understanding the coalescent
 
--   [Graham Coop's popgen notes](http://cooplab.github.io/popgen-notes/)
-
+-   [Graham Coop's popgen notes](http://cooplab.github.io/popgen-notes/)   
+    
     -   awesome resource for population genetics in general
 
 -   [learnPopGen app](https://phytools.shinyapps.io/coalescent-plot/)
-
+    
     -   visualize coalescent genealogies with different numbers of individuals in a population and different numbers of generations
+
 
 -   [coaltrace app](https://bedford.io/projects/coaltrace/)
     
     -   a dynamic and interactive visualization of coalescent genealogies with the ability to change parameters on the fly
 
 -   [Bedford lab slides](https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/)
-
+    
     -   a great set of slides that explains the coalescent in a complementary way to Graham Coop's notes
 
 -   [cdmuir app](https://cdmuir.shinyapps.io/genetree-to-phylogeny/)
 
     -   uses the coalescent to simulate gene trees and mutations along sequences
+
 
 
 ## What does genetic diversity say about community assembly?
