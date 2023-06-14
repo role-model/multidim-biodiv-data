@@ -126,9 +126,24 @@ For this workshop, since we are using simulated data, we will work with the firs
 
 
 ```r
-arthro_tree <- read.tree('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/phylo_raw.nwk')
+arthro_tree <- read.tree('LINK_TO_PHYLOGENY')
+```
 
+```{.warning}
+Warning in file(file, "r"): cannot open file 'LINK_TO_PHYLOGENY': No such file
+or directory
+```
+
+```{.error}
+Error in file(file, "r"): cannot open the connection
+```
+
+```r
 class(arthro_tree)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'arthro_tree' not found
 ```
 
 This new `phylo` object is way larger than the previous one, being a "real" phylogeny and all. You can inspect it again by directly calling the object `arthro_tree`. To plot it, we will use the `type` argument to modify how our tree will be displayed. Here, we used the option `'fan'`, to display a circular phylogeny (slightly better to show such a large phylogeny in the screen). We also set the `show.tip.label` argument to `False`.
@@ -138,7 +153,9 @@ This new `phylo` object is way larger than the previous one, being a "real" phyl
 plot(arthro_tree, type = 'fan', show.tip.label = F)
 ```
 
-<img src="fig/phylo-data-rendered-plotting-phylogeny-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'arthro_tree' not found
+```
 
 How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some name checking and filtering.
 
@@ -238,7 +255,7 @@ arthro_tree_pruned <- keep.tip(arthro_tree,abundances_phylo$final_name)
 ```
 
 ```{.error}
-Error in eval(expr, envir, enclos): object 'abundances_phylo' not found
+Error in eval(expr, envir, enclos): object 'arthro_tree' not found
 ```
 
 Now, that we have a pruned more manageable phylogeny for our communities, let's move on to the next bit of information we need to summarize phylogenetic diversity: a site-by-species matrix. As we saw in the [abundances](abundance-data.Rmd) episode, such a matrix can be used to calculate Hill numbers and help us compare patterns across the different communities. In this episode, we are following the same approach to calculate Hill numbers, with the addition that, on top of the abundance, we will also be using phylogenetic information, i.e. the length of the branches in the phylogenetic tree leading to the taxa present in each community.
