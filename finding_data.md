@@ -22,7 +22,7 @@ participants will be able to:
 1.  Effectively search for and find trait,
     sequence, and abundance data online given a
     taxon or research question
-2.  Retrieve data from GEOME & GBIF using their R
+2.  Retrieve data from NCBI & GBIF using their R
     APIs and apply API principles to other
     databases
 :::
@@ -38,28 +38,28 @@ share and standardize data for wide use.
 Many such databases exist, but here are some
 listed examples:
 
--   GBIF contains occurrence records of
+-   [GBIF](https://www.gbif.org/) contains occurrence records of
     individuals assembled from dozens of smaller
     databases.
 
--   NCBI (National Center for Biotechnology
-    Information) database, which includes GenBank
+-   [NCBI](https://www.ncbi.nlm.nih.gov/) (National Center for Biotechnology
+    Information) database, which includes [GenBank](https://www.ncbi.nlm.nih.gov/genbank/)
     is the largest repository of genetic data in
     the world, but includes a lot of biomedical
     data.
 
--   OTOL (Open Tree of Life) is a database that
+-   [OTOL](https://tree.opentreeoflife.org/opentree/argus/opentree14.7@ott93302) (Open Tree of Life) is a database that
     combines numerous published trees and
     taxonomies into one supertree
 
--   GEOME (Genomic Observatories MetaDatabase)
+-   [GEOME](https://geome-db.org/) (Genomic Observatories MetaDatabase)
     contains genetic data associated with
     specimens or samples from the field.
 
--   BOLD (Barcode of Life) is a reference library
+-   [BOLD](https://boldsystems.org/) (Barcode of Life) is a reference library
     and database for DNA barcoding
 
--   EOL (Encyclopedia of Life) is a species-level
+-   [EOL](https://eol.org/) (Encyclopedia of Life) is a species-level
     platform containing data like taxonomic
     descriptions, distribution maps, and images
 
@@ -86,6 +86,12 @@ packages that wrap the APIs of online
 repositories. Let's set those up now.
 
 
+```r
+library(spocc)
+library(rentrez)
+library(rotl) 
+```
+
 ```{.output}
 
 Attaching package: 'rotl'
@@ -95,6 +101,10 @@ Attaching package: 'rotl'
 The following object is masked from 'package:spocc':
 
     inspect
+```
+
+```r
+library(taxize)
 ```
 
 ```{.output}
@@ -144,6 +154,12 @@ Retrieving data for taxon 'Tetragnatha'
 • Found: 1 
 • Not Found: 0
 ```
+
+::: instructor
+
+You will be prompted to get an ENTREZ API key.  This is a good idea to do in order to make larger queries, but it won't be neccesary for this workshop.
+
+:::
 
 Then, we use the `downstream()` function to get a list of all
 species in *Tetragnatha*. 
@@ -199,6 +215,8 @@ a list of dataframes, one per species, we use the
 bind_rows() function from dplyr to combine this
 into a single dataframe.
 
+We can also specify a geographic bounding box of where we'd like to look for occrences. Here we're using a bounding box that covers the Hawaiian Islands.
+
 
 ```r
 library(spocc)
@@ -223,26 +241,178 @@ The following objects are masked from 'package:base':
 ```
 
 ```r
-occurrences <- occ(query = species_names, from = 'gbif')
+occurrences <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
+                   gbifopts=list("decimalLatitude"='18.910361,28.402123',
+                                 "decimalLongitude"='-178.334698,-154.806773')) 
+```
 
-occurrences_gbif <- occurrences$gbif$data
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha paludicola
+```
 
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha virescens
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha similis
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha makiharai
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha pinicola
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha javana
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha punua
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha marquesiana
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha guatemalensis
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha laboriosa
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha macracantha
+```
+
+```{.warning}
+Warning: gbif: HTTP/2 stream 113 was not closed cleanly before end of the
+underlying stream
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha kikokiko
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha anuenue
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha maxillosa
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha acuta
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha pilosa
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha quasimodo
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```{.warning}
+Warning: gbif: No records returned in GBIF for Tetragnatha perreirai
+```
+
+```{.warning}
+Warning: gbif: 500 - Server error
+```
+
+```r
+# extract the data from gbif
+occurrences_gbif <- occurrences$gbif$data 
+
+# the results in `$data` are a list with one element per species, 
+# so we combine all those elements
 occurrences_df <- bind_rows(occurrences_gbif)
 
 head(occurrences_df)
 ```
 
 ```{.output}
-# A tibble: 6 × 192
+# A tibble: 6 × 94
   name           longitude latitude issues prov  key   scientificName datasetKey
   <chr>              <dbl>    <dbl> <chr>  <chr> <chr> <chr>          <chr>     
-1 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-2 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-3 Tetragnatha p…     -156.     20.8 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-4 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-5 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-6 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-# ℹ 184 more variables: publishingOrgKey <chr>, installationKey <chr>,
+1 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
+2 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
+3 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
+4 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
+5 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
+6 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
+# ℹ 86 more variables: publishingOrgKey <chr>, installationKey <chr>,
 #   hostingOrganizationKey <chr>, publishingCountry <chr>, protocol <chr>,
 #   lastCrawled <chr>, lastParsed <chr>, crawlId <int>, basisOfRecord <chr>,
 #   individualCount <int>, occurrenceStatus <chr>, taxonKey <int>,
@@ -251,10 +421,31 @@ head(occurrences_df)
 #   acceptedScientificName <chr>, kingdom <chr>, phylum <chr>, order <chr>, …
 ```
 
+
 ### Phylogenetic trees from the Open Tree of Life
 
+First we need to get a clean list of taxonomic names from the GBIF results:
 
-The `rotl` package provides an interface to the Open
+
+```r
+hiTetragnatha <- unique(occurrences_df$name)
+hiTetClean <- gnr_resolve(hiTetragnatha, best_match_only = TRUE, 
+                          canonical = TRUE)
+hiTetragnatha <- hiTetClean$matched_name2
+hiTetragnatha
+```
+
+```{.output}
+ [1] "Tetragnatha stelarobusta" "Tetragnatha perkinsi"    
+ [3] "Tetragnatha filiciphilia" "Tetragnatha eurychasma"  
+ [5] "Tetragnatha tantalus"     "Tetragnatha polychromata"
+ [7] "Tetragnatha restricta"    "Tetragnatha brevignatha" 
+ [9] "Tetragnatha kamakou"      "Tetragnatha versicolor"  
+[11] "Tetragnatha kauaiensis"   "Tetragnatha waikamoi"    
+[13] "Tetragnatha hawaiensis"  
+```
+
+Now we can use the `rotl` package. The `rotl` package provides an interface to the Open
 Tree of Life. To get a tree from this database, we
 have to match our species names to OTOL's ids.
 
@@ -266,7 +457,7 @@ matched names.
 
 
 ```r
-resolved_names <- tnrs_match_names(species_names)
+resolved_names <- tnrs_match_names(hiTetragnatha)
 otol_ids <- ott_id(resolved_names)
 ```
 
@@ -276,15 +467,16 @@ tips.
 
 ```r
 tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
+
 plot(tr)
 ```
 
-<img src="fig/finding_data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+<img src="fig/finding_data-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
 
 Unfortunately we can see that the phylogenetic
 relationships between these species aren't
 resolved in OTOL, so we may have to look elsewhere
-for a phylogeny.
+for a phylogeny. This is an example of how not all data are in large repositories.
 
 ### Sequence data from NCBI
 
@@ -301,10 +493,21 @@ query.
 
 
 ```r
-search_results <- entrez_search(db="nucleotide", term="Tetragnatha & Genus[RANK]")
+# note we're using `hiTetragnatha` that we made previously to make a long
+# string of names that will be sent to NCBI via the ENTREZ API
+termstring <- paste(sprintf('%s[ORGN]', hiTetragnatha), collapse = ' OR ')
+head(termstrig)
 ```
 
-*Unlike* `spocc` but *similarly* to `rotol`, this first
+```{.error}
+Error in eval(expr, envir, enclos): object 'termstrig' not found
+```
+
+```r
+search_results <- entrez_search(db="nucleotide", term = termstring)
+```
+
+*Unlike* `spocc` but *similarly* to `rotl`, this first
 search returns a set of IDs.
 
 We then have to use `entrez_fetch()` on the IDs in
@@ -316,36 +519,35 @@ We specify 'db' as 'nucleotide' and 'rettype' as
 
 
 ```r
-sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, rettype = "fasta")
+sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, 
+                          rettype = "fasta")
+
+# just look at the first part of this *long* returned string
+cat(substr(sequences, 1, 1148))
 ```
 
-### Searching by location: querying GBIF and NCBI
+```{.output}
+>MG509184.1 Tetragnatha versicolor voucher BIOUG19074-C11 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+AGTTTATATTTTTTATTTGGAGTGTGATCAGNTATAGTAGGGACAGCTATAAGAGTTTTAATTCGAATTG
+AATTAGGTCAATCTGGCAAATTTCTTGGGGATGACCAATTATATAATGTTATTGTGACTGCTCATGCTTT
+TGTAATAATTTTTTTTATGGTTATACCAATTTTAATTGGGGGGTTTGGGAATTGATTAGTCCCATTAATA
+TTAGGGGCACCAGATATGGCTTTCCCCCGGATAAATAACTTAAGTTTTTGGTTGTTGCCCCCTTCTCTTT
+TTATATTGTTTATTTCGTCTATAGTGGATGTGGGAGTTGGAGCAGGTTGANCCNNTTATCCCCCTTTATC
+TTCTTTAGAAGGGCATTCAGGCAGATCTGTAGATTTTGCTATTTTTTCACTTCATTTAGCTGGGGCTTCT
+TCAATTATAGGGGCTATTAATTTTATTTCTACTATCCTTAATATGCGGATAAGAGGAATTTCTATAGAAA
+AGGTACCTCTTTTTGTGTGATCTGTTTTGATTACAGCG
 
-In addition to or instead of querying by species,
-we can search for records in a given location in
-the world. Within `spocc` we can  pass location
-queries directly to GBIF using `gbifopts`. We'll
-search in a lat-long bounding box around Hawaii.
+>MG511976.1 Tetragnatha versicolor voucher BIOUG23383-C01 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+AGTTTATATTTTTTATTTGGAGTGTGATCAGCTATAGTGGGGACAGCTATAAGAGTTTTAATTCGAATTG
+AGTTAGGTCAATCTGGGAAATTTCTTGGGGATGACCAATTATACAATGTAATTGTAACTGCTCATGCTTT
+TGTAATAATTTTTTTTATGGTGATACCAATTTTAATTGGGGGCTTTGGAAATTGATTAGTGCCCTTAATA
+TTAGGAGCGCCAGATATAGCTTTTCCTCGGATAAATAACTTAAGTTTTTGGTTGCTACCCCCTTCTCTTT
+TTATGTTGTTTATTTCATCTATAGTAGATGTGGGAGTTGGGGCAGGTTGAACTGTCTATCCCCCTTTATC
+T
 
-
-```r
-occurences_df <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
-                     gbifopts=list("decimalLatitude"='18.910361,28.402123',
-                                   "decimalLongitude"='-178.334698,-154.806773')) 
+>
 ```
 
-For NCBI, we can add the state of Hawaii to the
-query string. HI is the abbreviation for Hawaii.
-
-
-```r
-search_results <- entrez_search(db="nucleotide", term="Tetragnatha & HI[State]")
-
-sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, rettype = "fasta")
-```
-
-From this we obtain 5 nucleotide sequences from
-Hawaii *Tetragnatha*.
 
 ::: challenge
 What are some similarities and differences in how
