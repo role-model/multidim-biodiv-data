@@ -24,4 +24,91 @@ After following this episode, participants should be able to...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+## What biodiversity repositories utilize TK/BC Labels and Notices?
 
+::: challenge 
+
+Search the web and try to find some examples!
+
+:::: solution
+
+Not much!  Here are two:
+- [GEOME](https://geome-db.org/)
+- [Maine-eDNA database](https://metadata.maine-edna.org/main/localcontexts/)
+
+::::
+
+:::
+
+
+::: discussion
+
+What could be challenges in operationalizing TK/BC Labels and Notices?
+
+:::
+
+::: instructor
+
+Guide learners toward metadata standards to transition to next section
+
+:::
+
+## Are existing metadata standards sufficient for housing information about Indigenous data sovereignty and governance?
+
+::: challenge
+
+- Look up the descriptions of Biocultural [Labels](https://localcontexts.org/labels/biocultural-labels/) and [Notices](https://localcontexts.org/notice/bc-notice/)
+- Look up the fields of the Darwin Core metadata standard
+- Can the inter-opperate?
+
+:::
+
+
+```{r}
+library(jsonlite)
+library(httr)
+
+baseURL <- "https://localcontextshub.org/api/v1"
+projDetail <- "/projects/%s/"
+projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
+
+
+q <- paste0(baseURL, projDetail)
+q
+q <- sprintf(q, projID)
+q
+
+
+rawRes <- GET(q)
+jsonRes <- rawToChar(rawRes$content)
+
+res <- fromJSON(jsonRes)
+
+
+
+
+devtools::install_github("jacobgolan/enRich")
+library(enRich)
+
+projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
+meDNA <- find.projects(projID)
+meDNA
+
+meDNA[[1]]$notice
+
+seqs <- readFASTA('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/big_island_seqs.fas')
+
+temp <- tempdir()
+
+outputFASTA(
+    seqs = seqs$sequence,
+    seqid = seqs$name,
+    uqID = projID, # the uniqe ID for the project we found above in Step 3
+    filename = file.path(temp, "seqs-LCH-ID") # .fasta is automatically added
+)
+
+
+res <- readLines(file.path(temp, "seqs-LCH-ID.fasta"), n = 10)
+cat(res)
+
+```
