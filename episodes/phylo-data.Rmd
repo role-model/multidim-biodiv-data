@@ -11,8 +11,11 @@ editor_options:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE,  results = FALSE, eval = TRUE)
-library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE,  results = FALSE, eval = FALSE)
+```
+
+```{r}
+library(tidyr)
 library(ape)
 library(hillR)
 ```
