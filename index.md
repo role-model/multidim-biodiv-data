@@ -2,7 +2,11 @@
 site: sandpaper::sandpaper_site
 ---
 
-This is the website for Part I of the MBDB Workshop, first offered Summer 2023.
+This is the website for Part I of the Multi-dimensional Biodiversity Data Workshop, first offered Summer 2023.
+
+## Open to Collaborate
+
+![The Rules of Life Engine Project is committed to the development of new modes of collaboration, engagement, and partnership with Indigenous peoples for the care and stewardship of past and future heritage collections.](Open_To_Collaborate.png)
 
 ## Suggested schedule 
 
