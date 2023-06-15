@@ -1,5 +1,5 @@
 ---
-title: 'The CARE principles and open data'
+title: 'Indigenous Data Sovereignty and the CARE Principles'
 teaching: 10
 exercises: 2
 ---
@@ -14,10 +14,9 @@ exercises: 2
 After following this episode, we intend that participants will be able to:
 
 1.  Articulate the mission of Local Contexts in the context of the CARE and FAIR principles
-2.  Apply Bio-Cultural and Traditional Knowledge Notices appropriately to datasets
 3.  Create an account on Local Contexts Hub
 4.  Create a project on Local Contexts Hub
-5.  Query the Local Contexts Hub API to link a dataset with project IDs on Local Contexts Hub
+2.  Apply Bio-Cultural and Traditional Knowledge Notices appropriately to datasets
 :::
 
 ## Indigenous data soverginty
@@ -55,11 +54,11 @@ Ethics speaks to the fact that the ethics of local communities must be respected
 
 Local Contexts Hub serves Traditional Knowledge [Labels](https://localcontexts.org/labels/traditional-knowledge-labels/) and [Notices](https://localcontexts.org/notice/tk-notice/), and Biocultural [Labels](https://localcontexts.org/labels/biocultural-labels/) and [Notices](https://localcontexts.org/notice/bc-notice/).  We learned about those in the video from Local Contexts, now we'll learn how Labels and Notices can operationalize the CARE principles.
 
-Follow along with this [slide deck]().
+Follow along with this [slide deck](https://github.com/role-model/multidim-biodiv-data/blob/main/instructors/local_contexts-care.pdf).
 
 ::: instructor
 
-Give the slide show
+Give the slide show; slide deck is [/instructors/local_contexts-care.pdf](https://github.com/role-model/multidim-biodiv-data/blob/main/instructors/local_contexts-care.pdf)
 
 :::
 
@@ -74,6 +73,13 @@ Set up your own account on [Local Contexts Hub](https://localcontextshub.org/reg
 Give a tour of your own Local Contexts Hub account
 
 :::
+
+::: discussion
+
+How do we use Local Contexts Hub as a tool for collaboration and co-production with local communities?
+
+:::
+
 
 ::: keypoints
 - "Be FAIR and CARE": The CARE principles (**C**ollective benefit, **A**uthority to control, **R**esponsibility, and **E**thics) are part of a framework emphasizing Indigenous rights and interests in the context of data sharing ecosystems.
