@@ -120,12 +120,12 @@ One of the contributions we as researchers can make to rematriation and repatria
 
 The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is about 5 million years old, while the Big Island is still forming.
 
-![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrate ages of the islands, with the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](intro_img/intro_01.png)
+![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrate ages of the islands, with the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](fig/intro_01.png)
 
 This *chronosequence* allows us to observe in the Modern (as opposed to the fossil record) what we might hypothesize to be different eco-evolutionary stages, or "snapshots," of community assembly.  We might further hypothesize that different assembly processes are more or less prevalent at different snapshots, such as increased importance of immigration early on, and greater importance of *in situ* diversification later on.
 
 
-![A figure showing how hypothesized mechanisms might trade-off across the chronosequence: in communities on older substrates we might expect more time for evolution and consequently assembly by speciation and competitive coexistence being important.  In contrast on younger substrates we might expect less time for evolution and thus assembly by immigration and neutral ecological drift being important](intro_img/intro_02.png)
+![A figure showing how hypothesized mechanisms might trade-off across the chronosequence: in communities on older substrates we might expect more time for evolution and consequently assembly by speciation and competitive coexistence being important.  In contrast on younger substrates we might expect less time for evolution and thus assembly by immigration and neutral ecological drift being important](fig/intro_02.png)
 
 ::: discussion
 
@@ -133,7 +133,9 @@ What data could we bring to bear on exploring these hypothesized changes in asse
 
 :::
 
-![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](intro_img/intro_03.png)
+## How are the four dimensions of biodiversity data conceptualized?
+
+![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](fig/intro_03.png)
 
 
 
