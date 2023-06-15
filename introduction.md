@@ -118,6 +118,13 @@ One of the contributions we as researchers can make to rematriation and repatria
 
 ## More about our simulated data
 
+::: instructor
+
+Slide deck in [/instructors/hawaii_4_dim_data.pdf]()
+
+:::
+
+
 The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is about 5 million years old, while the Big Island is still forming.
 
 ![A painting by John D. Dawson shows how the ecosystems of the Hawaiian Islands change across the the chronosequence, while an overlaid false-color map shows the substrate ages of the islands, with the substrates of the Big Island being youngest, progressing in increasing age toward Kauai](fig/intro_01.png)
@@ -133,10 +140,11 @@ What data could we bring to bear on exploring these hypothesized changes in asse
 
 :::
 
-## How are the four dimensions of biodiversity data conceptualized?
+**How are the four dimensions of biodiversity data conceptualized?**
+
 
 ![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](fig/intro_03.png)
-
+![A figure showing a cartoon of a phylogeny connecting species and a coalescent tree of genes for one of those species.](fig/intro_04.png)
 
 
 ::: instructor
