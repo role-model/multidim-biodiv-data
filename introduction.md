@@ -49,7 +49,8 @@ It is becoming agreed upon protocol that land acknowledgements should be given o
 
 Welcome everyone!  This workshop will engage with ethics around biodiversity data through the lens of Indigenous data sovereignty and governance.  With that in mind, many of the locations where this workshop might run will likely be unceded Indigenous lands.  As part of our introductions we'll think about where we are, where we come from, and our positionalities.  [Native Land Digital](https://native-land.ca/) is a great resource for understanding where we are geographically, and here is a great video by Dr. Kat Gardner-Vandy and Daniella Scalice demonstrating classical academic introductions and relational introductions that center positionality:
 
-<iframe src="https://www.youtube.com/embed/sY3LYVTTiH4?start=414&end=811" data-external= "1" > </iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sY3LYVTTiH4?start=414&end=811" data-external= "1" allowfullscreen> </iframe>
+
 
 ::: instructor
 
@@ -134,10 +135,6 @@ What data could we bring to bear on exploring these hypothesized changes in asse
 
 ![A figure showing a cartoon of organisms (shown as dots) with different colors representing different species, and different sizes of the dots representing body sizes---a common and useful trait.](intro_img/intro_03.png)
 
-
-<!-- Using real taxonomic names from Hawaiian arthropods we simulated data based on the hypothesis that speciation and competitive coexistence drive assembly of communities on older substrates while immigration and evological neutrality drive assembly on younger sites.  Middle-age sites are simualted as an intermediate between those two extremes. -->
-
-![A figure showing the simulated abundance and body size data at three hypothetical arthropod sampling sites across the chronosequence: an old site on Kauai, a middle aged site on Maui, a young site on the Big Island.](intro_img/intro_04.png)
 
 
 ::: instructor
