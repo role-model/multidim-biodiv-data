@@ -2037,7 +2037,7 @@
     },
     "rotl": {
       "Package": "rotl",
-      "Version": "3.0.14",
+      "Version": "3.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2050,7 +2050,7 @@
         "rlang",
         "rncl"
       ],
-      "Hash": "0e97f00b0189c179e2d25a223576546a"
+      "Hash": "ee9a04a094199411f539d0c5a32df3c2"
     },
     "rpart": {
       "Package": "rpart",
