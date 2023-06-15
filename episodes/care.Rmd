@@ -28,7 +28,7 @@ To aid in our learning about and discussion of Indigenous data soverginty we wil
 
 ## The CARE Principles
 
-The [CARE principles]() developed by [xyz *et al.*]() codify Indigenous data sovereignty into actionable standards for data governance.  The CARE principles are designed to live alongside and make more just the FAIR principles.  The FAIR principles are seen as also being a necessary of Indigenous data sovereignty and governance  
+The [CARE principles](https://www.gida-global.org/care) developed by [Stephanie Russo Carroll *et al.*](https://www.nature.com/articles/s41597-021-00892-0) codify Indigenous data sovereignty into actionable standards for data governance.  The CARE principles are designed to live alongside and make more just the FAIR principles.  The FAIR principles are seen as also being a necessary of Indigenous data sovereignty and governance  
 
 ![](https://images.squarespace-cdn.com/content/v1/5d3799de845604000199cd24/1567592451970-2R8XFL670QNMAGDRV7ED/Be+FAIR+and+CARE.png?format=2500w)
 
