@@ -6,7 +6,7 @@ This is the website for Part I of the Multi-dimensional Biodiversity Data Worksh
 
 ## Open to Collaborate
 
-![The Rules of Life Engine Project is committed to the development of new modes of collaboration, engagement, and partnership with Indigenous peoples for the care and stewardship of past and future heritage collections.](Open_To_Collaborate.png)
+![The Rules of Life Engine Project is committed to the development of new modes of collaboration, engagement, and partnership with Indigenous peoples for the care and stewardship of past and future heritage collections.](https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/Open_To_Collaborate.png)
 
 ## Suggested schedule 
 
