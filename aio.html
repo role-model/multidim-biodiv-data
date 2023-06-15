@@ -189,7 +189,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="care.html">2. The CARE principles and open data</a>
+        <a href="care.html">2. Indigenous Data Sovereignty and the CARE Principles</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -476,7 +476,7 @@ Indigenous data sovereignty and governance.</p>
 <hr class="half-width">
 <p>The Hawaiian Islands formed over a volcanic hotspot, as such Kauai is
 about 5 million years old, while the Big Island is still forming.</p>
-<figure><img src="intro_img/intro_01.png" alt="" class="figure mx-auto d-block"><figcaption>A painting by John D. Dawson shows how the ecosystems
+<figure><img src="fig/intro_01.png" alt="" class="figure mx-auto d-block"><figcaption>A painting by John D. Dawson shows how the ecosystems
 of the Hawaiian Islands change across the the chronosequence, while an
 overlaid false-color map shows the substrate ages of the islands, with
 the substrates of the Big Island being youngest, progressing in
@@ -487,7 +487,7 @@ further hypothesize that different assembly processes are more or less
 prevalent at different snapshots, such as increased importance of
 immigration early on, and greater importance of <em>in situ</em>
 diversification later on.</p>
-<figure><img src="intro_img/intro_02.png" alt="" class="figure mx-auto d-block"><figcaption>A figure showing how hypothesized mechanisms might
+<figure><img src="fig/intro_02.png" alt="" class="figure mx-auto d-block"><figcaption>A figure showing how hypothesized mechanisms might
 trade-off across the chronosequence: in communities on older substrates
 we might expect more time for evolution and consequently assembly by
 speciation and competitive coexistence being important. In contrast on
@@ -505,7 +505,11 @@ changes in assembly processes?</p>
 </div>
 </div>
 </div>
-<figure><img src="intro_img/intro_03.png" alt="" class="figure mx-auto d-block"><figcaption>A figure showing a cartoon of organisms (shown as
+</section><section id="how-are-the-four-dimensions-of-biodiversity-data-conceptualized"><h2 class="section-heading">How are the four dimensions of biodiversity data
+conceptualized?<a class="anchor" aria-label="anchor" href="#how-are-the-four-dimensions-of-biodiversity-data-conceptualized"></a>
+</h2>
+<hr class="half-width">
+<figure><img src="fig/intro_03.png" alt="" class="figure mx-auto d-block"><figcaption>A figure showing a cartoon of organisms (shown as
 dots) with different colors representing different species, and
 different sizes of the dots representing body sizes—a common and useful
 trait.</figcaption></figure><div id="discussion4" class="callout discussion">
@@ -537,7 +541,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</section></section><section id="aio-care"><p>Content from <a href="care.html">The CARE principles and open data</a></p>
+</section></section><section id="aio-care"><p>Content from <a href="care.html">Indigenous Data Sovereignty and the CARE Principles</a></p>
 <hr>
 <p> Last updated on 2023-06-15 | 
         
@@ -570,12 +574,10 @@ able to:</p>
 <ol style="list-style-type: decimal">
 <li>Articulate the mission of Local Contexts in the context of the CARE
 and FAIR principles</li>
-<li>Apply Bio-Cultural and Traditional Knowledge Notices appropriately
-to datasets</li>
 <li>Create an account on Local Contexts Hub</li>
 <li>Create a project on Local Contexts Hub</li>
-<li>Query the Local Contexts Hub API to link a dataset with project IDs
-on Local Contexts Hub</li>
+<li>Apply Bio-Cultural and Traditional Knowledge Notices appropriately
+to datasets</li>
 </ol>
 </div>
 </div>
@@ -635,7 +637,8 @@ and Biocultural <a href="https://localcontexts.org/labels/biocultural-labels/" c
 and <a href="https://localcontexts.org/notice/bc-notice/" class="external-link">Notices</a>.
 We learned about those in the video from Local Contexts, now we’ll learn
 how Labels and Notices can operationalize the CARE principles.</p>
-<p>Follow along with this <a href="">slide deck</a>.</p>
+<p>Follow along with this <a href="https://github.com/role-model/multidim-biodiv-data/blob/main/instructors/local_contexts-care.pdf" class="external-link">slide
+deck</a>.</p>
 
 <div id="discussion1" class="callout discussion">
 <div class="callout-square">
@@ -651,6 +654,19 @@ Hub</a>!</p>
 </div>
 </div>
 
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion2"></a>
+</h3>
+<div class="callout-content">
+<p>How do we use Local Contexts Hub as a tool for collaboration and
+co-production with local communities?</p>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -3011,7 +3027,7 @@ corrected to match the phylogeny. Hint: you may want to refer to the <a href="ab
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>To create our site-by-species matrix, we will use the
 <code>pivot_wider</code> function from the <code>tidyr</code>
@@ -3285,7 +3301,7 @@ to infer regarding the history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
@@ -3939,7 +3955,7 @@ using the R APIs of GBIF, NCBI, and OTOL?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>NCBI and OTOL both require an initial search to obtain record IDs,
 then a second fetch to obtain the actual record data for each ID</p>
