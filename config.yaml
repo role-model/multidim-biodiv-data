@@ -63,10 +63,11 @@ episodes:
 - care.Rmd
 - abundance-data.Rmd
 - traits-data.Rmd
-- popgen-data.Rmd
 - phylo-data.Rmd
+- popgen-data.Rmd
 - connecting-data-types.Rmd
 - finding_data.Rmd
+- care-data-repos.Rmd
 
 # Information for Learners
 learners:
