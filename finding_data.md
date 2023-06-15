@@ -188,15 +188,29 @@ No ENTREZ API key provided
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
 ```
 
+```{.warning}
+Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
+proceeding to next if there is one
+```
+
+```{.error}
+Error in names(output) <- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]
+```
+
 ```r
 species_names <- species_uids[[1]]$childtaxa_name
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_uids' not found
+```
+
+```r
 head(species_names)
 ```
 
-```{.output}
-[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
-[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
 ```
 
 ### Occurrence data from GBIF 
@@ -246,179 +260,35 @@ occurrences <- occ(query = species_names, from = 'gbif', has_coords=TRUE,
                                  "decimalLongitude"='-178.334698,-154.806773')) 
 ```
 
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha paludicola
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha virescens
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha similis
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha makiharai
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha pinicola
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha javana
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha punua
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha marquesiana
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha guatemalensis
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha laboriosa
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha macracantha
-```
-
-```{.warning}
-Warning: gbif: HTTP/2 stream 113 was not closed cleanly before end of the
-underlying stream
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha kikokiko
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha anuenue
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha maxillosa
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha acuta
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha pilosa
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha quasimodo
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
-```
-
-```{.warning}
-Warning: gbif: No records returned in GBIF for Tetragnatha perreirai
-```
-
-```{.warning}
-Warning: gbif: 500 - Server error
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
 ```
 
 ```r
 # extract the data from gbif
 occurrences_gbif <- occurrences$gbif$data 
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences' not found
+```
+
+```r
 # the results in `$data` are a list with one element per species, 
 # so we combine all those elements
 occurrences_df <- bind_rows(occurrences_gbif)
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_gbif' not found
+```
+
+```r
 head(occurrences_df)
 ```
 
-```{.output}
-# A tibble: 6 × 94
-  name           longitude latitude issues prov  key   scientificName datasetKey
-  <chr>              <dbl>    <dbl> <chr>  <chr> <chr> <chr>          <chr>     
-1 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
-2 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
-3 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
-4 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
-5 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
-6 Tetragnatha s…     -156.     20.5 osiic  gbif  1836… Tetragnatha s… 5d283bb6-…
-# ℹ 86 more variables: publishingOrgKey <chr>, installationKey <chr>,
-#   hostingOrganizationKey <chr>, publishingCountry <chr>, protocol <chr>,
-#   lastCrawled <chr>, lastParsed <chr>, crawlId <int>, basisOfRecord <chr>,
-#   individualCount <int>, occurrenceStatus <chr>, taxonKey <int>,
-#   kingdomKey <int>, phylumKey <int>, classKey <int>, orderKey <int>,
-#   familyKey <int>, genusKey <int>, speciesKey <int>, acceptedTaxonKey <int>,
-#   acceptedScientificName <chr>, kingdom <chr>, phylum <chr>, order <chr>, …
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_df' not found
 ```
 
 
@@ -429,20 +299,35 @@ First we need to get a clean list of taxonomic names from the GBIF results:
 
 ```r
 hiTetragnatha <- unique(occurrences_df$name)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_df' not found
+```
+
+```r
 hiTetClean <- gnr_resolve(hiTetragnatha, best_match_only = TRUE, 
                           canonical = TRUE)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
+```
+
+```r
 hiTetragnatha <- hiTetClean$matched_name2
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetClean' not found
+```
+
+```r
 hiTetragnatha
 ```
 
-```{.output}
- [1] "Tetragnatha stelarobusta" "Tetragnatha perkinsi"    
- [3] "Tetragnatha filiciphilia" "Tetragnatha eurychasma"  
- [5] "Tetragnatha tantalus"     "Tetragnatha polychromata"
- [7] "Tetragnatha restricta"    "Tetragnatha brevignatha" 
- [9] "Tetragnatha kamakou"      "Tetragnatha versicolor"  
-[11] "Tetragnatha kauaiensis"   "Tetragnatha waikamoi"    
-[13] "Tetragnatha hawaiensis"  
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
 ```
 
 Now we can use the `rotl` package. The `rotl` package provides an interface to the Open
@@ -458,7 +343,18 @@ matched names.
 
 ```r
 resolved_names <- tnrs_match_names(hiTetragnatha)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
+```
+
+```r
 otol_ids <- ott_id(resolved_names)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'resolved_names' not found
 ```
 
 Finally, we get the tree containing these IDs as
@@ -467,11 +363,19 @@ tips.
 
 ```r
 tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'resolved_names' not found
+```
+
+```r
 plot(tr)
 ```
 
-<img src="fig/finding_data-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'tr' not found
+```
 
 Unfortunately we can see that the phylogenetic
 relationships between these species aren't
@@ -496,6 +400,13 @@ query.
 # note we're using `hiTetragnatha` that we made previously to make a long
 # string of names that will be sent to NCBI via the ENTREZ API
 termstring <- paste(sprintf('%s[ORGN]', hiTetragnatha), collapse = ' OR ')
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
+```
+
+```r
 head(termstrig)
 ```
 
@@ -505,6 +416,10 @@ Error in eval(expr, envir, enclos): object 'termstrig' not found
 
 ```r
 search_results <- entrez_search(db="nucleotide", term = termstring)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'termstring' not found
 ```
 
 *Unlike* `spocc` but *similarly* to `rotl`, this first
@@ -521,31 +436,19 @@ We specify 'db' as 'nucleotide' and 'rettype' as
 ```r
 sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, 
                           rettype = "fasta")
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'search_results' not found
+```
+
+```r
 # just look at the first part of this *long* returned string
 cat(substr(sequences, 1, 1148))
 ```
 
-```{.output}
->MG509184.1 Tetragnatha versicolor voucher BIOUG19074-C11 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
-AGTTTATATTTTTTATTTGGAGTGTGATCAGNTATAGTAGGGACAGCTATAAGAGTTTTAATTCGAATTG
-AATTAGGTCAATCTGGCAAATTTCTTGGGGATGACCAATTATATAATGTTATTGTGACTGCTCATGCTTT
-TGTAATAATTTTTTTTATGGTTATACCAATTTTAATTGGGGGGTTTGGGAATTGATTAGTCCCATTAATA
-TTAGGGGCACCAGATATGGCTTTCCCCCGGATAAATAACTTAAGTTTTTGGTTGTTGCCCCCTTCTCTTT
-TTATATTGTTTATTTCGTCTATAGTGGATGTGGGAGTTGGAGCAGGTTGANCCNNTTATCCCCCTTTATC
-TTCTTTAGAAGGGCATTCAGGCAGATCTGTAGATTTTGCTATTTTTTCACTTCATTTAGCTGGGGCTTCT
-TCAATTATAGGGGCTATTAATTTTATTTCTACTATCCTTAATATGCGGATAAGAGGAATTTCTATAGAAA
-AGGTACCTCTTTTTGTGTGATCTGTTTTGATTACAGCG
-
->MG511976.1 Tetragnatha versicolor voucher BIOUG23383-C01 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
-AGTTTATATTTTTTATTTGGAGTGTGATCAGCTATAGTGGGGACAGCTATAAGAGTTTTAATTCGAATTG
-AGTTAGGTCAATCTGGGAAATTTCTTGGGGATGACCAATTATACAATGTAATTGTAACTGCTCATGCTTT
-TGTAATAATTTTTTTTATGGTGATACCAATTTTAATTGGGGGCTTTGGAAATTGATTAGTGCCCTTAATA
-TTAGGAGCGCCAGATATAGCTTTTCCTCGGATAAATAACTTAAGTTTTTGGTTGCTACCCCCTTCTCTTT
-TTATGTTGTTTATTTCATCTATAGTAGATGTGGGAGTTGGGGCAGGTTGAACTGTCTATCCCCCTTTATC
-T
-
->
+```{.error}
+Error in eval(expr, envir, enclos): object 'sequences' not found
 ```
 
 
