@@ -120,7 +120,7 @@ There's a lot of info there! If a Notice is attached to the project, we can acce
 
 There is an R package *enRich* under development by Jacob Golan in collaboration with [ENRICH](https://www.enrich-hub.org/) that can wrap these API calls in more familiar-looking R code.  We have to install this in-dev package from github:
 
-```{r}
+```{r, eval = FALSE}
 remotes::install_github("jacobgolan/enRich")
 library(enRich)
 ```

@@ -135,7 +135,7 @@ Prior to analysis, sequence data must be aligned if they haven't been already. A
 
 First, a FASTA file containing the sequences needs to be read in using the `readDNAStringSet()` function.
 
-```{r alignment-read}
+```{r alignment-read, eval=FALSE}
 library(msa)
 
 seq_path <- "/Users/connorfrench/Dropbox/Old_Mac/School_Stuff/CUNY/Courses/Spring-2019/Machine-Learning/project/fasta/hypsiboas_seqs_aligned.fas"
