@@ -7,6 +7,10 @@ editor_options:
     wrap: 50
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+```
+
 ::: questions
 -   Where do multi-dimensional biodiversity data
     live online?
@@ -85,7 +89,7 @@ For this episode, we'll be working with some R
 packages that wrap the APIs of online
 repositories. Let's set those up now.
 
-```{r setup}
+```{r pkg-setup}
 library(spocc)
 library(rentrez)
 library(rotl) 
@@ -224,7 +228,7 @@ query.
 # note we're using `hiTetragnatha` that we made previously to make a long
 # string of names that will be sent to NCBI via the ENTREZ API
 termstring <- paste(sprintf('%s[ORGN]', hiTetragnatha), collapse = ' OR ')
-head(termstrig)
+termstring
 
 search_results <- entrez_search(db="nucleotide", term = termstring)
 ```

@@ -4,6 +4,10 @@ teaching: 10
 exercises: 2
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+```
+
 ::: questions
 -   What is Indigenous data sovereignty?
 -   What are the CARE principles?
