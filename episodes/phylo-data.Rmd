@@ -232,7 +232,7 @@ Now that we have a modified tree where all taxa names are present in our abundan
 
 We can prune our phylogeny using the function `keep.tip()` from the `ape` package. For this function, we provide the entire phylogeny plus the names of the tips we want to keep. Here, we will retrieve those names from the abundances dataset.
 
-```{r eval=FALSE}
+```{r}
 arthro_tree_pruned <- keep.tip(arthro_tree,abundances$final_name)
 ```
 
@@ -395,13 +395,13 @@ So far, we have learned that Hill numbers are affected by both the sum of branch
 
 Let's create a totally balanced tree...
 
-```{r, eval=FALSE}
+```{r}
 balanced_tree <- read.tree(text='(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);')
 ```
 
 ... and a totally unbalanced tree.
 
-```{r, eval=FALSE}
+```{r}
 unbalanced_tree <- read.tree(text='(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);')
 ```
 
@@ -572,11 +572,17 @@ Now, let's create a data.frame with islands as rows and Hill numbers of differen
 ```{r}
 hill_values <- do.call(cbind.data.frame, hill_values)
 colnames(hill_values) <- paste0('hill_phylo_', 0:3)
-hill_phylo_nbs <- data.frame(site = rownames(hill_values),
-                             hill_values)
+hill_phylo <- data.frame(site = rownames(hill_values),
+                         hill_values)
 
-rownames(hill_phylo_nbs) <- NULL
-hill_phylo_nbs
+rownames(hill_phylo) <- NULL
+hill_phylo
+```
+
+```{r echo = FALSE, include=FALSE, eval=FALSE}
+write.csv(hill_phylo,  
+          here::here("episodes", "data", "hill_phylo.csv"), 
+          row.names = FALSE)
 ```
 
 Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.

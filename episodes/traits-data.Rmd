@@ -506,6 +506,12 @@ rownames(traits_hill) <- NULL
 traits_hill
 ```
 
+```{r echo = FALSE, include=FALSE, eval=FALSE}
+write.csv(traits_hill, 
+          file = here::here("episodes", "data", "hill_trait.csv"),
+          row.names = FALSE)
+```
+
 Let's look at how Hill q = 1 compare across sites.
 
 ```{r hill-plot-raw}

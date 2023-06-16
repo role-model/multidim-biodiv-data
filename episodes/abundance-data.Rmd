@@ -215,7 +215,9 @@ head(abundances)
 ```
 
 ```{r include = FALSE, eval = FALSE}
-write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"), row.names = F)
+write.csv(abundances, 
+          here::here("episodes", "data", "abundances_resolved.csv"), 
+          row.names = FALSE)
 
 ```
 
@@ -348,16 +350,20 @@ hill_1
 
 ::: challenge
 
-Calculate the hill numbers for q = 2.
+Calculate the hill numbers for q = 2 and q = 3.
 
 
 ::: solution
 
-```{r hill2}
+```{r hill2-2}
 
 hill_2 <- hill_taxa(abundances_wide, q = 2)
 
 hill_2
+
+hill_3 <- hill_taxa(abundances_wide, q = 3)
+
+hill_3
 
 ```
 
@@ -411,7 +417,8 @@ legend(
 ```{r look-at-hill-numbers-again}
 hill_abund <- data.frame(hill_abund_0 = hill_0, 
                          hill_abund_1 = hill_1, 
-                         hill_abund_2 = hill_2)
+                         hill_abund_2 = hill_2, 
+                         hill_abund_3 = hill_3)
 hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
 
 rownames(hill_abund) <- NULL
@@ -420,7 +427,11 @@ hill_abund
 
 ```
 
-
+```{r echo = FALSE, include=FALSE, eval=FALSE}
+write.csv(hill_abund,  
+          here::here("episodes", "data", "hill_abund.csv"), 
+          row.names = FALSE)
+```
 
 # Recap
 
