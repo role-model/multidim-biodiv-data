@@ -287,7 +287,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Summarizing phylogenetic data</h1>
-        <p> Last updated on 2023-06-15 | 
+        <p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -306,10 +306,10 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>What information is contained in phylogenies?</li>
-<li>How to summarize and interpret phylogenies using Hill numbers?</li>
-<li>What are the common phylogeny data formats?</li>
+<ul><li>What biological information is stored in phylogenetic Hill
+numbers?</li>
 <li>How do you import and manipulate phylogeny data in R?</li>
+<li>What are the common phylogeny data formats?</li>
 <li>How do you visualize phylogenies in R?</li>
 <li>How do you calculate Hill numbers with phylogenetic data?</li>
 </ul></div>
@@ -339,7 +339,6 @@ each other and how much relative evolutionary change has accumulated
 among them. Since local communities differ in their phylogenetic
 composition, this information can give insights on why communities are
 how they are.</p>
-<p>[HERE INCLUDE VISUALS OF PHYLOGENIES]</p>
 <p>The relative phylogenetic distance among species in a community as
 well as the distribution of the amount of evolutionary history
 (represented by the length of the branches in a phylogeny) are a result
@@ -356,6 +355,10 @@ Coupled with information on ecological traits and rates of
 macroevolutionary processes, these patterns also allow to test for
 hypotheses regarding, for instance, ecological filtering or niche
 conservatism.</p>
+<p>[Images of two trees with different topologies and branch lenghts]
+[Discuss how they represent different amounts of evolutionary history]
+[Translate that to processes of community assembly. Recap Andy’s island
+of young vs old, speciation vs colonization, competition vs neutral]</p>
 <p>Summarizing this phylogenetic information (i.e., phylogenetic
 distance and distribution of branch lengths) is therefore important for
 inference. As we have seen in previous episodes, the use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
@@ -465,93 +468,71 @@ have so far for our three islands? First, we will have to perform some
 name checking and filtering.</p>
 <div class="section level3">
 <h3 id="cleaning-and-checking-phylogeny-taxa">Cleaning and checking phylogeny taxa<a class="anchor" aria-label="anchor" href="#cleaning-and-checking-phylogeny-taxa"></a></h3>
-<p>The issue of underscore:</p>
-<p><strong>Do we still want to keep this issue? Or simply skip ahead to
-pruning the phylogeny?</strong></p>
-<p>Since this is a “published” arthropod phylogeny, we will likely not
-have any misspelling in the tip names of the object. However, one
-important issue that may arise is that, depending on the resolution of
-the phylogeny, it may be the case that some taxa in our community
-dataset may not be explicitly represented in the phylogeny. For
-instance, the tips in our phylogeny might be represented by one species
-for each genus, or one genus for each family. This is usually the case
-when the goal of the original publication was to elucidate the
-phylogenetic relationship for such higher taxonomic levels, with less
-focus on the more recent evolutionary history. In these cases, some taxa
-in our <a href="abundance-data.html">abundances</a> dataset may not be
-found in the phylogeny, which will yield errors when we try to summarize
-phylogenetic diversity. Therefore, we will want to assign those “missing
-taxa” to one of the tips present in the tree, based on their known genus
-and/or family assignments.</p>
-<p>Let’s first find out what are those “missing taxa”. For this, we’ll
-refer back to our original species list, from the
-<code>abundances</code> object:</p>
+<p>The first thing we want to do is to check the tip labels in our tree.
+Since this is a “published” arthropod phylogeny, we will likely not have
+any misspelling in the tip names of the object. However, it is always
+good practice to check contents to see if anything weird stands out.</p>
+<p>And indeed we find something: even though there are probably no
+misspellings, the genus and species name in this tree are separated by
+an underscore symbol <code>_</code>. Since the names in our
+site-by-species matrix do not have that underscore, we will get an error
+when matching the data if we don’t fix this spelling.</p>
+<p>One useful function to do this fixing is the function
+<code>gsub()</code>. This function allows you to look for a specific
+character pattern inside character objects, and replace them by any
+other pattern you may want. In our case, we have a vector of 60
+character values containing the names of our tips. We want to find the
+<code>_</code> character inside each character value and replace it by
+an empty space, so it becomes equal to what we have in our
+site-by-species matrix. We do so by providing to the <code>gsub()</code>
+function: 1) the pattern we want to replace; 2) the new pattern we want
+to replace it with; 2) the character object or vector containing the
+values to be searched. Finally, we assign the output of that function
+back to the <code>tip.label</code> slot in the <code>arthro_tree</code>
+object.</p>
+<p>Now that we fixed this first obvious issue, we can start looking for
+others. Since we want to calculate phylogenetic diversity for each of
+our communities, our main concern here is to make sure that all taxa
+present in our communities can be found in this phylogeny. One important
+issue that may arise is the use of different names for the same taxa
+across the two datasets (i.e., synonyms). This is especially important
+since we previouslu performed a synonym check and cleaning in our
+abundance dataset; we need to make sure the names in our tree will
+follow the same nomenclature decisions.</p>
+
+<p>To see if there are any mismatches, let’s first retrieve a list of
+the names in our abundances dataset. Since this dataset has repeated
+instances of the same species when it shows up in different islands, we
+wrap the vector of taxa names in the function <code>unique()</code> to
+return each species name only once.</p>
 <p>To cross-check this list against the list of names in our phylogeny,
 we can use the Boolean operator <code>%in%</code> coupled with
-<code>!</code>. This will allow us to check for names in
+<code>!</code>. This will allow us to check for names present in
 <code>all_names</code> that are not included in the
 <code>arthro_tree$tip.label</code>. In summary, the expression
-<code>A %in% B</code> would return the position of the elements in
-vector A that are present in vector B. The <code>!</code> (NOT) operator
-returns the opposite of that expression, in a way that
-<code>!(A %in% B)</code> will return the position of elements in vector
-A that are <em>NOT</em> present in vector B (precisely what we need
-right now).</p>
-<p>The object <code>not_found</code> is now a vector of the positions
-(or <em>indexes</em>) of the elements in <code>all_names</code> that are
-not found in <code>arthro_tree$tip.label</code>. Let’s then check these
-names by using these indexes to subset <code>all_names</code>:</p>
-<p><strong>EDIT THIS NEXT PARAGRAPH WHEN PHYLOGENY IS
-AVAILABLE</strong></p>
-<p>Here, we can decide how we are going to assign these species to tips
-in our tree. For instance, we see that we do not have
-<strong>XXX</strong> in our tree, but we have <strong>XXX</strong>,
-which belongs to the same genus. Similarly…</p>
-<p>We can then give new names to these species, based on what tips in
-our tree we want them to match to. To do so, we will first duplicate our
-<code>all_names</code> vector into the <code>new_names</code> vector.
-This way, we can make our changes in <code>new_names</code> while
-keeping the original names intact, just in case we need to refer back to
-them in the future.</p>
-<p>Now we use the indexes saved in <code>not_found</code> to replace the
-names in the positions with the ones we want:</p>
-<ul><li>Here I am changing the abundance to match the phylogeny. IT SHOULD
-BE THE OTHER WAY AROUND.*</li>
-<li>Make change tip labels a challenge. *</li>
-</ul><p>Now that we have a vector where all names match to a position in our
-phylogeny, we need to bring these corrected names back to our abundance
-data. Here, we will again first copy our <code>abundances</code> object
-into another object, in order to keep the original data intact. Then, we
-will change the column <code>final_name</code> based on the vector
-<code>new_names</code>.</p>
-</div>
-<div class="section level3">
-<h3 id="pruning-our-phylogeny">Pruning our phylogeny<a class="anchor" aria-label="anchor" href="#pruning-our-phylogeny"></a></h3>
-<p>Now that we have a modified abundance dataset where all taxa names
-are present in our phylogeny, we can work on pruning our phylogeny to
-the taxa present in our communities. This is especially important when
-working with published phylogenies as these are usually large files
-containing several taxa that may not exist in the local community.</p>
-<p>We can prune our phylogeny using the function <code>keep.tip</code>
-from the <code>ape</code> package. For this function, we provide the
-entire phylogeny plus the names of the tips we want to keep. Here, we
-will retrieve those names from the new abundances dataset we create,
-with names corrected to match the phylogeny.</p>
-<p>Now, that we have a pruned more manageable phylogeny for our
-communities, let’s move on to the next bit of information we need to
-summarize phylogenetic diversity: a site-by-species matrix. As we saw in
-the <a href="abundance-data.html">abundances</a> episode, such a matrix
-can be used to calculate Hill numbers and help us compare patterns
-across the different communities. In this episode, we are following the
-same approach to calculate Hill numbers, with the addition that, on top
-of the abundance, we will also be using phylogenetic information,
-i.e. the length of the branches in the phylogenetic tree leading to the
-taxa present in each community.</p>
-<p>Here, we need to make a site-by-species matrix using the new taxa
-names corrected to match the phylogeny. Since we have done this in a
-previous episode, we’ll cover this in a challenge.</p>
-<ul><li>REMOVE THIS CHALLENGE *</li>
-</ul><div id="challenge1" class="callout challenge">
+<code>A %in% B</code> would return whether each element of vector A is
+present in vector B. This is returned as a Boolean vector: if
+<code>TRUE</code>, the element of that position in A exists in B; if
+<code>FALSE</code>, it does not. We add the <code>!</code> (NOT)
+operator to return the opposite of that expression, in a way that
+<code>!(A %in% B)</code> will return whether each element of vector A is
+<em>NOT</em> present in vector B. In this case, every time we see
+<code>TRUE</code>, it means the element in that position is <em>NOT</em>
+in vector B.</p>
+<p>Checking the vector <code>not_found</code>, we can see it is a
+collection of TRUEs and FALSEs. We can use that vector to perform
+bracket subsetting in the vector <code>all_names</code>. Doing so, we
+are retrieving from <code>all_names</code> only the elements in the
+position where <code>not_found</code> is <code>TRUE</code>.</p>
+<p>The expression above give us the one element of
+<code>all_names</code> that is not present in
+<code>arthro_tree$tip.label</code>. As we expected, it is a synonym that
+we corrected in our <a href="abundance-data.html">abundances</a>
+episode. Our tree still has the old name <em>Agrotis chersotoides</em>
+whereas our site-by-species matrix has the updated name <em>Peridroma
+chersotoides</em>. To correct that, we need to modify the tip label in
+our tree to match the new name. How can we do that?</p>
+<div id="challenge1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -559,12 +540,15 @@ previous episode, we’ll cover this in a challenge.</p>
 <h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
 </h3>
 <div class="callout-content">
-<p>Make a site-by-species matrix containing the three islands based on
-the new <code>abundance_phylo</code> object that contains the taxa names
-corrected to match the phylogeny. Hint: you may want to refer to the <a href="abundance-data.html">abundances</a> episode.</p>
+<p>Modify the old name <em>Agrotis chersotoides</em> in our phylogenetic
+tree, replacing it by <em>Peridroma chersotoides</em>. To do so, you
+will need to 1) find the position of the old name in labels in our tree;
+2) assign the new name in the right position where the old name is.</p>
+<p>Hint: a similar task was performed before in the <a href="abundance-data.html">abundances</a>.</p>
 </div>
 </div>
 </div>
+
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
@@ -574,27 +558,60 @@ corrected to match the phylogeny. Hint: you may want to refer to the <a href="ab
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>To create our site-by-species matrix, we will use the
-<code>pivot_wider</code> function from the <code>tidyr</code>
-package.</p>
+<p>We need to perform an assignment operation in the position where the
+old name is located inside <code>arthro_tree$tip.label</code>. To find
+that position, we can use Boolean matching to ask which element of
+<code>arthro_tree$tip.label</code> equals the old name.</p>
 </div>
 </div>
 </div>
 </div>
+<p>A good practice after correcting the name is to re-check if all names
+in our abundance dataset match the names in the phylogeny. This time, we
+expect all elements in the vector <code>not_found</code> to be
+<code>FALSE</code>. We can use the function <code>which()</code> to ask
+“which elements in <code>not_found</code> are <code>TRUE</code> We
+expect the answer to be an empty vector, indicating”no elements in
+<code>not_found</code> are <code>TRUE</code>“.</p>
+</div>
+<div class="section level3">
+<h3 id="pruning-our-phylogeny">Pruning our phylogeny<a class="anchor" aria-label="anchor" href="#pruning-our-phylogeny"></a></h3>
+<p>Now that we have a modified tree where all taxa names are present in
+our abundances dataset, we can work on pruning our phylogeny to the taxa
+present in our communities. This is especially important when working
+with published phylogenies as these are usually large files containing
+several taxa that may not exist in the local community.</p>
+<p>We can prune our phylogeny using the function <code>keep.tip()</code>
+from the <code>ape</code> package. For this function, we provide the
+entire phylogeny plus the names of the tips we want to keep. Here, we
+will retrieve those names from the abundances dataset.</p>
+<p>With a pruned phylogeny and a site-by-species matrix, we have the two
+bits of information we need to summarize phylogenetic diversity per
+community. As we saw in previous episodes, we can use such abundance
+matrix to calculate Hill numbers and help us compare patterns across the
+different communities. In the traits episode, we saw how we can combine
+abundance and trait data to extract Hill numbers as values that
+summarize the distribution of trait variation across communities. Here
+we will be following the same approach to summarize the amount and the
+distribution of evolutionary history across the species in our
+community.</p>
 </div>
 </section><section id="summarizing-with-hill-numbers"><h2 class="section-heading">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a>
 </h2>
 <hr class="half-width"><p>In this section, we will extract some summary statistics about the
 pattern of phylogenetic diversity (PD) in our communities. As we
-discussed above, the relative phylogenetic distance among species and
-the distribution of this distance can give insights into processes of
-community assembly. Here, we will make use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
-numbers</a> to extract summaries of phylogenetic distances. Phylogenetic
-hill numbers incorporate information on both the phylogenetic structure
-of a system and the abundances of different species. In order to get an
-intuition for how these different components influence phylogenetic hill
-numbers, we’ll first explore the behavior of this summary statistic
-using a few simple examples</p>
+discussed in the intro of this episode, the relative phylogenetic
+distance among species and the distribution of this distance can give
+insights into processes of community assembly. Here, we will make use of
+<a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
+numbers</a> to extract summaries of phylogenetic distances, i.e. the
+length of the branches in the phylogenetic tree leading to the taxa
+present in each community. Phylogenetic hill numbers incorporate
+information on both the phylogenetic structure of a system and the
+abundances of different species. In order to get an intuition for how
+these different components influence phylogenetic hill numbers, we’ll
+set our Hawaiian data aside for a moment and first explore the behavior
+of this summary statistic using a few simplified example datasets.</p>
 <div class="section level3">
 <h3 id="example-1--trees-with-different-branch-lenghts">Example 1. Trees with different branch lenghts<a class="anchor" aria-label="anchor" href="#example-1--trees-with-different-branch-lenghts"></a></h3>
 <p>For our examples, we’ll assume we have one single community with
@@ -711,19 +728,19 @@ repeat the calculations from example 1 with these new trees. First,
 let’s focus on the even community (i.e., not introducing the relative
 species abundance factor yet):</p>
 <p>This plot is similar to example 1 in two ways: 1) one of the trees
-has higher hill number values, in this case the uneven tree. This
+has higher hill number values, in this case the unbalanced tree. This
 suggests that the unbalanced structure of the tree accounts for a deeper
 evolutionary history (i.e., lineages have overall longer branches); 2)
 the value of the hill numbers drop as the order goes up. This happens
 because higher orders are weighting less and less those branch lengths
 that are not so common (like, for instance, the short branch lengths in
-the uneven tree).</p>
+the unbalanced tree).</p>
 <p>Something new that we observe here is a more evident difference
 between trees in the <strong>rate of change</strong> of the Hill number
-value as we increase the order. The uneven tree (darker red) shows a
-steeper drop than the even tree (lighter red). This is similar to what
-we observed in the <a href="abundance-data.html">abundances</a> episode:
-uneven communities show a steeper drop in Hill numbers as order
+value as we increase the order. The unbalanced tree (darker red) shows a
+steeper drop than the balanced tree (lighter red). This is similar to
+what we observed in the <a href="abundance-data.html">abundances</a>
+episode: uneven communities show a steeper drop in Hill numbers as order
 increases. In this example, instead of species abundance, the unevenness
 of the community is represented by the structure of the phylogeny: a
 completely unbalanced tree combining long and short branches generates
@@ -743,28 +760,29 @@ the overall value of PD will be the sum of branch lengths weighted by
 their abundance in the community as informed by the species abundance
 distribution (instead of by the frequency of the branch length in the
 tree). This added information brings new insights. It may be the case,
-for instance, that in the uneven tree, even though long branches are
+for instance, that in the unbalanced tree, even though long branches are
 over represented, maybe the species with long branches are actually
 super rare in our community, and the short-branch species are actually
 super abundant. As you can probably infer, this difference suggests
 something about the evolutionary history of our community, in this case
 that the most abundant species have a very recent evolutionary history.
-Similarly, even though branch lengths are the same in the even tree, if
-some of the species is more abundant than others, it suggests that the
-evolutionary history of the tree is unevenly represented in our
+Similarly, even though branch lengths are the same in the balanced tree,
+if some of the species is more abundant than others, it suggests that
+the evolutionary history of the tree is unevenly represented in our
 community.</p>
 <p>To visualize these interaction between tree structure and species
 relative abundance, let’s redo the calculation for Hill numbers with
-even and uneven trees, this time using the uneven community. We’ll plot
-all final values together for comparison.</p>
-<p>Reminders: 1) light colors represent even trees, whereas darker
-colors represent uneven trees 2) red lines represent even community
+balanced and unbalanced trees, this time using the uneven community.
+We’ll plot all final values together for comparison.</p>
+<p>Reminders: 1) light colors represent balanced trees, whereas darker
+colors represent unbalanced trees 2) red lines represent even community
 whereas blue lines represent uneven community.</p>
 <p>From this second plot, we notice that:</p>
-<ol style="list-style-type: decimal"><li><p>Hill number values for the uneven tree (darker colors) are still
-higher than those for the even tree (lighter colors). This makes sense
-since the relative abundance is the same for both trees, so the overall
-pattern (i.e., longer branches in uneven tree) remains;</p></li>
+<ol style="list-style-type: decimal"><li><p>Hill number values for the unbalanced tree (darker colors) are
+still higher than those for the balanced tree (lighter colors). This
+makes sense since the relative abundance is the same for both trees, so
+the overall pattern (i.e., longer branches in unbalanced tree)
+remains;</p></li>
 <li><p>the Hill number of order 0 is the same regardless of whether you
 have different relative abundances among species. This was also the case
 for example 1. Order 0 is simply the sum of all branch lengths (i.e., it
@@ -808,9 +826,10 @@ Hill numbers can give us, let’s move on to our actual data.</p>
 <p>For this final section, we will be working on the data for the three
 island communities to calculate hill numbers from orders of 0 to 3. We
 will be using our pruned phylogeny and the site-by-species matrix we
-created earlier. Since we covered the workflow of calculating
-phylogenetic Hill numbers in the previous section, we will leave this
-activity for a challenge. workflow covered in this episode,</p>
+created in the <a href="abundance-data.html">abundances</a> episode.
+Since we covered the workflow of calculating phylogenetic Hill numbers
+in the previous section, we will leave this activity for a
+challenge.</p>
 <div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -823,12 +842,13 @@ activity for a challenge. workflow covered in this episode,</p>
 numbers of orders 0 to 3 for the three islands we are working with
 throughout the workshop The key objects here will be the phylogeny
 stored in <code>arthro_tree_pruned</code> and the sites-by-species
-matrix stored in <code>phylo_wide</code>. You should also plot the hill
-numbers for each island and discuss what the calculated values allow you
-to infer regarding the history of each community.</p>
+matrix stored in <code>abundances_wide</code>. You should also plot the
+hill numbers for each island and discuss what the calculated values
+allow you to infer regarding the history of each community.</p>
 </div>
 </div>
 </div>
+
 <div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
@@ -840,8 +860,8 @@ to infer regarding the history of each community.</p>
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
-<code>arthro_tree_pruned</code> and <code>phylo_wide</code>. Since we
-have three sites, the function will return a vector with tree values,
+<code>arthro_tree_pruned</code> and <code>abundances_wide</code>. Since
+we have three sites, the function will return a vector with tree values,
 one Hill number for each site of the order we requested. Let’s create an
 empty list to store a vector for each order, and use a <code>for</code>
 loop to calculate from orders of 0 to 3.</p>
@@ -850,8 +870,28 @@ of different orders as columns. For that, we will use the function
 <code>do.call</code> to collapse our list <code>hill_values</code> using
 the function <code>cbind</code>.</p>
 <p>Finally, we can plot using a similar code to the ones we used in our
-examples:</p>
+examples. We set <code>xlim</code> to go from 0 to 3, and
+<code>ylim</code> to go from the lowest to the highest value in the
+object <code>hill_values</code>. We also add a legend using the
+<code>legend()</code> function like we did in the traits episode.</p>
 </div>
+</div>
+</div>
+</div>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>After calculating and plotting hill numbers, what inferences can you
+make about the history of these communities, in terms of the rates of
+local speciation and colonization?</p>
+<p>Are there any further visualizations we haven’t done so far that you
+could make to further investigate the phylogenetic history of each
+community?</p>
 </div>
 </div>
 </div>
@@ -891,7 +931,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.3" class="external-link">sandpaper (0.12.3)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.4" class="external-link">sandpaper (0.12.4)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
@@ -913,9 +953,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/phylo-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/phylo-data.html",
-  "dateCreated": "2023-06-15",
-  "dateModified": "2023-06-15",
-  "datePublished": "2023-06-15"
+  "dateCreated": "2023-06-16",
+  "dateModified": "2023-06-16",
+  "datePublished": "2023-06-16"
 }
 
   </script><script>

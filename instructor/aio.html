@@ -337,7 +337,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 30 minutes </p>
@@ -669,7 +669,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-care"><p>Content from <a href="care.html">Indigenous Data Sovereignty and the CARE Principles</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/care.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -721,12 +721,13 @@ soverginty we will watch this video from <a href="https://localcontexts.org/" cl
 </section><section id="the-care-principles"><h2 class="section-heading">The CARE Principles<a class="anchor" aria-label="anchor" href="#the-care-principles"></a>
 </h2>
 <hr class="half-width">
-<p>The <a href="">CARE principles</a> developed by <a href="">xyz <em>et
-al.</em></a> codify Indigenous data sovereignty into actionable
-standards for data governance. The CARE principles are designed to live
-alongside and make more just the FAIR principles. The FAIR principles
-are seen as also being a necessary of Indigenous data sovereignty and
-governance</p>
+<p>The <a href="https://www.gida-global.org/care" class="external-link">CARE principles</a>
+developed by <a href="https://www.nature.com/articles/s41597-021-00892-0" class="external-link">Stephanie
+Russo Carroll <em>et al.</em></a> codify Indigenous data sovereignty
+into actionable standards for data governance. The CARE principles are
+designed to live alongside and make more just the FAIR principles. The
+FAIR principles are seen as also being a necessary of Indigenous data
+sovereignty and governance</p>
 <figure><img src="https://images.squarespace-cdn.com/content/v1/5d3799de845604000199cd24/1567592451970-2R8XFL670QNMAGDRV7ED/Be+FAIR+and+CARE.png?format=2500w" class="figure mx-auto d-block"></figure><div class="section level3">
 <h3 id="collective-benefit">Collective benefit<a class="anchor" aria-label="anchor" href="#collective-benefit"></a>
 </h3>
@@ -851,7 +852,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-abundance-data"><p>Content from <a href="abundance-data.html">Abundance Data</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/abundance-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1035,7 +1036,7 @@ simple typos in taxonomic names.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Sometimes <code>gnr_resolve</code> doesnt work. From the
 <code>taxize</code> documentation:</p>
@@ -1087,11 +1088,11 @@ in our data is resolved only to <code>Agrotis</code> and
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>Go to google and you’ll see that Agrotis chersotoides is a synonym of
 Peridroma chersotoides, while Metrothorax deverilli is a valid species
-with little information about it, thus it dosen’t show up in GNR.</p>
+with little information about it, thus it doesn’t show up in GNR.</p>
 </div>
 </div>
 </div>
@@ -1229,12 +1230,12 @@ there using the <code>pivot_wider</code> function from the package
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">abundances</span>, id_cols <span class="op">=</span> <span class="va">site</span>,</span>
+<code class="sourceCode R"><span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span><span class="va">abundances</span>, id_cols <span class="op">=</span> <span class="va">site</span>,</span>
 <span>                              names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
 <span>                              values_from <span class="op">=</span> <span class="va">abundance</span>, </span>
 <span>                              values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We’ll want this data to have <em>row names</em> based on the sites,
 so we’ll need some more steps:</p>
@@ -1242,13 +1243,33 @@ so we’ll need some more steps:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">$</span><span class="va">site</span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundances_wide</span><span class="op">$</span><span class="va">site</span></span>
 <span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="va">abundances_wide</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s write it to a file in case we need to load it again later
+on:</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">abundances_wide</span>, <span class="fu">here</span><span class="fu">::</span><span class="fu">here</span><span class="op">(</span><span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"abundances_wide.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning in file(file, ifelse(append, "a", "w")): cannot open file
+'/home/runner/work/multidim-biodiv-data/multidim-biodiv-data/site/built/episodes/data/abundances_wide.csv':
+No such file or directory</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in file(file, ifelse(append, "a", "w")): cannot open the connection</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -1257,19 +1278,19 @@ so we’ll need some more steps:</p>
 </h3>
 <p>The <code>hillR</code> package allows us to calculate Hill
 numbers.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundances_wide</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hill_0</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundances_wide</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hill_1</span></span></code></pre>
 </div>
@@ -1292,13 +1313,13 @@ numbers.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundance_wide</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundances_wide</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hill_2</span></span></code></pre>
 </div>
@@ -1313,7 +1334,7 @@ numbers.</p>
 </h2>
 <p>Let’s revisit the SAD plots we generated before, and think about
 these in terms of Hill numbers.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1351,12 +1372,18 @@ these in terms of Hill numbers.</p>
 <span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb17">
+<figure><img src="../fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hill_numbers</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">hill_0</span>, <span class="va">hill_1</span>, <span class="va">hill_2</span><span class="op">)</span></span>
-<span><span class="va">hill_numbers</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">hill_abund</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>hill_abund_0 <span class="op">=</span> <span class="va">hill_0</span>, </span>
+<span>                         hill_abund_1 <span class="op">=</span> <span class="va">hill_1</span>, </span>
+<span>                         hill_abund_2 <span class="op">=</span> <span class="va">hill_2</span><span class="op">)</span></span>
+<span><span class="va">hill_abund</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span>site <span class="op">=</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">hill_abund</span><span class="op">)</span>, <span class="va">hill_abund</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">hill_abund</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="va">hill_abund</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1392,7 +1419,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-traits-data"><p>Content from <a href="traits-data.html">Trait data</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1854,7 +1881,7 @@ data!</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
 <span>    <span class="va">abundances</span>,</span>
 <span>    id_cols <span class="op">=</span> <span class="va">site</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
@@ -1863,12 +1890,12 @@ data!</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># tibbles don't like row names</span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">$</span><span class="va">site</span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundances_wide</span><span class="op">$</span><span class="va">site</span></span>
 <span></span>
 <span><span class="co"># remove the site column</span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="va">abundances_wide</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1916,11 +1943,11 @@ across sites.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+<span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The output of <code>hill_func()</code> returns quite a few Hill
 number options, which are defined in <a href="https://www.annualreviews.org/doi/abs/10.1146/annurev-ecolsys-120213-091540" class="external-link">Chao
@@ -1942,22 +1969,24 @@ Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>q0 <span class="op">=</span> <span class="va">traits_hill_0</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
-<span>                          q1 <span class="op">=</span> <span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
-<span>                          q2 <span class="op">=</span> <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>hill_trait_0 <span class="op">=</span> <span class="va">traits_hill_0</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>,</span>
+<span>                          hill_trait_1 <span class="op">=</span> <span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>,</span>
+<span>                          hill_trait_2 <span class="op">=</span> <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># I don't like rownames for plotting, so making the rownames a column</span></span>
-<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span>site <span class="op">=</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span>, <span class="va">traits_hill</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="va">traits_hill</span></span></code></pre>
 </div>
 <p>Let’s look at how Hill q = 1 compare across sites.</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"KA_01"</span>, <span class="st">"MA_01"</span>, <span class="st">"BI_01"</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>     <span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"KA_01"</span>, <span class="st">"MA_01"</span>, <span class="st">"BI_01"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>     <span class="va">traits_hill</span><span class="op">$</span><span class="va">hill_trait_1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
@@ -2093,9 +2122,9 @@ statistics, and what you know from your work?</p>
 </h3>
 <div class="callout-content">
 <ul>
-<li>Traits data contain more information about ecologially significant
+<li>Traits data contain more information about ecologically significant
 traits than just species IDs.</li>
-<li>Traits data can be analyed with Hill numbers and visualized with
+<li>Traits data can be analzyed with Hill numbers and visualized with
 rank plots similarly to abundance data.</li>
 </ul>
 </div>
@@ -2107,7 +2136,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-phylo-data"><p>Content from <a href="phylo-data.html">Summarizing phylogenetic data</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -2122,10 +2151,10 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>What information is contained in phylogenies?</li>
-<li>How to summarize and interpret phylogenies using Hill numbers?</li>
-<li>What are the common phylogeny data formats?</li>
+<li>What biological information is stored in phylogenetic Hill
+numbers?</li>
 <li>How do you import and manipulate phylogeny data in R?</li>
+<li>What are the common phylogeny data formats?</li>
 <li>How do you visualize phylogenies in R?</li>
 <li>How do you calculate Hill numbers with phylogenetic data?</li>
 </ul>
@@ -2159,7 +2188,6 @@ each other and how much relative evolutionary change has accumulated
 among them. Since local communities differ in their phylogenetic
 composition, this information can give insights on why communities are
 how they are.</p>
-<p>[HERE INCLUDE VISUALS OF PHYLOGENIES]</p>
 <p>The relative phylogenetic distance among species in a community as
 well as the distribution of the amount of evolutionary history
 (represented by the length of the branches in a phylogeny) are a result
@@ -2176,6 +2204,10 @@ Coupled with information on ecological traits and rates of
 macroevolutionary processes, these patterns also allow to test for
 hypotheses regarding, for instance, ecological filtering or niche
 conservatism.</p>
+<p>[Images of two trees with different topologies and branch lenghts]
+[Discuss how they represent different amounts of evolutionary history]
+[Translate that to processes of community assembly. Recap Andy’s island
+of young vs old, speciation vs colonization, competition vs neutral]</p>
 <p>Summarizing this phylogenetic information (i.e., phylogenetic
 distance and distribution of branch lengths) is therefore important for
 inference. As we have seen in previous episodes, the use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
@@ -2289,97 +2321,86 @@ name checking and filtering.</p>
 <div class="section level3">
 <h3 id="cleaning-and-checking-phylogeny-taxa">Cleaning and checking phylogeny taxa<a class="anchor" aria-label="anchor" href="#cleaning-and-checking-phylogeny-taxa"></a>
 </h3>
-<p>The issue of underscore:</p>
-<p><strong>Do we still want to keep this issue? Or simply skip ahead to
-pruning the phylogeny?</strong></p>
-<p>Since this is a “published” arthropod phylogeny, we will likely not
-have any misspelling in the tip names of the object. However, one
-important issue that may arise is that, depending on the resolution of
-the phylogeny, it may be the case that some taxa in our community
-dataset may not be explicitly represented in the phylogeny. For
-instance, the tips in our phylogeny might be represented by one species
-for each genus, or one genus for each family. This is usually the case
-when the goal of the original publication was to elucidate the
-phylogenetic relationship for such higher taxonomic levels, with less
-focus on the more recent evolutionary history. In these cases, some taxa
-in our <a href="abundance-data.html">abundances</a> dataset may not be
-found in the phylogeny, which will yield errors when we try to summarize
-phylogenetic diversity. Therefore, we will want to assign those “missing
-taxa” to one of the tips present in the tree, based on their known genus
-and/or family assignments.</p>
-<p>Let’s first find out what are those “missing taxa”. For this, we’ll
-refer back to our original species list, from the
-<code>abundances</code> object:</p>
+<p>The first thing we want to do is to check the tip labels in our tree.
+Since this is a “published” arthropod phylogeny, we will likely not have
+any misspelling in the tip names of the object. However, it is always
+good practice to check contents to see if anything weird stands out.</p>
+<p>And indeed we find something: even though there are probably no
+misspellings, the genus and species name in this tree are separated by
+an underscore symbol <code>_</code>. Since the names in our
+site-by-species matrix do not have that underscore, we will get an error
+when matching the data if we don’t fix this spelling.</p>
+<p>One useful function to do this fixing is the function
+<code>gsub()</code>. This function allows you to look for a specific
+character pattern inside character objects, and replace them by any
+other pattern you may want. In our case, we have a vector of 60
+character values containing the names of our tips. We want to find the
+<code>_</code> character inside each character value and replace it by
+an empty space, so it becomes equal to what we have in our
+site-by-species matrix. We do so by providing to the <code>gsub()</code>
+function: 1) the pattern we want to replace; 2) the new pattern we want
+to replace it with; 2) the character object or vector containing the
+values to be searched. Finally, we assign the output of that function
+back to the <code>tip.label</code> slot in the <code>arthro_tree</code>
+object.</p>
+<p>Now that we fixed this first obvious issue, we can start looking for
+others. Since we want to calculate phylogenetic diversity for each of
+our communities, our main concern here is to make sure that all taxa
+present in our communities can be found in this phylogeny. One important
+issue that may arise is the use of different names for the same taxa
+across the two datasets (i.e., synonyms). This is especially important
+since we previouslu performed a synonym check and cleaning in our
+abundance dataset; we need to make sure the names in our tree will
+follow the same nomenclature decisions.</p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Learners should have the object <code>abundances</code> already in
+their environment, from the previous episode. If not, use line
+below.</p>
+</div>
+</div>
+</div>
+</div>
+<p>To see if there are any mismatches, let’s first retrieve a list of
+the names in our abundances dataset. Since this dataset has repeated
+instances of the same species when it shows up in different islands, we
+wrap the vector of taxa names in the function <code>unique()</code> to
+return each species name only once.</p>
 <p>To cross-check this list against the list of names in our phylogeny,
 we can use the Boolean operator <code>%in%</code> coupled with
-<code>!</code>. This will allow us to check for names in
+<code>!</code>. This will allow us to check for names present in
 <code>all_names</code> that are not included in the
 <code>arthro_tree$tip.label</code>. In summary, the expression
-<code>A %in% B</code> would return the position of the elements in
-vector A that are present in vector B. The <code>!</code> (NOT) operator
-returns the opposite of that expression, in a way that
-<code>!(A %in% B)</code> will return the position of elements in vector
-A that are <em>NOT</em> present in vector B (precisely what we need
-right now).</p>
-<p>The object <code>not_found</code> is now a vector of the positions
-(or <em>indexes</em>) of the elements in <code>all_names</code> that are
-not found in <code>arthro_tree$tip.label</code>. Let’s then check these
-names by using these indexes to subset <code>all_names</code>:</p>
-<p><strong>EDIT THIS NEXT PARAGRAPH WHEN PHYLOGENY IS
-AVAILABLE</strong></p>
-<p>Here, we can decide how we are going to assign these species to tips
-in our tree. For instance, we see that we do not have
-<strong>XXX</strong> in our tree, but we have <strong>XXX</strong>,
-which belongs to the same genus. Similarly…</p>
-<p>We can then give new names to these species, based on what tips in
-our tree we want them to match to. To do so, we will first duplicate our
-<code>all_names</code> vector into the <code>new_names</code> vector.
-This way, we can make our changes in <code>new_names</code> while
-keeping the original names intact, just in case we need to refer back to
-them in the future.</p>
-<p>Now we use the indexes saved in <code>not_found</code> to replace the
-names in the positions with the ones we want:</p>
-<ul>
-<li>Here I am changing the abundance to match the phylogeny. IT SHOULD
-BE THE OTHER WAY AROUND.*</li>
-<li>Make change tip labels a challenge. *</li>
-</ul>
-<p>Now that we have a vector where all names match to a position in our
-phylogeny, we need to bring these corrected names back to our abundance
-data. Here, we will again first copy our <code>abundances</code> object
-into another object, in order to keep the original data intact. Then, we
-will change the column <code>final_name</code> based on the vector
-<code>new_names</code>.</p>
-</div>
-<div class="section level3">
-<h3 id="pruning-our-phylogeny">Pruning our phylogeny<a class="anchor" aria-label="anchor" href="#pruning-our-phylogeny"></a>
-</h3>
-<p>Now that we have a modified abundance dataset where all taxa names
-are present in our phylogeny, we can work on pruning our phylogeny to
-the taxa present in our communities. This is especially important when
-working with published phylogenies as these are usually large files
-containing several taxa that may not exist in the local community.</p>
-<p>We can prune our phylogeny using the function <code>keep.tip</code>
-from the <code>ape</code> package. For this function, we provide the
-entire phylogeny plus the names of the tips we want to keep. Here, we
-will retrieve those names from the new abundances dataset we create,
-with names corrected to match the phylogeny.</p>
-<p>Now, that we have a pruned more manageable phylogeny for our
-communities, let’s move on to the next bit of information we need to
-summarize phylogenetic diversity: a site-by-species matrix. As we saw in
-the <a href="abundance-data.html">abundances</a> episode, such a matrix
-can be used to calculate Hill numbers and help us compare patterns
-across the different communities. In this episode, we are following the
-same approach to calculate Hill numbers, with the addition that, on top
-of the abundance, we will also be using phylogenetic information,
-i.e. the length of the branches in the phylogenetic tree leading to the
-taxa present in each community.</p>
-<p>Here, we need to make a site-by-species matrix using the new taxa
-names corrected to match the phylogeny. Since we have done this in a
-previous episode, we’ll cover this in a challenge.</p>
-<ul>
-<li>REMOVE THIS CHALLENGE *</li>
-</ul>
+<code>A %in% B</code> would return whether each element of vector A is
+present in vector B. This is returned as a Boolean vector: if
+<code>TRUE</code>, the element of that position in A exists in B; if
+<code>FALSE</code>, it does not. We add the <code>!</code> (NOT)
+operator to return the opposite of that expression, in a way that
+<code>!(A %in% B)</code> will return whether each element of vector A is
+<em>NOT</em> present in vector B. In this case, every time we see
+<code>TRUE</code>, it means the element in that position is <em>NOT</em>
+in vector B.</p>
+<p>Checking the vector <code>not_found</code>, we can see it is a
+collection of TRUEs and FALSEs. We can use that vector to perform
+bracket subsetting in the vector <code>all_names</code>. Doing so, we
+are retrieving from <code>all_names</code> only the elements in the
+position where <code>not_found</code> is <code>TRUE</code>.</p>
+<p>The expression above give us the one element of
+<code>all_names</code> that is not present in
+<code>arthro_tree$tip.label</code>. As we expected, it is a synonym that
+we corrected in our <a href="abundance-data.html">abundances</a>
+episode. Our tree still has the old name <em>Agrotis chersotoides</em>
+whereas our site-by-species matrix has the updated name <em>Peridroma
+chersotoides</em>. To correct that, we need to modify the tip label in
+our tree to match the new name. How can we do that?</p>
 <div id="challenge1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -2388,9 +2409,31 @@ previous episode, we’ll cover this in a challenge.</p>
 <h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
 </h3>
 <div class="callout-content">
-<p>Make a site-by-species matrix containing the three islands based on
-the new <code>abundance_phylo</code> object that contains the taxa names
-corrected to match the phylogeny. Hint: you may want to refer to the <a href="abundance-data.html">abundances</a> episode.</p>
+<p>Modify the old name <em>Agrotis chersotoides</em> in our phylogenetic
+tree, replacing it by <em>Peridroma chersotoides</em>. To do so, you
+will need to 1) find the position of the old name in labels in our tree;
+2) assign the new name in the right position where the old name is.</p>
+<p>Hint: a similar task was performed before in the <a href="abundance-data.html">abundances</a>.</p>
+</div>
+</div>
+</div>
+<div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
+  <h3 class="accordion-header" id="headingInstructor2">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div class="accordion-body">
+<p>This challenge is supposed to assess the learner’s knowledge in
+indexing, subsetting and replacing values in a vector. The solution
+below uses Boolean matching to find the old name and replace it with the
+new name, but other solutions can include checking visually for the
+position of the old name or using <code>grep()</code> to find the
+position.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2403,28 +2446,62 @@ corrected to match the phylogeny. Hint: you may want to refer to the <a href="ab
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>To create our site-by-species matrix, we will use the
-<code>pivot_wider</code> function from the <code>tidyr</code>
-package.</p>
+<p>We need to perform an assignment operation in the position where the
+old name is located inside <code>arthro_tree$tip.label</code>. To find
+that position, we can use Boolean matching to ask which element of
+<code>arthro_tree$tip.label</code> equals the old name.</p>
 </div>
 </div>
 </div>
 </div>
+<p>A good practice after correcting the name is to re-check if all names
+in our abundance dataset match the names in the phylogeny. This time, we
+expect all elements in the vector <code>not_found</code> to be
+<code>FALSE</code>. We can use the function <code>which()</code> to ask
+“which elements in <code>not_found</code> are <code>TRUE</code> We
+expect the answer to be an empty vector, indicating”no elements in
+<code>not_found</code> are <code>TRUE</code>“.</p>
+</div>
+<div class="section level3">
+<h3 id="pruning-our-phylogeny">Pruning our phylogeny<a class="anchor" aria-label="anchor" href="#pruning-our-phylogeny"></a>
+</h3>
+<p>Now that we have a modified tree where all taxa names are present in
+our abundances dataset, we can work on pruning our phylogeny to the taxa
+present in our communities. This is especially important when working
+with published phylogenies as these are usually large files containing
+several taxa that may not exist in the local community.</p>
+<p>We can prune our phylogeny using the function <code>keep.tip()</code>
+from the <code>ape</code> package. For this function, we provide the
+entire phylogeny plus the names of the tips we want to keep. Here, we
+will retrieve those names from the abundances dataset.</p>
+<p>With a pruned phylogeny and a site-by-species matrix, we have the two
+bits of information we need to summarize phylogenetic diversity per
+community. As we saw in previous episodes, we can use such abundance
+matrix to calculate Hill numbers and help us compare patterns across the
+different communities. In the traits episode, we saw how we can combine
+abundance and trait data to extract Hill numbers as values that
+summarize the distribution of trait variation across communities. Here
+we will be following the same approach to summarize the amount and the
+distribution of evolutionary history across the species in our
+community.</p>
 </div>
 </section><section id="summarizing-with-hill-numbers"><h2 class="section-heading">Summarizing with hill numbers<a class="anchor" aria-label="anchor" href="#summarizing-with-hill-numbers"></a>
 </h2>
 <hr class="half-width">
 <p>In this section, we will extract some summary statistics about the
 pattern of phylogenetic diversity (PD) in our communities. As we
-discussed above, the relative phylogenetic distance among species and
-the distribution of this distance can give insights into processes of
-community assembly. Here, we will make use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
-numbers</a> to extract summaries of phylogenetic distances. Phylogenetic
-hill numbers incorporate information on both the phylogenetic structure
-of a system and the abundances of different species. In order to get an
-intuition for how these different components influence phylogenetic hill
-numbers, we’ll first explore the behavior of this summary statistic
-using a few simple examples</p>
+discussed in the intro of this episode, the relative phylogenetic
+distance among species and the distribution of this distance can give
+insights into processes of community assembly. Here, we will make use of
+<a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
+numbers</a> to extract summaries of phylogenetic distances, i.e. the
+length of the branches in the phylogenetic tree leading to the taxa
+present in each community. Phylogenetic hill numbers incorporate
+information on both the phylogenetic structure of a system and the
+abundances of different species. In order to get an intuition for how
+these different components influence phylogenetic hill numbers, we’ll
+set our Hawaiian data aside for a moment and first explore the behavior
+of this summary statistic using a few simplified example datasets.</p>
 <div class="section level3">
 <h3 id="example-1--trees-with-different-branch-lenghts">Example 1. Trees with different branch lenghts<a class="anchor" aria-label="anchor" href="#example-1--trees-with-different-branch-lenghts"></a>
 </h3>
@@ -2545,19 +2622,19 @@ repeat the calculations from example 1 with these new trees. First,
 let’s focus on the even community (i.e., not introducing the relative
 species abundance factor yet):</p>
 <p>This plot is similar to example 1 in two ways: 1) one of the trees
-has higher hill number values, in this case the uneven tree. This
+has higher hill number values, in this case the unbalanced tree. This
 suggests that the unbalanced structure of the tree accounts for a deeper
 evolutionary history (i.e., lineages have overall longer branches); 2)
 the value of the hill numbers drop as the order goes up. This happens
 because higher orders are weighting less and less those branch lengths
 that are not so common (like, for instance, the short branch lengths in
-the uneven tree).</p>
+the unbalanced tree).</p>
 <p>Something new that we observe here is a more evident difference
 between trees in the <strong>rate of change</strong> of the Hill number
-value as we increase the order. The uneven tree (darker red) shows a
-steeper drop than the even tree (lighter red). This is similar to what
-we observed in the <a href="abundance-data.html">abundances</a> episode:
-uneven communities show a steeper drop in Hill numbers as order
+value as we increase the order. The unbalanced tree (darker red) shows a
+steeper drop than the balanced tree (lighter red). This is similar to
+what we observed in the <a href="abundance-data.html">abundances</a>
+episode: uneven communities show a steeper drop in Hill numbers as order
 increases. In this example, instead of species abundance, the unevenness
 of the community is represented by the structure of the phylogeny: a
 completely unbalanced tree combining long and short branches generates
@@ -2577,29 +2654,30 @@ the overall value of PD will be the sum of branch lengths weighted by
 their abundance in the community as informed by the species abundance
 distribution (instead of by the frequency of the branch length in the
 tree). This added information brings new insights. It may be the case,
-for instance, that in the uneven tree, even though long branches are
+for instance, that in the unbalanced tree, even though long branches are
 over represented, maybe the species with long branches are actually
 super rare in our community, and the short-branch species are actually
 super abundant. As you can probably infer, this difference suggests
 something about the evolutionary history of our community, in this case
 that the most abundant species have a very recent evolutionary history.
-Similarly, even though branch lengths are the same in the even tree, if
-some of the species is more abundant than others, it suggests that the
-evolutionary history of the tree is unevenly represented in our
+Similarly, even though branch lengths are the same in the balanced tree,
+if some of the species is more abundant than others, it suggests that
+the evolutionary history of the tree is unevenly represented in our
 community.</p>
 <p>To visualize these interaction between tree structure and species
 relative abundance, let’s redo the calculation for Hill numbers with
-even and uneven trees, this time using the uneven community. We’ll plot
-all final values together for comparison.</p>
-<p>Reminders: 1) light colors represent even trees, whereas darker
-colors represent uneven trees 2) red lines represent even community
+balanced and unbalanced trees, this time using the uneven community.
+We’ll plot all final values together for comparison.</p>
+<p>Reminders: 1) light colors represent balanced trees, whereas darker
+colors represent unbalanced trees 2) red lines represent even community
 whereas blue lines represent uneven community.</p>
 <p>From this second plot, we notice that:</p>
 <ol style="list-style-type: decimal">
-<li><p>Hill number values for the uneven tree (darker colors) are still
-higher than those for the even tree (lighter colors). This makes sense
-since the relative abundance is the same for both trees, so the overall
-pattern (i.e., longer branches in uneven tree) remains;</p></li>
+<li><p>Hill number values for the unbalanced tree (darker colors) are
+still higher than those for the balanced tree (lighter colors). This
+makes sense since the relative abundance is the same for both trees, so
+the overall pattern (i.e., longer branches in unbalanced tree)
+remains;</p></li>
 <li><p>the Hill number of order 0 is the same regardless of whether you
 have different relative abundances among species. This was also the case
 for example 1. Order 0 is simply the sum of all branch lengths (i.e., it
@@ -2647,9 +2725,10 @@ Hill numbers can give us, let’s move on to our actual data.</p>
 <p>For this final section, we will be working on the data for the three
 island communities to calculate hill numbers from orders of 0 to 3. We
 will be using our pruned phylogeny and the site-by-species matrix we
-created earlier. Since we covered the workflow of calculating
-phylogenetic Hill numbers in the previous section, we will leave this
-activity for a challenge. workflow covered in this episode,</p>
+created in the <a href="abundance-data.html">abundances</a> episode.
+Since we covered the workflow of calculating phylogenetic Hill numbers
+in the previous section, we will leave this activity for a
+challenge.</p>
 <div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -2662,9 +2741,26 @@ activity for a challenge. workflow covered in this episode,</p>
 numbers of orders 0 to 3 for the three islands we are working with
 throughout the workshop The key objects here will be the phylogeny
 stored in <code>arthro_tree_pruned</code> and the sites-by-species
-matrix stored in <code>phylo_wide</code>. You should also plot the hill
-numbers for each island and discuss what the calculated values allow you
-to infer regarding the history of each community.</p>
+matrix stored in <code>abundances_wide</code>. You should also plot the
+hill numbers for each island and discuss what the calculated values
+allow you to infer regarding the history of each community.</p>
+</div>
+</div>
+</div>
+<div id="accordionInstructor3" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
+  <h3 class="accordion-header" id="headingInstructor3">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div class="accordion-body">
+<p>Learners should have the object <code>abundances_wide</code> already
+in their environment, from the previous episode. If not, use line
+below.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2679,8 +2775,8 @@ to infer regarding the history of each community.</p>
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
-<code>arthro_tree_pruned</code> and <code>phylo_wide</code>. Since we
-have three sites, the function will return a vector with tree values,
+<code>arthro_tree_pruned</code> and <code>abundances_wide</code>. Since
+we have three sites, the function will return a vector with tree values,
 one Hill number for each site of the order we requested. Let’s create an
 empty list to store a vector for each order, and use a <code>for</code>
 loop to calculate from orders of 0 to 3.</p>
@@ -2689,22 +2785,77 @@ of different orders as columns. For that, we will use the function
 <code>do.call</code> to collapse our list <code>hill_values</code> using
 the function <code>cbind</code>.</p>
 <p>Finally, we can plot using a similar code to the ones we used in our
-examples:</p>
+examples. We set <code>xlim</code> to go from 0 to 3, and
+<code>ylim</code> to go from the lowest to the highest value in the
+object <code>hill_values</code>. We also add a legend using the
+<code>legend()</code> function like we did in the traits episode.</p>
 </div>
 </div>
 </div>
 </div>
-<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>After calculating and plotting hill numbers, what inferences can you
+make about the history of these communities, in terms of the rates of
+local speciation and colonization?</p>
+<p>Are there any further visualizations we haven’t done so far that you
+could make to further investigate the phylogenetic history of each
+community?</p>
+</div>
+</div>
+</div>
+<div id="accordionInstructor4" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
-  <h3 class="accordion-header" id="headingInstructor1">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor4" aria-expanded="false" aria-controls="collapseInstructor4">
+  <h3 class="accordion-header" id="headingInstructor4">
   <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
-<p>A few points of discussion…</p>
+<p>A few points of discussion: 1. Kauai has lowest absolute sum of
+branch lengths whereas Maui has the highest. The Big Island stays in
+between. 2. The Big Island, however, has the most uneven distribution of
+branch length. Even though branches are overall longer in the Big Island
+than in the Kauai island, lower Hill number on higher orders suggest
+they are more unevenly distributed in the community of the Big Island.
+3. Lower values for the Big Island in higher orders, coupled with a
+slightly higher value for order 0, suggest that the evolutionary
+branches in this island are longer than in Kauai but they are unevenly
+represented, probably represented by a few very abundant species. This
+suggests a young history of colonization for this island: the community
+is dominated by the few good colonizers, which have been evolving for a
+while in the mainland, bring their long branches to the community when
+they arrive. The absence of shorter branches evenly distributed further
+suggests that speciation has not occurred much in this island,
+indicating a young community mostly composed by colonizers. 4. Kauai has
+the lowest sum of branch lengths, but evenness seems to be in between
+the other two islands. This suggests this islands harbors more closely
+related taxa (lowest sum of branches) when compared to other islands,
+but these values are evenly distributed among species. A longer history
+may be inferred here, with a lot of local speciation (accounting for
+closely related taxa) and probably competitive coexistence dictating
+similar abundances across species (accounting for evenness of branch
+representation). 5. Maui has overall highest PD in all orders and higher
+evenness of distribution of branch lengths. This suggests an
+intermediate history: both speciation and immigration account for a lot
+of evolutionary history in this island, while elapsed time may have been
+enough to dictate a more even distribution of species abundance and
+phylogenetic history.</p>
+<p>Further visualization of the trees for each community can help us
+corroborate these ideas:</p>
+<p>The interesting thing here is that we could infer the history of the
+communities from the numbers only, before looking at the trees per
+community. This speaks to the power of Hill numbers as summary statistic
+of biodiversity patterns and how they can be useful for simulation-based
+inference.</p>
 </div>
 </div>
 </div>
@@ -2716,7 +2867,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-popgen-data"><p>Content from <a href="popgen-data.html">Working with population genetic data</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/popgen-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -3537,7 +3688,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-connecting-data-types"><p>Content from <a href="connecting-data-types.html">Connecting different data types</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/connecting-data-types.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -3745,7 +3896,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-finding_data"><p>Content from <a href="finding_data.html">Finding multi-dimensional biodiversity data</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -4308,7 +4459,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-care-data-repos"><p>Content from <a href="care-data-repos.html">CARE Principles and Data Repositories</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/care-data-repos.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 30 minutes </p>
@@ -4345,7 +4496,276 @@ Notices</li>
 </div>
 </div>
 </div>
-</div></section>
+</div>
+<section id="what-biodiversity-repositories-utilize-tkbc-labels-and-notices"><h2 class="section-heading">What biodiversity repositories utilize TK/BC Labels and
+Notices?<a class="anchor" aria-label="anchor" href="#what-biodiversity-repositories-utilize-tkbc-labels-and-notices"></a>
+</h2>
+<hr class="half-width">
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+</h3>
+<div class="callout-content">
+<p>Search the web and try to find some examples!</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>Not much! Here are two: - <a href="https://geome-db.org/" class="external-link">GEOME</a> -
+<a href="https://metadata.maine-edna.org/main/localcontexts/" class="external-link">Maine-eDNA
+database</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>What could be challenges in operationalizing TK/BC Labels and
+Notices?</p>
+</div>
+</div>
+</div>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Guide learners toward metadata standards to transition to next
+section</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="are-existing-metadata-standards-sufficient-for-housing-information-about-indigenous-data-sovereignty-and-governance"><h2 class="section-heading">Are existing metadata standards sufficient for housing information
+about Indigenous data sovereignty and governance?<a class="anchor" aria-label="anchor" href="#are-existing-metadata-standards-sufficient-for-housing-information-about-indigenous-data-sovereignty-and-governance"></a>
+</h2>
+<hr class="half-width">
+<div id="challenge2" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Look up the descriptions of Biocultural <a href="https://localcontexts.org/labels/biocultural-labels/" class="external-link">Labels</a>
+and <a href="https://localcontexts.org/notice/bc-notice/" class="external-link">Notices</a>
+</li>
+<li>Look up the fields of the <a href="https://dwc.tdwg.org/terms/" class="external-link">Darwin Core metadata
+standard</a>
+</li>
+<li>Can they interoperate?</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>There is no agreed upon solution. So the solution is really more of a
+conversation at this point. One key concept to keep in mind is that
+Darwin Core (and other metadata standards) are built upon a settler
+system of data management, data provenance, and intellectual property.
+That system was created to manifest the rights of settlers and to
+destroy the rights of Indigenous people, communities, and peoples. So
+perhaps the terms can be translated, but perhaps this will not be
+satisfactory without rebuiling standards with both CARE and FAIR
+principles at heart.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="what-can-we-do-without-institutional-support-from-large-repositories-yet"><h2 class="section-heading">What can we do without institutional support from large repositories
+(yet)?<a class="anchor" aria-label="anchor" href="#what-can-we-do-without-institutional-support-from-large-repositories-yet"></a>
+</h2>
+<hr class="half-width">
+<p>The Local Contexts Hub provides an API that we can use in our data
+workflows to ensure that Indigenous data sovereignty metadata propagate
+along with the data.</p>
+<p>Let’s see how we can use the Local Contexts Hub API to query
+information about the Maine-eDNA project we learned about. We can find
+the API documentation <a href="https://github.com/biocodellc/localcontexts_db/wiki/API-Documentation" class="external-link">here</a>.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">jsonlite</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">httr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># the API documentation tells us this is the base URL to access the API</span></span>
+<span><span class="va">baseURL</span> <span class="op">&lt;-</span> <span class="st">"https://localcontextshub.org/api/v1"</span></span>
+<span></span>
+<span><span class="co"># to retrive project information, we add this to the base URL</span></span>
+<span><span class="va">projDetail</span> <span class="op">&lt;-</span> <span class="st">"/projects/&lt;PROJECT_UNIQUE_ID&gt;/"</span></span>
+<span></span>
+<span><span class="co"># we need to know the protect ID, we can find it in our LC Hub account</span></span>
+<span><span class="va">projID</span> <span class="op">&lt;-</span> <span class="st">"6d34be51-0f60-4fc5-a699-bed4091c02e0"</span></span>
+<span></span>
+<span><span class="co"># now we start to construct our query string</span></span>
+<span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="va">baseURL</span>, <span class="va">projDetail</span><span class="op">)</span></span>
+<span><span class="va">q</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># we need to replace "&lt;PROJECT_UNIQUE_ID&gt;" with `projID`</span></span>
+<span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"&lt;PROJECT_UNIQUE_ID&gt;"</span>, <span class="va">projID</span>, <span class="va">q</span><span class="op">)</span></span>
+<span><span class="va">q</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># now we can use functions from jsonlite and httr to pull the info</span></span>
+<span><span class="va">rawRes</span> <span class="op">&lt;-</span> <span class="fu">GET</span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span>
+<span><span class="va">jsonRes</span> <span class="op">&lt;-</span> <span class="fu">rawToChar</span><span class="op">(</span><span class="va">rawRes</span><span class="op">$</span><span class="va">content</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">fromJSON</span><span class="op">(</span><span class="va">jsonRes</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># have a look</span></span>
+<span><span class="va">res</span></span></code></pre>
+</div>
+<p>There’s a lot of info there! If a Notice is attached to the project,
+we can access it directly with <code>res$notice</code>. Similarly, if TK
+and/or BC labels are associated with the project they can be accessed
+with <code>res$tk_labels</code> and <code>res$bc_labels</code>,
+respectively.</p>
+<p>There is an R package <em>enRich</em> under development by Jacob
+Golan in collaboration with <a href="https://www.enrich-hub.org/" class="external-link">ENRICH</a> that can wrap these API
+calls in more familiar-looking R code. We have to install this in-dev
+package from github:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"jacobgolan/enRich"</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">enRich</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now we can re-produce the previous API call in simpler R code</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">projID</span> <span class="op">&lt;-</span> <span class="st">"6d34be51-0f60-4fc5-a699-bed4091c02e0"</span></span>
+<span><span class="va">meDNA</span> <span class="op">&lt;-</span> <span class="fu">find.projects</span><span class="op">(</span><span class="va">projID</span><span class="op">)</span></span>
+<span><span class="va">meDNA</span></span></code></pre>
+</div>
+<p>The idea of pulling information from Local Contexts Hub via the API
+is that, for example, reports and manuscripts can now use calls to the
+API to automatically disclose Indigenous rights and interests in the
+data underlying the data used.</p>
+<p>As an example, a manuscript written using RMarkdown or Quarto could
+include the following in the introduction</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">MARKDOWN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode markdown" tabindex="0"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">```{r LCH-setup}</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">projID &lt;- "259854f7-b261-4c8c-8556-4b153deebc18"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">thisProj &lt;- find.projects(projID)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="in">comms &lt;- thisProj[[1]]$bc_labels$community</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>We make use of data originating from <span class="in">`comms`</span> traditional territories. These data thus have <span class="in">`comms`</span> provenance, in spite of any settler concept of data ownership. To affirm the intrinsic rights of <span class="in">`comms`</span> communities to govern the collection, use, and sharing of their data, <span class="in">`comms`</span> applied the following Biocultural Labels to these data, specifying ethical protocol for the use and management of these data:</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bc-labels, results = 'asis'}</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="in">allBCLabels &lt;- thisProj[[1]]$bc_labels</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:length(allBCLabels)) {</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="in">    thisLab &lt;- allBCLabels$label_text[i]</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="in">    cat(thisLab, "\n")</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre>
+</div>
+<p>This code will render the community name and BC Labels they have
+applied.</p>
+<p>As researchers we can also host our data outside of large online
+repositories, but still have them FAIR and CARE using webhooks to query
+the Local Contexts API. This is the approach taken by the Maine-eDNA
+database infrastructure.</p>
+<p>For the purpose of sharing data with Indigenous sovereignty metadata,
+<em>enRich</em> also provides an experimental method for attaching Local
+Contexts Hub IDs to sequence data.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># read in a fasta file using the dedicated function from enRich</span></span>
+<span><span class="va">seqs</span> <span class="op">&lt;-</span> <span class="fu">readFASTA</span><span class="op">(</span><span class="st">'https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/big_island_seqs.fas'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># just for demonstration purposes, set up a temporary directory</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">tempdir</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># write out the file</span></span>
+<span><span class="fu">outputFASTA</span><span class="op">(</span></span>
+<span>    seqs <span class="op">=</span> <span class="va">seqs</span><span class="op">$</span><span class="va">sequence</span>,</span>
+<span>    seqid <span class="op">=</span> <span class="va">seqs</span><span class="op">$</span><span class="va">name</span>,</span>
+<span>    uqID <span class="op">=</span> <span class="va">projID</span>, <span class="co"># the uniqe ID for the project we found above in Step 3</span></span>
+<span>    filename <span class="op">=</span> <span class="fu">file.path</span><span class="op">(</span><span class="va">temp</span>, <span class="st">"seqs-LCH-ID"</span><span class="op">)</span> <span class="co"># .fasta is automatically added</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># read it back in and notice that the LC Hub ID is now in the fasta header</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">readLines</span><span class="op">(</span><span class="fu">file.path</span><span class="op">(</span><span class="va">temp</span>, <span class="st">"seqs-LCH-ID.fasta"</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre>
+</div>
+<p>This approach could be taken before uploading sequence data to
+GenBank.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Operationalizing CARE Principles requires advocacy to more data
+repositories will take up protocols such as hosting TK and BC
+information.</li>
+<li>While we wait for that systemic change, we can still take action
+ourselves by interacting directly with the API of Local Contexts
+Hub</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section>
 </div>
     </main>
 </div>
@@ -4370,7 +4790,7 @@ Notices</li>
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.3" class="external-link">sandpaper (0.12.3)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.4" class="external-link">sandpaper (0.12.4)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
@@ -4393,9 +4813,9 @@ Notices</li>
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/aio.html",
-  "dateCreated": "2023-06-15",
-  "dateModified": "2023-06-15",
-  "datePublished": "2023-06-15"
+  "dateCreated": "2023-06-16",
+  "dateModified": "2023-06-16",
+  "datePublished": "2023-06-16"
 }
 
   </script><script>

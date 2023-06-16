@@ -286,7 +286,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Trait data</h1>
-        <p> Last updated on 2023-06-15 | 
+        <p> Last updated on 2023-06-16 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/traits-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -743,7 +743,7 @@ data!</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
 <span>    <span class="va">abundances</span>,</span>
 <span>    id_cols <span class="op">=</span> <span class="va">site</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
@@ -752,12 +752,12 @@ data!</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># tibbles don't like row names</span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span></span>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundance_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">$</span><span class="va">site</span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">abundances_wide</span><span class="op">$</span><span class="va">site</span></span>
 <span></span>
 <span><span class="co"># remove the site column</span></span>
-<span><span class="va">abundance_wide</span> <span class="op">&lt;-</span> <span class="va">abundance_wide</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
+<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="va">abundances_wide</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -805,11 +805,11 @@ across sites.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundance_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+<span><span class="va">traits_hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The output of <code>hill_func()</code> returns quite a few Hill
 number options, which are defined in <a href="https://www.annualreviews.org/doi/abs/10.1146/annurev-ecolsys-120213-091540" class="external-link">Chao
@@ -831,22 +831,24 @@ Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>q0 <span class="op">=</span> <span class="va">traits_hill_0</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
-<span>                          q1 <span class="op">=</span> <span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
-<span>                          q2 <span class="op">=</span> <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>hill_trait_0 <span class="op">=</span> <span class="va">traits_hill_0</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>,</span>
+<span>                          hill_trait_1 <span class="op">=</span> <span class="va">traits_hill_1</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>,</span>
+<span>                          hill_trait_2 <span class="op">=</span> <span class="va">traits_hill_2</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># I don't like rownames for plotting, so making the rownames a column</span></span>
-<span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span></span>
+<span><span class="va">traits_hill</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span>site <span class="op">=</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span>, <span class="va">traits_hill</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">row.names</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="va">traits_hill</span></span></code></pre>
 </div>
 <p>Let’s look at how Hill q = 1 compare across sites.</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"KA_01"</span>, <span class="st">"MA_01"</span>, <span class="st">"BI_01"</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>     <span class="va">traits_hill</span><span class="op">$</span><span class="va">q1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="fu">factor</span><span class="op">(</span><span class="va">traits_hill</span><span class="op">$</span><span class="va">site</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"KA_01"</span>, <span class="st">"MA_01"</span>, <span class="st">"BI_01"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>     <span class="va">traits_hill</span><span class="op">$</span><span class="va">hill_trait_1</span>, ylab <span class="op">=</span> <span class="st">"Hill q = 1"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
@@ -981,9 +983,9 @@ statistics, and what you know from your work?</p>
 <h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
 </h3>
 <div class="callout-content">
-<ul><li>Traits data contain more information about ecologially significant
+<ul><li>Traits data contain more information about ecologically significant
 traits than just species IDs.</li>
-<li>Traits data can be analyed with Hill numbers and visualized with
+<li>Traits data can be analzyed with Hill numbers and visualized with
 rank plots similarly to abundance data.</li>
 </ul></div>
 </div>
@@ -1026,7 +1028,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.3" class="external-link">sandpaper (0.12.3)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.4" class="external-link">sandpaper (0.12.4)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
@@ -1048,9 +1050,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/traits-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/traits-data.html",
-  "dateCreated": "2023-06-15",
-  "dateModified": "2023-06-15",
-  "datePublished": "2023-06-15"
+  "dateCreated": "2023-06-16",
+  "dateModified": "2023-06-16",
+  "datePublished": "2023-06-16"
 }
 
   </script><script>

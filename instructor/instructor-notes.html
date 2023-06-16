@@ -434,7 +434,7 @@ down.</p>
 </h3>
 <p>Go to google and you’ll see that Agrotis chersotoides is a synonym of
 Peridroma chersotoides, while Metrothorax deverilli is a valid species
-with little information about it, thus it dosen’t show up in GNR.</p>
+with little information about it, thus it doesn’t show up in GNR.</p>
 <hr>
 <br></section><section id="traits-data"><h2 class="section-heading"><a href="traits-data.html">Trait dataHill numbers<a class="anchor" aria-label="anchor" href="#hill-numbers"></a></a></h2>
 <hr class="half-width"></section><section id="phylo-data"><h2 class="section-heading"><a href="phylo-data.html">Summarizing phylogenetic data</a></h2>
@@ -442,7 +442,66 @@ with little information about it, thus it dosen’t show up in GNR.</p>
 <h3 id="phylo-data-headingInstructor1">
 <a href="phylo-data.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#phylo-data-headingInstructor1"></a>
 </h3>
-<p>A few points of discussion…</p>
+<p>Learners should have the object <code>abundances</code> already in
+their environment, from the previous episode. If not, use line
+below.</p>
+<hr>
+<br><h3 id="phylo-data-headingInstructor2">
+<a href="phylo-data.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#phylo-data-headingInstructor2"></a>
+</h3>
+<p>This challenge is supposed to assess the learner’s knowledge in
+indexing, subsetting and replacing values in a vector. The solution
+below uses Boolean matching to find the old name and replace it with the
+new name, but other solutions can include checking visually for the
+position of the old name or using <code>grep()</code> to find the
+position.</p>
+<hr>
+<br><h3 id="phylo-data-headingInstructor3">
+<a href="phylo-data.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#phylo-data-headingInstructor3"></a>
+</h3>
+<p>Learners should have the object <code>abundances_wide</code> already
+in their environment, from the previous episode. If not, use line
+below.</p>
+<hr>
+<br><h3 id="phylo-data-headingInstructor4">
+<a href="phylo-data.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#phylo-data-headingInstructor4"></a>
+</h3>
+<p>A few points of discussion: 1. Kauai has lowest absolute sum of
+branch lengths whereas Maui has the highest. The Big Island stays in
+between. 2. The Big Island, however, has the most uneven distribution of
+branch length. Even though branches are overall longer in the Big Island
+than in the Kauai island, lower Hill number on higher orders suggest
+they are more unevenly distributed in the community of the Big Island.
+3. Lower values for the Big Island in higher orders, coupled with a
+slightly higher value for order 0, suggest that the evolutionary
+branches in this island are longer than in Kauai but they are unevenly
+represented, probably represented by a few very abundant species. This
+suggests a young history of colonization for this island: the community
+is dominated by the few good colonizers, which have been evolving for a
+while in the mainland, bring their long branches to the community when
+they arrive. The absence of shorter branches evenly distributed further
+suggests that speciation has not occurred much in this island,
+indicating a young community mostly composed by colonizers. 4. Kauai has
+the lowest sum of branch lengths, but evenness seems to be in between
+the other two islands. This suggests this islands harbors more closely
+related taxa (lowest sum of branches) when compared to other islands,
+but these values are evenly distributed among species. A longer history
+may be inferred here, with a lot of local speciation (accounting for
+closely related taxa) and probably competitive coexistence dictating
+similar abundances across species (accounting for evenness of branch
+representation). 5. Maui has overall highest PD in all orders and higher
+evenness of distribution of branch lengths. This suggests an
+intermediate history: both speciation and immigration account for a lot
+of evolutionary history in this island, while elapsed time may have been
+enough to dictate a more even distribution of species abundance and
+phylogenetic history.</p>
+<p>Further visualization of the trees for each community can help us
+corroborate these ideas:</p>
+<p>The interesting thing here is that we could infer the history of the
+communities from the numbers only, before looking at the trees per
+community. This speaks to the power of Hill numbers as summary statistic
+of biodiversity patterns and how they can be useful for simulation-based
+inference.</p>
 <hr>
 <br></section><section id="popgen-data"><h2 class="section-heading"><a href="popgen-data.html">Working with population genetic dataIntroduction<a class="anchor" aria-label="anchor" href="#introduction"></a>Summarizing genetic diversity across species<a class="anchor" aria-label="anchor" href="#summarizing-genetic-diversity-across-species"></a>Work with pop gen data<a class="anchor" aria-label="anchor" href="#work-with-pop-gen-data"></a>Extra<a class="anchor" aria-label="anchor" href="#extra"></a>Summarize genetic diversity<a class="anchor" aria-label="anchor" href="#summarize-genetic-diversity"></a></a></h2>
 <hr class="half-width"></section><section id="connecting-data-types"><h2 class="section-heading"><a href="connecting-data-types.html">Connecting different data typesMotivation: Why combine data types?<a class="anchor" aria-label="anchor" href="#motivation-why-combine-data-types"></a>Linking different data types<a class="anchor" aria-label="anchor" href="#linking-different-data-types"></a>Analyzing and visualizing joint data types<a class="anchor" aria-label="anchor" href="#analyzing-and-visualizing-joint-data-types"></a>Challenge: using other data sets<a class="anchor" aria-label="anchor" href="#challenge-using-other-data-sets"></a>Recap<a class="anchor" aria-label="anchor" href="#recap"></a></a></h2>
@@ -478,7 +537,14 @@ and search for data, then report back on what they found and what the
 process was like.</p>
 <hr>
 <br></section><section id="care-data-repos"><h2 class="section-heading"><a href="care-data-repos.html">CARE Principles and Data Repositories</a></h2>
-<hr class="half-width"></section></section>
+<hr class="half-width">
+<h3 id="care-data-repos-headingInstructor1">
+<a href="care-data-repos.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#care-data-repos-headingInstructor1"></a>
+</h3>
+<p>Guide learners toward metadata standards to transition to next
+section</p>
+<hr>
+<br></section></section>
 </div>
     </main>
 </div>
@@ -503,7 +569,7 @@ process was like.</p>
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.3" class="external-link">sandpaper (0.12.3)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.4" class="external-link">sandpaper (0.12.4)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
@@ -526,9 +592,9 @@ process was like.</p>
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/instructor-notes.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/instructor-notes.html",
-  "dateCreated": "2023-06-15",
-  "dateModified": "2023-06-15",
-  "datePublished": "2023-06-15"
+  "dateCreated": "2023-06-16",
+  "dateModified": "2023-06-16",
+  "datePublished": "2023-06-16"
 }
 
   </script><script>
