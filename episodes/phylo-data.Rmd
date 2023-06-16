@@ -569,14 +569,14 @@ Now, let's create a data.frame with islands as rows and Hill numbers of differen
 ```{r}
 hill_values <- do.call(cbind.data.frame,hill_values)
 colnames(hill_values) <- c('q0','q1','q2','q3')
-hill_phylo_nbs <- data.frame(site = c('HawaiiIsland','Kauai','Maui'),
+hill_phylo_nbs <- data.frame(site = c('BigIsland','Maui','Kauai'),
                              hill_values)
 ```
 
 Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.
 
 ```{r}
-plot(seq(0,3),hill_phylo_nbs[1,2:5],
+plot(seq(0,3),hill_phylo_nbs[3,2:5],
      type='b',col="#440154FF",
      xlab = 'Order',ylab='Hill values',
      xlim = c(0,3),
@@ -585,12 +585,11 @@ plot(seq(0,3),hill_phylo_nbs[1,2:5],
 lines(seq(0,3),hill_phylo_nbs[2,2:5],
       type='b',col="#21908CFF")
 
-lines(seq(0,3),hill_phylo_nbs[3,2:5],
+lines(seq(0,3),hill_phylo_nbs[1,2:5],
       type='b',col="#FDE725FF")
-
 legend(
     "topright",
-    legend = c("Big Island","Maui","Kauai"),
+    legend = c("Kauai","Maui","Big Island"),
     pch = 19,
     col = c("#440154FF", "#21908CFF", "#FDE725FF")
 )
