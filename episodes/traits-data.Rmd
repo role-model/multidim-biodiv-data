@@ -505,8 +505,8 @@ traits_hill
 Let's look at how Hill q = 1 compare across sites.
 
 ```{r hill-plot-raw}
-plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")), 
-     traits_hill$q1, ylab = "Hill q = 1")
+plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")),
+     traits_hill$hill_trait_1, ylab = "Hill q = 1")
 ```
 
 Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
