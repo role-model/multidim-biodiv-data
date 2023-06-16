@@ -4,6 +4,11 @@ teaching: 20
 exercises: 10
 ---
 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+```
+
 :::::::::::::::::::::::::::::::::::::: questions 
 
 
