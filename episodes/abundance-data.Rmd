@@ -178,7 +178,7 @@ Four of these are just typos. But `Agrotis chersotoides` in our data is resolved
 
 ::: instructor
 
-Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it dosen't show up in GNR.
+Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it doesn't show up in GNR.
 
 :::
 
@@ -216,15 +216,6 @@ head(abundances)
 
 ```{r include = FALSE, eval = FALSE}
 write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"), row.names = F)
-
-```
-
-
-
-```{r, include = FALSE, eval = FALSE}
-
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
-
 
 ```
 
@@ -305,13 +296,19 @@ A site by species sites as rows and species as columns. We can get there using t
 
 ```{r site-by-species-matrix}
 
-abundance_wide <- pivot_wider(abundances, id_cols = site,
+abundances_wide <- pivot_wider(abundances, id_cols = site,
                               names_from = final_name,
                               values_from = abundance, 
                               values_fill = 0)
 
-head(abundance_wide[,1:10])
+head(abundances_wide[,1:10])
 
+```
+
+Let's write it to a file in case we need to load it again later on:
+
+```{r}
+write.csv(abundances_wide, here::here("episodes", "data", "abundances_wide.csv"), row.names = F)
 ```
 
 We'll want this data to have _row names_ based on the sites, so we'll need some more steps:

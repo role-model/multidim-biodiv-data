@@ -141,15 +141,36 @@ How do we combine all this information with the community datasets we have so fa
 
 ### Cleaning and checking phylogeny taxa
 
-The issue of underscore:
+The first thing we want to do is to check the tip labels in our tree. Since this is a "published" arthropod phylogeny, we will likely not have any misspelling in the tip names of the object. However, it is always good practice to check contents to see if anything weird stands out.
+
+```{r}
+arthro_tree$tip.label
+```
+
+And indeed we find something: even though there are probably no misspellings, the genus and species name in this tree are separated by an underscore symbol `_`. Since the names in our site-by-species matrix do not have that underscore, we will get an error when matching the data if we don't fix this spelling.
+
+One useful function to do this fixing is the function `gsub`. This function allows you to look for a specific character pattern inside character objects, and replace them by any other pattern you may want. In our case, we have a vector of 60 character values containing the names of our tips. We want to find the `_` character inside each character value and replace it by an empty space, so it becomes equal to what we have in our site-by-species matrix. We do so by providing to the `gsub` function: 1) the pattern we want to replace; 2) the new pattern we want to replace it with; 2) the character object or vector containing the values to be searched. Finally, we assign the output of that function back to the `tip.label` slot in the `arthro_tree` object.
 
 ```{r}
 arthro_tree$tip.label <- gsub('_',' ',arthro_tree$tip.label)
+
+# A quick check to see if worked
+arthro_tree
 ```
 
-**Do we still want to keep this issue? Or simply skip ahead to pruning the phylogeny?**
+Now that we fixed this first obvious issue, we can start looking for others. Since we want to calculate phylogenetic diversity for each of our communities, our main concern here is to make sure that all taxa present in our communities can be found in this phylogeny. One important issue that may arise is the use of different names for the same taxa across the two datasets (i.e., synonyms). This is especially important since we previouslu performed a synonym check and cleaning in our abundance dataset; we need to make sure the names in our tree will follow the same nomenclature decisions.
 
-Since this is a "published" arthropod phylogeny, we will likely not have any misspelling in the tip names of the object. However, one important issue that may arise is that, depending on the resolution of the phylogeny, it may be the case that some taxa in our community dataset may not be explicitly represented in the phylogeny. For instance, the tips in our phylogeny might be represented by one species for each genus, or one genus for each family. This is usually the case when the goal of the original publication was to elucidate the phylogenetic relationship for such higher taxonomic levels, with less focus on the more recent evolutionary history. In these cases, some taxa in our [abundances](abundance-data.Rmd) dataset may not be found in the phylogeny, which will yield errors when we try to summarize phylogenetic diversity. Therefore, we will want to assign those "missing taxa" to one of the tips present in the tree, based on their known genus and/or family assignments.
+To see if there are any mismatches, let's first retrieve a list of the names in
+
+::: instructor
+
+Learners should have the object `abundances` already in their environment, from the previous episode. If not, use line below.
+
+```{r}
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv")
+```
+
+:::
 
 Let's first find out what are those "missing taxa". For this, we'll refer back to our original species list, from the `abundances` object:
 
