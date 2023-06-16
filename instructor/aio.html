@@ -775,7 +775,7 @@ deck</a>.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Give the slide show; slide deck is <a href="https://github.com/role-model/multidim-biodiv-data/blob/main/instructors/local_contexts-care.pdf" class="external-link">/instructors/local_contexts-care.pdf</a></p>
 </div>
@@ -803,7 +803,7 @@ Hub</a>!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>Give a tour of your own Local Contexts Hub account</p>
 </div>
@@ -1005,6 +1005,17 @@ great place to start!</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>     island  site                GenSp abundance
+1 BigIsland BI_01         Cis signatus       541
+2 BigIsland BI_01 Acanthia procellaris        64
+3 BigIsland BI_01     Spoles solitaria        34
+4 BigIsland BI_01        Laupala pruna        21
+5 BigIsland BI_01  Toxeuma hawaiiensis       111
+6 BigIsland BI_01  Chrysotus parthenus       208</code></pre>
+</div>
 <p><code>abundances</code> is a data frame with columns for
 <code>island</code>, <code>site</code>, <code>GenSp</code>, and
 <code>abundance</code>. Each row tells us how many individuals of each
@@ -1019,7 +1030,7 @@ how many individuals of each species you see.</p>
 can, in this case in the form of typos in data entry.</p>
 <p>The <code>taxize</code> R package can help identify and resolve
 simple typos in taxonomic names.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1049,13 +1060,26 @@ down.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">name_resolve</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 5
+  user_supplied_name   submitted_name      data_source_title score matched_name2
+  &lt;chr&gt;                &lt;chr&gt;               &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        
+1 Cis signatus         Cis signatus        Encyclopedia of … 0.988 Cis signatus 
+2 Acanthia procellaris Acanthia procellar… uBio NameBank     0.988 Acanthia pro…
+3 Spoles solitaria     Spoles solitaria    Catalogue of Lif… 0.75  Spolas solit…
+4 Laupala pruna        Laupala pruna       National Center … 0.988 Laupala pruna
+5 Toxeuma hawaiiensis  Toxeuma hawaiiensis Encyclopedia of … 0.988 Toxeuma hawa…
+6 Chrysotus parthenus  Chrysotus parthenus Encyclopedia of … 0.988 Chrysotus pa…</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1063,6 +1087,19 @@ down.</p>
 <span>                                <span class="va">name_resolve</span><span class="op">$</span><span class="va">user_supplied_name</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="va">mismatches</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 2
+  user_supplied_name       matched_name2           
+  &lt;chr&gt;                    &lt;chr&gt;                   
+1 Spoles solitaria         Spolas solitaria        
+2 Metrothorax deverilli    Metrothorax             
+3 Agonosmus argentiferus   Agonismus argentiferus  
+4 Agrotis chersotoides     Agrotis                 
+5 Proterhenus punctipennis Proterhinus punctipennis
+6 Elmoea lanceolata        Elmoia lanceolata       </code></pre>
 </div>
 <p>Four of these are just typos. But <code>Agrotis chersotoides</code>
 in our data is resolved only to <code>Agrotis</code> and
@@ -1097,7 +1134,7 @@ with little information about it, thus it doesn’t show up in GNR.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1124,7 +1161,7 @@ with little information about it, thus it doesn’t show up in GNR.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1133,6 +1170,31 @@ with little information about it, thus it doesn’t show up in GNR.</p>
 <span><span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span> <span class="op">&lt;-</span> <span class="va">abundances</span><span class="op">$</span><span class="va">matched_name2</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>     island  site                GenSp abundance       submitted_name
+1 BigIsland BI_01         Cis signatus       541         Cis signatus
+2 BigIsland BI_01 Acanthia procellaris        64 Acanthia procellaris
+3 BigIsland BI_01     Spoles solitaria        34     Spoles solitaria
+4 BigIsland BI_01        Laupala pruna        21        Laupala pruna
+5 BigIsland BI_01  Toxeuma hawaiiensis       111  Toxeuma hawaiiensis
+6 BigIsland BI_01  Chrysotus parthenus       208  Chrysotus parthenus
+                              data_source_title score        matched_name2
+1                          Encyclopedia of Life 0.988         Cis signatus
+2                                 uBio NameBank 0.988 Acanthia procellaris
+3                   Catalogue of Life Checklist 0.750     Spolas solitaria
+4 National Center for Biotechnology Information 0.988        Laupala pruna
+5                          Encyclopedia of Life 0.988  Toxeuma hawaiiensis
+6                          Encyclopedia of Life 0.988  Chrysotus parthenus
+            final_name
+1         Cis signatus
+2 Acanthia procellaris
+3     Spolas solitaria
+4        Laupala pruna
+5  Toxeuma hawaiiensis
+6  Chrysotus parthenus</code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -1146,16 +1208,11 @@ frame apart by island. <code>split</code> will split a dataframe into
 groups defined by the <code>f</code> argument (for “factor”) - in this
 case, the different values of the <code>island</code> column of the
 <code>abundances</code> data frame:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_abundances</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">abundances</span>, f <span class="op">=</span> <span class="va">abundances</span><span class="op">$</span><span class="va">island</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances' not found</code></pre>
 </div>
 <p>Usual practice is to plot distributions of abundance as the species
 abundance on the y-axis and the <em>rank</em> of that species (from
@@ -1163,34 +1220,15 @@ most-to-least-abundant) on the x-axis. This allows us to make
 comparisons between sites that don’t have any species in common.</p>
 <p>Now, we’ll construct a plot with lines for the abundances of species
 on each island.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># figure out max number of species at a site for axis limit setting below</span></span>
-<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">island_abundances</span>, <span class="va">nrow</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb13">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">max_sp</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'max_sp' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">island_abundances</span>, <span class="va">nrow</span><span class="op">)</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">max_sp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Kauai</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Species abundances at each site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
@@ -1200,48 +1238,21 @@ on each island.</p>
 <span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="va">max_sp</span><span class="op">)</span>,</span>
 <span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">max</span><span class="op">(</span><span class="va">abundances</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    log <span class="op">=</span> <span class="st">'y'</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">points</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">points</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Maui</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb19">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">points</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">points</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">BigIsland</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
-<span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">legend</span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
 <span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Hawaii"</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -1251,12 +1262,7 @@ on each island.</p>
 <span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet</code></pre>
-</div>
-<div id="discussion6" class="callout discussion">
+<figure><img src="../fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion6" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -1282,7 +1288,7 @@ diversity data.</p>
 <p>A site by species sites as rows and species as columns. We can get
 there using the <code>pivot_wider</code> function from the package
 <code>tidyr</code>:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1293,9 +1299,22 @@ there using the <code>pivot_wider</code> function from the package
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 3 × 10
+  site  `Cis signatus` `Acanthia procellaris` `Spolas solitaria` `Laupala pruna`
+  &lt;chr&gt;          &lt;int&gt;                  &lt;int&gt;              &lt;int&gt;           &lt;int&gt;
+1 BI_01            541                     64                 34              21
+2 MA_01             52                     53                  0               0
+3 KA_01              0                      0                  0              12
+# ℹ 5 more variables: `Toxeuma hawaiiensis` &lt;int&gt;, `Chrysotus parthenus` &lt;int&gt;,
+#   `Metrothorax deverilli` &lt;int&gt;, `Drosophila obscuricornis` &lt;int&gt;,
+#   `Cis bimaculatus` &lt;int&gt;</code></pre>
+</div>
 <p>We’ll want this data to have <em>row names</em> based on the sites,
 so we’ll need some more steps:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1307,13 +1326,69 @@ so we’ll need some more steps:</p>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>      Cis signatus Acanthia procellaris Spolas solitaria Laupala pruna
+BI_01          541                   64               34            21
+MA_01           52                   53                0             0
+KA_01            0                    0                0            12
+      Toxeuma hawaiiensis Chrysotus parthenus Metrothorax deverilli
+BI_01                 111                 208                    11
+MA_01                 102                  27                     0
+KA_01                   0                   0                   190
+      Drosophila obscuricornis Cis bimaculatus Nysius lichenicola
+BI_01                        2               4                  1
+MA_01                       83             149                 16
+KA_01                        0               0                  0
+      Agonismus argentiferus Peridroma chersotoides Scaptomyza villosa
+BI_01                      1                      1                  1
+MA_01                      0                     23                 63
+KA_01                      0                      0                  0
+      Lispocephala dentata Hylaeus facilis Laupala vespertina
+BI_01                    0               0                  0
+MA_01                  123              74                 52
+KA_01                    0               0                  0
+      Proterhinus punctipennis Nesomicromus haleakalae Odynerus erythrostactes
+BI_01                        0                       0                       0
+MA_01                       51                      76                      34
+KA_01                      434                       0                       0
+      Eurynogaster vittata Elmoia lanceolata Xyletobius collingei
+BI_01                    0                 0                    0
+MA_01                    6                16                    0
+KA_01                    0                 0                   41
+      Nesodynerus mimus Scaptomyza vagabunda Lucilia graphita
+BI_01                 0                    0                0
+MA_01                 0                    0                0
+KA_01                30                   81               49
+      Eudonia lycopodiae Atelothrus depressus Mecyclothorax longulus
+BI_01                  0                    0                      0
+MA_01                  0                    0                      0
+KA_01                110                   10                     11
+      Hylaeus sphecodoides Hyposmocoma sagittata Campsicnemus nigricollis
+BI_01                    0                     0                        0
+MA_01                    0                     0                        0
+KA_01                    4                    27                        1</code></pre>
+</div>
 <p>Let’s write it to a file in case we need to load it again later
 on:</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">abundances_wide</span>, <span class="fu">here</span><span class="fu">::</span><span class="fu">here</span><span class="op">(</span><span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"abundances_wide.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning in file(file, ifelse(append, "a", "w")): cannot open file
+'/home/runner/work/multidim-biodiv-data/multidim-biodiv-data/site/built/episodes/data/abundances_wide.csv':
+No such file or directory</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in file(file, ifelse(append, "a", "w")): cannot open the connection</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -1322,7 +1397,7 @@ on:</p>
 </h3>
 <p>The <code>hillR</code> package allows us to calculate Hill
 numbers.</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1330,13 +1405,25 @@ numbers.</p>
 <span></span>
 <span><span class="va">hill_0</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>BI_01 MA_01 KA_01 
+   13    17    13 </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundances_wide</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hill_1</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>    BI_01     MA_01     KA_01 
+ 4.001789 13.746057  5.949875 </code></pre>
 </div>
 <div id="challenge1" class="callout challenge">
 <div class="callout-square">
@@ -1359,13 +1446,19 @@ numbers.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hill_2</span> <span class="op">&lt;-</span> <span class="fu">hill_taxa</span><span class="op">(</span><span class="va">abundances_wide</span>, q <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hill_2</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>    BI_01     MA_01     KA_01 
+ 2.824029 11.958289  4.012680 </code></pre>
 </div>
 </div>
 </div>
@@ -1378,7 +1471,7 @@ numbers.</p>
 </h2>
 <p>Let’s revisit the SAD plots we generated before, and think about
 these in terms of Hill numbers.</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1416,7 +1509,7 @@ these in terms of Hill numbers.</p>
 <span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb30">
+<figure><img src="../fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1428,6 +1521,14 @@ these in terms of Hill numbers.</p>
 <span><span class="fu">rownames</span><span class="op">(</span><span class="va">hill_abund</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span></span>
 <span><span class="va">hill_abund</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>   site hill_abund_0 hill_abund_1 hill_abund_2
+1 BI_01           13     4.001789     2.824029
+2 MA_01           17    13.746057    11.958289
+3 KA_01           13     5.949875     4.012680</code></pre>
 </div>
 </div>
 </div>
@@ -1624,7 +1725,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -2081,7 +2182,7 @@ data!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2617,7 +2718,7 @@ follow the same nomenclature decisions.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Learners should have the object <code>abundances</code> already in
 their environment, from the previous episode. If not, use line
@@ -2682,7 +2783,7 @@ will need to 1) find the position of the old name in labels in our tree;
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>This challenge is supposed to assess the learner’s knowledge in
 indexing, subsetting and replacing values in a vector. The solution
@@ -2701,7 +2802,7 @@ position.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>We need to perform an assignment operation in the position where the
 old name is located inside <code>arthro_tree$tip.label</code>. To find
@@ -3012,7 +3113,7 @@ allow you to infer regarding the history of each community.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
 <div class="accordion-body">
 <p>Learners should have the object <code>abundances_wide</code> already
 in their environment, from the previous episode. If not, use line
@@ -3028,7 +3129,7 @@ below.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
@@ -3075,7 +3176,7 @@ community?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
 <div class="accordion-body">
 <p>A few points of discussion: 1. Kauai has lowest absolute sum of
 branch lengths whereas Maui has the highest. The Big Island stays in
@@ -4275,7 +4376,7 @@ function to get this number:</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>You will be prompted to get an ENTREZ API key. This is a good idea to
 do in order to make larger queries, but it won’t be neccesary for this
@@ -4443,7 +4544,7 @@ using the R APIs of GBIF, NCBI, and OTOL?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>NCBI and OTOL both require an initial search to obtain record IDs,
 then a second fetch to obtain the actual record data for each ID</p>
@@ -4498,7 +4599,7 @@ time-consuming strategy!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>Time-permitting, this could be an opportunity for a 15-minute
 breakout exercise where individuals or groups pick a database or website
@@ -4600,7 +4701,7 @@ Notices?<a class="anchor" aria-label="anchor" href="#what-biodiversity-repositor
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Not much! Here are two: - <a href="https://geome-db.org/" class="external-link">GEOME</a> -
 <a href="https://metadata.maine-edna.org/main/localcontexts/" class="external-link">Maine-eDNA
@@ -4630,7 +4731,7 @@ Notices?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Guide learners toward metadata standards to transition to next
 section</p>
@@ -4669,7 +4770,7 @@ standard</a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>There is no agreed upon solution. So the solution is really more of a
 conversation at this point. One key concept to keep in mind is that
