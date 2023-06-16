@@ -409,8 +409,14 @@ legend(
 
 
 ```{r look-at-hill-numbers-again}
-hill_numbers <- rbind(hill_0, hill_1, hill_2)
-hill_numbers
+hill_abund <- data.frame(hill_abund_0 = hill_0, 
+                         hill_abund_1 = hill_1, 
+                         hill_abund_2 = hill_2)
+hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
+
+rownames(hill_abund) <- NULL
+
+hill_abund
 
 ```
 
