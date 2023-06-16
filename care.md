@@ -4,6 +4,8 @@ teaching: 10
 exercises: 2
 ---
 
+
+
 ::: questions
 -   What is Indigenous data sovereignty?
 -   What are the CARE principles?

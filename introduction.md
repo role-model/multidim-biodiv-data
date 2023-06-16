@@ -4,14 +4,14 @@ teaching: 20
 exercises: 10
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
 
+
+:::::::::::::::::::::::::::::::::::::: questions 
 
 1. What do we mean by "multidimensional biodiversity data?
 1. What are the four types of data we'll be covering in this workshop?
 1. What types of questions can we explore with these data?
 1. How will this workshop be structured? Where do I find course materials, etc?
-
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -7,6 +7,8 @@ editor_options:
     wrap: 50
 ---
 
+
+
 ::: questions
 -   Where do multi-dimensional biodiversity data
     live online?
@@ -90,32 +92,7 @@ repositories. Let's set those up now.
 library(spocc)
 library(rentrez)
 library(rotl) 
-```
-
-```{.output}
-
-Attaching package: 'rotl'
-```
-
-```{.output}
-The following object is masked from 'package:spocc':
-
-    inspect
-```
-
-```r
 library(taxize)
-```
-
-```{.output}
-
-Attaching package: 'taxize'
-```
-
-```{.output}
-The following objects are masked from 'package:rotl':
-
-    synonyms, tax_name, tax_rank
 ```
 
 ### Getting consistent species names using `taxize`
@@ -127,32 +104,7 @@ family. We can use the `taxize` package for this. `taxize` links to a genus iden
 
 
 ```r
-library(taxize)
 uid <- get_uid("Tetragnatha")
-```
-
-```{.output}
-No ENTREZ API key provided
- Get one via taxize::use_entrez()
-See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-```
-
-```{.output}
-══  1 queries  ═══════════════
-```
-
-```{.output}
-
-Retrieving data for taxon 'Tetragnatha'
-```
-
-```{.output}
-✔  Found:  Tetragnatha
-══  Results  ═════════════════
-
-• Total: 1 
-• Found: 1 
-• Not Found: 0
 ```
 
 ::: instructor
@@ -174,29 +126,9 @@ larger taxa like families and orders.
 
 ```r
 species_uids <- downstream(uid,downto="species")
-```
-
-```{.output}
-No ENTREZ API key provided
- Get one via taxize::use_entrez()
-See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-No ENTREZ API key provided
- Get one via taxize::use_entrez()
-See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-No ENTREZ API key provided
- Get one via taxize::use_entrez()
-See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-```
-
-```r
 species_names <- species_uids[[1]]$childtaxa_name
 
 head(species_names)
-```
-
-```{.output}
-[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
-[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       
 ```
 
 ### Occurrence data from GBIF 
@@ -219,28 +151,6 @@ We can also specify a geographic bounding box of where we'd like to look for occ
 
 
 ```r
-library(spocc)
-library(dplyr)
-```
-
-```{.output}
-
-Attaching package: 'dplyr'
-```
-
-```{.output}
-The following objects are masked from 'package:stats':
-
-    filter, lag
-```
-
-```{.output}
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-```
-
-```r
 occurrences <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
                    gbifopts=list("decimalLatitude"='18.910361,28.402123',
                                  "decimalLongitude"='-178.334698,-154.806773')) 
@@ -255,25 +165,6 @@ occurrences_df <- bind_rows(occurrences_gbif)
 head(occurrences_df)
 ```
 
-```{.output}
-# A tibble: 6 × 96
-  name           longitude latitude issues prov  key   scientificName datasetKey
-  <chr>              <dbl>    <dbl> <chr>  <chr> <chr> <chr>          <chr>     
-1 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-2 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-3 Tetragnatha p…     -156.     20.8 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-4 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-5 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-6 Tetragnatha p…     -157.     20.9 cdc,o… gbif  1060… Tetragnatha p… 5d283bb6-…
-# ℹ 88 more variables: publishingOrgKey <chr>, installationKey <chr>,
-#   hostingOrganizationKey <chr>, publishingCountry <chr>, protocol <chr>,
-#   lastCrawled <chr>, lastParsed <chr>, crawlId <int>, basisOfRecord <chr>,
-#   individualCount <int>, occurrenceStatus <chr>, taxonKey <int>,
-#   kingdomKey <int>, phylumKey <int>, classKey <int>, orderKey <int>,
-#   familyKey <int>, genusKey <int>, speciesKey <int>, acceptedTaxonKey <int>,
-#   acceptedScientificName <chr>, kingdom <chr>, phylum <chr>, order <chr>, …
-```
-
 
 ### Phylogenetic trees from the Open Tree of Life
 
@@ -286,19 +177,6 @@ hiTetClean <- gnr_resolve(hiTetragnatha, best_match_only = TRUE,
                           canonical = TRUE)
 hiTetragnatha <- hiTetClean$matched_name2
 hiTetragnatha
-```
-
-```{.output}
- [1] "Tetragnatha paludicola"   "Tetragnatha stelarobusta"
- [3] "Tetragnatha perkinsi"     "Tetragnatha filiciphilia"
- [5] "Tetragnatha eurychasma"   "Tetragnatha macracantha" 
- [7] "Tetragnatha anuenue"      "Tetragnatha acuta"       
- [9] "Tetragnatha pilosa"       "Tetragnatha quasimodo"   
-[11] "Tetragnatha tantalus"     "Tetragnatha polychromata"
-[13] "Tetragnatha restricta"    "Tetragnatha brevignatha" 
-[15] "Tetragnatha kamakou"      "Tetragnatha versicolor"  
-[17] "Tetragnatha kauaiensis"   "Tetragnatha waikamoi"    
-[19] "Tetragnatha hawaiensis"  
 ```
 
 Now we can use the `rotl` package. The `rotl` package provides an interface to the Open
@@ -327,8 +205,6 @@ tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
 plot(tr)
 ```
 
-<img src="fig/finding_data-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
-
 Unfortunately we can see that the phylogenetic
 relationships between these species aren't
 resolved in OTOL, so we may have to look elsewhere
@@ -352,14 +228,8 @@ query.
 # note we're using `hiTetragnatha` that we made previously to make a long
 # string of names that will be sent to NCBI via the ENTREZ API
 termstring <- paste(sprintf('%s[ORGN]', hiTetragnatha), collapse = ' OR ')
-head(termstrig)
-```
+termstring
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'termstrig' not found
-```
-
-```r
 search_results <- entrez_search(db="nucleotide", term = termstring)
 ```
 
@@ -380,28 +250,6 @@ sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids,
 
 # just look at the first part of this *long* returned string
 cat(substr(sequences, 1, 1148))
-```
-
-```{.output}
->MG509184.1 Tetragnatha versicolor voucher BIOUG19074-C11 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
-AGTTTATATTTTTTATTTGGAGTGTGATCAGNTATAGTAGGGACAGCTATAAGAGTTTTAATTCGAATTG
-AATTAGGTCAATCTGGCAAATTTCTTGGGGATGACCAATTATATAATGTTATTGTGACTGCTCATGCTTT
-TGTAATAATTTTTTTTATGGTTATACCAATTTTAATTGGGGGGTTTGGGAATTGATTAGTCCCATTAATA
-TTAGGGGCACCAGATATGGCTTTCCCCCGGATAAATAACTTAAGTTTTTGGTTGTTGCCCCCTTCTCTTT
-TTATATTGTTTATTTCGTCTATAGTGGATGTGGGAGTTGGAGCAGGTTGANCCNNTTATCCCCCTTTATC
-TTCTTTAGAAGGGCATTCAGGCAGATCTGTAGATTTTGCTATTTTTTCACTTCATTTAGCTGGGGCTTCT
-TCAATTATAGGGGCTATTAATTTTATTTCTACTATCCTTAATATGCGGATAAGAGGAATTTCTATAGAAA
-AGGTACCTCTTTTTGTGTGATCTGTTTTGATTACAGCG
-
->MG511976.1 Tetragnatha versicolor voucher BIOUG23383-C01 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
-AGTTTATATTTTTTATTTGGAGTGTGATCAGCTATAGTGGGGACAGCTATAAGAGTTTTAATTCGAATTG
-AGTTAGGTCAATCTGGGAAATTTCTTGGGGATGACCAATTATACAATGTAATTGTAACTGCTCATGCTTT
-TGTAATAATTTTTTTTATGGTGATACCAATTTTAATTGGGGGCTTTGGAAATTGATTAGTGCCCTTAATA
-TTAGGAGCGCCAGATATAGCTTTTCCTCGGATAAATAACTTAAGTTTTTGGTTGCTACCCCCTTCTCTTT
-TTATGTTGTTTATTTCATCTATAGTAGATGTGGGAGTTGGGGCAGGTTGAACTGTCTATCCCCCTTTATC
-T
-
->
 ```
 
 

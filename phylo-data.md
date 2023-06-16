@@ -12,8 +12,6 @@ editor_options:
 
 
 
-
-
 ::: questions
 
 - What biological information is stored in phylogenetic Hill numbers?
@@ -77,6 +75,12 @@ The notation above indicates that:
 3. the branch leading to C has length = 1.
 
 The notation above is what we import into R to start working with and manipulating our phylogenetic tree. For that goal, we will use the [ape](https://academic.oup.com/bioinformatics/article/20/2/289/204981) package:
+
+
+
+
+We will also use a few other packages so we'll load those up front
+
 
 
 

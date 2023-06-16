@@ -76,7 +76,17 @@ mass measured for that specimen. Our overall goal here is to clean this
 data and attach it to the species data, so we can investigate trait
 patterns per community.
 
-We're starting with a challenge!
+We're starting with a challenge! First, let's load the packages we'll need for the whole episode (you won't need all of them for this first challenge)
+
+
+```r
+library(taxize)
+library(dplyr)
+library(tidyr)
+library(hillR)
+```
+
+
 
 :::::: challenge
 
@@ -115,7 +125,6 @@ data to `gnr_resolve()`.
 
 
 ```r
-library(taxize)
 # only need to check the unique names
 species_list <- unique(traits$GenSp)
 
@@ -146,8 +155,6 @@ columns have the same information by supplying a named vector to the
 
 
 ```r
-library(dplyr)
-
 traits <- left_join(traits, 
                     name_resolve[, c("user_supplied_name", "matched_name2")], 
                     by = c("GenSp" = "user_supplied_name"))
@@ -406,8 +413,6 @@ dataframe, is to recreate it here. Remember, you'll need to use the
 
 
 ```r
-library(tidyr)
-
 abundances_wide <- pivot_wider(
     abundances,
     id_cols = site,
@@ -465,8 +470,6 @@ calculate Hill numbers 0-2 of body size across sites.
 
 
 ```r
-library(hillR)
-
 traits_hill_0 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 0)
 
 traits_hill_1 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 1)

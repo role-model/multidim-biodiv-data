@@ -212,6 +212,10 @@ Because we'll want to look at each island separately, we'll use the `split` comm
 island_abundances <- split(abundances, f = abundances$island)
 ```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'abundances' not found
+```
+
 Usual practice is to plot distributions of abundance as the species abundance on the y-axis and the _rank_ of that species (from most-to-least-abundant) on the x-axis. This allows us to make comparisons between sites that don't have any species in common.
 
 Now, we'll construct a plot with lines for the abundances of species on each island. 
@@ -220,8 +224,21 @@ Now, we'll construct a plot with lines for the abundances of species on each isl
 ```r
 # figure out max number of species at a site for axis limit setting below
 max_sp <- sapply(island_abundances, nrow)
-max_sp <- max(max_sp)
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'island_abundances' not found
+```
+
+```r
+max_sp <- max(max_sp)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'max_sp' not found
+```
+
+```r
 plot(
     sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
@@ -233,19 +250,37 @@ plot(
     ylim = c(1, max(abundances$abundance)), 
     log = 'y'
 )
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'island_abundances' not found
+```
+
+```r
 points(
     sort(island_abundances$Maui$abundance, decreasing = T),
     lwd = 2,
     col = "#21908CFF"
 )
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'island_abundances' not found
+```
+
+```r
 points(
     sort(island_abundances$BigIsland$abundance, decreasing = T),
     lwd = 2,
     col = "#FDE725FF"
 )
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'island_abundances' not found
+```
+
+```r
 legend(
     "topright",
     legend = c("Kauai", "Maui", "Hawaii"),
@@ -257,7 +292,9 @@ legend(
 )
 ```
 
-<img src="fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
+```
 
 ::: discussion
 
@@ -305,16 +342,6 @@ Let's write it to a file in case we need to load it again later on:
 
 ```r
 write.csv(abundances_wide, here::here("episodes", "data", "abundances_wide.csv"), row.names = F)
-```
-
-```{.warning}
-Warning in file(file, ifelse(append, "a", "w")): cannot open file
-'/home/runner/work/multidim-biodiv-data/multidim-biodiv-data/site/built/episodes/data/abundances_wide.csv':
-No such file or directory
-```
-
-```{.error}
-Error in file(file, ifelse(append, "a", "w")): cannot open the connection
 ```
 
 ### Calculating Hill numbers with `hillR`
@@ -395,8 +422,6 @@ legend(
     cex = 0.8
 )
 ```
-
-<img src="fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" />
 
 
 
