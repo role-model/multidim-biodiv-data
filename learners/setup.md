@@ -20,7 +20,7 @@ If you need a bit of catching up, no worries! The Software Data Carpentries has 
 
 1. For this workshop, we prepared a virtual image containing all the necessary software, packages and settings we will need. To clone this image into your machine, you first need to download and install **Docker Desktop** from [this link](https://www.docker.com/products/docker-desktop/). Make sure to choose the right version for your computer (Windows, Linux, MacOS Intel Chip or MacOS Apple Chip).
 2. Once installed, open Docker and use the search bar on the top to look for **iovercast/mess**. This is where the image is stored.
-![](setup-images/docker-setup-01.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/learners/setup-images/docker-setup-01.png)
 3. Once the image is found (the name **iovercast/mess** will show up in the drop-down list), you need to choose the processor type for your computer. If you are using a M1/M2 MacBook, in the *tag* drop-down menu, choose `mac-m1`. For any other architecture (Windows, Linux and non-M1/M2 MacBooks), choose `intel`. Then click on `Pull`.
 ![](setup-images/docker-setup-02.png)
 4. Once the pull is done, click on the **Images** option in the menu to the left. You should be able to see the new **iovercast/mess** image listed there. To get it running, click on the `Play` icon under **Actions**.
