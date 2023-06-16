@@ -58,48 +58,116 @@ Guide learners toward metadata standards to transition to next section
 ::: challenge
 
 - Look up the descriptions of Biocultural [Labels](https://localcontexts.org/labels/biocultural-labels/) and [Notices](https://localcontexts.org/notice/bc-notice/)
-- Look up the fields of the Darwin Core metadata standard
-- Can the inter-opperate?
+- Look up the fields of the [Darwin Core metadata standard](https://dwc.tdwg.org/terms/)
+- Can they interoperate?
+
+:::: solution
+
+There is no agreed upon solution.  So the solution is really more of a conversation at this point.  One key concept to keep in mind is that Darwin Core (and other metadata standards) are built upon a settler system of data management, data provenance, and intellectual property.  That system was created to manifest the rights of settlers and to destroy the rights of Indigenous people, communities, and peoples.  So perhaps the terms can be translated, but perhaps this will not be satisfactory without rebuiling standards with both CARE and FAIR principles at heart.
+
+::::
 
 :::
+
+## What can we do without institutional support from large repositories (yet)?
+
+The Local Contexts Hub provides an API that we can use in our data workflows to ensure that Indigenous data sovereignty metadata propagate along with the data.
+
+Let's see how we can use the Local Contexts Hub API to query information about the Maine-eDNA project we learned about.  We can find the API documentation [here](https://github.com/biocodellc/localcontexts_db/wiki/API-Documentation).
 
 
 ```{r}
 library(jsonlite)
 library(httr)
 
+# the API documentation tells us this is the base URL to access the API
 baseURL <- "https://localcontextshub.org/api/v1"
-projDetail <- "/projects/%s/"
+
+# to retrive project information, we add this to the base URL
+projDetail <- "/projects/<PROJECT_UNIQUE_ID>/"
+
+# we need to know the protect ID, we can find it in our LC Hub account
 projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
 
-
+# now we start to construct our query string
 q <- paste0(baseURL, projDetail)
 q
-q <- sprintf(q, projID)
+```
+
+```{r}
+# we need to replace "<PROJECT_UNIQUE_ID>" with `projID`
+q <- gsub("<PROJECT_UNIQUE_ID>", projID, q)
 q
+```
 
-
+```{r}
+# now we can use functions from jsonlite and httr to pull the info
 rawRes <- GET(q)
 jsonRes <- rawToChar(rawRes$content)
 
 res <- fromJSON(jsonRes)
 
+# have a look
+res
+```
 
+There's a lot of info there! If a Notice is attached to the project, we can access it directly with `res$notice`.  Similarly, if TK and/or BC labels are associated with the project they can be accessed with `res$tk_labels` and `res$bc_labels`, respectively. 
 
+There is an R package *enRich* under development by Jacob Golan in collaboration with [ENRICH](https://www.enrich-hub.org/) that can wrap these API calls in more familiar-looking R code.  We have to install this in-dev package from github:
 
-devtools::install_github("jacobgolan/enRich")
+```{r}
+remotes::install_github("jacobgolan/enRich")
 library(enRich)
+```
 
+Now we can re-produce the previous API call in simpler R code
+```{r}
 projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
 meDNA <- find.projects(projID)
 meDNA
+```
 
-meDNA[[1]]$notice
+The idea of pulling information from Local Contexts Hub via the API is that, for example, reports and manuscripts can now use calls to the API to automatically disclose Indigenous rights and interests in the data underlying the data used.
 
+As an example, a manuscript written using RMarkdown or Quarto could include the following in the introduction
+
+````markdown
+
+`r ''````{r LCH-setup}
+projID <- "259854f7-b261-4c8c-8556-4b153deebc18"
+thisProj <- find.projects(projID)
+
+comms <- thisProj[[1]]$bc_labels$community
+```
+
+We make use of data originating from `comms` traditional territories. These data thus have `comms` provenance, in spite of any settler concept of data ownership. To affirm the intrinsic rights of `comms` communities to govern the collection, use, and sharing of their data, `comms` applied the following Biocultural Labels to these data, specifying ethical protocol for the use and management of these data:
+
+`r ''````{r bc-labels, results = 'asis'}
+allBCLabels <- thisProj[[1]]$bc_labels
+
+for(i in 1:length(allBCLabels)) {
+    thisLab <- allBCLabels$label_text[i]
+    
+    cat(thisLab, "\n")
+}
+```
+
+````
+
+This code will render the community name and BC Labels they have applied.
+
+As researchers we can also host our data outside of large online repositories, but still have them FAIR and CARE using webhooks to query the Local Contexts API.  This is the approach taken by the Maine-eDNA database infrastructure.
+
+For the purpose of sharing data with Indigenous sovereignty metadata, *enRich* also provides an experimental method for attaching Local Contexts Hub IDs to sequence data.
+
+```{r}
+# read in a fasta file using the dedicated function from enRich
 seqs <- readFASTA('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/big_island_seqs.fas')
 
+# just for demonstration purposes, set up a temporary directory
 temp <- tempdir()
 
+# write out the file
 outputFASTA(
     seqs = seqs$sequence,
     seqid = seqs$name,
@@ -107,8 +175,17 @@ outputFASTA(
     filename = file.path(temp, "seqs-LCH-ID") # .fasta is automatically added
 )
 
-
+# read it back in and notice that the LC Hub ID is now in the fasta header
 res <- readLines(file.path(temp, "seqs-LCH-ID.fasta"), n = 10)
 cat(res)
-
 ```
+
+This approach could be taken before uploading sequence data to GenBank.
+
+::: keypoints
+
+- Operationalizing CARE Principles requires advocacy to more data repositories will take up protocols such as hosting TK and BC information.
+- While we wait for that systemic change, we can still take action ourselves by interacting directly with the API of Local Contexts Hub
+
+:::
+    
