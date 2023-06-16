@@ -173,7 +173,7 @@ abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-bi
 
 To see if there are any mismatches, let's first retrieve a list of the names in our abundances dataset. Since this dataset has repeated instances of the same species when it shows up in different islands, we wrap the vector of taxa names in the function `unique()` to return each species name only once.
 
-```{r eval=FALSE}
+```{r}
 all_names <- unique(abundances$final_name)
 ```
 
@@ -558,19 +558,23 @@ rownames(abundances_wide) <- c('BI_01','MA_01','KA_01')
 We can directly calculate Hill numbers using the `hill_phylo` function along with the objects `arthro_tree_pruned` and `abundances_wide`. Since we have three sites, the function will return a vector with tree values, one Hill number for each site of the order we requested. Let's create an empty list to store a vector for each order, and use a `for` loop to calculate from orders of 0 to 3.
 
 ```{r}
-hill_values <- vector('list',length = 4)
-for (i in seq(0,3)) {
-  hill_values[[i+1]] <- hill_phylo(abundances_wide,arthro_tree_pruned, q = i)
+hill_values <- vector('list', length = 4)
+for (i in 0:3) {
+    hill_values[[i + 1]] <- hill_phylo(abundances_wide, arthro_tree_pruned, 
+                                       q = i)
 }
 ```
 
 Now, let's create a data.frame with islands as rows and Hill numbers of different orders as columns. For that, we will use the function `do.call` to collapse our list `hill_values` using the function `cbind`.
 
 ```{r}
-hill_values <- do.call(cbind.data.frame,hill_values)
-colnames(hill_values) <- c('q0','q1','q2','q3')
-hill_phylo_nbs <- data.frame(site = c('BigIsland','Maui','Kauai'),
+hill_values <- do.call(cbind.data.frame, hill_values)
+colnames(hill_values) <- paste0('hill_phylo_', 0:3)
+hill_phylo_nbs <- data.frame(site = rownames(hill_values),
                              hill_values)
+
+rownames(hill_phylo_nbs) <- NULL
+hill_phylo_nbs
 ```
 
 Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.
