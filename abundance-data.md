@@ -114,6 +114,16 @@ And look at what we've got:
 head(abundances)
 ```
 
+```{.output}
+     island  site                GenSp abundance
+1 BigIsland BI_01         Cis signatus       541
+2 BigIsland BI_01 Acanthia procellaris        64
+3 BigIsland BI_01     Spoles solitaria        34
+4 BigIsland BI_01        Laupala pruna        21
+5 BigIsland BI_01  Toxeuma hawaiiensis       111
+6 BigIsland BI_01  Chrysotus parthenus       208
+```
+
 `abundances` is a data frame with columns for `island`, `site`, `GenSp`, and `abundance`. Each row tells us how many individuals of each species (GenSp) were recorded at a given site on each island. This is a common format - imagine you are censusing a plant quadrat, counting up how many individuals of each species you see. 
 
 ## Cleaning taxonomic names
@@ -144,12 +154,36 @@ Sometimes `gnr_resolve` doesnt work. From the `taxize` documentation:
 head(name_resolve)
 ```
 
+```{.output}
+# A tibble: 6 × 5
+  user_supplied_name   submitted_name      data_source_title score matched_name2
+  <chr>                <chr>               <chr>             <dbl> <chr>        
+1 Cis signatus         Cis signatus        Encyclopedia of … 0.988 Cis signatus 
+2 Acanthia procellaris Acanthia procellar… uBio NameBank     0.988 Acanthia pro…
+3 Spoles solitaria     Spoles solitaria    Catalogue of Lif… 0.75  Spolas solit…
+4 Laupala pruna        Laupala pruna       National Center … 0.988 Laupala pruna
+5 Toxeuma hawaiiensis  Toxeuma hawaiiensis Encyclopedia of … 0.988 Toxeuma hawa…
+6 Chrysotus parthenus  Chrysotus parthenus Encyclopedia of … 0.988 Chrysotus pa…
+```
+
 
 ```r
 mismatches <- name_resolve[ name_resolve$matched_name2 !=
                                 name_resolve$user_supplied_name, ]
 
 mismatches[, c("user_supplied_name", "matched_name2")]
+```
+
+```{.output}
+# A tibble: 6 × 2
+  user_supplied_name       matched_name2           
+  <chr>                    <chr>                   
+1 Spoles solitaria         Spolas solitaria        
+2 Metrothorax deverilli    Metrothorax             
+3 Agonosmus argentiferus   Agonismus argentiferus  
+4 Agrotis chersotoides     Agrotis                 
+5 Proterhenus punctipennis Proterhinus punctipennis
+6 Elmoea lanceolata        Elmoia lanceolata       
 ```
 
 Four of these are just typos. But `Agrotis chersotoides` in our data is resolved only to `Agrotis` and `Metrothorax deverilli` is resolved to `Metrothorax`. What's up there?
@@ -199,6 +233,30 @@ abundances$final_name <- abundances$matched_name2
 head(abundances)
 ```
 
+```{.output}
+     island  site                GenSp abundance       submitted_name
+1 BigIsland BI_01         Cis signatus       541         Cis signatus
+2 BigIsland BI_01 Acanthia procellaris        64 Acanthia procellaris
+3 BigIsland BI_01     Spoles solitaria        34     Spoles solitaria
+4 BigIsland BI_01        Laupala pruna        21        Laupala pruna
+5 BigIsland BI_01  Toxeuma hawaiiensis       111  Toxeuma hawaiiensis
+6 BigIsland BI_01  Chrysotus parthenus       208  Chrysotus parthenus
+                              data_source_title score        matched_name2
+1                          Encyclopedia of Life 0.988         Cis signatus
+2                                 uBio NameBank 0.988 Acanthia procellaris
+3                   Catalogue of Life Checklist 0.750     Spolas solitaria
+4 National Center for Biotechnology Information 0.988        Laupala pruna
+5                          Encyclopedia of Life 0.988  Toxeuma hawaiiensis
+6                          Encyclopedia of Life 0.988  Chrysotus parthenus
+            final_name
+1         Cis signatus
+2 Acanthia procellaris
+3     Spolas solitaria
+4        Laupala pruna
+5  Toxeuma hawaiiensis
+6  Chrysotus parthenus
+```
+
 
 
 ## Visualizing species abundance distributions
@@ -212,10 +270,6 @@ Because we'll want to look at each island separately, we'll use the `split` comm
 island_abundances <- split(abundances, f = abundances$island)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'abundances' not found
-```
-
 Usual practice is to plot distributions of abundance as the species abundance on the y-axis and the _rank_ of that species (from most-to-least-abundant) on the x-axis. This allows us to make comparisons between sites that don't have any species in common.
 
 Now, we'll construct a plot with lines for the abundances of species on each island. 
@@ -224,21 +278,8 @@ Now, we'll construct a plot with lines for the abundances of species on each isl
 ```r
 # figure out max number of species at a site for axis limit setting below
 max_sp <- sapply(island_abundances, nrow)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'island_abundances' not found
-```
-
-```r
 max_sp <- max(max_sp)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'max_sp' not found
-```
-
-```r
 plot(
     sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
@@ -250,37 +291,19 @@ plot(
     ylim = c(1, max(abundances$abundance)), 
     log = 'y'
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'island_abundances' not found
-```
-
-```r
 points(
     sort(island_abundances$Maui$abundance, decreasing = T),
     lwd = 2,
     col = "#21908CFF"
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'island_abundances' not found
-```
-
-```r
 points(
     sort(island_abundances$BigIsland$abundance, decreasing = T),
     lwd = 2,
     col = "#FDE725FF"
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'island_abundances' not found
-```
-
-```r
 legend(
     "topright",
     legend = c("Kauai", "Maui", "Hawaii"),
@@ -292,9 +315,7 @@ legend(
 )
 ```
 
-```{.error}
-Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
-```
+<img src="fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" />
 
 ::: discussion
 
@@ -324,6 +345,18 @@ abundances_wide <- pivot_wider(abundances, id_cols = site,
 head(abundances_wide[,1:10])
 ```
 
+```{.output}
+# A tibble: 3 × 10
+  site  `Cis signatus` `Acanthia procellaris` `Spolas solitaria` `Laupala pruna`
+  <chr>          <int>                  <int>              <int>           <int>
+1 BI_01            541                     64                 34              21
+2 MA_01             52                     53                  0               0
+3 KA_01              0                      0                  0              12
+# ℹ 5 more variables: `Toxeuma hawaiiensis` <int>, `Chrysotus parthenus` <int>,
+#   `Metrothorax deverilli` <int>, `Drosophila obscuricornis` <int>,
+#   `Cis bimaculatus` <int>
+```
+
 We'll want this data to have _row names_ based on the sites, so we'll need some more steps:
 
 
@@ -337,11 +370,64 @@ abundances_wide <- abundances_wide[, -1]
 head(abundances_wide)
 ```
 
+```{.output}
+      Cis signatus Acanthia procellaris Spolas solitaria Laupala pruna
+BI_01          541                   64               34            21
+MA_01           52                   53                0             0
+KA_01            0                    0                0            12
+      Toxeuma hawaiiensis Chrysotus parthenus Metrothorax deverilli
+BI_01                 111                 208                    11
+MA_01                 102                  27                     0
+KA_01                   0                   0                   190
+      Drosophila obscuricornis Cis bimaculatus Nysius lichenicola
+BI_01                        2               4                  1
+MA_01                       83             149                 16
+KA_01                        0               0                  0
+      Agonismus argentiferus Peridroma chersotoides Scaptomyza villosa
+BI_01                      1                      1                  1
+MA_01                      0                     23                 63
+KA_01                      0                      0                  0
+      Lispocephala dentata Hylaeus facilis Laupala vespertina
+BI_01                    0               0                  0
+MA_01                  123              74                 52
+KA_01                    0               0                  0
+      Proterhinus punctipennis Nesomicromus haleakalae Odynerus erythrostactes
+BI_01                        0                       0                       0
+MA_01                       51                      76                      34
+KA_01                      434                       0                       0
+      Eurynogaster vittata Elmoia lanceolata Xyletobius collingei
+BI_01                    0                 0                    0
+MA_01                    6                16                    0
+KA_01                    0                 0                   41
+      Nesodynerus mimus Scaptomyza vagabunda Lucilia graphita
+BI_01                 0                    0                0
+MA_01                 0                    0                0
+KA_01                30                   81               49
+      Eudonia lycopodiae Atelothrus depressus Mecyclothorax longulus
+BI_01                  0                    0                      0
+MA_01                  0                    0                      0
+KA_01                110                   10                     11
+      Hylaeus sphecodoides Hyposmocoma sagittata Campsicnemus nigricollis
+BI_01                    0                     0                        0
+MA_01                    0                     0                        0
+KA_01                    4                    27                        1
+```
+
 Let's write it to a file in case we need to load it again later on:
 
 
 ```r
 write.csv(abundances_wide, here::here("episodes", "data", "abundances_wide.csv"), row.names = F)
+```
+
+```{.warning}
+Warning in file(file, ifelse(append, "a", "w")): cannot open file
+'/home/runner/work/multidim-biodiv-data/multidim-biodiv-data/site/built/episodes/data/abundances_wide.csv':
+No such file or directory
+```
+
+```{.error}
+Error in file(file, ifelse(append, "a", "w")): cannot open the connection
 ```
 
 ### Calculating Hill numbers with `hillR`
@@ -355,11 +441,21 @@ hill_0 <- hill_taxa(abundances_wide, q = 0)
 hill_0
 ```
 
+```{.output}
+BI_01 MA_01 KA_01 
+   13    17    13 
+```
+
 
 ```r
 hill_1 <- hill_taxa(abundances_wide, q = 1)
 
 hill_1
+```
+
+```{.output}
+    BI_01     MA_01     KA_01 
+ 4.001789 13.746057  5.949875 
 ```
 
 
@@ -375,6 +471,11 @@ Calculate the hill numbers for q = 2.
 hill_2 <- hill_taxa(abundances_wide, q = 2)
 
 hill_2
+```
+
+```{.output}
+    BI_01     MA_01     KA_01 
+ 2.824029 11.958289  4.012680 
 ```
 
 :::
@@ -423,6 +524,8 @@ legend(
 )
 ```
 
+<img src="fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" />
+
 
 
 ```r
@@ -434,6 +537,13 @@ hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
 rownames(hill_abund) <- NULL
 
 hill_abund
+```
+
+```{.output}
+   site hill_abund_0 hill_abund_1 hill_abund_2
+1 BI_01           13     4.001789     2.824029
+2 MA_01           17    13.746057    11.958289
+3 KA_01           13     5.949875     4.012680
 ```
 
 
