@@ -460,7 +460,7 @@ simple typos in taxonomic names.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Sometimes <code>gnr_resolve</code> doesnt work. From the
 <code>taxize</code> documentation:</p>
@@ -512,7 +512,7 @@ in our data is resolved only to <code>Agrotis</code> and
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>Go to google and you’ll see that Agrotis chersotoides is a synonym of
 Peridroma chersotoides, while Metrothorax deverilli is a valid species
@@ -575,21 +575,45 @@ case, the different values of the <code>island</code> column of the
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_abundances</span> <span class="op">&lt;-</span> <span class="fu">split</span><span class="op">(</span><span class="va">abundances</span>, f <span class="op">=</span> <span class="va">abundances</span><span class="op">$</span><span class="va">island</span><span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'abundances' not found</code></pre>
+</div>
 <p>Usual practice is to plot distributions of abundance as the species
 abundance on the y-axis and the <em>rank</em> of that species (from
 most-to-least-abundant) on the x-axis. This allows us to make
 comparisons between sites that don’t have any species in common.</p>
 <p>Now, we’ll construct a plot with lines for the abundances of species
 on each island.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># figure out max number of species at a site for axis limit setting below</span></span>
-<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">island_abundances</span>, <span class="va">nrow</span><span class="op">)</span></span>
-<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">max_sp</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">plot</span><span class="op">(</span></span>
+<span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">island_abundances</span>, <span class="va">nrow</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">max_sp</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">max_sp</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'max_sp' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Kauai</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    main <span class="op">=</span> <span class="st">"Species abundances at each site"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Rank"</span>,</span>
@@ -599,21 +623,48 @@ on each island.</p>
 <span>    xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="va">max_sp</span><span class="op">)</span>,</span>
 <span>    ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">max</span><span class="op">(</span><span class="va">abundances</span><span class="op">$</span><span class="va">abundance</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    log <span class="op">=</span> <span class="st">'y'</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">points</span><span class="op">(</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">points</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">Maui</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">points</span><span class="op">(</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">points</span><span class="op">(</span></span>
 <span>    <span class="fu">sort</span><span class="op">(</span><span class="va">island_abundances</span><span class="op">$</span><span class="va">BigIsland</span><span class="op">$</span><span class="va">abundance</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    col <span class="op">=</span> <span class="st">"#FDE725FF"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">legend</span><span class="op">(</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'island_abundances' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">legend</span><span class="op">(</span></span>
 <span>    <span class="st">"topright"</span>,</span>
 <span>    legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Kauai"</span>, <span class="st">"Maui"</span>, <span class="st">"Hawaii"</span><span class="op">)</span>,</span>
 <span>    pch <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -623,7 +674,12 @@ on each island.</p>
 <span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/abundance-data-rendered-base-R-SAD-plots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion6" class="callout discussion">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet</code></pre>
+</div>
+<div id="discussion6" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -647,7 +703,7 @@ diversity data.</p>
 <p>A site by species sites as rows and species as columns. We can get
 there using the <code>pivot_wider</code> function from the package
 <code>tidyr</code>:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -660,7 +716,7 @@ there using the <code>pivot_wider</code> function from the package
 </div>
 <p>We’ll want this data to have <em>row names</em> based on the sites,
 so we’ll need some more steps:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -674,23 +730,11 @@ so we’ll need some more steps:</p>
 </div>
 <p>Let’s write it to a file in case we need to load it again later
 on:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">abundances_wide</span>, <span class="fu">here</span><span class="fu">::</span><span class="fu">here</span><span class="op">(</span><span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"abundances_wide.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, ifelse(append, "a", "w")): cannot open file
-'/home/runner/work/multidim-biodiv-data/multidim-biodiv-data/site/built/episodes/data/abundances_wide.csv':
-No such file or directory</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, ifelse(append, "a", "w")): cannot open the connection</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -698,7 +742,7 @@ No such file or directory</code></pre>
 <a class="anchor" aria-label="anchor" href="#calculating-hill-numbers-with-hillr"></a></h3>
 <p>The <code>hillR</code> package allows us to calculate Hill
 numbers.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -706,7 +750,7 @@ numbers.</p>
 <span></span>
 <span><span class="va">hill_0</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -733,9 +777,9 @@ numbers.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -753,7 +797,7 @@ numbers.</p>
 <h2 id="relating-hill-numbers-to-patterns-in-diversity">Relating Hill numbers to patterns in diversity<a class="anchor" aria-label="anchor" href="#relating-hill-numbers-to-patterns-in-diversity"></a></h2>
 <p>Let’s revisit the SAD plots we generated before, and think about
 these in terms of Hill numbers.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -791,7 +835,7 @@ these in terms of Hill numbers.</p>
 <span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/abundance-data-rendered-render-SAD-plots-again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">

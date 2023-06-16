@@ -377,7 +377,18 @@ abundance data, each row represents one specimen: in this dataset, each
 row contains the body mass measured for that specimen. Our overall goal
 here is to clean this data and attach it to the species data, so we can
 investigate trait patterns per community.</p>
-<p>We’re starting with a challenge!</p>
+<p>We’re starting with a challenge! First, let’s load the packages we’ll
+need for the whole episode (you won’t need all of them for this first
+challenge)</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span></code></pre>
+</div>
 <div id="discussion2" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -413,7 +424,7 @@ the data before cleaning!</p>
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -424,12 +435,11 @@ supplying it with the path to the data.</p>
 <p>Check the names of the traits using the <code>gnr_resolve()</code>
 function. To streamline your efforts, supply only the unique species
 names in your data to <code>gnr_resolve()</code>.</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span>
-<span><span class="co"># only need to check the unique names</span></span>
+<code class="sourceCode R"><span><span class="co"># only need to check the unique names</span></span>
 <span><span class="va">species_list</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">traits</span><span class="op">$</span><span class="va">GenSp</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">name_resolve</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">species_list</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, </span>
@@ -439,7 +449,7 @@ names in your data to <code>gnr_resolve()</code>.</p>
 </div>
 <p>To quickly see which taxa are in conflict with <code>taxize</code>’s,
 use bracket subsetting and boolean matching.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -455,13 +465,11 @@ dataframe using the <code>left_join()</code> function. Note, we indicate
 that the <code>GenSp</code> and <code>user_supplied_name</code> columns
 have the same information by supplying a named vector to the
 <code>by =</code> argument.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, </span>
+<code class="sourceCode R"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">traits</span>, </span>
 <span>                    <span class="va">name_resolve</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"user_supplied_name"</span>, <span class="st">"matched_name2"</span><span class="op">)</span><span class="op">]</span>, </span>
 <span>                    by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"GenSp"</span> <span class="op">=</span> <span class="st">"user_supplied_name"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -473,7 +481,7 @@ boolean matching, and assignment.</p>
 <p>In addition, although not necessary, changing the column name
 <code>matched_name2</code> to <code>final_name</code> to give it a more
 sensible name for later use is good practice.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -511,7 +519,7 @@ argument to <code>group_by()</code> is your data frame, and all
 following unnamed arguments are the variables you want to group the data
 by. In our case, we want to group by species name, so we’ll supply
 <code>final_name</code>.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -532,7 +540,7 @@ resulting variables. The structure is
 calculation. Here, we’re using the <code>mean()</code>,
 <code>median()</code>, and <code>sd()</code> functions. Then, we’ll take
 a look at the new data set with the <code>head()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -552,7 +560,7 @@ back to the abundance data, so you have the summary statistics for each
 species at each site.</p>
 <p>First, re-read in the abundance data you used in the abundance
 episode.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -564,7 +572,7 @@ episode.</p>
 hopefully getting familiar to you now!</p>
 <p><code>abundances</code> should be on the left side, since we want the
 species-information for each species in each community.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -604,7 +612,7 @@ distribution.</p>
 <p>Finally, to add the density line to the plot, you calculate the
 density of the trait distribution with the <code>density()</code>
 function and wrap it with the <code>lines()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -634,7 +642,7 @@ then returns a list of data frames for each element in the variable.</p>
 <p>Running <code>head()</code> on the list returns a lot of output, so
 you can use the <code>names()</code> function to make sure the names of
 the dataframes in your list are the sites you intended to split by.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -666,7 +674,7 @@ whatever your heart desires!</p>
 <code>legend()</code> function, you specify the position of the legend
 (“topright”), the legend labels, the line width, and colors to assign to
 the labels.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -737,13 +745,11 @@ data!</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">pivot_wider</span><span class="op">(</span></span>
 <span>    <span class="va">abundances</span>,</span>
 <span>    id_cols <span class="op">=</span> <span class="va">site</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">final_name</span>,</span>
@@ -765,7 +771,7 @@ data!</p>
 </div>
 <p>Now, to create the traits dataframe for Hill number calculations
 purposed, we just need the taxonomic names and trait mean.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -774,7 +780,7 @@ purposed, we just need the taxonomic names and trait mean.</p>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">traits_simple</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, you need to filter for unique species in the dataframe.</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -786,7 +792,7 @@ purposed, we just need the taxonomic names and trait mean.</p>
 the <code>final_name</code> column. Note, you have to use the
 <code>drop = FALSE</code> argument because R has the funny behavior that
 it likes to convert single-column dataframes into a vector.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -799,13 +805,11 @@ it likes to convert single-column dataframes into a vector.</p>
 <p>Next, you’ll use the <code>hill_func()</code> function from the
 <code>hillR</code> package to calculate Hill numbers 0-2 of body size
 across sites.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">hillR</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">traits_hill_0</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">traits_hill_1</span> <span class="op">&lt;-</span> <span class="fu">hill_func</span><span class="op">(</span>comm <span class="op">=</span> <span class="va">abundances_wide</span>, traits <span class="op">=</span> <span class="va">traits_simple</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
@@ -817,7 +821,7 @@ et al. 2014</a>. For simplicity’s sake, we will look at
 <code>D_q</code>, which from the documentation is the:</p>
 <pre><code>&gt; functional Hill number, the effective number of equally abundant and functionally equally distinct species
 </code></pre>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -827,7 +831,7 @@ et al. 2014</a>. For simplicity’s sake, we will look at
 you will wrangle the output into a single dataframe to work with. Since
 Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 2.</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -843,7 +847,7 @@ Hill q = 0 is species richness, let’s focus on Hill q = 1 and Hill q =
 <span><span class="va">traits_hill</span></span></code></pre>
 </div>
 <p>Let’s look at how Hill q = 1 compare across sites.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -855,7 +859,7 @@ middle on Kauai. But what does this mean? To gain an intuition for what
 a higher or lower trait Hill number means, you will make rank plots of
 the trait data, to make a plot analogous to the species abundance
 distribution.</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -901,7 +905,7 @@ greater spread of trait values, however, species abundance strongly
 influences the calculation of a Hill number. To visualize the role of
 abundance, we can replicate each species mean by the abundance of that
 species</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
