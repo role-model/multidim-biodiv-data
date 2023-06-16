@@ -490,14 +490,16 @@ Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
 2.
 
 ```{r traits-hill-df}
-traits_hill <- data.frame(q0 = traits_hill_0[3, ], 
-                          q1 = traits_hill_1[3, ], 
-                          q2 = traits_hill_2[3, ])
+traits_hill <- data.frame(hill_trait_0 = traits_hill_0[3, ],
+                          hill_trait_1 = traits_hill_1[3, ],
+                          hill_trait_2 = traits_hill_2[3, ])
 
 # I don't like rownames for plotting, so making the rownames a column
-traits_hill$site <- row.names(traits_hill)
+traits_hill <- cbind(site = rownames(traits_hill), traits_hill)
 
-row.names(traits_hill) <- NULL
+rownames(traits_hill) <- NULL
+
+traits_hill
 ```
 
 Let's look at how Hill q = 1 compare across sites.
