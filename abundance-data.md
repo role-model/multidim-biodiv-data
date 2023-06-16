@@ -163,7 +163,7 @@ Four of these are just typos. But `Agrotis chersotoides` in our data is resolved
 
 ::: instructor
 
-Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it dosen't show up in GNR.
+Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it doesn't show up in GNR.
 
 :::
 
@@ -198,10 +198,6 @@ abundances$final_name <- abundances$matched_name2
 
 head(abundances)
 ```
-
-
-
-
 
 
 
@@ -283,25 +279,42 @@ A site by species sites as rows and species as columns. We can get there using t
 
 
 ```r
-abundance_wide <- pivot_wider(abundances, id_cols = site,
+abundances_wide <- pivot_wider(abundances, id_cols = site,
                               names_from = final_name,
                               values_from = abundance, 
                               values_fill = 0)
 
-head(abundance_wide[,1:10])
+head(abundances_wide[,1:10])
 ```
 
 We'll want this data to have _row names_ based on the sites, so we'll need some more steps:
 
 
 ```r
-abundance_wide <- as.data.frame(abundance_wide)
+abundances_wide <- as.data.frame(abundances_wide)
 
-row.names(abundance_wide) <- abundance_wide$site
+row.names(abundances_wide) <- abundances_wide$site
 
-abundance_wide <- abundance_wide[, -1]
+abundances_wide <- abundances_wide[, -1]
 
-head(abundance_wide)
+head(abundances_wide)
+```
+
+Let's write it to a file in case we need to load it again later on:
+
+
+```r
+write.csv(abundances_wide, here::here("episodes", "data", "abundances_wide.csv"), row.names = F)
+```
+
+```{.warning}
+Warning in file(file, ifelse(append, "a", "w")): cannot open file
+'/home/runner/work/multidim-biodiv-data/multidim-biodiv-data/site/built/episodes/data/abundances_wide.csv':
+No such file or directory
+```
+
+```{.error}
+Error in file(file, ifelse(append, "a", "w")): cannot open the connection
 ```
 
 ### Calculating Hill numbers with `hillR`
@@ -310,14 +323,14 @@ The `hillR` package allows us to calculate Hill numbers.
 
 
 ```r
-hill_0 <- hill_taxa(abundance_wide, q = 0)
+hill_0 <- hill_taxa(abundances_wide, q = 0)
 
 hill_0
 ```
 
 
 ```r
-hill_1 <- hill_taxa(abundance_wide, q = 1)
+hill_1 <- hill_taxa(abundances_wide, q = 1)
 
 hill_1
 ```
@@ -332,7 +345,7 @@ Calculate the hill numbers for q = 2.
 
 
 ```r
-hill_2 <- hill_taxa(abundance_wide, q = 2)
+hill_2 <- hill_taxa(abundances_wide, q = 2)
 
 hill_2
 ```
@@ -388,8 +401,14 @@ legend(
 
 
 ```r
-hill_numbers <- rbind(hill_0, hill_1, hill_2)
-hill_numbers
+hill_abund <- data.frame(hill_abund_0 = hill_0, 
+                         hill_abund_1 = hill_1, 
+                         hill_abund_2 = hill_2)
+hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
+
+rownames(hill_abund) <- NULL
+
+hill_abund
 ```
 
 

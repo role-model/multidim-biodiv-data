@@ -408,7 +408,7 @@ dataframe, is to recreate it here. Remember, you'll need to use the
 ```r
 library(tidyr)
 
-abundance_wide <- pivot_wider(
+abundances_wide <- pivot_wider(
     abundances,
     id_cols = site,
     names_from = final_name,
@@ -417,12 +417,12 @@ abundance_wide <- pivot_wider(
 )
 
 # tibbles don't like row names
-abundance_wide <- as.data.frame(abundance_wide)
+abundances_wide <- as.data.frame(abundances_wide)
 
-row.names(abundance_wide) <- abundance_wide$site
+row.names(abundances_wide) <- abundances_wide$site
 
 # remove the site column
-abundance_wide <- abundance_wide[,-1]
+abundances_wide <- abundances_wide[,-1]
 ```
 
 :::::::::::::::::
@@ -467,11 +467,11 @@ calculate Hill numbers 0-2 of body size across sites.
 ```r
 library(hillR)
 
-traits_hill_0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
+traits_hill_0 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 0)
 
-traits_hill_1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
+traits_hill_1 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 1)
 
-traits_hill_2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
+traits_hill_2 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 2)
 ```
 
 The output of `hill_func()` returns quite a few Hill number options,
@@ -497,22 +497,24 @@ Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
 
 
 ```r
-traits_hill <- data.frame(q0 = traits_hill_0[3, ], 
-                          q1 = traits_hill_1[3, ], 
-                          q2 = traits_hill_2[3, ])
+traits_hill <- data.frame(hill_trait_0 = traits_hill_0[3, ],
+                          hill_trait_1 = traits_hill_1[3, ],
+                          hill_trait_2 = traits_hill_2[3, ])
 
 # I don't like rownames for plotting, so making the rownames a column
-traits_hill$site <- row.names(traits_hill)
+traits_hill <- cbind(site = rownames(traits_hill), traits_hill)
 
-row.names(traits_hill) <- NULL
+rownames(traits_hill) <- NULL
+
+traits_hill
 ```
 
 Let's look at how Hill q = 1 compare across sites.
 
 
 ```r
-plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")), 
-     traits_hill$q1, ylab = "Hill q = 1")
+plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")),
+     traits_hill$hill_trait_1, ylab = "Hill q = 1")
 ```
 
 Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
@@ -635,7 +637,7 @@ and what you know from your work?
 
 ::: keypoints
 
-- Traits data contain more information about ecologially significant traits than just species IDs.
-- Traits data can be analyed with Hill numbers and visualized with rank plots similarly to abundance data.
+- Traits data contain more information about ecologically significant traits than just species IDs.
+- Traits data can be analzyed with Hill numbers and visualized with rank plots similarly to abundance data.
 
 :::
