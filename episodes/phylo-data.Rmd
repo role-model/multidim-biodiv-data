@@ -22,10 +22,9 @@ library(hillR)
 
 ::: questions
 
-- What information is contained in phylogenies?
-- How to summarize and interpret phylogenies using Hill numbers?
-- What are the common phylogeny data formats?
+- What biological information is stored in phylogenetic Hill numbers?
 - How do you import and manipulate phylogeny data in R?
+- What are the common phylogeny data formats?
 - How do you visualize phylogenies in R? 
 - How do you calculate Hill numbers with phylogenetic data?
 
@@ -51,7 +50,7 @@ The relative phylogenetic distance among species in a community as well as the d
 
 [Images of two trees with different topologies and branch lenghts]
 [Discuss how they represent different amounts of evolutionary history]
-[Translate that to processes of community assembly]
+[Translate that to processes of community assembly. Recap Andy's island of young vs old, speciation vs colonization, competition vs neutral]
 
 Summarizing this phylogenetic information (i.e., phylogenetic distance and distribution of branch lengths) is therefore important for inference. As we have seen in previous episodes, the use of [Hill numbers](https://onlinelibrary.wiley.com/doi/10.1111/eva.12593) is an informative approach to summarize biodiversity. 
 
@@ -542,6 +541,13 @@ Learners should have the object `abundances_wide` already in their environment, 
 
 ```{r}
 abundances_wide <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_wide.csv")
+
+# Note that reading from the URL introduces a "." in the column name. Replace using gsub
+colnames(abundances_wide) <- gsub('\\.',' ',colnames(abundances_wide))
+
+# It also got ride of sites as rownames.
+rownames(abundances_wide) <- c('BI_01','MA_01','KA_01')
+
 ```
 
 :::
@@ -563,24 +569,31 @@ Now, let's create a data.frame with islands as rows and Hill numbers of differen
 ```{r}
 hill_values <- do.call(cbind.data.frame,hill_values)
 colnames(hill_values) <- c('q0','q1','q2','q3')
-hill_phylo_nbs <- data.frame(site = c('HawaiiIsland_01','Kauai_01','Maui_01'),
+hill_phylo_nbs <- data.frame(site = c('HawaiiIsland','Kauai','Maui'),
                              hill_values)
 ```
 
-Finally, we can plot using a similar code to the ones we used in our examples:
+Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.
 
 ```{r}
 plot(seq(0,3),hill_phylo_nbs[1,2:5],
      type='b',col="#440154FF",
      xlab = 'Order',ylab='Hill values',
      xlim = c(0,3),
-     ylim = range(9,15))
+     ylim = range(min(hill_values),max(hill_values)))
 
 lines(seq(0,3),hill_phylo_nbs[2,2:5],
       type='b',col="#21908CFF")
 
-lines(seq(0,3),hill_phylo_nbs[2,2:5],
+lines(seq(0,3),hill_phylo_nbs[3,2:5],
       type='b',col="#FDE725FF")
+
+legend(
+    "topright",
+    legend = c("Big Island","Maui","Kauai"),
+    pch = 19,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+)
 
 ```
 
@@ -588,8 +601,38 @@ lines(seq(0,3),hill_phylo_nbs[2,2:5],
 
 ::::::::::::
 
-::::::::::::::::::::::::::::::::::::: instructor 
+:::: discussion
 
-A few points of discussion...
+After calculating and plotting hill numbers, what inferences can you make about the history of these communities, in terms of the rates of local speciation and colonization?
+
+Are there any further visualizations we haven't done so far that you could make to further investigate the phylogenetic history of each community?
+
+::::
+
+::::::::::::::::::::::::::::::::::::: instructor
+
+A few points of discussion:
+1. Kauai has lowest sum of branch lengths whereas Maui has the highest. The Big Island stays in between.
+2. The Big Island, however, has the most uneven distribution of branch length. Even though branches are overall longer in the Big Island than in the Kauai island, lower Hill number on higher orders suggest they are more unevenly distributed in the community of the Big Island.
+3. Lower values for the Big Island in higher orders, coupled with a slightly higher value for order 0, suggest that the evolutionary branches in this island are longer than in Kauai but they are unevenly represented, probably represented by a few very abundant species. This suggests a young history of colonization for this island: the community is dominated by the few good colonizers, which have been evolving for a while in the mainland, bring their long branches to the community when they arrive. The absence of shorter branches evenly distributed further suggests that speciation has not occurred much in this island, indicating a young community mostly composed by colonizers.
+4. Kauai has the lowest sum of branch lengths, but evenness seems to be in between the other two islands. This suggests this islands harbors more closely related taxa (lowest sum of branches) when compared to other islands, but these values are evenly distributed among species. A longer history may be inferred here, with a lot of local speciation (accounting for closely related taxa) and probably competitive coexistence dictating similar abundances across species (accounting for evenness of branch representation).
+5. Maui has overall highest PD in all orders and higher evenness of distribution of branch lengths. This suggests an intermediate history: both speciation and immigration account for a lot of evolutionary history in this island, while elapsed time may have been enough to dictate a more even distribution of species abundance and phylogenetic history.
+
+
+Further visualization of the trees for each community can help us corroborate these ideas:
+
+```{r}
+BI_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'BigIsland' ])
+MA_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'Maui' ])
+KA_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'Kauai' ])
+
+plot(BI_tree)
+plot(MA_tree)
+plot(KA_tree)
+```
+
+The interesting thing here is that we could infer the history of the communities from the numbers only, before looking at the trees per community. This speaks to the power of Hill numbers as summary statistic of biodiversity patterns and how they can be useful for simulation-based inference.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+

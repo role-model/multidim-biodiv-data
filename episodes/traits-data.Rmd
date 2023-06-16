@@ -407,7 +407,7 @@ dataframe, is to recreate it here. Remember, you'll need to use the
 ```{r abundance-site-by-species}
 library(tidyr)
 
-abundance_wide <- pivot_wider(
+abundances_wide <- pivot_wider(
     abundances,
     id_cols = site,
     names_from = final_name,
@@ -416,12 +416,12 @@ abundance_wide <- pivot_wider(
 )
 
 # tibbles don't like row names
-abundance_wide <- as.data.frame(abundance_wide)
+abundances_wide <- as.data.frame(abundances_wide)
 
-row.names(abundance_wide) <- abundance_wide$site
+row.names(abundances_wide) <- abundances_wide$site
 
 # remove the site column
-abundance_wide <- abundance_wide[,-1]
+abundances_wide <- abundances_wide[,-1]
 ```
 
 :::::::::::::::::
@@ -462,11 +462,11 @@ calculate Hill numbers 0-2 of body size across sites.
 ```{r hill-traits}
 library(hillR)
 
-traits_hill_0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
+traits_hill_0 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 0)
 
-traits_hill_1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
+traits_hill_1 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 1)
 
-traits_hill_2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
+traits_hill_2 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 2)
 ```
 
 The output of `hill_func()` returns quite a few Hill number options,
