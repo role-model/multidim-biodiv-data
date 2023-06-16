@@ -704,6 +704,8 @@ traits_hill
 3 KA_01     20.04110    10.077680     7.094183
 ```
 
+
+
 Let's look at how Hill q = 1 compare across sites.
 
 

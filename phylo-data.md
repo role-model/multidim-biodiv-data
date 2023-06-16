@@ -332,6 +332,8 @@ Now, let's create a data.frame with islands as rows and Hill numbers of differen
 
 
 
+
+
 Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.
 
 
