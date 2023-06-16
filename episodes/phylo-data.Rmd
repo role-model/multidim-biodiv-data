@@ -156,7 +156,7 @@ One useful function to do this fixing is the function `gsub()`. This function al
 arthro_tree$tip.label <- gsub('_',' ',arthro_tree$tip.label)
 
 # A quick check to see if worked
-arthro_tree
+arthro_tree$tip.label
 ```
 
 Now that we fixed this first obvious issue, we can start looking for others. Since we want to calculate phylogenetic diversity for each of our communities, our main concern here is to make sure that all taxa present in our communities can be found in this phylogeny. One important issue that may arise is the use of different names for the same taxa across the two datasets (i.e., synonyms). This is especially important since we previouslu performed a synonym check and cleaning in our abundance dataset; we need to make sure the names in our tree will follow the same nomenclature decisions.
