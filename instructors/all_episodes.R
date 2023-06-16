@@ -1,7 +1,6 @@
 
 
 
-## ----setup, include=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = TRUE)
 
 library(dplyr)
@@ -11,13 +10,9 @@ library(vegan)
 library(tidyr)
 
 
-## ----first-SAD-visual, echo = F, include = F## ----## ----## ----## ----## ----## ----## ----## ----## -------
 
 
 
-
-
-## ----load-packages, include = T, eval = F## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 
 library(dplyr)
 library(taxize)
@@ -26,18 +21,12 @@ library(vegan)
 library(tidyr)
 
 
-
-## ----load-data## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
 
-
-## ----examine-data## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 
 head(abundances)
 
 
-
-## ----taxize-nameresolve## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 
 species_list <- abundances$GenSp
 
@@ -45,12 +34,8 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE,
                             canonical = TRUE) # returns only name, not authority
 
 
-
-## ----explore-taxise-outcomes## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 head(name_resolve)
 
-
-## ----find-mismatches## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 
 
 mismatches <- name_resolve[ name_resolve$matched_name2 !=
@@ -59,8 +44,6 @@ mismatches <- name_resolve[ name_resolve$matched_name2 !=
 mismatches[, c("user_supplied_name", "matched_name2")]
 
 
-
-## ----fix-agrotis-metrothorax## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 
 name_resolve$matched_name2[
     name_resolve$user_supplied_name == "Agrotis chersotoides"] <-
@@ -71,66 +54,44 @@ name_resolve$matched_name2[
     "Metrothorax deverilli"
 
 
-
-## ----join-abundances-names## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 abundances <- left_join(abundances, name_resolve, by = c("GenSp" = "user_supplied_name"))
 
 abundances$final_name <- abundances$matched_name2
 
 head(abundances)
 
-
-## ----include = FALSE, eval = FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"), row.names = F)
 
 
 
-## ---- include = FALSE, eval = FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
-
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
-
-
-
-
-## ----use-split, eval =T## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
-
 island_abundances <- split(abundances, f = abundances$island)
 
 
-
-## ----base-R-SAD-plots, eval = TRUE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 # figure out max number of species at a site for axis limit setting below
 max_sp <- sapply(island_abundances, nrow)
 max_sp <- max(max_sp)
 
-pdf('instructors/fig_sad.pdf', width = 3, height = 3)
-
-par(mar = c(3, 3, 0, 0) + 0.5, mgp = c(2.5, 1, 0))
-
 plot(
     sort(island_abundances$Kauai$abundance, decreasing = TRUE),
-    # main = "Species abundances at each site",
+    main = "Species abundances at each site",
     xlab = "Rank",
     ylab = "Abundance",
-    cex = 1.4,
-    lwd = 1.4,
+    lwd = 2,
     col = "#440154FF",
     xlim = c(1, max_sp),
-    ylim = c(1, max(abundances$abundance)),
+    ylim = c(1, max(abundances$abundance)), 
     log = 'y'
 )
 
 points(
     sort(island_abundances$Maui$abundance, decreasing = T),
-    cex = 1.4,
-    lwd = 1.4,
+    lwd = 2,
     col = "#21908CFF"
 )
 
 points(
     sort(island_abundances$BigIsland$abundance, decreasing = T),
-    cex = 1.4,
-    lwd = 1.4,
+    lwd = 2,
     col = "#FDE725FF"
 )
 
@@ -138,63 +99,52 @@ legend(
     "topright",
     legend = c("Kauai", "Maui", "Hawaii"),
     pch = 1,
-    pt.cex = 1.4,
-    pt.lwd = 1.4,
+    pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),
-    bty = "n",
+    bty = "n", 
     cex = 0.8
 )
 
-dev.off()
 
-## ----site-by-species-matrix## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 
-abundance_wide <- pivot_wider(abundances, id_cols = site,
+abundances_wide <- pivot_wider(abundances, id_cols = site,
                               names_from = final_name,
                               values_from = abundance,
                               values_fill = 0)
 
-head(abundance_wide[,1:10])
+head(abundances_wide[,1:10])
 
 
 
-## ----sbys-row-names## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
+abundances_wide <- as.data.frame(abundances_wide)
 
-abundance_wide <- as.data.frame(abundance_wide)
+row.names(abundances_wide) <- abundances_wide$site
 
-row.names(abundance_wide) <- abundance_wide$site
+abundances_wide <- abundances_wide[, -1]
 
-abundance_wide <- abundance_wide[, -1]
-
-head(abundance_wide)
+head(abundances_wide)
 
 
+write.csv(abundances_wide, here::here("episodes", "data", "abundances_wide.csv"), row.names = F)
 
-## ----hill0## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 
-hill_0 <- hill_taxa(abundance_wide, q = 0)
+hill_0 <- hill_taxa(abundances_wide, q = 0)
 
 hill_0
 
 
 
-## ----hill1## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
-
-hill_1 <- hill_taxa(abundance_wide, q = 1)
+hill_1 <- hill_taxa(abundances_wide, q = 1)
 
 hill_1
 
 
 
-## ----hill2## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
-
-hill_2 <- hill_taxa(abundance_wide, q = 2)
+hill_2 <- hill_taxa(abundances_wide, q = 2)
 
 hill_2
 
 
-
-## ----render-SAD-plots-again## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 plot(
     sort(island_abundances$Kauai$abundance, decreasing = TRUE),
     main = "Species abundances at each site",
@@ -230,34 +180,28 @@ legend(
 )
 
 
+hill_abund <- data.frame(hill_abund_0 = hill_0,
+                         hill_abund_1 = hill_1,
+                         hill_abund_2 = hill_2)
+hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
 
-## ----look-at-hill-numbers-again## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
-hill_numbers <- rbind(hill_0, hill_1, hill_2)
-hill_numbers
+rownames(hill_abund) <- NULL
 
+hill_abund
 
-## ----setup, include=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
 
 
 
-## ----plot of trait diversity distribution## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-
-
-
-## ----show trait hill numbers## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 
 
 
 
 
-## ----trait-import-sol## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 traits <- read.csv('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/body_size_data.csv')
 
 head(traits)
 
-
-## ----trait-resolve-sol1## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 library(taxize)
 # only need to check the unique names
 species_list <- unique(traits$GenSp)
@@ -267,16 +211,12 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE,
 
 head(name_resolve)
 
-
-## ----trait-resolve-sol2## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 mismatches_traits <-
     name_resolve[name_resolve$user_supplied_name != name_resolve$matched_name2,
                  c("user_supplied_name", "matched_name2")]
 
 mismatches_traits
 
-
-## ----trait-resolve-sol3## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 library(dplyr)
 
 traits <- left_join(traits,
@@ -285,8 +225,6 @@ traits <- left_join(traits,
 
 head(traits)
 
-
-## ----trait-resolve-sol4## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 traits$matched_name2[traits$matched_name2 == "Agrotis"] <-
     "Peridroma chersotoides"
 
@@ -297,16 +235,12 @@ colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 
 head(traits)
 
-
-## ----group-traits-species## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(dplyr)
 
 # group the data frame by species
 traits_sumstats <- group_by(traits, final_name)
 
 
-
-## ----agg-traits-species## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 # summarize the grouped data frame, so you're calculating the summary statistics for each species
 traits_sumstats <-
     summarize(
@@ -318,22 +252,16 @@ traits_sumstats <-
 
 head(traits_sumstats)
 
-
-## ----read-abundance## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv")
 
 head(abundances)
 
-
-## ----traits-sumstats-join## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 traits_sumstats <- left_join(abundances,
                              traits_sumstats,
                              by = "final_name")
 
 head(traits_sumstats)
 
-
-## ----density-all## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 
 hist(
     traits_sumstats$mean_mass_g,
@@ -347,15 +275,11 @@ hist(
 lines(density(traits_sumstats$mean_mass_g))
 
 
-
-## ----density-site-split## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 # split by site
 traits_sumstats_split <- split(traits_sumstats, traits_sumstats$site)
 
 names(traits_sumstats_split)
 
-
-## ----density-site-plot## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 plot(
     density(traits_sumstats_split$KA_01$mean_mass_g),
     main = "Average mass per study site",
@@ -386,11 +310,9 @@ legend(
     col = c("#440154FF", "#21908CFF", "#FDE725FF")
 )
 
-
-## ----abundance-site-by-species## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 library(tidyr)
 
-abundance_wide <- pivot_wider(
+abundances_wide <- pivot_wider(
     abundances,
     id_cols = site,
     names_from = final_name,
@@ -399,65 +321,51 @@ abundance_wide <- pivot_wider(
 )
 
 # tibbles don't like row names
-abundance_wide <- as.data.frame(abundance_wide)
+abundances_wide <- as.data.frame(abundances_wide)
 
-row.names(abundance_wide) <- abundance_wide$site
+row.names(abundances_wide) <- abundances_wide$site
 
 # remove the site column
-abundance_wide <- abundance_wide[,-1]
+abundances_wide <- abundances_wide[,-1]
 
-
-## ----traits-remove-cols## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 traits_simple <- traits_sumstats[, c("final_name", "mean_mass_g")]
 
 head(traits_simple)
 
-
-## ----traits-remove-dups## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 traits_simple <- unique(traits_simple)
 
 head(traits_simple)
 
-
-## ----traits-set-rownames## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 row.names(traits_simple) <- traits_simple$final_name
 
 traits_simple <- traits_simple[, -1, drop = FALSE]
 
 head(traits_simple)
 
-
-## ----hill-traits## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 library(hillR)
 
-traits_hill_0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
+traits_hill_0 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 0)
 
-traits_hill_1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
+traits_hill_1 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 1)
 
-traits_hill_2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
+traits_hill_2 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 2)
 
-
-## ----hill1-output## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 traits_hill_1
 
-
-## ----traits-hill-df## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
-traits_hill <- data.frame(q0 = traits_hill_0[3, ],
-                          q1 = traits_hill_1[3, ],
-                          q2 = traits_hill_2[3, ])
+traits_hill <- data.frame(hill_trait_0 = traits_hill_0[3, ],
+                          hill_trait_1 = traits_hill_1[3, ],
+                          hill_trait_2 = traits_hill_2[3, ])
 
 # I don't like rownames for plotting, so making the rownames a column
-traits_hill$site <- row.names(traits_hill)
+traits_hill <- cbind(site = rownames(traits_hill), traits_hill)
 
-row.names(traits_hill) <- NULL
+rownames(traits_hill) <- NULL
 
+traits_hill
 
-## ----hill-plot-raw## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")),
      traits_hill$q1, ylab = "Hill q = 1")
 
-
-## ----hill-plot-rank## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 # figure out max number of species at a site for axis limit setting below
 max_sp <- sapply(traits_sumstats_split, nrow)
 max_sp <- max(max_sp)
@@ -495,8 +403,6 @@ legend(
 
 
 
-
-## ----individuals-traits-plot## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 # replicate abundances
 biIndividualsTrt <- rep(traits_sumstats_split$BI_01$mean_mass_g,
                         traits_sumstats_split$BI_01$abundance)
@@ -535,109 +441,65 @@ legend(
     col = c("#440154FF", "#21908CFF", "#FDE725FF")
 )
 
-
-## ----setup, include=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 knitr::opts_chunk$set(echo = FALSE,  results = FALSE, eval = FALSE)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(tidyr)
 library(ape)
 library(hillR)
 
-
-## ----loading-ape## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 library(ape)
 
-
-## ----read-example## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 example_tree <- read.tree(text = '((A:0.5,B:0.5):0.5,C:1);')
 
-
-## ----plot-example## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 plot(example_tree)
 
-
-## ----calling-example## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 example_tree
 
-
-## ----calling-tips-edge## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 example_tree$tip.label
 
 example_tree$edge.length
 
-
-## ----reading-arthro-phylo## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 arthro_tree <- read.tree('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/phylo_raw.nwk')
 
 class(arthro_tree)
 
-
-## ----plotting-phylogeny## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 plot(arthro_tree, type = 'fan', show.tip.label = F)
 
+arthro_tree$tip.label
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 arthro_tree$tip.label <- gsub('_',' ',arthro_tree$tip.label)
 
+# A quick check to see if worked
+arthro_tree$tip.label
 
-## ----eval=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv")
+
 all_names <- unique(abundances$final_name)
 
+not_found <- !(all_names %in% (arthro_tree$tip.label))
+not_found
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-not_found <- !(all_names %in% arthro_tree$tip.label)
-
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 all_names[not_found]
 
+arthro_tree$tip.label[arthro_tree$tip.label == 'Agrotis chersotoides'] <- "Peridroma chersotoides"
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-new_names <- all_names
+not_found <- !(all_names %in% (arthro_tree$tip.label))
+which(not_found)
 
+arthro_tree_pruned <- keep.tip(arthro_tree,abundances$final_name)
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-new_names[not_found] <- c('ADD_LIST_HERE')
-
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-abundances_phylo <- abundances
-abundances_phylo$final_name <- new_names
-
-
-## ----eval=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
-arthro_tree_pruned <- keep.tip(arthro_tree,abundances_phylo$final_name)
-
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-phylo_wide <- pivot_wider(abundances_phylo,
-                          id_cols = site,
-                          names_from = final_name,
-                          values_from = abundance,
-                          values_fill = 0)
-
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 even_comm <- data.frame(rbind(rep(1,8))) # Abundance = 1 for all species
 uneven_comm <- data.frame(rbind(seq(1,8))) # Abundance equal 1 for species A and goes up to 8 towards species H.
 
 # We name the columns with the species names
 colnames(even_comm) <- colnames(uneven_comm) <- c('A','B','C','D','E','F','G','H')
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 short_tree <- read.tree(text='(((A:3,B:3):1,(C:3,D:3):1):1,((E:3,F:3):1,(G:3,H:3):1):1);')
 long_tree <- read.tree(text='(((A:6,B:6):1,(C:6,D:6):1):1,((E:6,F:6):1,(G:6,H:6):1):1);')
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 plot(short_tree)
 plot(long_tree)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 even_comm_short_tree <- data.frame(
     hill_nb = NA,
     q = 0:3,
@@ -645,15 +507,11 @@ even_comm_short_tree <- data.frame(
     tree = "short"
 )
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(hillR)
 for(i in 1:nrow(even_comm_short_tree)) {
     even_comm_short_tree$hill_nb[i] <- hill_phylo(even_comm, short_tree, q = even_comm_short_tree$q[i])
 }
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 even_comm_long_tree <- data.frame(
     hill_nb = NA,
     q = 0:3,
@@ -665,8 +523,6 @@ for(i in 1:nrow(even_comm_long_tree)) {
     even_comm_long_tree$hill_nb[i] <- hill_phylo(even_comm, long_tree, q = even_comm_long_tree$q[i])
 }
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 even_comm_nb <- data.frame(rbind(even_comm_short_tree,even_comm_long_tree))
 
 plot(even_comm_nb$q[even_comm_nb$tree=='short'],
@@ -680,8 +536,6 @@ lines(even_comm_nb$q[even_comm_nb$tree=='long'],
      even_comm_nb$hill_nb[even_comm_nb$tree=='long'],
      type='b',col='darkred')
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # Uneven comm with short tree
 uneven_comm_short_tree <- data.frame(
     hill_nb = NA,
@@ -709,8 +563,6 @@ for(i in 1:nrow(uneven_comm_long_tree)) {
 # Combining results
 uneven_comm_nb <- data.frame(rbind(uneven_comm_short_tree,uneven_comm_long_tree))
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 plot(even_comm_nb$q[even_comm_nb$tree=='short'],
      even_comm_nb$hill_nb[even_comm_nb$tree=='short'],
      type='b',col='red',
@@ -730,136 +582,143 @@ lines(uneven_comm_nb$q[uneven_comm_nb$tree=='long'],
      uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='long'],
      type='b',col='darkblue')
 
-
-## ---- eval=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 balanced_tree <- read.tree(text='(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);')
 
-
-## ---- eval=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 unbalanced_tree <- read.tree(text='(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);')
 
+plot(balanced_tree)
+plot(unbalanced_tree)
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-plot(even_tree)
-plot(uneven_tree)
-
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-even_comm_even_tree <- data.frame(
+even_comm_balanced_tree <- data.frame(
     hill_nb = NA,
     q = 0:3,
     comm = "even",
-    tree = "even"
+    tree = "balanced"
 )
 
-for(i in 1:nrow(even_comm_even_tree)) {
-    even_comm_even_tree$hill_nb[i] <- hill_phylo(even_comm, even_tree, q = even_comm_even_tree$q[i])
+for(i in 1:nrow(even_comm_balanced_tree)) {
+    even_comm_balanced_tree$hill_nb[i] <- hill_phylo(even_comm, balanced_tree, q = even_comm_balanced_tree$q[i])
 }
 
-even_comm_uneven_tree <- data.frame(
+even_comm_unbalanced_tree <- data.frame(
     hill_nb = NA,
     q = 0:3,
     comm = "even",
-    tree = "uneven"
+    tree = "unbalanced"
 )
 
-for(i in 1:nrow(even_comm_uneven_tree)) {
-    even_comm_uneven_tree$hill_nb[i] <- hill_phylo(even_comm, uneven_tree, q = even_comm_uneven_tree$q[i])
+for(i in 1:nrow(even_comm_unbalanced_tree)) {
+    even_comm_unbalanced_tree$hill_nb[i] <- hill_phylo(even_comm, unbalanced_tree, q = even_comm_unbalanced_tree$q[i])
 }
 
-even_comm_nb <- data.frame(rbind(even_comm_even_tree,even_comm_uneven_tree))
+even_comm_nb <- data.frame(rbind(even_comm_balanced_tree,even_comm_unbalanced_tree))
 
-plot(even_comm_nb$q[even_comm_nb$tree=='even'],
-     even_comm_nb$hill_nb[even_comm_nb$tree=='even'],
+plot(even_comm_nb$q[even_comm_nb$tree=='balanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='balanced'],
      type='b',col='red',
      xlab = 'Order',ylab='Hill values',
      xlim = range(even_comm_nb$q),
      ylim = range(even_comm_nb$hill_nb))
 
-lines(even_comm_nb$q[even_comm_nb$tree=='uneven'],
-     even_comm_nb$hill_nb[even_comm_nb$tree=='uneven'],
+lines(even_comm_nb$q[even_comm_nb$tree=='unbalanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='unbalanced'],
      type='b',col='darkred')
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-uneven_comm_even_tree <- data.frame(
+uneven_comm_balanced_tree <- data.frame(
     hill_nb = NA,
     q = 0:3,
     comm = "uneven",
-    tree = "even"
+    tree = "balanced"
 )
 
-for(i in 1:nrow(uneven_comm_even_tree)) {
-    uneven_comm_even_tree$hill_nb[i] <- hill_phylo(uneven_comm, even_tree, q = uneven_comm_even_tree$q[i])
+for(i in 1:nrow(uneven_comm_balanced_tree)) {
+    uneven_comm_balanced_tree$hill_nb[i] <- hill_phylo(uneven_comm, balanced_tree, q = uneven_comm_balanced_tree$q[i])
 }
 
-uneven_comm_uneven_tree <- data.frame(
+uneven_comm_unbalanced_tree <- data.frame(
     hill_nb = NA,
     q = 0:3,
     comm = "uneven",
-    tree = "uneven"
+    tree = "unbalanced"
 )
 
-for(i in 1:nrow(uneven_comm_uneven_tree)) {
-    uneven_comm_uneven_tree$hill_nb[i] <- hill_phylo(uneven_comm, uneven_tree, q = uneven_comm_uneven_tree$q[i])
+for(i in 1:nrow(uneven_comm_unbalanced_tree)) {
+    uneven_comm_unbalanced_tree$hill_nb[i] <- hill_phylo(uneven_comm, unbalanced_tree, q = uneven_comm_unbalanced_tree$q[i])
 }
 
-uneven_comm_nb <- data.frame(rbind(uneven_comm_even_tree,uneven_comm_uneven_tree))
+uneven_comm_nb <- data.frame(rbind(uneven_comm_balanced_tree,uneven_comm_unbalanced_tree))
 
-plot(even_comm_nb$q[even_comm_nb$tree=='even'],
-     even_comm_nb$hill_nb[even_comm_nb$tree=='even'],
+plot(even_comm_nb$q[even_comm_nb$tree=='balanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='balanced'],
      type='b',col='red',
      xlab = 'Order',ylab='Hill values',
      xlim = range(even_comm_nb$q),
      ylim = range(min(uneven_comm_nb$hill_nb),max(even_comm_nb$hill_nb)))
 
-lines(even_comm_nb$q[even_comm_nb$tree=='uneven'],
-     even_comm_nb$hill_nb[even_comm_nb$tree=='uneven'],
+lines(even_comm_nb$q[even_comm_nb$tree=='unbalanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='unbalanced'],
      type='b',col='darkred')
 
-lines(uneven_comm_nb$q[uneven_comm_nb$tree=='even'],
-     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='even'],
+lines(uneven_comm_nb$q[uneven_comm_nb$tree=='balanced'],
+     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='balanced'],
      type='b',col='lightblue')
 
-lines(uneven_comm_nb$q[uneven_comm_nb$tree=='uneven'],
-     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='uneven'],
+lines(uneven_comm_nb$q[uneven_comm_nb$tree=='unbalanced'],
+     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='unbalanced'],
      type='b',col='darkblue')
 
+abundances_wide <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_wide.csv")
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-hill_values <- vector('list',length = 4)
-for (i in seq(0,3)) {
-  hill_values[[i+1]] <- hill_phylo(phylo_wide,arthro_tree_pruned, q = i)
+# Note that reading from the URL introduces a "." in the column name. Replace using gsub
+colnames(abundances_wide) <- gsub('\\.',' ',colnames(abundances_wide))
+
+# It also got ride of sites as rownames.
+rownames(abundances_wide) <- c('BI_01','MA_01','KA_01')
+
+
+hill_values <- vector('list', length = 4)
+for (i in 0:3) {
+    hill_values[[i + 1]] <- hill_phylo(abundances_wide, arthro_tree_pruned,
+                                       q = i)
 }
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-hill_values <- do.call(cbind.data.frame,hill_values)
-colnames(hill_values) <- c('q0','q1','q2','q3')
-hill_phylo_nbs <- data.frame(site = c('HawaiiIsland_01','Kauai_01','Maui_01'),
+hill_values <- do.call(cbind.data.frame, hill_values)
+colnames(hill_values) <- paste0('hill_phylo_', 0:3)
+hill_phylo_nbs <- data.frame(site = rownames(hill_values),
                              hill_values)
 
+rownames(hill_phylo_nbs) <- NULL
+hill_phylo_nbs
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-plot(seq(0,3),hill_phylo_nbs[1,2:5],
+plot(seq(0,3),hill_phylo_nbs[3,2:5],
      type='b',col="#440154FF",
      xlab = 'Order',ylab='Hill values',
      xlim = c(0,3),
-     ylim = range(9,15))
+     ylim = range(min(hill_values),max(hill_values)))
 
 lines(seq(0,3),hill_phylo_nbs[2,2:5],
       type='b',col="#21908CFF")
 
-lines(seq(0,3),hill_phylo_nbs[2,2:5],
+lines(seq(0,3),hill_phylo_nbs[1,2:5],
       type='b',col="#FDE725FF")
+legend(
+    "topright",
+    legend = c("Kauai","Maui","Big Island"),
+    pch = 19,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+)
 
 
-## ----setup, include=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
+BI_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'BigIsland' ])
+MA_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'Maui' ])
+KA_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'Kauai' ])
+
+plot(BI_tree)
+plot(MA_tree)
+plot(KA_tree)
 knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
 
 
-
-## ----alignment-read## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 library(msa)
 
 seq_path <- "/Users/connorfrench/Dropbox/Old_Mac/School_Stuff/CUNY/Courses/Spring-2019/Machine-Learning/project/fasta/hypsiboas_seqs_aligned.fas"
@@ -868,80 +727,54 @@ seqs <- readDNAStringSet(seq_path)
 
 seqs
 
-
-## ----alignment## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 alignment <- msa(seqs, method = "ClustalOmega")
 
 alignment
 
 
-
-## ----alignment-remove-ind## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # remove individual
 seqs_filt <- seqs[!(names(seqs) %in% "Itar128")]
 
 seqs_filt
 
-
-## ----alignment-realign## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 alignment <- msa(seqs_filt, method = "ClustalOmega")
 
 alignment
 
-
-## ----alignment-convert## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 ape_align <- msaConvert(alignment, type = "ape::DNAbin")
 
 ape_align
 
-
-## ----alignment-write## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 ape::write.FASTA(ape_align, "path/to/alignment.fas")
 
-
-## ----ape-filt-inds## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 library(ape)
 
 checkAlignment(ape_align, what = 1)
 
-
-## ----fas-full-pi## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 fas_gendist <- dist.dna(ape_align, model = "raw", pairwise.deletion = TRUE)
 
 fas_gendist
 
-
-## ----fas-hist## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 hist(fas_gendist)
 
-
-## ----fas-full-upper-tri## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 fas_gendiv <- median(fas_gendist)
 
 fas_gendiv
 
-
-## ----fas-read-multipop## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 fas_paths <- list.files("...", full.names = TRUE)
 
 fas_alignments <- lapply(fas_paths, read.dna)
 
 
-
-## ----fas-pop-pi## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 fas_gendist_pop <- lapply(fas_alignments, dist.dna, model = "raw", pairwise.deletion = TRUE)
 
 fas_gendiv_pop <- sapply(fas_gendist_pop, median)
 
 plot(fas_gendiv_pop)
 
-
-## ----vcfr-read, message=FALSE, eval=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(vcfR)
 snps <- read.vcfR(vcf_path)
 
-
-## ----vcfR-to-genind, eval=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 library(adegenet)
 snps_genind <- vcfR2genind(
     snps,
@@ -953,18 +786,12 @@ snps_genind <- vcfR2genind(
 
 snps_genind
 
-
-## ----per-ind-gendist-vcf## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 snps_gendist_ind <- dist(snps_genind, method = "euclidean")
 
-
-## ----per-pop-gendiv-vcf## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----
 snps_genpop <- genind2genpop(snps_genind)
 
 snps_gendist_pop <- dist.genpop(snps_genpop, method = 1)
 
-
-## ----fst-vcf## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -------
 library(hierfstat)
 snps_hierfstat <- genind2hierfstat(snps_genind)
 
@@ -972,8 +799,6 @@ snps_fst <- pairwise.fst(snps_hierfstat, diploid = TRUE)
 
 hist(snps_fst[upper.tri(snps_fst)])
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(hillR)
 
 # columns are SNPs, rows are individuals
@@ -981,8 +806,6 @@ library(hillR)
 intra_hill_1 <- hillR::hill_taxa(snp_matrix, q = 1)
 
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # calculate pairwise distance matrices
 per_species_dist <- lapply(species_alignments, ape::dist.dna, model = "raw", as.matrix = TRUE)
 
@@ -997,8 +820,6 @@ per_species_pi <- sapply(per_species_dist, mat_avg)
 hist(per_species_pi)
 
 
-
-## ---- plot-SFS, echo=FALSE## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 
 library(tibble)
 library(ggplot2)
@@ -1020,8 +841,6 @@ ggplot() +
     theme(panel.grid = element_blank())
 
 
-
-## ---- plot-SFS-demography, echo=FALSE, fig.show="hold", out.width="50%"## ----## ----## ----
 
 contraction_df <- tibble(
     x = seq(1, 30),
@@ -1055,27 +874,19 @@ expansion_plot <- ggplot() +
 contraction_plot
 expansion_plot
 
-
-## ----setup## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## -----
 library(spocc)
 library(rentrez)
 library(rotl)
 library(taxize)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(taxize)
 uid <- get_uid("Tetragnatha")
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 species_uids <- downstream(uid,downto="species")
 species_names <- species_uids[[1]]$childtaxa_name
 
 head(species_names)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 
 library(spocc)
 library(dplyr)
@@ -1093,28 +904,20 @@ occurrences_df <- bind_rows(occurrences_gbif)
 
 head(occurrences_df)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 hiTetragnatha <- unique(occurrences_df$name)
 hiTetClean <- gnr_resolve(hiTetragnatha, best_match_only = TRUE,
                           canonical = TRUE)
 hiTetragnatha <- hiTetClean$matched_name2
 hiTetragnatha
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 resolved_names <- tnrs_match_names(hiTetragnatha)
 otol_ids <- ott_id(resolved_names)
 
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
 
 plot(tr)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # note we're using `hiTetragnatha` that we made previously to make a long
 # string of names that will be sent to NCBI via the ENTREZ API
 termstring <- paste(sprintf('%s[ORGN]', hiTetragnatha), collapse = ' OR ')
@@ -1123,15 +926,11 @@ head(termstrig)
 search_results <- entrez_search(db="nucleotide", term = termstring)
 
 
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
-
 sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids,
                           rettype = "fasta")
 
 # just look at the first part of this *long* returned string
 cat(substr(sequences, 1, 1148))
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 library(jsonlite)
 library(httr)
 
@@ -1148,14 +947,10 @@ projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
 q <- paste0(baseURL, projDetail)
 q
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # we need to replace "<PROJECT_UNIQUE_ID>" with `projID`
 q <- gsub("<PROJECT_UNIQUE_ID>", projID, q)
 q
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # now we can use functions from jsonlite and httr to pull the info
 rawRes <- GET(q)
 jsonRes <- rawToChar(rawRes$content)
@@ -1165,19 +960,13 @@ res <- fromJSON(jsonRes)
 # have a look
 res
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 remotes::install_github("jacobgolan/enRich")
 library(enRich)
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
 meDNA <- find.projects(projID)
 meDNA
 
-
-## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ----## ------
 # read in a fasta file using the dedicated function from enRich
 seqs <- readFASTA('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/big_island_seqs.fas')
 
@@ -1195,4 +984,3 @@ outputFASTA(
 # read it back in and notice that the LC Hub ID is now in the fasta header
 res <- readLines(file.path(temp, "seqs-LCH-ID.fasta"), n = 10)
 cat(res)
-

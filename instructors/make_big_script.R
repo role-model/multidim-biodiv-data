@@ -9,7 +9,7 @@ f <- c("episodes/introduction.Rmd",
        "episodes/care-data-repos.Rmd")
 
 for(i in f) {
-    knitr::purl(i)
+    knitr::purl(i, documentation = 0)
 }
 
 fr <- gsub('\\.Rmd', '.R', f)
@@ -22,6 +22,8 @@ for(i in fr) {
     big <- c(big, readLines(i))
     file.remove(i)
 }
+
+big <- gsub('## ', '', big)
 
 writeLines(big, 'instructors/all_episodes.R')
 
