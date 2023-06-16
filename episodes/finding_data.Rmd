@@ -104,7 +104,6 @@ than the names of broader taxa like genus or
 family. We can use the `taxize` package for this. `taxize` links to a genus identification number, drawn from NCBI, for each genus. We use the `get_uid()` function to get this number: 
 
 ```{r}
-library(taxize)
 uid <- get_uid("Tetragnatha")
 ```
 
@@ -150,10 +149,6 @@ into a single dataframe.
 We can also specify a geographic bounding box of where we'd like to look for occrences. Here we're using a bounding box that covers the Hawaiian Islands.
 
 ```{r}
-
-library(spocc)
-library(dplyr)
-
 occurrences <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
                    gbifopts=list("decimalLatitude"='18.910361,28.402123',
                                  "decimalLongitude"='-178.334698,-154.806773')) 

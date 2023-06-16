@@ -14,12 +14,6 @@ editor_options:
 knitr::opts_chunk$set(echo = FALSE,  results = FALSE, eval = FALSE)
 ```
 
-```{r}
-library(tidyr)
-library(ape)
-library(hillR)
-```
-
 ::: questions
 
 - What biological information is stored in phylogenetic Hill numbers?
@@ -87,6 +81,15 @@ The notation above is what we import into R to start working with and manipulati
 ```{r loading-ape}
 library(ape)
 ```
+
+
+We will also use a few other packages so we'll load those up front
+
+```{r}
+library(tidyr)
+library(hillR)
+```
+
 
 To import our tree, we will be using the function `read.tree()` from the `ape` package. In the case of simple trees as the one above, we could directly create them within R by giving that notation as a `character` value to this function, using the `text` argument, as shown below:
 
@@ -281,7 +284,6 @@ even_comm_short_tree <- data.frame(
 Now we will use a `for` loop to calculate phylogenetic Hill numbers using the `hill_phylo` function from the `hillR` package. This function takes in a a site-by-species matrix and phylogeny, and returns phylogenetic Hill numbers for each site based on which species are present there.  We provide to the function the site-by-species matrix, the phylogenetic tree and the order.
 
 ```{r}
-library(hillR)
 for(i in 1:nrow(even_comm_short_tree)) {
     even_comm_short_tree$hill_nb[i] <- hill_phylo(even_comm, short_tree, q = even_comm_short_tree$q[i])
 }
