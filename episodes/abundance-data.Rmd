@@ -350,20 +350,16 @@ hill_1
 
 ::: challenge
 
-Calculate the hill numbers for q = 2 and q = 3.
+Calculate the hill numbers for q = 2.
 
 
 ::: solution
 
-```{r hill2-2}
+```{r hill2}
 
 hill_2 <- hill_taxa(abundances_wide, q = 2)
 
 hill_2
-
-hill_3 <- hill_taxa(abundances_wide, q = 3)
-
-hill_3
 
 ```
 
@@ -417,8 +413,7 @@ legend(
 ```{r look-at-hill-numbers-again}
 hill_abund <- data.frame(hill_abund_0 = hill_0, 
                          hill_abund_1 = hill_1, 
-                         hill_abund_2 = hill_2, 
-                         hill_abund_3 = hill_3)
+                         hill_abund_2 = hill_2)
 hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
 
 rownames(hill_abund) <- NULL
