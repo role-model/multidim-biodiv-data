@@ -82,6 +82,26 @@ We're starting with a challenge! First, let's load the packages we'll need for t
 ```r
 library(taxize)
 library(dplyr)
+```
+
+```{.output}
+
+Attaching package: 'dplyr'
+```
+
+```{.output}
+The following objects are masked from 'package:stats':
+
+    filter, lag
+```
+
+```{.output}
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+```
+
+```r
 library(tidyr)
 library(hillR)
 ```
@@ -119,6 +139,16 @@ traits <- read.csv('https://raw.githubusercontent.com/role-model/multidim-biodiv
 head(traits)
 ```
 
+```{.output}
+         GenSp   mass_g
+1 Cis signatus 2.499395
+2 Cis signatus 2.544560
+3 Cis signatus 3.045801
+4 Cis signatus 2.471702
+5 Cis signatus 3.427594
+6 Cis signatus 2.520676
+```
+
 Check the names of the traits using the `gnr_resolve()` function. To
 streamline your efforts, supply only the unique species names in your
 data to `gnr_resolve()`.
@@ -134,6 +164,18 @@ name_resolve <- gnr_resolve(species_list, best_match_only = TRUE,
 head(name_resolve)
 ```
 
+```{.output}
+# A tibble: 6 × 5
+  user_supplied_name   submitted_name      data_source_title score matched_name2
+  <chr>                <chr>               <chr>             <dbl> <chr>        
+1 Cis signatus         Cis signatus        Encyclopedia of … 0.988 Cis signatus 
+2 Acanthia procellaris Acanthia procellar… uBio NameBank     0.988 Acanthia pro…
+3 Spolas solitaria     Spolas solitaria    Encyclopedia of … 0.988 Spolas solit…
+4 Spolas solitari      Spolas solitari     Catalogue of Lif… 0.75  Spolas solit…
+5 Laupala pruna        Laupala pruna       National Center … 0.988 Laupala pruna
+6 Toxeuma hawaiiensis  Toxeuma hawaiiensis Encyclopedia of … 0.988 Toxeuma hawa…
+```
+
 To quickly see which taxa are in conflict with `taxize`'s, use bracket
 subsetting and boolean matching.
 
@@ -144,6 +186,22 @@ mismatches_traits <-
                  c("user_supplied_name", "matched_name2")]
 
 mismatches_traits
+```
+
+```{.output}
+# A tibble: 10 × 2
+   user_supplied_name      matched_name2           
+   <chr>                   <chr>                   
+ 1 Spolas solitari         Spolas solitaria        
+ 2 Metrothorax deverilli   Metrothorax             
+ 3 Drosophila obscuricorni Drosophila obscuricornis
+ 4 Cis bimaculatu          Cis bimaculatus         
+ 5 Agrotis chersotoides    Agrotis                 
+ 6 Eurynogaster vittat     Eurynogaster vittata    
+ 7 Atelothrus depressu     Atelothrus depressus    
+ 8 Hylaeus sphecodoide     Hylaeus sphecodoides    
+ 9 Hyposmocoma sagittat    Hyposmocoma sagittata   
+10 Campsicnemus nigricolli Campsicnemus nigricollis
 ```
 
 Fixing the names comes in two steps. First, we join the `traits`
@@ -162,6 +220,16 @@ traits <- left_join(traits,
 head(traits)
 ```
 
+```{.output}
+         GenSp   mass_g matched_name2
+1 Cis signatus 2.499395  Cis signatus
+2 Cis signatus 2.544560  Cis signatus
+3 Cis signatus 3.045801  Cis signatus
+4 Cis signatus 2.471702  Cis signatus
+5 Cis signatus 3.427594  Cis signatus
+6 Cis signatus 2.520676  Cis signatus
+```
+
 Then, to fix *Agrotis chersotoides* and *Metrothorax deverilli*, as in abundance-data episode, use bracketed indexing, boolean matching, and assignment.
 
 In addition, although not necessary, changing the column name `matched_name2` to `final_name` to give it a more sensible name for later use is good practice.
@@ -177,6 +245,16 @@ traits$matched_name2[traits$matched_name2 == "Metrothorax"] <-
 colnames(traits)[colnames(traits) == "matched_name2"] <- "final_name"
 
 head(traits)
+```
+
+```{.output}
+         GenSp   mass_g   final_name
+1 Cis signatus 2.499395 Cis signatus
+2 Cis signatus 2.544560 Cis signatus
+3 Cis signatus 3.045801 Cis signatus
+4 Cis signatus 2.471702 Cis signatus
+5 Cis signatus 3.427594 Cis signatus
+6 Cis signatus 2.520676 Cis signatus
 ```
 
 :::
@@ -232,6 +310,18 @@ traits_sumstats <-
 head(traits_sumstats)
 ```
 
+```{.output}
+# A tibble: 6 × 4
+  final_name               mean_mass_g median_mass_g sd_mass_g
+  <chr>                          <dbl>         <dbl>     <dbl>
+1 Acanthia procellaris           1.09          1.13     0.241 
+2 Agonismus argentiferus         5.31          5.55     0.992 
+3 Atelothrus depressus           0.529         0.521    0.127 
+4 Campsicnemus nigricollis       0.422         0.375    0.0992
+5 Chrysotus parthenus            1.77          1.70     0.273 
+6 Cis bimaculatus                2.31          2.27     0.605 
+```
+
 Finally, you need to add the aggregated species-level information back
 to the abundance data, so you have the summary statistics for each
 species at each site.
@@ -244,6 +334,30 @@ episode.
 abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv")
 
 head(abundances)
+```
+
+```{.output}
+     island  site                GenSp abundance       submitted_name
+1 BigIsland BI_01         Cis signatus       541         Cis signatus
+2 BigIsland BI_01 Acanthia procellaris        64 Acanthia procellaris
+3 BigIsland BI_01     Spoles solitaria        34     Spoles solitaria
+4 BigIsland BI_01        Laupala pruna        21        Laupala pruna
+5 BigIsland BI_01  Toxeuma hawaiiensis       111  Toxeuma hawaiiensis
+6 BigIsland BI_01  Chrysotus parthenus       208  Chrysotus parthenus
+                              data_source_title score        matched_name2
+1                          Encyclopedia of Life 0.988         Cis signatus
+2                                 uBio NameBank 0.988 Acanthia procellaris
+3                   Catalogue of Life Checklist 0.750     Spolas solitaria
+4 National Center for Biotechnology Information 0.988        Laupala pruna
+5                          Encyclopedia of Life 0.988  Toxeuma hawaiiensis
+6                          Encyclopedia of Life 0.988  Chrysotus parthenus
+            final_name
+1         Cis signatus
+2 Acanthia procellaris
+3     Spolas solitaria
+4        Laupala pruna
+5  Toxeuma hawaiiensis
+6  Chrysotus parthenus
 ```
 
 To join the data, you'll use `left_join()`, which is hopefully getting
@@ -259,6 +373,30 @@ traits_sumstats <- left_join(abundances,
                              by = "final_name")
 
 head(traits_sumstats)
+```
+
+```{.output}
+     island  site                GenSp abundance       submitted_name
+1 BigIsland BI_01         Cis signatus       541         Cis signatus
+2 BigIsland BI_01 Acanthia procellaris        64 Acanthia procellaris
+3 BigIsland BI_01     Spoles solitaria        34     Spoles solitaria
+4 BigIsland BI_01        Laupala pruna        21        Laupala pruna
+5 BigIsland BI_01  Toxeuma hawaiiensis       111  Toxeuma hawaiiensis
+6 BigIsland BI_01  Chrysotus parthenus       208  Chrysotus parthenus
+                              data_source_title score        matched_name2
+1                          Encyclopedia of Life 0.988         Cis signatus
+2                                 uBio NameBank 0.988 Acanthia procellaris
+3                   Catalogue of Life Checklist 0.750     Spolas solitaria
+4 National Center for Biotechnology Information 0.988        Laupala pruna
+5                          Encyclopedia of Life 0.988  Toxeuma hawaiiensis
+6                          Encyclopedia of Life 0.988  Chrysotus parthenus
+            final_name mean_mass_g median_mass_g   sd_mass_g
+1         Cis signatus  2.75162128    2.53261792 0.395389440
+2 Acanthia procellaris  1.09171586    1.13005561 0.241013781
+3     Spolas solitaria  3.01819088    3.19822329 0.612003059
+4        Laupala pruna  0.05259815    0.05058839 0.009513021
+5  Toxeuma hawaiiensis  2.16818518    2.20868688 0.301463517
+6  Chrysotus parthenus  1.76717404    1.69687138 0.273022541
 ```
 
 ## Visualizing trait distributions
@@ -305,6 +443,8 @@ hist(
 lines(density(traits_sumstats$mean_mass_g))
 ```
 
+<img src="fig/traits-data-rendered-density-all-1.png" style="display: block; margin: auto;" />
+
 In addition to quality control, knowing the distribution of trait data
 lends itself towards questions of what processes are shaping the
 communities under study. Are the traits overdispersed? Underdispersed?
@@ -329,6 +469,10 @@ are the sites you intended to split by.
 traits_sumstats_split <- split(traits_sumstats, traits_sumstats$site)
 
 names(traits_sumstats_split)
+```
+
+```{.output}
+[1] "BI_01" "KA_01" "MA_01"
 ```
 
 To plot the data, you first need to initialize the plot with the
@@ -388,6 +532,8 @@ legend(
 )
 ```
 
+<img src="fig/traits-data-rendered-density-site-plot-1.png" style="display: block; margin: auto;" />
+
 It looks like Kauai insects have a smoother distribution of body masses, while Maui and Big Island show more clumped distributions, possibly due to higher immigration on those islands.
 
 # Hill numbers
@@ -442,6 +588,16 @@ traits_simple <- traits_sumstats[, c("final_name", "mean_mass_g")]
 head(traits_simple)
 ```
 
+```{.output}
+            final_name mean_mass_g
+1         Cis signatus  2.75162128
+2 Acanthia procellaris  1.09171586
+3     Spolas solitaria  3.01819088
+4        Laupala pruna  0.05259815
+5  Toxeuma hawaiiensis  2.16818518
+6  Chrysotus parthenus  1.76717404
+```
+
 Next, you need to filter for unique species in the dataframe.
 
 
@@ -449,6 +605,16 @@ Next, you need to filter for unique species in the dataframe.
 traits_simple <- unique(traits_simple)
 
 head(traits_simple)
+```
+
+```{.output}
+            final_name mean_mass_g
+1         Cis signatus  2.75162128
+2 Acanthia procellaris  1.09171586
+3     Spolas solitaria  3.01819088
+4        Laupala pruna  0.05259815
+5  Toxeuma hawaiiensis  2.16818518
+6  Chrysotus parthenus  1.76717404
 ```
 
 Finally, you need to set the species names to be row names and remove
@@ -463,6 +629,16 @@ row.names(traits_simple) <- traits_simple$final_name
 traits_simple <- traits_simple[, -1, drop = FALSE]
 
 head(traits_simple)
+```
+
+```{.output}
+                     mean_mass_g
+Cis signatus          2.75162128
+Acanthia procellaris  1.09171586
+Spolas solitaria      3.01819088
+Laupala pruna         0.05259815
+Toxeuma hawaiiensis   2.16818518
+Chrysotus parthenus   1.76717404
 ```
 
 Next, you'll use the `hill_func()` function from the `hillR` package to
@@ -493,6 +669,15 @@ documentation is the:
 traits_hill_1
 ```
 
+```{.output}
+          BI_01      MA_01      KA_01
+Q     0.7949925   5.049335   14.11121
+FDis  0.5983183   4.283883   10.90624
+D_q   7.7865058  13.561339   10.07768
+MD_q  6.1902140  68.475746  142.20828
+FD_q 48.2001378 928.622813 1433.12950
+```
+
 To gain an intuition for what this means, let's plot our data. First,
 you will wrangle the output into a single dataframe to work with. Since
 Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
@@ -512,6 +697,13 @@ rownames(traits_hill) <- NULL
 traits_hill
 ```
 
+```{.output}
+   site hill_trait_0 hill_trait_1 hill_trait_2
+1 BI_01     29.03417     7.786506     4.722840
+2 MA_01     15.78844    13.561339    12.185382
+3 KA_01     20.04110    10.077680     7.094183
+```
+
 Let's look at how Hill q = 1 compare across sites.
 
 
@@ -519,6 +711,8 @@ Let's look at how Hill q = 1 compare across sites.
 plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")),
      traits_hill$hill_trait_1, ylab = "Hill q = 1")
 ```
+
+<img src="fig/traits-data-rendered-hill-plot-raw-1.png" style="display: block; margin: auto;" />
 
 Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
 middle on Kauai. But what does this mean? To gain an intuition for what
@@ -564,6 +758,8 @@ legend(
 )
 ```
 
+<img src="fig/traits-data-rendered-hill-plot-rank-1.png" style="display: block; margin: auto;" />
+
 You can see clearly that the trait distributions differ across islands, where
 Maui has more species than the other islands and a seemingly more
 even distribution than Kauai. Kauai seems to have a greater spread of trait values, however, species abundance strongly influences the calculation of a Hill number. To visualize the role of abundance, we can replicate each species mean by the abundance of that species
@@ -608,6 +804,8 @@ legend(
     col = c("#440154FF", "#21908CFF", "#FDE725FF")
 )
 ```
+
+<img src="fig/traits-data-rendered-individuals-traits-plot-1.png" style="display: block; margin: auto;" />
 
 What we can see from the individuals-level plot is that much of the range of trait values on Kauai are broght by very rare species, these rare species do not contribute substantially to the diversity as expressed by Hill numbers.
 
