@@ -628,7 +628,7 @@ and what you know from your work?
 
 ::: keypoints
 
-- Traits data contain more information about ecologially significant traits than just species IDs.
-- Traits data can be analyed with Hill numbers and visualized with rank plots similarly to abundance data.
+- Traits data contain more information about ecologically significant traits than just species IDs.
+- Traits data can be analzyed with Hill numbers and visualized with rank plots similarly to abundance data.
 
 :::
