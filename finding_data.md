@@ -189,15 +189,29 @@ No ENTREZ API key provided
 See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
 ```
 
+```{.warning}
+Warning in ncbi_get_taxon_summary(children_uid, key = key, ...): query failed,
+proceeding to next if there is one
+```
+
+```{.error}
+Error in names(output) <- c("childtaxa_id", "childtaxa_name", "childtaxa_rank"): 'names' attribute [3] must be the same length as the vector [0]
+```
+
 ```r
 species_names <- species_uids[[1]]$childtaxa_name
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_uids' not found
+```
+
+```r
 head(species_names)
 ```
 
-```{.output}
-[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
-[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
 ```
 
 ### Occurrence data from GBIF 
@@ -223,10 +237,22 @@ We can also specify a geographic bounding box of where we'd like to look for occ
 occurrences <- occ(query = species_names, from = 'gbif', has_coords=TRUE, 
                    gbifopts=list("decimalLatitude"='18.910361,28.402123',
                                  "decimalLongitude"='-178.334698,-154.806773')) 
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'species_names' not found
+```
+
+```r
 # extract the data from gbif
 occurrences_gbif <- occurrences$gbif$data 
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences' not found
+```
+
+```r
 # the results in `$data` are a list with one element per species, 
 # so we combine all those elements
 occurrences_df <- bind_rows(occurrences_gbif)

@@ -108,7 +108,7 @@ code](https://github.com/cooplab/popgen-notes/blob/master/Rcode/track_alleles.R)
 traced in blue and red, coalesce 13 generations in
 the past.
 
-![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coop_10ind.png?raw=true)
+![](fig/coop_10ind.png)
 
 However, when the population is smaller (5
 individuals, 10 allele copies), the probability of
@@ -116,7 +116,7 @@ coalescence each generation is 1 / (2 \* 5) or
 1/10. In this simulation, two randomly sampled
 alleles coalesce after 4 generations.
 
-![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coop_5ind.png?raw=true)
+![](fig/coop_5ind.png)
 
 The TMRCA of the two sampled alleles corresponds
 with the smaller `Ne` of this idealized
@@ -126,7 +126,7 @@ Visualizing this path of ancestry as a tree would
 look something like this for 5 sampled allele
 copies.
 
-![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/gene%20tree%20no%20mutations.png?raw=true)
+![](fig/gene tree no mutations.png)
 
 Overlaying mutations on the genealogy results in
 generally more mutations occurring on longer
@@ -135,7 +135,7 @@ process, the relationship isn't always perfect
 (note- this is a tree from a different simulation
 to the one above).
 
-![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/genetree_mut_justtree.png?raw=true)
+![](fig/genetree_mut_justtree.png)
 
 As empirical biologists, what we have to work with
 are sequence data. The accumulation of mutations
@@ -178,7 +178,7 @@ those values.
 
 In this case, $\pi$ is 0.183!
 
-![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/genetree_mut.png?raw=true)
+![](fig/genetree_mut.png)
 
 Given its simplicity and ubiquity, we will cover
 how to calculate the average number of pairwise
@@ -255,7 +255,7 @@ time period, illustrated below.
 ![Image of coalescent genealogies traced from
 stable and growing populations. From the Bedford
 Lab coalescent
-slides.](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/changing_pop_size_1.png?raw=true)
+slides.](fig/changing_pop_size_1.png)
 
 Distinguishing a small, constant-sized population
 from a large population that's grown dramatically
@@ -296,7 +296,7 @@ before the contraction. However, if the
 contraction happened in the more distant past and
 was maintained, genetic diversity is reduced.
 
-![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coalescent_contraction_drawing.png?raw=true)
+![](fig/coalescent_contraction_drawing.png)
 
 :::
 
@@ -439,14 +439,14 @@ MsaDNAMultipleAlignment with 130 rows and 500 columns
   [8] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-9
   [9] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-0 
   ... ...
-[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-1
-[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-5
-[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-6
-[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-7
-[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-0
-[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-8
-[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-4
-[130] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-9
+[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[130] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
   Con CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Consensus 
 ```
 
