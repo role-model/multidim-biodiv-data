@@ -110,7 +110,7 @@ code](https://github.com/cooplab/popgen-notes/blob/master/Rcode/track_alleles.R)
 traced in blue and red, coalesce 13 generations in
 the past.
 
-![](fig/coop_10ind.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coop_10ind.png?raw=true)
 
 However, when the population is smaller (5
 individuals, 10 allele copies), the probability of
@@ -118,7 +118,7 @@ coalescence each generation is 1 / (2 \* 5) or
 1/10. In this simulation, two randomly sampled
 alleles coalesce after 4 generations.
 
-![](fig/coop_5ind.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coop_5ind.png?raw=true)
 
 The TMRCA of the two sampled alleles corresponds
 with the smaller `Ne` of this idealized
@@ -128,7 +128,7 @@ Visualizing this path of ancestry as a tree would
 look something like this for 5 sampled allele
 copies.
 
-![](fig/gene tree no mutations.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/gene%20tree%20no%20mutations.png?raw=true)
 
 Overlaying mutations on the genealogy results in
 generally more mutations occurring on longer
@@ -137,7 +137,7 @@ process, the relationship isn't always perfect
 (note- this is a tree from a different simulation
 to the one above).
 
-![](fig/genetree_mut_justtree.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/genetree_mut_justtree.png?raw=true)
 
 As empirical biologists, what we have to work with
 are sequence data. The accumulation of mutations
@@ -180,7 +180,7 @@ those values.
 
 In this case, $\pi$ is 0.183!
 
-![](fig/genetree_mut.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/genetree_mut.png?raw=true)
 
 Given its simplicity and ubiquity, we will cover
 how to calculate the average number of pairwise
@@ -257,7 +257,7 @@ time period, illustrated below.
 ![Image of coalescent genealogies traced from
 stable and growing populations. From the Bedford
 Lab coalescent
-slides.](fig/changing_pop_size_1.png)
+slides.](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/changing_pop_size_1.png?raw=true)
 
 Distinguishing a small, constant-sized population
 from a large population that's grown dramatically
@@ -298,7 +298,7 @@ before the contraction. However, if the
 contraction happened in the more distant past and
 was maintained, genetic diversity is reduced.
 
-![](fig/coalescent_contraction_drawing.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coalescent_contraction_drawing.png?raw=true)
 
 :::
 
@@ -345,7 +345,7 @@ hill_calc <- function(dists, order = 1, correct = TRUE) {
 }
 
 
-pi <- read.csv("episodes/data/example_pairwise_gendist.csv")
+pi <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/example_pairwise_gendist.csv")
 plot(sort(pi$value, decreasing = TRUE), ylab = "Genetic diversity", xlab = "Rank")
 
 hills <- sapply(1:5, hill_calc, dists = pi$value, correct = FALSE)
@@ -360,7 +360,7 @@ with sequencing data, while `hillR` is what we
 will use to calculate Hill numbers. I'll provide
 more explanation once we get to using them.
 
-```{r load-packages}
+```{r load-packages, message=FALSE, warning=FALSE}
 library(msa)
 library(ape)
 library(hillR)
@@ -484,10 +484,8 @@ file to use later or with other programs.
 ape::write.FASTA(ape_align, "seqs_aligned.fas")
 ```
 
-**select a single species from the alignment
-challenge**
-
-::: challenge This FASTA file contains multiple
+::: challenge 
+This FASTA file contains multiple
 species. However, you may only want to align and
 analyze a single species for your analysis. Using
 what you learned about the `%in%` operator in the
