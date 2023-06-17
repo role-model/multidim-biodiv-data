@@ -94,6 +94,7 @@ library(spocc)
 library(rentrez)
 library(rotl) 
 library(taxize)
+library(dplyr)
 ```
 
 ### Getting consistent species names using `taxize`
