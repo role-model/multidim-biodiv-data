@@ -108,7 +108,7 @@ code](https://github.com/cooplab/popgen-notes/blob/master/Rcode/track_alleles.R)
 traced in blue and red, coalesce 13 generations in
 the past.
 
-![](fig/coop_10ind.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coop_10ind.png?raw=true)
 
 However, when the population is smaller (5
 individuals, 10 allele copies), the probability of
@@ -116,7 +116,7 @@ coalescence each generation is 1 / (2 \* 5) or
 1/10. In this simulation, two randomly sampled
 alleles coalesce after 4 generations.
 
-![](fig/coop_5ind.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coop_5ind.png?raw=true)
 
 The TMRCA of the two sampled alleles corresponds
 with the smaller `Ne` of this idealized
@@ -126,7 +126,7 @@ Visualizing this path of ancestry as a tree would
 look something like this for 5 sampled allele
 copies.
 
-![](fig/gene tree no mutations.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/gene%20tree%20no%20mutations.png?raw=true)
 
 Overlaying mutations on the genealogy results in
 generally more mutations occurring on longer
@@ -135,7 +135,7 @@ process, the relationship isn't always perfect
 (note- this is a tree from a different simulation
 to the one above).
 
-![](fig/genetree_mut_justtree.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/genetree_mut_justtree.png?raw=true)
 
 As empirical biologists, what we have to work with
 are sequence data. The accumulation of mutations
@@ -178,7 +178,7 @@ those values.
 
 In this case, $\pi$ is 0.183!
 
-![](fig/genetree_mut.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/genetree_mut.png?raw=true)
 
 Given its simplicity and ubiquity, we will cover
 how to calculate the average number of pairwise
@@ -255,7 +255,7 @@ time period, illustrated below.
 ![Image of coalescent genealogies traced from
 stable and growing populations. From the Bedford
 Lab coalescent
-slides.](fig/changing_pop_size_1.png)
+slides.](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/changing_pop_size_1.png?raw=true)
 
 Distinguishing a small, constant-sized population
 from a large population that's grown dramatically
@@ -296,7 +296,7 @@ before the contraction. However, if the
 contraction happened in the more distant past and
 was maintained, genetic diversity is reduced.
 
-![](fig/coalescent_contraction_drawing.png)
+![](https://github.com/role-model/multidim-biodiv-data/blob/main/episodes/fig/coalescent_contraction_drawing.png?raw=true)
 
 :::
 
@@ -317,22 +317,7 @@ measuring an effective diversity of abundances,
 this is an effective diversity of genetic
 diversities.
 
-
-```{.error}
-Error in file(file, "rt"): cannot open the connection
-```
-
-```{.error}
-Error in pi$value: $ operator is invalid for atomic vectors
-```
-
-```{.error}
-Error in pi$value: $ operator is invalid for atomic vectors
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'hills' not found
-```
+<img src="fig/popgen-data-rendered-example-pi-dist-1.png" width="50%" style="display: block; margin: auto;" /><img src="fig/popgen-data-rendered-example-pi-dist-2.png" width="50%" style="display: block; margin: auto;" />
 
 # Work with pop gen data
 
@@ -345,102 +330,7 @@ more explanation once we get to using them.
 
 ```r
 library(msa)
-```
-
-```{.output}
-Loading required package: Biostrings
-```
-
-```{.output}
-Loading required package: BiocGenerics
-```
-
-```{.output}
-
-Attaching package: 'BiocGenerics'
-```
-
-```{.output}
-The following objects are masked from 'package:stats':
-
-    IQR, mad, sd, var, xtabs
-```
-
-```{.output}
-The following objects are masked from 'package:base':
-
-    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
-    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
-    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
-    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
-    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
-    table, tapply, union, unique, unsplit, which.max, which.min
-```
-
-```{.output}
-Loading required package: S4Vectors
-```
-
-```{.output}
-Loading required package: stats4
-```
-
-```{.output}
-
-Attaching package: 'S4Vectors'
-```
-
-```{.output}
-The following object is masked from 'package:utils':
-
-    findMatches
-```
-
-```{.output}
-The following objects are masked from 'package:base':
-
-    expand.grid, I, unname
-```
-
-```{.output}
-Loading required package: IRanges
-```
-
-```{.output}
-Loading required package: XVector
-```
-
-```{.output}
-Loading required package: GenomeInfoDb
-```
-
-```{.output}
-
-Attaching package: 'Biostrings'
-```
-
-```{.output}
-The following object is masked from 'package:base':
-
-    strsplit
-```
-
-```r
 library(ape)
-```
-
-```{.output}
-
-Attaching package: 'ape'
-```
-
-```{.output}
-The following object is masked from 'package:Biostrings':
-
-    complement
-```
-
-```r
 library(hillR)
 ```
 
@@ -549,14 +439,14 @@ MsaDNAMultipleAlignment with 130 rows and 500 columns
   [8] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-9
   [9] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-0 
   ... ...
-[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[130] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-1
+[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-5
+[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-6
+[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-7
+[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-0
+[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-8
+[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-4
+[130] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-9
   Con CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Consensus 
 ```
 
@@ -690,10 +580,8 @@ file to use later or with other programs.
 ape::write.FASTA(ape_align, "seqs_aligned.fas")
 ```
 
-**select a single species from the alignment
-challenge**
-
-::: challenge This FASTA file contains multiple
+::: challenge 
+This FASTA file contains multiple
 species. However, you may only want to align and
 analyze a single species for your analysis. Using
 what you learned about the `%in%` operator in the
