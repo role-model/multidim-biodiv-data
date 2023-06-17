@@ -306,7 +306,7 @@ points(
 
 legend(
     "topright",
-    legend = c("Kauai", "Maui", "Hawaii"),
+    legend = c("Kauai", "Maui", "Big Island"),
     pch = 1,
     pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),
@@ -515,7 +515,7 @@ points(
 
 legend(
     "topright",
-    legend = c("Kauai", "Maui", "Hawaii"),
+    legend = c("Kauai", "Maui", "Big Island"),
     pch = 1,
     pt.lwd = 2,
     col = c("#440154FF", "#21908CFF", "#FDE725FF"),

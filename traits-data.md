@@ -53,14 +53,14 @@ across different communities? Answering these questions can help us
 understand how species are interacting with the environment and/or with
 each other.
 
-Defining what exactly constitutes a trait, and measuring traits, can get complicated in ecology. (For example, there are lots of things we can measure about even just a leaf - but it's another story to understand which of those attributes are telling us something _ecologically_ meaningful). Ideally, we'd want to focus on a trait that is easily measureable and also linked to ecological features of interest. One such trait is _body size_. Body size is correlated with a whole host of ecologically meaningful traits, and is one of the easiest things to measure about an organism.
+Defining what exactly constitutes a trait, and measuring traits, can get complicated in ecology. (For example, there are lots of things we can measure about even just a leaf - but it's another story to understand which of those attributes are telling us something _ecologically_ meaningful). Ideally, we'd want to focus on a trait that is easily measurable and also linked to ecological features of interest. One such trait is _body size_. Body size is correlated with a whole host of ecologically meaningful traits, and is one of the easiest things to measure about an organism.
 
 Similarly to how we look at community-wide distributions of abundance, we can generate and interpret community-wide _trait_ distributions. 
 
 
 
 
-And, similar to how we can look at species abundance diversity using Hill numbers, we can look at trait diversity using a _trait_ Hill number. 
+And, similar to how we can look at species abundance diversity using Hill numbers, we can look at trait diversity using a _trait_ Hill number.
 
 
 
@@ -70,7 +70,7 @@ And, similar to how we can look at species abundance diversity using Hill number
 ### Importing and cleaning trait data
 
 Here, we will work with a dataset containing values of **body mass** for
-the species in the Hawaiian islands. Unlike to the abundance data, each
+the species in the Hawaiian islands. Unlike the abundance data, each
 row represents one specimen: in this dataset, each row contains the body
 mass measured for that specimen. Our overall goal here is to clean this
 data and attach it to the species data, so we can investigate trait
@@ -177,7 +177,7 @@ head(name_resolve)
 ```
 
 To quickly see which taxa are in conflict with `taxize`'s, use bracket
-subsetting and boolean matching.
+subsetting and Boolean matching.
 
 
 ```r
@@ -437,6 +437,7 @@ hist(
     xlab = "Average mass (g)",
     ylab = "Density",
     main = "All species",
+    ylim = c(0,0.18),
     freq = FALSE
 )
 
@@ -809,7 +810,7 @@ legend(
 
 <img src="fig/traits-data-rendered-individuals-traits-plot-1.png" style="display: block; margin: auto;" />
 
-What we can see from the individuals-level plot is that much of the range of trait values on Kauai are broght by very rare species, these rare species do not contribute substantially to the diversity as expressed by Hill numbers.
+What we can see from the individuals-level plot is that much of the range of trait values on Kauai are brought by very rare species, these rare species do not contribute substantially to the diversity as expressed by Hill numbers.
 
 <!-- To factor out the influence -->
 <!-- of the number of species from the Hill number and get a stronger -->
