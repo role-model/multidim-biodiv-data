@@ -6,7 +6,7 @@ exercises: 10
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE,  results = TRUE, eval = TRUE)
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -126,7 +126,7 @@ library(enRich)
 ```
 
 Now we can re-produce the previous API call in simpler R code
-```{r}
+```{r eval = FALSE}
 projID <- "6d34be51-0f60-4fc5-a699-bed4091c02e0"
 meDNA <- find.projects(projID)
 meDNA
@@ -165,7 +165,7 @@ As researchers we can also host our data outside of large online repositories, b
 
 For the purpose of sharing data with Indigenous sovereignty metadata, *enRich* also provides an experimental method for attaching Local Contexts Hub IDs to sequence data.
 
-```{r}
+```{r eval = FALSE}
 # read in a fasta file using the dedicated function from enRich
 seqs <- readFASTA('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/big_island_seqs.fas')
 
