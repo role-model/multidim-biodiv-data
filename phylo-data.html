@@ -355,16 +355,14 @@ Coupled with information on ecological traits and rates of
 macroevolutionary processes, these patterns also allow to test for
 hypotheses regarding, for instance, ecological filtering or niche
 conservatism.</p>
-<p>[Images of two trees with different topologies and branch lenghts]
-[Discuss how they represent different amounts of evolutionary history]
-[Translate that to processes of community assembly. Recap Andy’s island
-of young vs old, speciation vs colonization, competition vs neutral]</p>
 <p>Summarizing this phylogenetic information (i.e., phylogenetic
 distance and distribution of branch lengths) is therefore important for
 inference. As we have seen in previous episodes, the use of <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.12593" class="external-link">Hill
-numbers</a> is an informative approach to summarize biodiversity.</p>
-<p>[MORE HERE ON MEANING OF PHYLOGENETIC HILL, RELATING TO PHYLO
-CHARACTERISTICS]</p>
+numbers</a> is an informative approach to summarize biodiversity. In
+this episode, we will see how phylogenetic Hill numbers in different
+orders are able to capture information about 1) the total amount of
+evolutionary history in different communities; 2) how this history is
+relatively distributed across the community.</p>
 </section><section id="working-with-phylogenetic-data-in-r"><h2 class="section-heading">Working with phylogenetic data in R<a class="anchor" aria-label="anchor" href="#working-with-phylogenetic-data-in-r"></a>
 </h2>
 <hr class="half-width"><div class="section level3">
@@ -405,9 +403,8 @@ connecting A and B also has length = 0.5; 3. the branch leading to C has
 length = 1.</p>
 <p>The notation above is what we import into R to start working with and
 manipulating our phylogenetic tree. For that goal, we will use the <a href="https://academic.oup.com/bioinformatics/article/20/2/289/204981" class="external-link">ape</a>
-package:</p>
-<p>We will also use a few other packages so we’ll load those up
-front</p>
+package. Below, we are also loading a few other packages we’ll be using
+later on.</p>
 <p>To import our tree, we will be using the function
 <code>read.tree()</code> from the <code>ape</code> package. In the case
 of simple trees as the one above, we could directly create them within R
@@ -664,7 +661,7 @@ will need to 1) find the position of the old name in labels in our tree;
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>We need to perform an assignment operation in the position where the
 old name is located inside <code>arthro_tree$tip.label</code>. To find
@@ -740,7 +737,7 @@ species.</p>
 one with short branch lengths and another with longer branch lengths.
 Remember: branch length = amount of evolutionary change</p>
 <p>If we plot both trees…</p>
-<p><img src="fig/phylo-data-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure"><img src="fig/phylo-data-rendered-unnamed-chunk-13-2.png" style="display: block; margin: auto;" class="figure"></p>
+<p><img src="fig/phylo-data-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure"><img src="fig/phylo-data-rendered-unnamed-chunk-12-2.png" style="display: block; margin: auto;" class="figure"></p>
 <p>…we can see that the branches leading to extant taxa are longer for
 <code>long_tree</code>, as we intended. This suggests that a greater
 amount of evolutionary change is happening in these recent branches of
@@ -762,10 +759,9 @@ order.</p>
 <p>Let’s repeat this process for the longer tree:</p>
 <p>We can combine both dataframes and plot the values for
 comparison:</p>
-<p><img src="fig/phylo-data-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure">
-This figure clearly shows that the tree with longer branches (dark red
-line) harbors higher evolutionary history, and therefore higher PD, as
-calculated by Hill numbers. It also shows that the Hill number value
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This figure clearly shows that the tree with longer branches (dark
+red line) harbors higher evolutionary history, and therefore higher PD,
+as calculated by Hill numbers. It also shows that the Hill number value
 decreases as the order goes up, since higher orders focus on branch
 lengths that are more common.</p>
 <p>What would happen if the abundance of species in our community was
@@ -777,7 +773,7 @@ community.</p>
 communities and blue colors for uneven community. Ligher colors will
 represent short trees whereas darker colors will represent long
 trees.</p>
-<figure><img src="fig/phylo-data-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From this picture, we can take a few insights: 1. longer branches
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From this picture, we can take a few insights: 1. longer branches
 still yield higher Hill numbers, regardless of the evenness in the
 community abundance; 2. the Hill number for q = 0 remains the same,
 regardless of the evenness. 3. As already observed, the value of the
@@ -826,7 +822,7 @@ phylogeny structures.</p>
 <p>Let’s create a totally balanced tree…</p>
 <p>… and a totally unbalanced tree.</p>
 <p>Let’s plot both trees for comparison:</p>
-<p><img src="fig/phylo-data-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" class="figure"><img src="fig/phylo-data-rendered-unnamed-chunk-22-2.png" style="display: block; margin: auto;" class="figure"></p>
+<p><img src="fig/phylo-data-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" class="figure"><img src="fig/phylo-data-rendered-unnamed-chunk-21-2.png" style="display: block; margin: auto;" class="figure"></p>
 <p>Notice that here the difference between the trees resides in the fate
 of each new lineage at a node. In the unbalanced uneven tree, at each
 diversification event one of the lineages always persists till the
@@ -843,7 +839,7 @@ account for species abundance)</p>
 repeat the calculations from example 1 with these new trees. First,
 let’s focus on the even community (i.e., not introducing the relative
 species abundance factor yet):</p>
-<figure><img src="fig/phylo-data-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This plot is similar to example 1 in two ways: 1) one of the trees
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This plot is similar to example 1 in two ways: 1) one of the trees
 has higher hill number values, in this case the unbalanced tree. This
 suggests that the unbalanced structure of the tree accounts for a deeper
 evolutionary history (i.e., lineages have overall longer branches); 2)
@@ -890,7 +886,7 @@ community.</p>
 relative abundance, let’s redo the calculation for Hill numbers with
 balanced and unbalanced trees, this time using the uneven community.
 We’ll plot all final values together for comparison.</p>
-<figure><img src="fig/phylo-data-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Reminders: 1) light colors represent balanced trees, whereas darker
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Reminders: 1) light colors represent balanced trees, whereas darker
 colors represent unbalanced trees 2) red lines represent even community
 whereas blue lines represent uneven community.</p>
 <p>From this second plot, we notice that:</p>
@@ -972,7 +968,7 @@ allow you to infer regarding the history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
