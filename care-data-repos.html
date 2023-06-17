@@ -350,7 +350,7 @@ Notices?<a class="anchor" aria-label="anchor" href="#what-biodiversity-repositor
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Not much! Here are two: - <a href="https://geome-db.org/" class="external-link">GEOME</a> -
 <a href="https://metadata.maine-edna.org/main/localcontexts/" class="external-link">Maine-eDNA
@@ -401,7 +401,7 @@ standard</a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>There is no agreed upon solution. So the solution is really more of a
 conversation at this point. One key concept to keep in mind is that
@@ -572,17 +572,22 @@ include the following in the introduction</p>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="in">comms &lt;- thisProj[[1]]$bc_labels$community</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>We make use of data originating from <span class="in">`comms`</span> traditional territories. These data thus have <span class="in">`comms`</span> provenance, in spite of any settler concept of data ownership. To affirm the intrinsic rights of <span class="in">`comms`</span> communities to govern the collection, use, and sharing of their data, <span class="in">`comms`</span> applied the following Biocultural Labels to these data, specifying ethical protocol for the use and management of these data:</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bc-labels, results = 'asis'}</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="in">allBCLabels &lt;- thisProj[[1]]$bc_labels</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:length(allBCLabels)) {</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="in">    thisLab &lt;- allBCLabels$label_text[i]</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="in">    cat(thisLab, "\n")</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>We make use of data originating from <span class="in">`comms`</span> traditional territories. </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>These data thus have <span class="in">`comms`</span> provenance, in spite of any settler concept </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>of data ownership. To affirm the intrinsic rights of <span class="in">`comms`</span> communities </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>to govern the collection, use, and sharing of their data, <span class="in">`comms`</span> </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>applied the following Biocultural Labels to these data, specifying </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>ethical protocol for the use and management of these data:</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bc-labels, results = 'asis'}</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="in">allBCLabels &lt;- thisProj[[1]]$bc_labels</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:length(allBCLabels)) {</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="in">    thisLab &lt;- allBCLabels$label_text[i]</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="in">    cat(thisLab, "\n")</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre>
 </div>
 <p>This code will render the community name and BC Labels they have
 applied.</p>
