@@ -9,7 +9,7 @@ editor_options:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = TRUE)
+knitr::opts_chunk$set(echo = TRUE,  results = TRUE, eval = TRUE)
 
 library(dplyr)
 library(taxize)
@@ -97,7 +97,7 @@ Ok, so how about we do some actual coding?
 
 For this episode, we'll be working with a couple of specialized packages for biological data. 
 
-```{r load-packages, include = T, eval = F}
+```{r load-packages, include = TRUE}
 
 library(dplyr)
 library(taxize)
@@ -178,7 +178,7 @@ Four of these are just typos. But `Agrotis chersotoides` in our data is resolved
 
 ::: instructor
 
-Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it dosen't show up in GNR.
+Go to google and you'll see that Agrotis chersotoides is a synonym of Peridroma chersotoides, while Metrothorax deverilli is a valid species with little information about it, thus it doesn't show up in GNR.
 
 :::
 
@@ -214,17 +214,10 @@ abundances$final_name <- abundances$matched_name2
 head(abundances)
 ```
 
-```{r include = FALSE, eval = TRUE}
-write.csv(abundances, here::here("episodes", "data", "abundances_resolved.csv"), row.names = F)
-
-```
-
-
-
-```{r, include = FALSE, eval = FALSE}
-
-abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_raw.csv")
-
+```{r include = FALSE, eval = FALSE}
+write.csv(abundances, 
+          here::here("episodes", "data", "abundances_resolved.csv"), 
+          row.names = FALSE)
 
 ```
 
@@ -234,7 +227,7 @@ Now that we have cleaned data, we can generate plots of how abundance is distrib
 
 Because we'll want to look at each island separately, we'll use the `split` command to break the `abundances` data frame apart by island. `split` will split a dataframe into groups defined by the `f` argument (for "factor") - in this case, the different values of the `island` column of the `abundances` data frame:
 
-```{r use-split, eval =T}
+```{r use-split}
 
 island_abundances <- split(abundances, f = abundances$island)
 
@@ -244,7 +237,7 @@ Usual practice is to plot distributions of abundance as the species abundance on
 
 Now, we'll construct a plot with lines for the abundances of species on each island. 
 
-```{r base-R-SAD-plots, eval = TRUE}
+```{r base-R-SAD-plots}
 # figure out max number of species at a site for axis limit setting below
 max_sp <- sapply(island_abundances, nrow)
 max_sp <- max(max_sp)
@@ -305,12 +298,12 @@ A site by species sites as rows and species as columns. We can get there using t
 
 ```{r site-by-species-matrix}
 
-abundance_wide <- pivot_wider(abundances, id_cols = site,
+abundances_wide <- pivot_wider(abundances, id_cols = site,
                               names_from = final_name,
                               values_from = abundance, 
                               values_fill = 0)
 
-head(abundance_wide[,1:10])
+head(abundances_wide[,1:10])
 
 ```
 
@@ -318,14 +311,20 @@ We'll want this data to have _row names_ based on the sites, so we'll need some 
 
 ```{r sbys-row-names}
 
-abundance_wide <- as.data.frame(abundance_wide)
+abundances_wide <- as.data.frame(abundances_wide)
 
-row.names(abundance_wide) <- abundance_wide$site
+row.names(abundances_wide) <- abundances_wide$site
 
-abundance_wide <- abundance_wide[, -1]
+abundances_wide <- abundances_wide[, -1]
 
-head(abundance_wide)
+head(abundances_wide)
 
+```
+
+Let's write it to a file in case we need to load it again later on:
+
+```{r}
+write.csv(abundances_wide, here::here("episodes", "data", "abundances_wide.csv"), row.names = F)
 ```
 
 ### Calculating Hill numbers with `hillR`
@@ -334,7 +333,7 @@ The `hillR` package allows us to calculate Hill numbers.
 
 ```{r hill0}
 
-hill_0 <- hill_taxa(abundance_wide, q = 0)
+hill_0 <- hill_taxa(abundances_wide, q = 0)
 
 hill_0
 
@@ -342,7 +341,7 @@ hill_0
 
 ```{r hill1}
 
-hill_1 <- hill_taxa(abundance_wide, q = 1)
+hill_1 <- hill_taxa(abundances_wide, q = 1)
 
 hill_1
 
@@ -358,7 +357,7 @@ Calculate the hill numbers for q = 2.
 
 ```{r hill2}
 
-hill_2 <- hill_taxa(abundance_wide, q = 2)
+hill_2 <- hill_taxa(abundances_wide, q = 2)
 
 hill_2
 
@@ -412,12 +411,22 @@ legend(
 
 
 ```{r look-at-hill-numbers-again}
-hill_numbers <- rbind(hill_0, hill_1, hill_2)
-hill_numbers
+hill_abund <- data.frame(hill_abund_0 = hill_0, 
+                         hill_abund_1 = hill_1, 
+                         hill_abund_2 = hill_2)
+hill_abund <- cbind(site = rownames(hill_abund), hill_abund)
+
+rownames(hill_abund) <- NULL
+
+hill_abund
 
 ```
 
-
+```{r echo = FALSE, include=FALSE, eval=FALSE}
+write.csv(hill_abund,  
+          here::here("episodes", "data", "hill_abund.csv"), 
+          row.names = FALSE)
+```
 
 # Recap
 

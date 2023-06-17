@@ -21,7 +21,7 @@ keywords: 'software, data, lesson, The Carpentries'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha'
+life_cycle: 'alpha'
 
 # License of the lesson
 license: 'CC-BY 4.0'
@@ -33,7 +33,7 @@ source: 'https://github.com/role-model/multidim-biodiv-data'
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'biodataworkshop2023@gmail.com'
 
 # Navigation ------------------------------------------------
 #
@@ -58,26 +58,26 @@ contact: 'team@carpentries.org'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
 - introduction.Rmd
-- finding_data.Rmd
 - care.Rmd
 - abundance-data.Rmd
 - traits-data.Rmd
-- popgen-data.Rmd
 - phylo-data.Rmd
+- popgen-data.Rmd
 - connecting-data-types.Rmd
-- phylo-hill.Rmd
+- finding_data.Rmd
+- care-data-repos.Rmd
 
 # Information for Learners
-learners: 
+learners:
 - setup.md
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #

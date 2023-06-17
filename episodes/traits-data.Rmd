@@ -10,7 +10,7 @@ editor_options:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,  results = FALSE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE,  results = TRUE, eval = TRUE)
 
 ```
 
@@ -85,7 +85,16 @@ mass measured for that specimen. Our overall goal here is to clean this
 data and attach it to the species data, so we can investigate trait
 patterns per community.
 
-We're starting with a challenge!
+We're starting with a challenge! First, let's load the packages we'll need for the whole episode (you won't need all of them for this first challenge)
+
+```{r}
+library(taxize)
+library(dplyr)
+library(tidyr)
+library(hillR)
+```
+
+
 
 :::::: challenge
 
@@ -122,7 +131,6 @@ streamline your efforts, supply only the unique species names in your
 data to `gnr_resolve()`.
 
 ```{r trait-resolve-sol1}
-library(taxize)
 # only need to check the unique names
 species_list <- unique(traits$GenSp)
 
@@ -151,7 +159,7 @@ columns have the same information by supplying a named vector to the
 
 
 ```{r trait-resolve-sol3}
-library(dplyr)
+
 
 traits <- left_join(traits, 
                     name_resolve[, c("user_supplied_name", "matched_name2")], 
@@ -405,9 +413,7 @@ dataframe, is to recreate it here. Remember, you'll need to use the
 :::: solution
 
 ```{r abundance-site-by-species}
-library(tidyr)
-
-abundance_wide <- pivot_wider(
+abundances_wide <- pivot_wider(
     abundances,
     id_cols = site,
     names_from = final_name,
@@ -416,12 +422,12 @@ abundance_wide <- pivot_wider(
 )
 
 # tibbles don't like row names
-abundance_wide <- as.data.frame(abundance_wide)
+abundances_wide <- as.data.frame(abundances_wide)
 
-row.names(abundance_wide) <- abundance_wide$site
+row.names(abundances_wide) <- abundances_wide$site
 
 # remove the site column
-abundance_wide <- abundance_wide[,-1]
+abundances_wide <- abundances_wide[,-1]
 ```
 
 :::::::::::::::::
@@ -460,13 +466,11 @@ Next, you'll use the `hill_func()` function from the `hillR` package to
 calculate Hill numbers 0-2 of body size across sites.
 
 ```{r hill-traits}
-library(hillR)
+traits_hill_0 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 0)
 
-traits_hill_0 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 0)
+traits_hill_1 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 1)
 
-traits_hill_1 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 1)
-
-traits_hill_2 <- hill_func(comm = abundance_wide, traits = traits_simple, q = 2)
+traits_hill_2 <- hill_func(comm = abundances_wide, traits = traits_simple, q = 2)
 ```
 
 The output of `hill_func()` returns quite a few Hill number options,
@@ -490,21 +494,29 @@ Hill q = 0 is species richness, let's focus on Hill q = 1 and Hill q =
 2.
 
 ```{r traits-hill-df}
-traits_hill <- data.frame(q0 = traits_hill_0[3, ], 
-                          q1 = traits_hill_1[3, ], 
-                          q2 = traits_hill_2[3, ])
+traits_hill <- data.frame(hill_trait_0 = traits_hill_0[3, ],
+                          hill_trait_1 = traits_hill_1[3, ],
+                          hill_trait_2 = traits_hill_2[3, ])
 
 # I don't like rownames for plotting, so making the rownames a column
-traits_hill$site <- row.names(traits_hill)
+traits_hill <- cbind(site = rownames(traits_hill), traits_hill)
 
-row.names(traits_hill) <- NULL
+rownames(traits_hill) <- NULL
+
+traits_hill
+```
+
+```{r echo = FALSE, include=FALSE, eval=FALSE}
+write.csv(traits_hill, 
+          file = here::here("episodes", "data", "hill_trait.csv"),
+          row.names = FALSE)
 ```
 
 Let's look at how Hill q = 1 compare across sites.
 
 ```{r hill-plot-raw}
-plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")), 
-     traits_hill$q1, ylab = "Hill q = 1")
+plot(factor(traits_hill$site, levels = c("KA_01", "MA_01", "BI_01")),
+     traits_hill$hill_trait_1, ylab = "Hill q = 1")
 ```
 
 Hill q = 1 is smallest on the Big Island, largest on Maui, and in the
@@ -628,7 +640,7 @@ and what you know from your work?
 
 ::: keypoints
 
-- Traits data contain more information about ecologially significant traits than just species IDs.
-- Traits data can be analyed with Hill numbers and visualized with rank plots similarly to abundance data.
+- Traits data contain more information about ecologically significant traits than just species IDs.
+- Traits data can be analzyed with Hill numbers and visualized with rank plots similarly to abundance data.
 
 :::
