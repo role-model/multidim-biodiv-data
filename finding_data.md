@@ -120,6 +120,27 @@ The following objects are masked from 'package:rotl':
     synonyms, tax_name, tax_rank
 ```
 
+```r
+library(dplyr)
+```
+
+```{.output}
+
+Attaching package: 'dplyr'
+```
+
+```{.output}
+The following objects are masked from 'package:stats':
+
+    filter, lag
+```
+
+```{.output}
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+```
+
 ### Getting consistent species names using `taxize`
 
 We will want to source records of the genus *Tetragnatha*,
@@ -259,7 +280,7 @@ occurrences_df <- bind_rows(occurrences_gbif)
 ```
 
 ```{.error}
-Error in bind_rows(occurrences_gbif): could not find function "bind_rows"
+Error in eval(expr, envir, enclos): object 'occurrences_gbif' not found
 ```
 
 ```r
