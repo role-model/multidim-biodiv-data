@@ -90,19 +90,35 @@ To import our tree, we will be using the function `read.tree()` from the `ape` p
 
 Now, we can visually inspect our tree using the `plot()` function:
 
-
+<img src="fig/phylo-data-rendered-plot-example-1.png" style="display: block; margin: auto;" />
 
 Can you visualize the text notation in that image? We can see the same information: A is closer related to B than C, and the branches leading to A and B have half the length of the branch leading to C.
 
 The `read.tree()` function creates an object of class `phylo`. We can further investigate this object by calling it in our console:
 
 
+```{.output}
+
+Phylogenetic tree with 3 tips and 2 internal nodes.
+
+Tip labels:
+  A, B, C
+
+Rooted; includes branch lengths.
+```
 
 The printed information shows us that we have a phylogenetic tree with 3 tips and 2 internal nodes, where the tip labels are "A, B, C". We also are informed that this tree is rooted and has branch lengths.
 
 One way to access the components of this object and better explore it is to use `$` after the object name. Here, it will be important for us to know a little bit more about where the information about tip labels and branch lengths are stored in that `phylo` object. Easy enough, we can access that by calling `tip.labels` and `edge.length` after `$`.
 
 
+```{.output}
+[1] "A" "B" "C"
+```
+
+```{.output}
+[1] 0.5 0.5 0.5 1.0
+```
 
 ## Cleaning and filtering phylogenetic data
 
@@ -113,10 +129,13 @@ Two common approaches to retrieving a phylogeny for a focal group are 1) relying
 For this workshop, since we are using simulated data, we will work with the first option: a "published" arthropod phylogeny. Let's load this phylogeny into R using the function `read.tree` we learned earlier.
 
 
+```{.output}
+[1] "phylo"
+```
 
 This new `phylo` object is way larger than the previous one, being a "real" phylogeny and all. You can inspect it again by directly calling the object `arthro_tree`. To plot it, we will use the `type` argument to modify how our tree will be displayed. Here, we used the option `'fan'`, to display a circular phylogeny (slightly better to show such a large phylogeny in the screen). We also set the `show.tip.label` argument to `False`.
 
-
+<img src="fig/phylo-data-rendered-plotting-phylogeny-1.png" style="display: block; margin: auto;" />
 
 How do we combine all this information with the community datasets we have so far for our three islands? First, we will have to perform some name checking and filtering.
 
@@ -125,12 +144,76 @@ How do we combine all this information with the community datasets we have so fa
 The first thing we want to do is to check the tip labels in our tree. Since this is a "published" arthropod phylogeny, we will likely not have any misspelling in the tip names of the object. However, it is always good practice to check contents to see if anything weird stands out.
 
 
+```{.output}
+ [1] "Leptogryllus_fusconotatus"   "Hylaeus_facilis"            
+ [3] "Laupala_pruna"               "Eurynogaster_vittata"       
+ [5] "Cydia_gypsograpta"           "Toxeuma_hawaiiensis"        
+ [7] "Proterhinus_punctipennis"    "Drosophila_quinqueramosa"   
+ [9] "Ectemnius_mandibularis"      "Nesodynerus_mimus"          
+[11] "Proterhinus_xanthoxyli"      "Nesiomiris_lineatus"        
+[13] "Aeletes_nepos"               "Scaptomyza_vagabunda"       
+[15] "Agrotis_chersotoides"        "Kauaiina_alakaii"           
+[17] "Atelothrus_depressus"        "Metrothorax_deverilli"      
+[19] "Scaptomyza_villosa"          "Hylaeus_sphecodoides"       
+[21] "Lucilia_graphita"            "Xyletobius_collingei"       
+[23] "Hyposmocoma_sagittata"       "Cis_signatus"               
+[25] "Hyposmocoma_scolopax"        "Dryophthorus_insignoides"   
+[27] "Eudonia_lycopodiae"          "Chrysotus_parthenus"        
+[29] "Limonia_sabroskyana"         "Hyposmocoma_marginenotata"  
+[31] "Mecyclothorax_longulus"      "Deinomimesa_haleakalae"     
+[33] "Trigonidium_paranoe"         "Eudonia_geraea"             
+[35] "Drosophila_furva"            "Hyposmocoma_geminella"      
+[37] "Drosophila_obscuricornis"    "Campsicnemus_nigricollis"   
+[39] "Odynerus_erythrostactes"     "Phaenopria_soror"           
+[41] "Gonioryctus_suavis"          "Laupala_vespertina"         
+[43] "Acanthia_procellaris"        "Odynerus_caenosus"          
+[45] "Elmoia_lanceolata"           "Nesodynerus_molokaiensis"   
+[47] "Sierola_celeris"             "Nysius_lichenicola"         
+[49] "Parandrita_molokaiae"        "Agonismus_argentiferus"     
+[51] "Cephalops_proditus"          "Nesomicromus_haleakalae"    
+[53] "Lispocephala_dentata"        "Agrion_nigrohamatum"        
+[55] "Plagithmysus_ilicis_ekeanus" "Scatella_clavipes"          
+[57] "Hedylepta_accepta"           "Cis_bimaculatus"            
+[59] "Hydriomena_roseata"          "Spolas_solitaria"           
+```
 
 And indeed we find something: even though there are probably no misspellings, the genus and species name in this tree are separated by an underscore symbol `_`. Since the names in our site-by-species matrix do not have that underscore, we will get an error when matching the data if we don't fix this spelling.
 
 One useful function to do this fixing is the function `gsub()`. This function allows you to look for a specific character pattern inside character objects, and replace them by any other pattern you may want. In our case, we have a vector of 60 character values containing the names of our tips. We want to find the `_` character inside each character value and replace it by an empty space, so it becomes equal to what we have in our site-by-species matrix. We do so by providing to the `gsub()` function: 1) the pattern we want to replace; 2) the new pattern we want to replace it with; 2) the character object or vector containing the values to be searched. Finally, we assign the output of that function back to the `tip.label` slot in the `arthro_tree` object.
 
 
+```{.output}
+ [1] "Leptogryllus fusconotatus"   "Hylaeus facilis"            
+ [3] "Laupala pruna"               "Eurynogaster vittata"       
+ [5] "Cydia gypsograpta"           "Toxeuma hawaiiensis"        
+ [7] "Proterhinus punctipennis"    "Drosophila quinqueramosa"   
+ [9] "Ectemnius mandibularis"      "Nesodynerus mimus"          
+[11] "Proterhinus xanthoxyli"      "Nesiomiris lineatus"        
+[13] "Aeletes nepos"               "Scaptomyza vagabunda"       
+[15] "Agrotis chersotoides"        "Kauaiina alakaii"           
+[17] "Atelothrus depressus"        "Metrothorax deverilli"      
+[19] "Scaptomyza villosa"          "Hylaeus sphecodoides"       
+[21] "Lucilia graphita"            "Xyletobius collingei"       
+[23] "Hyposmocoma sagittata"       "Cis signatus"               
+[25] "Hyposmocoma scolopax"        "Dryophthorus insignoides"   
+[27] "Eudonia lycopodiae"          "Chrysotus parthenus"        
+[29] "Limonia sabroskyana"         "Hyposmocoma marginenotata"  
+[31] "Mecyclothorax longulus"      "Deinomimesa haleakalae"     
+[33] "Trigonidium paranoe"         "Eudonia geraea"             
+[35] "Drosophila furva"            "Hyposmocoma geminella"      
+[37] "Drosophila obscuricornis"    "Campsicnemus nigricollis"   
+[39] "Odynerus erythrostactes"     "Phaenopria soror"           
+[41] "Gonioryctus suavis"          "Laupala vespertina"         
+[43] "Acanthia procellaris"        "Odynerus caenosus"          
+[45] "Elmoia lanceolata"           "Nesodynerus molokaiensis"   
+[47] "Sierola celeris"             "Nysius lichenicola"         
+[49] "Parandrita molokaiae"        "Agonismus argentiferus"     
+[51] "Cephalops proditus"          "Nesomicromus haleakalae"    
+[53] "Lispocephala dentata"        "Agrion nigrohamatum"        
+[55] "Plagithmysus ilicis ekeanus" "Scatella clavipes"          
+[57] "Hedylepta accepta"           "Cis bimaculatus"            
+[59] "Hydriomena roseata"          "Spolas solitaria"           
+```
 
 Now that we fixed this first obvious issue, we can start looking for others. Since we want to calculate phylogenetic diversity for each of our communities, our main concern here is to make sure that all taxa present in our communities can be found in this phylogeny. One important issue that may arise is the use of different names for the same taxa across the two datasets (i.e., synonyms). This is especially important since we previouslu performed a synonym check and cleaning in our abundance dataset; we need to make sure the names in our tree will follow the same nomenclature decisions.
 
@@ -149,10 +232,18 @@ To see if there are any mismatches, let's first retrieve a list of the names in 
 To cross-check this list against the list of names in our phylogeny, we can use the Boolean operator `%in%` coupled with `!`. This will allow us to check for names present in `all_names` that are not included in the `arthro_tree$tip.label`. In summary, the expression `A %in% B` would return whether each element of vector A is present in vector B. This is returned as a Boolean vector: if `TRUE`, the element of that position in A exists in B; if `FALSE`, it does not. We add the `!` (NOT) operator to return the opposite of that expression, in a way that `!(A %in% B)` will return whether each element of vector A is *NOT* present in vector B. In this case, every time we see `TRUE`, it means the element in that position is *NOT* in vector B.
 
 
+```{.output}
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+```
 
 Checking the vector `not_found`, we can see it is a collection of TRUEs and FALSEs. We can use that vector to perform bracket subsetting in the vector `all_names`. Doing so, we are retrieving from `all_names` only the elements in the position where `not_found` is `TRUE`.
 
 
+```{.output}
+[1] "Peridroma chersotoides"
+```
 
 The expression above give us the one element of `all_names` that is not present in `arthro_tree$tip.label`. As we expected, it is a synonym that we corrected in our [abundances](abundance-data.Rmd) episode. Our tree still has the old name *Agrotis chersotoides* whereas our site-by-species matrix has the updated name *Peridroma chersotoides*. To correct that, we need to modify the tip label in our tree to match the new name. How can we do that?
 
@@ -181,6 +272,9 @@ We need to perform an assignment operation in the position where the old name is
 A good practice after correcting the name is to re-check if all names in our abundance dataset match the names in the phylogeny. This time, we expect all elements in the vector `not_found` to be `FALSE`. We can use the function `which()` to ask "which elements in `not_found` are `TRUE` We expect the answer to be an empty vector, indicating "no elements in `not_found` are `TRUE`".
 
 
+```{.output}
+integer(0)
+```
 
 ### Pruning our phylogeny
 
@@ -208,7 +302,7 @@ Now let's create two different possible trees for these communities: one with sh
 
 If we plot both trees... 
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-13-2.png" style="display: block; margin: auto;" />
 
 ...we can see that the branches leading to extant taxa are longer for `long_tree`, as we intended. This suggests that a greater amount of evolutionary change is happening in these recent branches of the longer tree when compared to the shorter tree.
 
@@ -226,7 +320,7 @@ Let's repeat this process for the longer tree:
 
 We can combine both dataframes and plot the values for comparison:
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 This figure clearly shows that the tree with longer branches (dark red line) harbors higher evolutionary history, and therefore higher PD, as calculated by Hill numbers. It also shows that the Hill number value decreases as the order goes up, since higher orders focus on branch lengths that are more common.
 
 What would happen if the abundance of species in our community was uneven (a more realistic scenario)? In this case, both branch lengths and how abundant each branch is will have an effect on the calculated value. To visualize, let's repeat the calculations above for the uneven community.
@@ -235,7 +329,7 @@ What would happen if the abundance of species in our community was uneven (a mor
 
 Let's plot all results together, using red colors for even communities and blue colors for uneven community. Ligher colors will represent short trees whereas darker colors will represent long trees.
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 From this picture, we can take a few insights:
 1. longer branches still yield higher Hill numbers, regardless of the evenness in the community abundance;
@@ -264,13 +358,13 @@ Let's create a totally balanced tree...
 
 Let's plot both trees for comparison:
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-22-2.png" style="display: block; margin: auto;" />
 
 Notice that here the difference between the trees resides in the fate of each new lineage at a node. In the unbalanced uneven tree, at each diversification event one of the lineages always persists till the present with no change while the other undergoes another round of diversification. In the even tree, both lineages from each node undergo a new split. The consequence is that in the even tree, all extant species result from recent diversification (i.e., they have a short evolutionary history before coalescing into their ancestor), whereas in the unbalanced tree we have a mix of old and recent lineages. This means that the phylogenetic history itself is creating an uneven representation of branch lengths across the community (even before we account for species abundance)
 
 To see how such phylogenetic structure influences hill numbers, let's repeat the calculations from example 1 with these new trees. First, let's focus on the even community (i.e., not introducing the relative species abundance factor yet):
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
 
 This plot is similar to example 1 in two ways: 1) one of the trees has higher hill number values, in this case the unbalanced tree. This suggests that the unbalanced structure of the tree accounts for a deeper evolutionary history (i.e., lineages have overall longer branches); 2) the value of the hill numbers drop as the order goes up. This happens because higher orders are weighting less and less those branch lengths that are not so common (like, for instance, the short branch lengths in the unbalanced tree).
 
@@ -282,7 +376,7 @@ In this case, both the structure of the tree and the species abundance interact 
 
 To visualize these interaction between tree structure and species relative abundance, let's redo the calculation for Hill numbers with balanced and unbalanced trees, this time using the uneven community. We'll plot all final values together for comparison.
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
 
 
 Reminders: 1) light colors represent balanced trees, whereas darker colors represent unbalanced trees 2) red lines represent even community whereas blue lines represent uneven community.
@@ -331,12 +425,33 @@ We can directly calculate Hill numbers using the `hill_phylo` function along wit
 Now, let's create a data.frame with islands as rows and Hill numbers of different orders as columns. For that, we will use the function `do.call` to collapse our list `hill_values` using the function `cbind`.
 
 
+```{.output}
+   site hill_phylo_0 hill_phylo_1 hill_phylo_2 hill_phylo_3
+1 BI_01     59.09643     18.71926     13.41881     11.65893
+2 MA_01     64.21265     40.30308     26.89875     20.36594
+3 KA_01     54.49430     28.10458     20.00878     16.29594
+```
 
 
 
 Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.
 
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
+```
+
+```{.error}
+Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
+```
 
 ::::::::::::
 
@@ -362,7 +477,7 @@ A few points of discussion:
 
 Further visualization of the trees for each community can help us corroborate these ideas:
 
-
+<img src="fig/phylo-data-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-30-2.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-30-3.png" style="display: block; margin: auto;" />
 
 The interesting thing here is that we could infer the history of the communities from the numbers only, before looking at the trees per community. This speaks to the power of Hill numbers as summary statistic of biodiversity patterns and how they can be useful for simulation-based inference.
 

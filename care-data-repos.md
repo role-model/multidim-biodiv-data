@@ -98,11 +98,19 @@ q <- paste0(baseURL, projDetail)
 q
 ```
 
+```{.output}
+[1] "https://localcontextshub.org/api/v1/projects/<PROJECT_UNIQUE_ID>/"
+```
+
 
 ```r
 # we need to replace "<PROJECT_UNIQUE_ID>" with `projID`
 q <- gsub("<PROJECT_UNIQUE_ID>", projID, q)
 q
+```
+
+```{.output}
+[1] "https://localcontextshub.org/api/v1/projects/6d34be51-0f60-4fc5-a699-bed4091c02e0/"
 ```
 
 
@@ -115,6 +123,59 @@ res <- fromJSON(jsonRes)
 
 # have a look
 res
+```
+
+```{.output}
+$unique_id
+[1] "6d34be51-0f60-4fc5-a699-bed4091c02e0"
+
+$providers_id
+NULL
+
+$source_project_uuid
+NULL
+
+$project_page
+[1] "https://localcontextshub.org/projects/6d34be51-0f60-4fc5-a699-bed4091c02e0/"
+
+$title
+[1] "Maine-eDNA Index Sites"
+
+$project_privacy
+[1] "Public"
+
+$date_added
+[1] "2022-06-03T14:31:52.076304Z"
+
+$date_modified
+[1] "2022-07-19T22:46:07.421725Z"
+
+$created_by
+  institution.id                 institution.institution_name researcher
+1             44 Maine Center for Genetics in the Environment         NA
+  community
+1        NA
+
+$notice
+  notice_type                    name
+1 biocultural Biocultural (BC) Notice
+                                                                                                img_url
+1 https://storage.googleapis.com/anth-ja77-local-contexts-8985.appspot.com/labels/notices/bc-notice.png
+                                                                                                svg_url
+1 https://storage.googleapis.com/anth-ja77-local-contexts-8985.appspot.com/labels/notices/bc-notice.svg
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      default_text
+1 The BC (Biocultural) Notice is a visible notification that there are accompanying cultural rights and responsibilities that need further attention for any future sharing and use of this material or data. The BC Notice recognizes the rights of Indigenous peoples to permission the use of information, collections, data and digital sequence information (DSI) generated from the biodiversity or genetic resources associated with traditional lands, waters, and territories. The BC Notice may indicate that BC Labels are in development and their implementation is being negotiated.
+                      created                     updated
+1 2022-06-03T14:31:52.433462Z 2022-07-19T21:37:44.711129Z
+
+$sub_projects
+list()
+
+$related_projects
+list()
+
+$project_boundary_geojson
+NULL
 ```
 
 There's a lot of info there! If a Notice is attached to the project, we can access it directly with `res$notice`.  Similarly, if TK and/or BC labels are associated with the project they can be accessed with `res$tk_labels` and `res$bc_labels`, respectively. 

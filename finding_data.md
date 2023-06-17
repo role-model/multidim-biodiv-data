@@ -92,7 +92,32 @@ repositories. Let's set those up now.
 library(spocc)
 library(rentrez)
 library(rotl) 
+```
+
+```{.output}
+
+Attaching package: 'rotl'
+```
+
+```{.output}
+The following object is masked from 'package:spocc':
+
+    inspect
+```
+
+```r
 library(taxize)
+```
+
+```{.output}
+
+Attaching package: 'taxize'
+```
+
+```{.output}
+The following objects are masked from 'package:rotl':
+
+    synonyms, tax_name, tax_rank
 ```
 
 ### Getting consistent species names using `taxize`
@@ -105,6 +130,30 @@ family. We can use the `taxize` package for this. `taxize` links to a genus iden
 
 ```r
 uid <- get_uid("Tetragnatha")
+```
+
+```{.output}
+No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+```
+
+```{.output}
+══  1 queries  ═══════════════
+```
+
+```{.output}
+
+Retrieving data for taxon 'Tetragnatha'
+```
+
+```{.output}
+✔  Found:  Tetragnatha
+══  Results  ═════════════════
+
+• Total: 1 
+• Found: 1 
+• Not Found: 0
 ```
 
 ::: instructor
@@ -126,9 +175,29 @@ larger taxa like families and orders.
 
 ```r
 species_uids <- downstream(uid,downto="species")
+```
+
+```{.output}
+No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+```
+
+```r
 species_names <- species_uids[[1]]$childtaxa_name
 
 head(species_names)
+```
+
+```{.output}
+[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
+[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       
 ```
 
 ### Occurrence data from GBIF 
@@ -161,8 +230,18 @@ occurrences_gbif <- occurrences$gbif$data
 # the results in `$data` are a list with one element per species, 
 # so we combine all those elements
 occurrences_df <- bind_rows(occurrences_gbif)
+```
 
+```{.error}
+Error in bind_rows(occurrences_gbif): could not find function "bind_rows"
+```
+
+```r
 head(occurrences_df)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_df' not found
 ```
 
 
@@ -173,10 +252,35 @@ First we need to get a clean list of taxonomic names from the GBIF results:
 
 ```r
 hiTetragnatha <- unique(occurrences_df$name)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'occurrences_df' not found
+```
+
+```r
 hiTetClean <- gnr_resolve(hiTetragnatha, best_match_only = TRUE, 
                           canonical = TRUE)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
+```
+
+```r
 hiTetragnatha <- hiTetClean$matched_name2
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetClean' not found
+```
+
+```r
 hiTetragnatha
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
 ```
 
 Now we can use the `rotl` package. The `rotl` package provides an interface to the Open
@@ -192,7 +296,18 @@ matched names.
 
 ```r
 resolved_names <- tnrs_match_names(hiTetragnatha)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
+```
+
+```r
 otol_ids <- ott_id(resolved_names)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'resolved_names' not found
 ```
 
 Finally, we get the tree containing these IDs as
@@ -201,8 +316,18 @@ tips.
 
 ```r
 tr <- tol_induced_subtree(ott_ids = ott_id(resolved_names))
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'resolved_names' not found
+```
+
+```r
 plot(tr)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'tr' not found
 ```
 
 Unfortunately we can see that the phylogenetic
@@ -228,9 +353,26 @@ query.
 # note we're using `hiTetragnatha` that we made previously to make a long
 # string of names that will be sent to NCBI via the ENTREZ API
 termstring <- paste(sprintf('%s[ORGN]', hiTetragnatha), collapse = ' OR ')
-termstring
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found
+```
+
+```r
+termstring
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'termstring' not found
+```
+
+```r
 search_results <- entrez_search(db="nucleotide", term = termstring)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'termstring' not found
 ```
 
 *Unlike* `spocc` but *similarly* to `rotl`, this first
@@ -247,9 +389,19 @@ We specify 'db' as 'nucleotide' and 'rettype' as
 ```r
 sequences <- entrez_fetch(db = "nucleotide", id = search_results$ids, 
                           rettype = "fasta")
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'search_results' not found
+```
+
+```r
 # just look at the first part of this *long* returned string
 cat(substr(sequences, 1, 1148))
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'sequences' not found
 ```
 
 
