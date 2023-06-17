@@ -145,7 +145,12 @@ thisProj <- find.projects(projID)
 comms <- thisProj[[1]]$bc_labels$community
 ```
 
-We make use of data originating from `comms` traditional territories. These data thus have `comms` provenance, in spite of any settler concept of data ownership. To affirm the intrinsic rights of `comms` communities to govern the collection, use, and sharing of their data, `comms` applied the following Biocultural Labels to these data, specifying ethical protocol for the use and management of these data:
+We make use of data originating from `comms` traditional territories. 
+These data thus have `comms` provenance, in spite of any settler concept 
+of data ownership. To affirm the intrinsic rights of `comms` communities 
+to govern the collection, use, and sharing of their data, `comms` 
+applied the following Biocultural Labels to these data, specifying 
+ethical protocol for the use and management of these data:
 
 `r ''````{r bc-labels, results = 'asis'}
 allBCLabels <- thisProj[[1]]$bc_labels
