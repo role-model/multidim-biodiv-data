@@ -105,18 +105,18 @@ sampled allele coalescing each generation is 1 /
 (conducted using [Graham Coop's
 code](https://github.com/cooplab/popgen-notes/blob/master/Rcode/track_alleles.R))
 , the two sampled alleles, whose genealogy is
-traced in blue and red, coalesce 16 generations in
+traced in blue and red, coalesce 13 generations in
 the past.
 
-![](http://127.0.0.1:26201/graphics/10d9d9fc-fe25-474e-8d09-ff197b99e224.png)
+![](fig/coop_10ind.png)
 
 However, when the population is smaller (5
 individuals, 10 allele copies), the probability of
 coalescence each generation is 1 / (2 \* 5) or
 1/10. In this simulation, two randomly sampled
-alleles coalesce after 6 generations.
+alleles coalesce after 4 generations.
 
-![![](http://127.0.0.1:26201/graphics/21826093-5257-4379-a9df-aba895384e41.png)](http://127.0.0.1:26201/graphics/21826093-5257-4379-a9df-aba895384e41.png)
+![](fig/coop_5ind.png)
 
 The TMRCA of the two sampled alleles corresponds
 with the smaller `Ne` of this idealized
@@ -126,7 +126,7 @@ Visualizing this path of ancestry as a tree would
 look something like this for 5 sampled allele
 copies.
 
-[![](images/gene%20tree%20no%20mutations.png)](https://cdmuir.shinyapps.io/genetree-to-phylogeny/)
+![](fig/gene tree no mutations.png)
 
 Overlaying mutations on the genealogy results in
 generally more mutations occurring on longer
@@ -135,7 +135,7 @@ process, the relationship isn't always perfect
 (note- this is a tree from a different simulation
 to the one above).
 
-![](images/genetree_mut_justtree.png)
+![](fig/genetree_mut_justtree.png)
 
 As empirical biologists, what we have to work with
 are sequence data. The accumulation of mutations
@@ -178,7 +178,7 @@ those values.
 
 In this case, $\pi$ is 0.183!
 
-![](images/genetree_mut.png)
+![](fig/genetree_mut.png)
 
 Given its simplicity and ubiquity, we will cover
 how to calculate the average number of pairwise
@@ -252,10 +252,10 @@ recent than a population with the same population
 size that has remained stable through the same
 time period, illustrated below.
 
-[![Image of coalescent genealogies traced from
+![Image of coalescent genealogies traced from
 stable and growing populations. From the Bedford
 Lab coalescent
-slides.](images/changing_pop_size_1.png)](https://bedford.io/projects/phylodynamics-lecture/coalescent.html#/20)
+slides.](fig/changing_pop_size_1.png)
 
 Distinguishing a small, constant-sized population
 from a large population that's grown dramatically
@@ -296,7 +296,7 @@ before the contraction. However, if the
 contraction happened in the more distant past and
 was maintained, genetic diversity is reduced.
 
-![](images/coalescent_contraction_drawing-01.png)
+![](fig/coalescent_contraction_drawing.png)
 
 :::
 
@@ -549,14 +549,14 @@ MsaDNAMultipleAlignment with 130 rows and 500 columns
   [8] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-9
   [9] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-0 
   ... ...
-[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-1
-[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-5
-[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-6
-[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-7
-[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-0
-[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-8
-[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-4
-[130] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-9
+[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[130] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
   Con CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Consensus 
 ```
 
@@ -632,14 +632,14 @@ MsaDNAMultipleAlignment with 129 rows and 500 columns
   [8] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-0
   [9] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-7 
   ... ...
-[122] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
-[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[122] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-1
+[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-5
+[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-6
+[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-7
+[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-0
+[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-8
+[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-4
+[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-9
   Con CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Consensus 
 ```
 
@@ -886,15 +886,15 @@ sp_boolean
 
 ```{.output}
   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
- [25]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[109]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
