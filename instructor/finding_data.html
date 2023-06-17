@@ -277,7 +277,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Finding multi-dimensional biodiversity data</h1>
-        <p> Last updated on 2023-06-16 | 
+        <p> Last updated on 2023-06-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/finding_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -369,8 +369,39 @@ APIs of online repositories. Let’s set those up now.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">spocc</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">rentrez</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">rotl</span><span class="op">)</span> </span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span></code></pre>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">rotl</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Attaching package: 'rotl'</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>The following object is masked from 'package:spocc':
+
+    inspect</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">taxize</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Attaching package: 'taxize'</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>The following objects are masked from 'package:rotl':
+
+    synonyms, tax_name, tax_rank</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -382,11 +413,39 @@ taxa like genus or family. We can use the <code>taxize</code> package
 for this. <code>taxize</code> links to a genus identification number,
 drawn from NCBI, for each genus. We use the <code>get_uid()</code>
 function to get this number:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">uid</span> <span class="op">&lt;-</span> <span class="fu">get_uid</span><span class="op">(</span><span class="st">"Tetragnatha"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>══  1 queries  ═══════════════</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Retrieving data for taxon 'Tetragnatha'</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔  Found:  Tetragnatha
+══  Results  ═════════════════
+
+• Total: 1 
+• Found: 1 
+• Not Found: 0</code></pre>
 </div>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
@@ -419,14 +478,38 @@ all species in <em>Tetragnatha</em>.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">species_uids</span> <span class="op">&lt;-</span> <span class="fu">downstream</span><span class="op">(</span><span class="va">uid</span>,downto<span class="op">=</span><span class="st">"species"</span><span class="op">)</span></span>
-<span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span>
+<code class="sourceCode R"><span><span class="va">species_uids</span> <span class="op">&lt;-</span> <span class="fu">downstream</span><span class="op">(</span><span class="va">uid</span>,downto<span class="op">=</span><span class="st">"species"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+No ENTREZ API key provided
+ Get one via taxize::use_entrez()
+See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">species_names</span> <span class="op">&lt;-</span> <span class="va">species_uids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">childtaxa_name</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">species_names</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "Tetragnatha paludicola" "Tetragnatha boydi"      "Tetragnatha cavaleriei"
+[4] "Tetragnatha virescens"  "Tetragnatha josephi"    "Tetragnatha gui"       </code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -444,7 +527,7 @@ to combine this into a single dataframe.</p>
 <p>We can also specify a geographic bounding box of where we’d like to
 look for occrences. Here we’re using a bounding box that covers the
 Hawaiian Islands.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -457,24 +540,73 @@ Hawaiian Islands.</p>
 <span></span>
 <span><span class="co"># the results in `$data` are a list with one element per species, </span></span>
 <span><span class="co"># so we combine all those elements</span></span>
-<span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences_gbif</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
+<span><span class="va">occurrences_df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">occurrences_gbif</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in bind_rows(occurrences_gbif): could not find function "bind_rows"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences_df' not found</code></pre>
 </div>
 </div>
 <div class="section level3">
 <h3 id="phylogenetic-trees-from-the-open-tree-of-life">Phylogenetic trees from the Open Tree of Life<a class="anchor" aria-label="anchor" href="#phylogenetic-trees-from-the-open-tree-of-life"></a></h3>
 <p>First we need to get a clean list of taxonomic names from the GBIF
 results:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hiTetragnatha</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
-<span><span class="va">hiTetClean</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">hiTetragnatha</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>                          canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">hiTetragnatha</span> <span class="op">&lt;-</span> <span class="va">hiTetClean</span><span class="op">$</span><span class="va">matched_name2</span></span>
-<span><span class="va">hiTetragnatha</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">hiTetragnatha</span> <span class="op">&lt;-</span> <span class="fu">unique</span><span class="op">(</span><span class="va">occurrences_df</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'occurrences_df' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hiTetClean</span> <span class="op">&lt;-</span> <span class="fu">gnr_resolve</span><span class="op">(</span><span class="va">hiTetragnatha</span>, best_match_only <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                          canonical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hiTetragnatha</span> <span class="op">&lt;-</span> <span class="va">hiTetClean</span><span class="op">$</span><span class="va">matched_name2</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hiTetClean' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb26">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hiTetragnatha</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found</code></pre>
 </div>
 <p>Now we can use the <code>rotl</code> package. The <code>rotl</code>
 package provides an interface to the Open Tree of Life. To get a tree
@@ -484,21 +616,50 @@ ids.</p>
 names to OTOL’s taxonomy.</p>
 <p>Then we use <code>ott_id()</code> to get OTOL ids for these matched
 names.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">hiTetragnatha</span><span class="op">)</span></span>
-<span><span class="va">otol_ids</span> <span class="op">&lt;-</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">resolved_names</span> <span class="op">&lt;-</span> <span class="fu">tnrs_match_names</span><span class="op">(</span><span class="va">hiTetragnatha</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">otol_ids</span> <span class="op">&lt;-</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'resolved_names' not found</code></pre>
 </div>
 <p>Finally, we get the tree containing these IDs as tips.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">tr</span> <span class="op">&lt;-</span> <span class="fu">tol_induced_subtree</span><span class="op">(</span>ott_ids <span class="op">=</span> <span class="fu">ott_id</span><span class="op">(</span><span class="va">resolved_names</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'resolved_names' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb34">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tr' not found</code></pre>
 </div>
 <p>Unfortunately we can see that the phylogenetic relationships between
 these species aren’t resolved in OTOL, so we may have to look elsewhere
@@ -514,16 +675,40 @@ with lists of species.</p>
 <p>For this reason, let’s just search for <em>Tetragnatha</em> using the
 ‘term’ argument, which takes a string in a specific format describing
 the query.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># note we're using `hiTetragnatha` that we made previously to make a long</span></span>
 <span><span class="co"># string of names that will be sent to NCBI via the ENTREZ API</span></span>
-<span><span class="va">termstring</span> <span class="op">&lt;-</span> <span class="fu">paste</span><span class="op">(</span><span class="fu">sprintf</span><span class="op">(</span><span class="st">'%s[ORGN]'</span>, <span class="va">hiTetragnatha</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">' OR '</span><span class="op">)</span></span>
-<span><span class="va">termstring</span></span>
-<span></span>
-<span><span class="va">search_results</span> <span class="op">&lt;-</span> <span class="fu">entrez_search</span><span class="op">(</span>db<span class="op">=</span><span class="st">"nucleotide"</span>, term <span class="op">=</span> <span class="va">termstring</span><span class="op">)</span></span></code></pre>
+<span><span class="va">termstring</span> <span class="op">&lt;-</span> <span class="fu">paste</span><span class="op">(</span><span class="fu">sprintf</span><span class="op">(</span><span class="st">'%s[ORGN]'</span>, <span class="va">hiTetragnatha</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">' OR '</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hiTetragnatha' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb38">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">termstring</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'termstring' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb40">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">search_results</span> <span class="op">&lt;-</span> <span class="fu">entrez_search</span><span class="op">(</span>db<span class="op">=</span><span class="st">"nucleotide"</span>, term <span class="op">=</span> <span class="va">termstring</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'termstring' not found</code></pre>
 </div>
 <p><em>Unlike</em> <code>spocc</code> but <em>similarly</em> to
 <code>rotl</code>, this first search returns a set of IDs.</p>
@@ -531,15 +716,29 @@ the query.</p>
 search_results to obtain the actual record information.</p>
 <p>We specify ‘db’ as ‘nucleotide’ and ‘rettype’ as ‘fasta’ to get FASTA
 sequences</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sequences</span> <span class="op">&lt;-</span> <span class="fu">entrez_fetch</span><span class="op">(</span>db <span class="op">=</span> <span class="st">"nucleotide"</span>, id <span class="op">=</span> <span class="va">search_results</span><span class="op">$</span><span class="va">ids</span>, </span>
-<span>                          rettype <span class="op">=</span> <span class="st">"fasta"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># just look at the first part of this *long* returned string</span></span>
+<span>                          rettype <span class="op">=</span> <span class="st">"fasta"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'search_results' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb44">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># just look at the first part of this *long* returned string</span></span>
 <span><span class="fu">cat</span><span class="op">(</span><span class="fu">substr</span><span class="op">(</span><span class="va">sequences</span>, <span class="fl">1</span>, <span class="fl">1148</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'sequences' not found</code></pre>
 </div>
 <div id="discussion1" class="callout discussion">
 <div class="callout-square">
@@ -706,9 +905,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/finding_data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/finding_data.html",
-  "dateCreated": "2023-06-16",
-  "dateModified": "2023-06-16",
-  "datePublished": "2023-06-16"
+  "dateCreated": "2023-06-17",
+  "dateModified": "2023-06-17",
+  "datePublished": "2023-06-17"
 }
 
   </script><script>

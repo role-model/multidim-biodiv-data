@@ -289,7 +289,7 @@ about Indigenous data sovereignty and governance?</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>CARE Principles and Data Repositories</h1>
-        <p> Last updated on 2023-06-16 | 
+        <p> Last updated on 2023-06-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/care-data-repos.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -352,7 +352,7 @@ Notices?<a class="anchor" aria-label="anchor" href="#what-biodiversity-repositor
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Not much! Here are two: - <a href="https://geome-db.org/" class="external-link">GEOME</a> -
 <a href="https://metadata.maine-edna.org/main/localcontexts/" class="external-link">Maine-eDNA
@@ -382,7 +382,7 @@ Notices?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Guide learners toward metadata standards to transition to next
 section</p>
@@ -418,7 +418,7 @@ standard</a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>There is no agreed upon solution. So the solution is really more of a
 conversation at this point. One key concept to keep in mind is that
@@ -462,7 +462,12 @@ the API documentation <a href="https://github.com/biocodellc/localcontexts_db/wi
 <span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="va">baseURL</span>, <span class="va">projDetail</span><span class="op">)</span></span>
 <span><span class="va">q</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "https://localcontextshub.org/api/v1/projects/&lt;PROJECT_UNIQUE_ID&gt;/"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -470,7 +475,12 @@ the API documentation <a href="https://github.com/biocodellc/localcontexts_db/wi
 <span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"&lt;PROJECT_UNIQUE_ID&gt;"</span>, <span class="va">projID</span>, <span class="va">q</span><span class="op">)</span></span>
 <span><span class="va">q</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "https://localcontextshub.org/api/v1/projects/6d34be51-0f60-4fc5-a699-bed4091c02e0/"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -483,6 +493,60 @@ the API documentation <a href="https://github.com/biocodellc/localcontexts_db/wi
 <span><span class="co"># have a look</span></span>
 <span><span class="va">res</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>$unique_id
+[1] "6d34be51-0f60-4fc5-a699-bed4091c02e0"
+
+$providers_id
+NULL
+
+$source_project_uuid
+NULL
+
+$project_page
+[1] "https://localcontextshub.org/projects/6d34be51-0f60-4fc5-a699-bed4091c02e0/"
+
+$title
+[1] "Maine-eDNA Index Sites"
+
+$project_privacy
+[1] "Public"
+
+$date_added
+[1] "2022-06-03T14:31:52.076304Z"
+
+$date_modified
+[1] "2022-07-19T22:46:07.421725Z"
+
+$created_by
+  institution.id                 institution.institution_name researcher
+1             44 Maine Center for Genetics in the Environment         NA
+  community
+1        NA
+
+$notice
+  notice_type                    name
+1 biocultural Biocultural (BC) Notice
+                                                                                                img_url
+1 https://storage.googleapis.com/anth-ja77-local-contexts-8985.appspot.com/labels/notices/bc-notice.png
+                                                                                                svg_url
+1 https://storage.googleapis.com/anth-ja77-local-contexts-8985.appspot.com/labels/notices/bc-notice.svg
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      default_text
+1 The BC (Biocultural) Notice is a visible notification that there are accompanying cultural rights and responsibilities that need further attention for any future sharing and use of this material or data. The BC Notice recognizes the rights of Indigenous peoples to permission the use of information, collections, data and digital sequence information (DSI) generated from the biodiversity or genetic resources associated with traditional lands, waters, and territories. The BC Notice may indicate that BC Labels are in development and their implementation is being negotiated.
+                      created                     updated
+1 2022-06-03T14:31:52.433462Z 2022-07-19T21:37:44.711129Z
+
+$sub_projects
+list()
+
+$related_projects
+list()
+
+$project_boundary_geojson
+NULL</code></pre>
+</div>
 <p>There’s a lot of info there! If a Notice is attached to the project,
 we can access it directly with <code>res$notice</code>. Similarly, if TK
 and/or BC labels are associated with the project they can be accessed
@@ -492,7 +556,7 @@ respectively.</p>
 Golan in collaboration with <a href="https://www.enrich-hub.org/" class="external-link">ENRICH</a> that can wrap these API
 calls in more familiar-looking R code. We have to install this in-dev
 package from github:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -500,7 +564,7 @@ package from github:</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">enRich</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can re-produce the previous API call in simpler R code</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -514,28 +578,28 @@ API to automatically disclose Indigenous rights and interests in the
 data underlying the data used.</p>
 <p>As an example, a manuscript written using RMarkdown or Quarto could
 include the following in the introduction</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">MARKDOWN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode markdown" tabindex="0"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">```{r LCH-setup}</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">projID &lt;- "259854f7-b261-4c8c-8556-4b153deebc18"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">thisProj &lt;- find.projects(projID)</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="in">comms &lt;- thisProj[[1]]$bc_labels$community</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>We make use of data originating from <span class="in">`comms`</span> traditional territories. These data thus have <span class="in">`comms`</span> provenance, in spite of any settler concept of data ownership. To affirm the intrinsic rights of <span class="in">`comms`</span> communities to govern the collection, use, and sharing of their data, <span class="in">`comms`</span> applied the following Biocultural Labels to these data, specifying ethical protocol for the use and management of these data:</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bc-labels, results = 'asis'}</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="in">allBCLabels &lt;- thisProj[[1]]$bc_labels</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:length(allBCLabels)) {</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="in">    thisLab &lt;- allBCLabels$label_text[i]</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="in">    cat(thisLab, "\n")</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre>
+<pre class="sourceCode markdown" tabindex="0"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="in">```{r LCH-setup}</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="in">projID &lt;- "259854f7-b261-4c8c-8556-4b153deebc18"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="in">thisProj &lt;- find.projects(projID)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="in">comms &lt;- thisProj[[1]]$bc_labels$community</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>We make use of data originating from <span class="in">`comms`</span> traditional territories. These data thus have <span class="in">`comms`</span> provenance, in spite of any settler concept of data ownership. To affirm the intrinsic rights of <span class="in">`comms`</span> communities to govern the collection, use, and sharing of their data, <span class="in">`comms`</span> applied the following Biocultural Labels to these data, specifying ethical protocol for the use and management of these data:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bc-labels, results = 'asis'}</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="in">allBCLabels &lt;- thisProj[[1]]$bc_labels</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:length(allBCLabels)) {</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="in">    thisLab &lt;- allBCLabels$label_text[i]</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="in">    cat(thisLab, "\n")</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre>
 </div>
 <p>This code will render the community name and BC Labels they have
 applied.</p>
@@ -546,7 +610,7 @@ database infrastructure.</p>
 <p>For the purpose of sharing data with Indigenous sovereignty metadata,
 <em>enRich</em> also provides an experimental method for attaching Local
 Contexts Hub IDs to sequence data.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -643,9 +707,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/care-data-repos.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/care-data-repos.html",
-  "dateCreated": "2023-06-16",
-  "dateModified": "2023-06-16",
-  "datePublished": "2023-06-16"
+  "dateCreated": "2023-06-17",
+  "dateModified": "2023-06-17",
+  "datePublished": "2023-06-17"
 }
 
   </script><script>

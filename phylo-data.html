@@ -287,7 +287,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Summarizing phylogenetic data</h1>
-        <p> Last updated on 2023-06-16 | 
+        <p> Last updated on 2023-06-17 | 
         
         <a href="https://github.com/role-model/multidim-biodiv-data/edit/main/episodes/phylo-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -415,12 +415,23 @@ by giving that notation as a <code>character</code> value to this
 function, using the <code>text</code> argument, as shown below:</p>
 <p>Now, we can visually inspect our tree using the <code>plot()</code>
 function:</p>
-<p>Can you visualize the text notation in that image? We can see the
+<figure><img src="fig/phylo-data-rendered-plot-example-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Can you visualize the text notation in that image? We can see the
 same information: A is closer related to B than C, and the branches
 leading to A and B have half the length of the branch leading to C.</p>
 <p>The <code>read.tree()</code> function creates an object of class
 <code>phylo</code>. We can further investigate this object by calling it
 in our console:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Phylogenetic tree with 3 tips and 2 internal nodes.
+
+Tip labels:
+  A, B, C
+
+Rooted; includes branch lengths.</code></pre>
+</div>
 <p>The printed information shows us that we have a phylogenetic tree
 with 3 tips and 2 internal nodes, where the tip labels are “A, B, C”. We
 also are informed that this tree is rooted and has branch lengths.</p>
@@ -431,6 +442,16 @@ about tip labels and branch lengths are stored in that
 <code>phylo</code> object. Easy enough, we can access that by calling
 <code>tip.labels</code> and <code>edge.length</code> after
 <code>$</code>.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "A" "B" "C"</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 0.5 0.5 0.5 1.0</code></pre>
+</div>
 </div>
 </section><section id="cleaning-and-filtering-phylogenetic-data"><h2 class="section-heading">Cleaning and filtering phylogenetic data<a class="anchor" aria-label="anchor" href="#cleaning-and-filtering-phylogenetic-data"></a>
 </h2>
@@ -457,6 +478,11 @@ cross-checked for synonyms and misspellings.</p>
 with the first option: a “published” arthropod phylogeny. Let’s load
 this phylogeny into R using the function <code>read.tree</code> we
 learned earlier.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "phylo"</code></pre>
+</div>
 <p>This new <code>phylo</code> object is way larger than the previous
 one, being a “real” phylogeny and all. You can inspect it again by
 directly calling the object <code>arthro_tree</code>. To plot it, we
@@ -465,7 +491,7 @@ displayed. Here, we used the option <code>'fan'</code>, to display a
 circular phylogeny (slightly better to show such a large phylogeny in
 the screen). We also set the <code>show.tip.label</code> argument to
 <code>False</code>.</p>
-<p>How do we combine all this information with the community datasets we
+<figure><img src="fig/phylo-data-rendered-plotting-phylogeny-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>How do we combine all this information with the community datasets we
 have so far for our three islands? First, we will have to perform some
 name checking and filtering.</p>
 <div class="section level3">
@@ -474,6 +500,40 @@ name checking and filtering.</p>
 Since this is a “published” arthropod phylogeny, we will likely not have
 any misspelling in the tip names of the object. However, it is always
 good practice to check contents to see if anything weird stands out.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1] "Leptogryllus_fusconotatus"   "Hylaeus_facilis"            
+ [3] "Laupala_pruna"               "Eurynogaster_vittata"       
+ [5] "Cydia_gypsograpta"           "Toxeuma_hawaiiensis"        
+ [7] "Proterhinus_punctipennis"    "Drosophila_quinqueramosa"   
+ [9] "Ectemnius_mandibularis"      "Nesodynerus_mimus"          
+[11] "Proterhinus_xanthoxyli"      "Nesiomiris_lineatus"        
+[13] "Aeletes_nepos"               "Scaptomyza_vagabunda"       
+[15] "Agrotis_chersotoides"        "Kauaiina_alakaii"           
+[17] "Atelothrus_depressus"        "Metrothorax_deverilli"      
+[19] "Scaptomyza_villosa"          "Hylaeus_sphecodoides"       
+[21] "Lucilia_graphita"            "Xyletobius_collingei"       
+[23] "Hyposmocoma_sagittata"       "Cis_signatus"               
+[25] "Hyposmocoma_scolopax"        "Dryophthorus_insignoides"   
+[27] "Eudonia_lycopodiae"          "Chrysotus_parthenus"        
+[29] "Limonia_sabroskyana"         "Hyposmocoma_marginenotata"  
+[31] "Mecyclothorax_longulus"      "Deinomimesa_haleakalae"     
+[33] "Trigonidium_paranoe"         "Eudonia_geraea"             
+[35] "Drosophila_furva"            "Hyposmocoma_geminella"      
+[37] "Drosophila_obscuricornis"    "Campsicnemus_nigricollis"   
+[39] "Odynerus_erythrostactes"     "Phaenopria_soror"           
+[41] "Gonioryctus_suavis"          "Laupala_vespertina"         
+[43] "Acanthia_procellaris"        "Odynerus_caenosus"          
+[45] "Elmoia_lanceolata"           "Nesodynerus_molokaiensis"   
+[47] "Sierola_celeris"             "Nysius_lichenicola"         
+[49] "Parandrita_molokaiae"        "Agonismus_argentiferus"     
+[51] "Cephalops_proditus"          "Nesomicromus_haleakalae"    
+[53] "Lispocephala_dentata"        "Agrion_nigrohamatum"        
+[55] "Plagithmysus_ilicis_ekeanus" "Scatella_clavipes"          
+[57] "Hedylepta_accepta"           "Cis_bimaculatus"            
+[59] "Hydriomena_roseata"          "Spolas_solitaria"           </code></pre>
+</div>
 <p>And indeed we find something: even though there are probably no
 misspellings, the genus and species name in this tree are separated by
 an underscore symbol <code>_</code>. Since the names in our
@@ -492,6 +552,40 @@ to replace it with; 2) the character object or vector containing the
 values to be searched. Finally, we assign the output of that function
 back to the <code>tip.label</code> slot in the <code>arthro_tree</code>
 object.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1] "Leptogryllus fusconotatus"   "Hylaeus facilis"            
+ [3] "Laupala pruna"               "Eurynogaster vittata"       
+ [5] "Cydia gypsograpta"           "Toxeuma hawaiiensis"        
+ [7] "Proterhinus punctipennis"    "Drosophila quinqueramosa"   
+ [9] "Ectemnius mandibularis"      "Nesodynerus mimus"          
+[11] "Proterhinus xanthoxyli"      "Nesiomiris lineatus"        
+[13] "Aeletes nepos"               "Scaptomyza vagabunda"       
+[15] "Agrotis chersotoides"        "Kauaiina alakaii"           
+[17] "Atelothrus depressus"        "Metrothorax deverilli"      
+[19] "Scaptomyza villosa"          "Hylaeus sphecodoides"       
+[21] "Lucilia graphita"            "Xyletobius collingei"       
+[23] "Hyposmocoma sagittata"       "Cis signatus"               
+[25] "Hyposmocoma scolopax"        "Dryophthorus insignoides"   
+[27] "Eudonia lycopodiae"          "Chrysotus parthenus"        
+[29] "Limonia sabroskyana"         "Hyposmocoma marginenotata"  
+[31] "Mecyclothorax longulus"      "Deinomimesa haleakalae"     
+[33] "Trigonidium paranoe"         "Eudonia geraea"             
+[35] "Drosophila furva"            "Hyposmocoma geminella"      
+[37] "Drosophila obscuricornis"    "Campsicnemus nigricollis"   
+[39] "Odynerus erythrostactes"     "Phaenopria soror"           
+[41] "Gonioryctus suavis"          "Laupala vespertina"         
+[43] "Acanthia procellaris"        "Odynerus caenosus"          
+[45] "Elmoia lanceolata"           "Nesodynerus molokaiensis"   
+[47] "Sierola celeris"             "Nysius lichenicola"         
+[49] "Parandrita molokaiae"        "Agonismus argentiferus"     
+[51] "Cephalops proditus"          "Nesomicromus haleakalae"    
+[53] "Lispocephala dentata"        "Agrion nigrohamatum"        
+[55] "Plagithmysus ilicis ekeanus" "Scatella clavipes"          
+[57] "Hedylepta accepta"           "Cis bimaculatus"            
+[59] "Hydriomena roseata"          "Spolas solitaria"           </code></pre>
+</div>
 <p>Now that we fixed this first obvious issue, we can start looking for
 others. Since we want to calculate phylogenetic diversity for each of
 our communities, our main concern here is to make sure that all taxa
@@ -521,11 +615,23 @@ operator to return the opposite of that expression, in a way that
 <em>NOT</em> present in vector B. In this case, every time we see
 <code>TRUE</code>, it means the element in that position is <em>NOT</em>
 in vector B.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
 <p>Checking the vector <code>not_found</code>, we can see it is a
 collection of TRUEs and FALSEs. We can use that vector to perform
 bracket subsetting in the vector <code>all_names</code>. Doing so, we
 are retrieving from <code>all_names</code> only the elements in the
 position where <code>not_found</code> is <code>TRUE</code>.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "Peridroma chersotoides"</code></pre>
+</div>
 <p>The expression above give us the one element of
 <code>all_names</code> that is not present in
 <code>arthro_tree$tip.label</code>. As we expected, it is a synonym that
@@ -575,6 +681,11 @@ expect all elements in the vector <code>not_found</code> to be
 “which elements in <code>not_found</code> are <code>TRUE</code> We
 expect the answer to be an empty vector, indicating”no elements in
 <code>not_found</code> are <code>TRUE</code>“.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fu">integer</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="pruning-our-phylogeny">Pruning our phylogeny<a class="anchor" aria-label="anchor" href="#pruning-our-phylogeny"></a></h3>
@@ -629,6 +740,7 @@ species.</p>
 one with short branch lengths and another with longer branch lengths.
 Remember: branch length = amount of evolutionary change</p>
 <p>If we plot both trees…</p>
+<p><img src="fig/phylo-data-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure"><img src="fig/phylo-data-rendered-unnamed-chunk-13-2.png" style="display: block; margin: auto;" class="figure"></p>
 <p>…we can see that the branches leading to extant taxa are longer for
 <code>long_tree</code>, as we intended. This suggests that a greater
 amount of evolutionary change is happening in these recent branches of
@@ -650,9 +762,10 @@ order.</p>
 <p>Let’s repeat this process for the longer tree:</p>
 <p>We can combine both dataframes and plot the values for
 comparison:</p>
-<p>This figure clearly shows that the tree with longer branches (dark
-red line) harbors higher evolutionary history, and therefore higher PD,
-as calculated by Hill numbers. It also shows that the Hill number value
+<p><img src="fig/phylo-data-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure">
+This figure clearly shows that the tree with longer branches (dark red
+line) harbors higher evolutionary history, and therefore higher PD, as
+calculated by Hill numbers. It also shows that the Hill number value
 decreases as the order goes up, since higher orders focus on branch
 lengths that are more common.</p>
 <p>What would happen if the abundance of species in our community was
@@ -664,7 +777,7 @@ community.</p>
 communities and blue colors for uneven community. Ligher colors will
 represent short trees whereas darker colors will represent long
 trees.</p>
-<p>From this picture, we can take a few insights: 1. longer branches
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From this picture, we can take a few insights: 1. longer branches
 still yield higher Hill numbers, regardless of the evenness in the
 community abundance; 2. the Hill number for q = 0 remains the same,
 regardless of the evenness. 3. As already observed, the value of the
@@ -713,6 +826,7 @@ phylogeny structures.</p>
 <p>Let’s create a totally balanced tree…</p>
 <p>… and a totally unbalanced tree.</p>
 <p>Let’s plot both trees for comparison:</p>
+<p><img src="fig/phylo-data-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" class="figure"><img src="fig/phylo-data-rendered-unnamed-chunk-22-2.png" style="display: block; margin: auto;" class="figure"></p>
 <p>Notice that here the difference between the trees resides in the fate
 of each new lineage at a node. In the unbalanced uneven tree, at each
 diversification event one of the lineages always persists till the
@@ -729,7 +843,7 @@ account for species abundance)</p>
 repeat the calculations from example 1 with these new trees. First,
 let’s focus on the even community (i.e., not introducing the relative
 species abundance factor yet):</p>
-<p>This plot is similar to example 1 in two ways: 1) one of the trees
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This plot is similar to example 1 in two ways: 1) one of the trees
 has higher hill number values, in this case the unbalanced tree. This
 suggests that the unbalanced structure of the tree accounts for a deeper
 evolutionary history (i.e., lineages have overall longer branches); 2)
@@ -776,7 +890,7 @@ community.</p>
 relative abundance, let’s redo the calculation for Hill numbers with
 balanced and unbalanced trees, this time using the uneven community.
 We’ll plot all final values together for comparison.</p>
-<p>Reminders: 1) light colors represent balanced trees, whereas darker
+<figure><img src="fig/phylo-data-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Reminders: 1) light colors represent balanced trees, whereas darker
 colors represent unbalanced trees 2) red lines represent even community
 whereas blue lines represent uneven community.</p>
 <p>From this second plot, we notice that:</p>
@@ -871,11 +985,39 @@ loop to calculate from orders of 0 to 3.</p>
 of different orders as columns. For that, we will use the function
 <code>do.call</code> to collapse our list <code>hill_values</code> using
 the function <code>cbind</code>.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>   site hill_phylo_0 hill_phylo_1 hill_phylo_2 hill_phylo_3
+1 BI_01     59.09643     18.71926     13.41881     11.65893
+2 MA_01     64.21265     40.30308     26.89875     20.36594
+3 KA_01     54.49430     28.10458     20.00878     16.29594</code></pre>
+</div>
 <p>Finally, we can plot using a similar code to the ones we used in our
 examples. We set <code>xlim</code> to go from 0 to 3, and
 <code>ylim</code> to go from the lowest to the highest value in the
 object <code>hill_values</code>. We also add a legend using the
 <code>legend()</code> function like we did in the traits episode.</p>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -955,9 +1097,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/phylo-data.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/phylo-data.html",
-  "dateCreated": "2023-06-16",
-  "dateModified": "2023-06-16",
-  "datePublished": "2023-06-16"
+  "dateCreated": "2023-06-17",
+  "dateModified": "2023-06-17",
+  "datePublished": "2023-06-17"
 }
 
   </script><script>
