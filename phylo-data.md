@@ -71,12 +71,25 @@ The notation above indicates that:
 The notation above is what we import into R to start working with and manipulating our phylogenetic tree. For that goal, we will use the [ape](https://academic.oup.com/bioinformatics/article/20/2/289/204981) package. Below, we are also loading a few other packages we'll be using later on.
 
 
+```r
+library(ape)
+library(tidyr)
+library(hillR)
+```
 
 To import our tree, we will be using the function `read.tree()` from the `ape` package. In the case of simple trees as the one above, we could directly create them within R by giving that notation as a `character` value to this function, using the `text` argument, as shown below:
 
 
+```r
+example_tree <- read.tree(text = '((A:0.5,B:0.5):0.5,C:1);')
+```
 
 Now, we can visually inspect our tree using the `plot()` function:
+
+
+```r
+plot(example_tree)
+```
 
 <img src="fig/phylo-data-rendered-plot-example-1.png" style="display: block; margin: auto;" />
 
@@ -84,6 +97,10 @@ Can you visualize the text notation in that image? We can see the same informati
 
 The `read.tree()` function creates an object of class `phylo`. We can further investigate this object by calling it in our console:
 
+
+```r
+example_tree
+```
 
 ```{.output}
 
@@ -100,8 +117,16 @@ The printed information shows us that we have a phylogenetic tree with 3 tips an
 One way to access the components of this object and better explore it is to use `$` after the object name. Here, it will be important for us to know a little bit more about where the information about tip labels and branch lengths are stored in that `phylo` object. Easy enough, we can access that by calling `tip.labels` and `edge.length` after `$`.
 
 
+```r
+example_tree$tip.label
+```
+
 ```{.output}
 [1] "A" "B" "C"
+```
+
+```r
+example_tree$edge.length
 ```
 
 ```{.output}
@@ -117,11 +142,22 @@ Two common approaches to retrieving a phylogeny for a focal group are 1) relying
 For this workshop, since we are using simulated data, we will work with the first option: a "published" arthropod phylogeny. Let's load this phylogeny into R using the function `read.tree` we learned earlier.
 
 
+```r
+arthro_tree <- read.tree('https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/phylo_raw.nwk')
+
+class(arthro_tree)
+```
+
 ```{.output}
 [1] "phylo"
 ```
 
 This new `phylo` object is way larger than the previous one, being a "real" phylogeny and all. You can inspect it again by directly calling the object `arthro_tree`. To plot it, we will use the `type` argument to modify how our tree will be displayed. Here, we used the option `'fan'`, to display a circular phylogeny (slightly better to show such a large phylogeny in the screen). We also set the `show.tip.label` argument to `False`.
+
+
+```r
+plot(arthro_tree, type = 'fan', show.tip.label = F)
+```
 
 <img src="fig/phylo-data-rendered-plotting-phylogeny-1.png" style="display: block; margin: auto;" />
 
@@ -131,6 +167,10 @@ How do we combine all this information with the community datasets we have so fa
 
 The first thing we want to do is to check the tip labels in our tree. Since this is a "published" arthropod phylogeny, we will likely not have any misspelling in the tip names of the object. However, it is always good practice to check contents to see if anything weird stands out.
 
+
+```r
+arthro_tree$tip.label
+```
 
 ```{.output}
  [1] "Leptogryllus_fusconotatus"   "Hylaeus_facilis"            
@@ -169,6 +209,13 @@ And indeed we find something: even though there are probably no misspellings, th
 
 One useful function to do this fixing is the function `gsub()`. This function allows you to look for a specific character pattern inside character objects, and replace them by any other pattern you may want. In our case, we have a vector of 60 character values containing the names of our tips. We want to find the `_` character inside each character value and replace it by an empty space, so it becomes equal to what we have in our site-by-species matrix. We do so by providing to the `gsub()` function: 1) the pattern we want to replace; 2) the new pattern we want to replace it with; 2) the character object or vector containing the values to be searched. Finally, we assign the output of that function back to the `tip.label` slot in the `arthro_tree` object.
 
+
+```r
+arthro_tree$tip.label <- gsub('_',' ',arthro_tree$tip.label)
+
+# A quick check to see if worked
+arthro_tree$tip.label
+```
 
 ```{.output}
  [1] "Leptogryllus fusconotatus"   "Hylaeus facilis"            
@@ -210,15 +257,26 @@ Now that we fixed this first obvious issue, we can start looking for others. Sin
 Learners should have the object `abundances` already in their environment, from the previous episode. If not, use line below.
 
 
+```r
+abundances <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv")
+```
 
 :::
 
 To see if there are any mismatches, let's first retrieve a list of the names in our abundances dataset. Since this dataset has repeated instances of the same species when it shows up in different islands, we wrap the vector of taxa names in the function `unique()` to return each species name only once.
 
 
+```r
+all_names <- unique(abundances$final_name)
+```
 
 To cross-check this list against the list of names in our phylogeny, we can use the Boolean operator `%in%` coupled with `!`. This will allow us to check for names present in `all_names` that are not included in the `arthro_tree$tip.label`. In summary, the expression `A %in% B` would return whether each element of vector A is present in vector B. This is returned as a Boolean vector: if `TRUE`, the element of that position in A exists in B; if `FALSE`, it does not. We add the `!` (NOT) operator to return the opposite of that expression, in a way that `!(A %in% B)` will return whether each element of vector A is *NOT* present in vector B. In this case, every time we see `TRUE`, it means the element in that position is *NOT* in vector B.
 
+
+```r
+not_found <- !(all_names %in% (arthro_tree$tip.label))
+not_found
+```
 
 ```{.output}
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
@@ -228,6 +286,10 @@ To cross-check this list against the list of names in our phylogeny, we can use 
 
 Checking the vector `not_found`, we can see it is a collection of TRUEs and FALSEs. We can use that vector to perform bracket subsetting in the vector `all_names`. Doing so, we are retrieving from `all_names` only the elements in the position where `not_found` is `TRUE`.
 
+
+```r
+all_names[not_found]
+```
 
 ```{.output}
 [1] "Peridroma chersotoides"
@@ -252,6 +314,9 @@ This challenge is supposed to assess the learner's knowledge in indexing, subset
 We need to perform an assignment operation in the position where the old name is located inside `arthro_tree$tip.label`. To find that position, we can use Boolean matching to ask which element of `arthro_tree$tip.label` equals the old name.
 
 
+```r
+arthro_tree$tip.label[arthro_tree$tip.label == 'Agrotis chersotoides'] <- "Peridroma chersotoides"
+```
 
 ::::::::::::
 
@@ -259,6 +324,11 @@ We need to perform an assignment operation in the position where the old name is
 
 A good practice after correcting the name is to re-check if all names in our abundance dataset match the names in the phylogeny. This time, we expect all elements in the vector `not_found` to be `FALSE`. We can use the function `which()` to ask "which elements in `not_found` are `TRUE` We expect the answer to be an empty vector, indicating "no elements in `not_found` are `TRUE`".
 
+
+```r
+not_found <- !(all_names %in% (arthro_tree$tip.label))
+which(not_found)
+```
 
 ```{.output}
 integer(0)
@@ -271,6 +341,9 @@ Now that we have a modified tree where all taxa names are present in our abundan
 We can prune our phylogeny using the function `keep.tip()` from the `ape` package. For this function, we provide the entire phylogeny plus the names of the tips we want to keep. Here, we will retrieve those names from the abundances dataset.
 
 
+```r
+arthro_tree_pruned <- keep.tip(arthro_tree,abundances$final_name)
+```
 
 With a pruned phylogeny and a site-by-species matrix, we have the two bits of information we need to summarize phylogenetic diversity per community. As we saw in previous episodes, we can use such abundance matrix to calculate Hill numbers and help us compare patterns across the different communities. In the traits episode, we saw how we can combine abundance and trait data to extract Hill numbers as values that summarize the distribution of trait variation across communities. Here we will be following the same approach to summarize the amount and the distribution of evolutionary history across the species in our community.
 
@@ -283,30 +356,93 @@ In this section, we will extract some summary statistics about the pattern of ph
 For our examples, we'll assume we have one single community with eight taxa: A through H. Let's create two site-by-species matrix for this community: one denoting even abundance across species, and another one with uneven abundance. For the even communitu, we create a vector of the value `1` repeated 8 times; for the uneven community, we'll create a vector where abundance goes up from species A to species H (for simplicity, we'll just use values from 1 to 8). We then transform them to dataframe, and name the columns with the names of the species.
 
 
+```r
+even_comm <- data.frame(rbind(rep(1,8))) # Abundance = 1 for all species
+uneven_comm <- data.frame(rbind(seq(1,8))) # Abundance equal 1 for species A and goes up to 8 towards species H.
+
+# We name the columns with the species names
+colnames(even_comm) <- colnames(uneven_comm) <- c('A','B','C','D','E','F','G','H')
+```
 
 Now let's create two different possible trees for these communities: one with short branch lengths and another with longer branch lengths. Remember: branch length = amount of evolutionary change
 
 
+```r
+short_tree <- read.tree(text='(((A:3,B:3):1,(C:3,D:3):1):1,((E:3,F:3):1,(G:3,H:3):1):1);')
+long_tree <- read.tree(text='(((A:6,B:6):1,(C:6,D:6):1):1,((E:6,F:6):1,(G:6,H:6):1):1);')
+```
 
 If we plot both trees... 
 
-<img src="fig/phylo-data-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-12-2.png" style="display: block; margin: auto;" />
+
+```r
+plot(short_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+
+```r
+plot(long_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-12-2.png" style="display: block; margin: auto;" />
 
 ...we can see that the branches leading to extant taxa are longer for `long_tree`, as we intended. This suggests that a greater amount of evolutionary change is happening in these recent branches of the longer tree when compared to the shorter tree.
 
 Now, we will calculate phylogenetic hill numbers for both trees using both even and uneven communities. To store the calculated values, we'll a data.frame called `even_comm_short_tree`. The first column will be our Hill numbers to be calculated; the second column will be the Hill number order from 0 to 3, to see how the order affects the values; the third and fourth column will be the description of our components
 
 
+```r
+even_comm_short_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "even",
+    tree = "short"
+)
+```
 
 Now we will use a `for` loop to calculate phylogenetic Hill numbers using the `hill_phylo` function from the `hillR` package. This function takes in a a site-by-species matrix and phylogeny, and returns phylogenetic Hill numbers for each site based on which species are present there.  We provide to the function the site-by-species matrix, the phylogenetic tree and the order.
 
 
+```r
+for(i in 1:nrow(even_comm_short_tree)) {
+    even_comm_short_tree$hill_nb[i] <- hill_phylo(even_comm, short_tree, q = even_comm_short_tree$q[i])
+}
+```
 
 Let's repeat this process for the longer tree:
 
 
+```r
+even_comm_long_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "even",
+    tree = "long"
+)
+
+for(i in 1:nrow(even_comm_long_tree)) {
+    even_comm_long_tree$hill_nb[i] <- hill_phylo(even_comm, long_tree, q = even_comm_long_tree$q[i])
+}
+```
 
 We can combine both dataframes and plot the values for comparison:
+
+
+```r
+even_comm_nb <- data.frame(rbind(even_comm_short_tree,even_comm_long_tree))
+
+plot(even_comm_nb$q[even_comm_nb$tree=='short'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='short'],
+     type='b',col='red',
+     xlab = 'Order',ylab='Hill values',
+     xlim = range(even_comm_nb$q),
+     ylim = range(even_comm_nb$hill_nb))
+
+lines(even_comm_nb$q[even_comm_nb$tree=='long'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='long'],
+     type='b',col='darkred')
+```
 
 <img src="fig/phylo-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
@@ -315,8 +451,58 @@ This figure clearly shows that the tree with longer branches (dark red line) har
 What would happen if the abundance of species in our community was uneven (a more realistic scenario)? In this case, both branch lengths and how abundant each branch is will have an effect on the calculated value. To visualize, let's repeat the calculations above for the uneven community.
 
 
+```r
+# Uneven comm with short tree
+uneven_comm_short_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "uneven",
+    tree = "short"
+)
+
+for(i in 1:nrow(uneven_comm_short_tree)) {
+    uneven_comm_short_tree$hill_nb[i] <- hill_phylo(uneven_comm, short_tree, q = uneven_comm_short_tree$q[i])
+}
+
+# Uneven comm with long tree
+uneven_comm_long_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "uneven",
+    tree = "long"
+)
+
+for(i in 1:nrow(uneven_comm_long_tree)) {
+    uneven_comm_long_tree$hill_nb[i] <- hill_phylo(uneven_comm, long_tree, q = uneven_comm_long_tree$q[i])
+}
+
+# Combining results
+uneven_comm_nb <- data.frame(rbind(uneven_comm_short_tree,uneven_comm_long_tree))
+```
 
 Let's plot all results together, using red colors for even communities and blue colors for uneven community. Ligher colors will represent short trees whereas darker colors will represent long trees.
+
+
+```r
+plot(even_comm_nb$q[even_comm_nb$tree=='short'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='short'],
+     type='b',col='red',
+     xlab = 'Order',ylab='Hill values',
+     xlim = range(even_comm_nb$q),
+     ylim = range(min(uneven_comm_nb$hill_nb),max(even_comm_nb$hill_nb)))
+
+lines(even_comm_nb$q[even_comm_nb$tree=='long'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='long'],
+     type='b',col='darkred')
+
+lines(uneven_comm_nb$q[uneven_comm_nb$tree=='short'],
+     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='short'],
+     type='b',col='lightblue')
+
+lines(uneven_comm_nb$q[uneven_comm_nb$tree=='long'],
+     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='long'],
+     type='b',col='darkblue')
+```
 
 <img src="fig/phylo-data-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
@@ -340,18 +526,73 @@ So far, we have learned that Hill numbers are affected by both the sum of branch
 Let's create a totally balanced tree...
 
 
+```r
+balanced_tree <- read.tree(text='(((A:1,B:1):1,(C:1,D:1):1):1,((E:1,F:1):1,(G:1,H:1):1):1);')
+```
 
 ... and a totally unbalanced tree.
 
 
+```r
+unbalanced_tree <- read.tree(text='(A:7,(B:6,(C:5,(D:4,(E:3,(F:2,(G:1,H:1):1):1):1):1):1):1);')
+```
 
 Let's plot both trees for comparison:
 
-<img src="fig/phylo-data-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-21-2.png" style="display: block; margin: auto;" />
+
+```r
+plot(balanced_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
+
+```r
+plot(unbalanced_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-21-2.png" style="display: block; margin: auto;" />
 
 Notice that here the difference between the trees resides in the fate of each new lineage at a node. In the unbalanced uneven tree, at each diversification event one of the lineages always persists till the present with no change while the other undergoes another round of diversification. In the even tree, both lineages from each node undergo a new split. The consequence is that in the even tree, all extant species result from recent diversification (i.e., they have a short evolutionary history before coalescing into their ancestor), whereas in the unbalanced tree we have a mix of old and recent lineages. This means that the phylogenetic history itself is creating an uneven representation of branch lengths across the community (even before we account for species abundance)
 
 To see how such phylogenetic structure influences hill numbers, let's repeat the calculations from example 1 with these new trees. First, let's focus on the even community (i.e., not introducing the relative species abundance factor yet):
+
+
+```r
+even_comm_balanced_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "even",
+    tree = "balanced"
+)
+
+for(i in 1:nrow(even_comm_balanced_tree)) {
+    even_comm_balanced_tree$hill_nb[i] <- hill_phylo(even_comm, balanced_tree, q = even_comm_balanced_tree$q[i])
+}
+
+even_comm_unbalanced_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "even",
+    tree = "unbalanced"
+)
+
+for(i in 1:nrow(even_comm_unbalanced_tree)) {
+    even_comm_unbalanced_tree$hill_nb[i] <- hill_phylo(even_comm, unbalanced_tree, q = even_comm_unbalanced_tree$q[i])
+}
+
+even_comm_nb <- data.frame(rbind(even_comm_balanced_tree,even_comm_unbalanced_tree))
+
+plot(even_comm_nb$q[even_comm_nb$tree=='balanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='balanced'],
+     type='b',col='red',
+     xlab = 'Order',ylab='Hill values',
+     xlim = range(even_comm_nb$q),
+     ylim = range(even_comm_nb$hill_nb))
+
+lines(even_comm_nb$q[even_comm_nb$tree=='unbalanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='unbalanced'],
+     type='b',col='darkred')
+```
 
 <img src="fig/phylo-data-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" />
 
@@ -364,6 +605,52 @@ If the tree structure is already introducing some unevenness in our community, h
 In this case, both the structure of the tree and the species abundance interact to generate a pattern of unevenness. Specifically, the overall value of PD will be the sum of branch lengths weighted by their abundance in the community as informed by the species abundance distribution (instead of by the frequency of the branch length in the tree). This added information brings new insights. It may be the case, for instance, that in the unbalanced tree, even though long branches are over represented, maybe the species with long branches are actually super rare in our community, and the short-branch species are actually super abundant. As you can probably infer, this difference suggests something about the evolutionary history of our community, in this case that the most abundant species have a very recent evolutionary history. Similarly, even though branch lengths are the same in the balanced tree, if some of the species is more abundant than others, it suggests that the evolutionary history of the tree is unevenly represented in our community.
 
 To visualize these interaction between tree structure and species relative abundance, let's redo the calculation for Hill numbers with balanced and unbalanced trees, this time using the uneven community. We'll plot all final values together for comparison.
+
+
+```r
+uneven_comm_balanced_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "uneven",
+    tree = "balanced"
+)
+
+for(i in 1:nrow(uneven_comm_balanced_tree)) {
+    uneven_comm_balanced_tree$hill_nb[i] <- hill_phylo(uneven_comm, balanced_tree, q = uneven_comm_balanced_tree$q[i])
+}
+
+uneven_comm_unbalanced_tree <- data.frame(
+    hill_nb = NA,
+    q = 0:3,
+    comm = "uneven",
+    tree = "unbalanced"
+)
+
+for(i in 1:nrow(uneven_comm_unbalanced_tree)) {
+    uneven_comm_unbalanced_tree$hill_nb[i] <- hill_phylo(uneven_comm, unbalanced_tree, q = uneven_comm_unbalanced_tree$q[i])
+}
+
+uneven_comm_nb <- data.frame(rbind(uneven_comm_balanced_tree,uneven_comm_unbalanced_tree))
+
+plot(even_comm_nb$q[even_comm_nb$tree=='balanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='balanced'],
+     type='b',col='red',
+     xlab = 'Order',ylab='Hill values',
+     xlim = range(even_comm_nb$q),
+     ylim = range(min(uneven_comm_nb$hill_nb),max(even_comm_nb$hill_nb)))
+
+lines(even_comm_nb$q[even_comm_nb$tree=='unbalanced'],
+     even_comm_nb$hill_nb[even_comm_nb$tree=='unbalanced'],
+     type='b',col='darkred')
+
+lines(uneven_comm_nb$q[uneven_comm_nb$tree=='balanced'],
+     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='balanced'],
+     type='b',col='lightblue')
+
+lines(uneven_comm_nb$q[uneven_comm_nb$tree=='unbalanced'],
+     uneven_comm_nb$hill_nb[uneven_comm_nb$tree=='unbalanced'],
+     type='b',col='darkblue')
+```
 
 <img src="fig/phylo-data-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
 
@@ -401,6 +688,15 @@ For this challenge, you should calculate the phylogenetic Hill numbers of orders
 Learners should have the object `abundances_wide` already in their environment, from the previous episode. If not, use line below.
 
 
+```r
+abundances_wide <- read.csv("https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_wide.csv")
+
+# Note that reading from the URL introduces a "." in the column name. Replace using gsub
+colnames(abundances_wide) <- gsub('\\.',' ',colnames(abundances_wide))
+
+# It also got ride of sites as rownames.
+rownames(abundances_wide) <- c('BI_01','MA_01','KA_01')
+```
 
 :::
 
@@ -410,9 +706,26 @@ Learners should have the object `abundances_wide` already in their environment, 
 We can directly calculate Hill numbers using the `hill_phylo` function along with the objects `arthro_tree_pruned` and `abundances_wide`. Since we have three sites, the function will return a vector with tree values, one Hill number for each site of the order we requested. Let's create an empty list to store a vector for each order, and use a `for` loop to calculate from orders of 0 to 3.
 
 
+```r
+hill_values <- vector('list', length = 4)
+for (i in 0:3) {
+    hill_values[[i + 1]] <- hill_phylo(abundances_wide, arthro_tree_pruned, 
+                                       q = i)
+}
+```
 
 Now, let's create a data.frame with islands as rows and Hill numbers of different orders as columns. For that, we will use the function `do.call` to collapse our list `hill_values` using the function `cbind`.
 
+
+```r
+hill_values <- do.call(cbind.data.frame, hill_values)
+colnames(hill_values) <- paste0('hill_phylo_', 0:3)
+hill_phylo <- data.frame(site = rownames(hill_values),
+                         hill_values)
+
+rownames(hill_phylo) <- NULL
+hill_phylo
+```
 
 ```{.output}
    site hill_phylo_0 hill_phylo_1 hill_phylo_2 hill_phylo_3
@@ -426,16 +739,43 @@ Now, let's create a data.frame with islands as rows and Hill numbers of differen
 Finally, we can plot using a similar code to the ones we used in our examples. We set `xlim` to go from 0 to 3, and `ylim` to go from the lowest to the highest value in the object `hill_values`. We also add a legend using the `legend()` function like we did in the traits episode.
 
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
+```r
+plot(seq(0,3),hill_phylo_nbs[3,2:5],
+     type='b',col="#440154FF",
+     xlab = 'Order',ylab='Hill values',
+     xlim = c(0,3),
+     ylim = range(min(hill_values),max(hill_values)))
 ```
 
 ```{.error}
 Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
 ```
 
+```r
+lines(seq(0,3),hill_phylo_nbs[2,2:5],
+      type='b',col="#21908CFF")
+```
+
 ```{.error}
 Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
+```
+
+```r
+lines(seq(0,3),hill_phylo_nbs[1,2:5],
+      type='b',col="#FDE725FF")
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'hill_phylo_nbs' not found
+```
+
+```r
+legend(
+    "topright",
+    legend = c("Kauai","Maui","Big Island"),
+    pch = 19,
+    col = c("#440154FF", "#21908CFF", "#FDE725FF")
+)
 ```
 
 ```{.error}
@@ -466,7 +806,28 @@ A few points of discussion:
 
 Further visualization of the trees for each community can help us corroborate these ideas:
 
-<img src="fig/phylo-data-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-29-2.png" style="display: block; margin: auto;" /><img src="fig/phylo-data-rendered-unnamed-chunk-29-3.png" style="display: block; margin: auto;" />
+
+```r
+BI_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'BigIsland' ])
+MA_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'Maui' ])
+KA_tree <- keep.tip(arthro_tree_pruned,abundances$final_name[ abundances$island == 'Kauai' ])
+
+plot(BI_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+
+```r
+plot(MA_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-29-2.png" style="display: block; margin: auto;" />
+
+```r
+plot(KA_tree)
+```
+
+<img src="fig/phylo-data-rendered-unnamed-chunk-29-3.png" style="display: block; margin: auto;" />
 
 The interesting thing here is that we could infer the history of the communities from the numbers only, before looking at the trees per community. This speaks to the power of Hill numbers as summary statistic of biodiversity patterns and how they can be useful for simulation-based inference.
 
