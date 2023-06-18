@@ -29,9 +29,9 @@ This is the website for Part I of the Multi-dimensional Biodiversity Data Worksh
 |------|-------|
 | 9-10:30 | Phylogenetics | 
 | 10:30-10:45 | Coffee break | 
-| 10:45-12:00 | Population genetics | 
-| 12:00-1:00 | Lunch Break | 
-| 1:00-2:30 | Finding multi-dimensional data |
+| 10:45-12:30 | Population genetics | 
+| 12:30-1:30 | Lunch Break | 
+| 1:30-2:30 | Finding multi-dimensional data |
 | 2:30-2:45 | Coffee Break |
 | 2:45-4:00 | CARE principles in data archiving |
 | 4:00-4:30 | Final wrap-up |
