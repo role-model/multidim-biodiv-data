@@ -34,4 +34,4 @@ This is the website for Part I of the Multi-dimensional Biodiversity Data Worksh
 | 1:30-2:30 | Finding multi-dimensional data |
 | 2:30-2:45 | Coffee Break |
 | 2:45-4:00 | CARE principles in data archiving |
-| 4:00-4:30 | Final wrap-up |
+| 4:00-4:30 | Wrap-up and [mid-workshop survey](https://docs.google.com/forms/d/1XTZaL-AjjGSf2NWX844-UJX9FAAXZcPLYpX4BF5IUkk/edit) |
