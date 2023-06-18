@@ -257,7 +257,7 @@ plot(long_tree)
 
 ...we can see that the branches leading to extant taxa are longer for `long_tree`, as we intended. This suggests that a greater amount of evolutionary change is happening in these recent branches of the longer tree when compared to the shorter tree.
 
-Now, we will calculate phylogenetic hill numbers for both trees using both even and uneven communities. To store the calculated values, we'll a data.frame called `even_comm_short_tree`. The first column will be our Hill numbers to be calculated; the second column will be the Hill number order from 0 to 3, to see how the order affects the values; the third and fourth column will be the description of our components
+Now, we will calculate phylogenetic hill numbers for both trees using both even and uneven communities. To store the calculated values, we'll create a data.frame called `even_comm_short_tree`. The first column will be our Hill numbers to be calculated; the second column will be the Hill number order from 0 to 3, to see how the order affects the values; the third and fourth column will be the description of our components
 
 ```{r}
 even_comm_short_tree <- data.frame(
