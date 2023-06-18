@@ -311,9 +311,12 @@ The main arguments of the entrez_search() function are "db", the database to loo
 termstring <- paste(sprintf('%s[ORGN]', species_names_hawaii), collapse = ' OR ')
 
 search_results <- entrez_search(db="nucleotide", term = termstring)
+
+# take a quick look at all the possible things we could have added to term for this database - it includes [GENE] for looking for specific genes or [SLEN] for length of sequence
+entrez_db_searchable(db="nucleotide")
 ```
 ::: callout
-It is also possible to query for ranks higher than species in entrez_search() 
+It is also possible to query for ranks higher than species in entrez_search() also using the [ORGN] tag i.e. Tetragnatha[ORGN]
 :::
 
 *Unlike* `spocc` but *similarly* to `rotl`, this
