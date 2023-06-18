@@ -1541,7 +1541,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -1999,7 +1999,7 @@ data!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2772,7 +2772,7 @@ will need to 1) find the position of the old name in labels in our tree;
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>We need to perform an assignment operation in the position where the
 old name is located inside <code>arthro_tree$tip.label</code>. To find
@@ -3355,7 +3355,7 @@ allow you to infer regarding the history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
@@ -3954,14 +3954,14 @@ MsaDNAMultipleAlignment with 129 rows and 500 columns
   [8] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-0
   [9] CGCGCACTCTACCACCCAGACTATC...CCCGACTCCTATCGATAATTCGTG Eudonia_lycopodiae-7 
   ... ...
-[122] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-1
-[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-5
-[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-6
-[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-7
-[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-0
-[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-8
-[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-4
-[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Nesodynerus_mimus-9
+[122] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[123] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[124] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[125] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[126] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[127] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[128] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
+[129] CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Metrothorax_dever...
   Con CGCGCACTCTACCACCCAGACTATC...CCTGACTCCTATCGTTAATTCGTG Consensus </code></pre>
 </div>
 <p>There are quite a few packages in R to work with sequence data, for
@@ -4201,15 +4201,15 @@ punctipennis</em> sequences.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [25]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [97] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-[109]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 </div>
 <p>Following the conversion, we use bracket indexing to subset the
@@ -5659,7 +5659,7 @@ using the R APIs of GBIF, NCBI, and OTOL?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>NCBI and OTOL both require an initial search to obtain record IDs,
 then a second fetch to obtain the actual record data for each ID</p>
