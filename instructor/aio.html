@@ -775,7 +775,7 @@ deck</a>.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Give the slide show; slide deck is <a href="https://github.com/role-model/multidim-biodiv-data/blob/main/instructors/local_contexts-care.pdf" class="external-link">/instructors/local_contexts-care.pdf</a></p>
 </div>
@@ -803,7 +803,7 @@ Hub</a>!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>Give a tour of your own Local Contexts Hub account</p>
 </div>
@@ -1725,7 +1725,7 @@ the data before cleaning!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Read in the traits data using the <code>read.csv</code> function and
 supplying it with the path to the data.</p>
@@ -2183,7 +2183,7 @@ data!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2877,7 +2877,7 @@ follow the same nomenclature decisions.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Learners should have the object <code>abundances</code> already in
 their environment, from the previous episode. If not, use line
@@ -2979,7 +2979,7 @@ will need to 1) find the position of the old name in labels in our tree;
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>This challenge is supposed to assess the learner’s knowledge in
 indexing, subsetting and replacing values in a vector. The solution
@@ -2998,7 +2998,7 @@ position.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>We need to perform an assignment operation in the position where the
 old name is located inside <code>arthro_tree$tip.label</code>. To find
@@ -3265,16 +3265,19 @@ trees.</p>
 <span>     <span class="va">uneven_comm_nb</span><span class="op">$</span><span class="va">hill_nb</span><span class="op">[</span><span class="va">uneven_comm_nb</span><span class="op">$</span><span class="va">tree</span><span class="op">==</span><span class="st">'long'</span><span class="op">]</span>,</span>
 <span>     type<span class="op">=</span><span class="st">'b'</span>,col<span class="op">=</span><span class="st">'darkblue'</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/phylo-data-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From this picture, we can take a few insights: 1. longer branches
-still yield higher Hill numbers, regardless of the evenness in the
-community abundance; 2. the Hill number for q = 0 remains the same,
-regardless of the evenness. 3. As already observed, the value of the
-hill numbers drop as the order goes up. In the even community, since
-species have the same abundance, this decrease reflects higher orders
-focusing on more common values of branch lengths. In the uneven
-community, where species have different abundances, this decrease
-reflects higher orders focusing less and less on branches leading to
-rare taxa. 4. For q = 1 to 3, Hill numbers are always lower for uneven
+<figure><img src="../fig/phylo-data-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From this picture, we can take a few insights:</p>
+<ol style="list-style-type: decimal">
+<li><p>Longer branches still yield higher Hill numbers, regardless of
+the evenness in the community abundance;</p></li>
+<li><p>The Hill number for q = 0 remains the same, regardless of the
+evenness.</p></li>
+<li><p>As already observed, the value of the hill numbers drop as the
+order goes up. In the even community, since species have the same
+abundance, this decrease reflects higher orders focusing on more common
+values of branch lengths. In the uneven community, where species have
+different abundances, this decrease reflects higher orders focusing less
+and less on branches leading to rare taxa.</p></li>
+<li><p>For q = 1 to 3, Hill numbers are always lower for uneven
 communities. This suggests that although branch lengths are the same
 (e.g., both dark red and dark blue lines represent the long tree), these
 branches are unevenly represented in the community due to uneven
@@ -3282,7 +3285,8 @@ abundance of species. This unevenness is represented by the lower values
 of Hill number on higher orders. In other words, some branches in the
 tree “dominate” the community more than others. We can summarize this by
 saying that the higher the unevenness the lower the value of the Hill
-number will be.</p>
+number will be.</p></li>
+</ol>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -3577,7 +3581,7 @@ allow you to infer regarding the history of each community.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
 <div class="accordion-body">
 <p>Learners should have the object <code>abundances_wide</code> already
 in their environment, from the previous episode. If not, use line
@@ -3605,7 +3609,7 @@ below.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
@@ -3737,7 +3741,7 @@ community?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
 <div class="accordion-body">
 <p>A few points of discussion: 1. Kauai has lowest absolute sum of
 branch lengths whereas Maui has the highest. The Big Island stays in
@@ -6186,7 +6190,7 @@ Notices?<a class="anchor" aria-label="anchor" href="#what-biodiversity-repositor
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Not much! Here are two: - <a href="https://geome-db.org/" class="external-link">GEOME</a> -
 <a href="https://metadata.maine-edna.org/main/localcontexts/" class="external-link">Maine-eDNA
@@ -6216,7 +6220,7 @@ Notices?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Guide learners toward metadata standards to transition to next
 section</p>
@@ -6255,7 +6259,7 @@ standard</a>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>There is no agreed upon solution. So the solution is really more of a
 conversation at this point. One key concept to keep in mind is that
