@@ -412,6 +412,12 @@ data, then report back on what they found and what
 the process was like.
 :::
 
+:::: discussion
+
+For a taxon and datatype of your choice, find a database online that we didn't go over and doesn't have an R API. Download some data from it. How did you query for your data? What is the structure of the data you downloaded? Discuss and contrast with folks at your table if applicable!
+
+::::
+
 # Recap
 
 ::: keypoints
