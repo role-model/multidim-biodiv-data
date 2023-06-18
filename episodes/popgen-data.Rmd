@@ -313,7 +313,7 @@ increasingly weights common species more heavily.
 The interpretation is similar when summarizing
 genetic diversity. Hill numbers are the effective
 number of species in a community, where each
-q-value increasingly weights species with lower
+q-value increasingly weights species with higher
 genetic diversity more heavily. Rather than
 measuring an effective diversity of abundances,
 this is an effective diversity of genetic
