@@ -445,6 +445,12 @@ with little information about it, thus it doesn’t show up in GNR.</p>
 <p>Learners should have the object <code>abundances</code> already in
 their environment, from the previous episode. If not, use line
 below.</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_resolved.csv"</span><span class="op">)</span></span></code></pre>
+</div>
 <hr>
 <br><h3 id="phylo-data-headingInstructor2">
 <a href="phylo-data.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#phylo-data-headingInstructor2"></a>
@@ -462,6 +468,18 @@ position.</p>
 <p>Learners should have the object <code>abundances_wide</code> already
 in their environment, from the previous episode. If not, use line
 below.</p>
+<div class="codewrapper sourceCode" id="cb43">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abundances_wide</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/role-model/multidim-biodiv-data/main/episodes/data/abundances_wide.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Note that reading from the URL introduces a "." in the column name. Replace using gsub</span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">'\\.'</span>,<span class="st">' '</span>,<span class="fu">colnames</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># It also got ride of sites as rownames.</span></span>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">abundances_wide</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'BI_01'</span>,<span class="st">'MA_01'</span>,<span class="st">'KA_01'</span><span class="op">)</span></span></code></pre>
+</div>
 <hr>
 <br><h3 id="phylo-data-headingInstructor4">
 <a href="phylo-data.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#phylo-data-headingInstructor4"></a>
@@ -497,8 +515,29 @@ enough to dictate a more even distribution of species abundance and
 phylogenetic history.</p>
 <p>Further visualization of the trees for each community can help us
 corroborate these ideas:</p>
-<p><img src="../fig/phylo-data-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" class="figure"><img src="../fig/phylo-data-rendered-unnamed-chunk-29-2.png" style="display: block; margin: auto;" class="figure"><img src="../fig/phylo-data-rendered-unnamed-chunk-29-3.png" style="display: block; margin: auto;" class="figure"></p>
-<p>The interesting thing here is that we could infer the history of the
+<div class="codewrapper sourceCode" id="cb55">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">BI_tree</span> <span class="op">&lt;-</span> <span class="fu">keep.tip</span><span class="op">(</span><span class="va">arthro_tree_pruned</span>,<span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span><span class="op">[</span> <span class="va">abundances</span><span class="op">$</span><span class="va">island</span> <span class="op">==</span> <span class="st">'BigIsland'</span> <span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">MA_tree</span> <span class="op">&lt;-</span> <span class="fu">keep.tip</span><span class="op">(</span><span class="va">arthro_tree_pruned</span>,<span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span><span class="op">[</span> <span class="va">abundances</span><span class="op">$</span><span class="va">island</span> <span class="op">==</span> <span class="st">'Maui'</span> <span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">KA_tree</span> <span class="op">&lt;-</span> <span class="fu">keep.tip</span><span class="op">(</span><span class="va">arthro_tree_pruned</span>,<span class="va">abundances</span><span class="op">$</span><span class="va">final_name</span><span class="op">[</span> <span class="va">abundances</span><span class="op">$</span><span class="va">island</span> <span class="op">==</span> <span class="st">'Kauai'</span> <span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">BI_tree</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/phylo-data-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb56">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">MA_tree</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/phylo-data-rendered-unnamed-chunk-29-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb57">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">KA_tree</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/phylo-data-rendered-unnamed-chunk-29-3.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The interesting thing here is that we could infer the history of the
 communities from the numbers only, before looking at the trees per
 community. This speaks to the power of Hill numbers as summary statistic
 of biodiversity patterns and how they can be useful for simulation-based
@@ -593,9 +632,9 @@ section</p>
   "creativeWorkStatus": "active",
   "url": "https://role-model.github.io/multidim-biodiv-data/instructor/instructor-notes.html",
   "identifier": "https://role-model.github.io/multidim-biodiv-data/instructor/instructor-notes.html",
-  "dateCreated": "2023-06-17",
-  "dateModified": "2023-06-17",
-  "datePublished": "2023-06-17"
+  "dateCreated": "2023-06-18",
+  "dateModified": "2023-06-18",
+  "datePublished": "2023-06-18"
 }
 
   </script><script>
