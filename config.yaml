@@ -65,7 +65,6 @@ episodes:
 - traits-data.Rmd
 - phylo-data.Rmd
 - popgen-data.Rmd
-- connecting-data-types.Rmd
 - finding_data.Rmd
 - care-data-repos.Rmd
 
