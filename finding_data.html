@@ -586,7 +586,10 @@ string.</p>
 <span><span class="co"># string of names that will be sent to NCBI via the ENTREZ API</span></span>
 <span><span class="va">termstring</span> <span class="op">&lt;-</span> <span class="fu">paste</span><span class="op">(</span><span class="fu">sprintf</span><span class="op">(</span><span class="st">'%s[ORGN]'</span>, <span class="va">species_names_hawaii</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">' OR '</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">search_results</span> <span class="op">&lt;-</span> <span class="fu">entrez_search</span><span class="op">(</span>db<span class="op">=</span><span class="st">"nucleotide"</span>, term <span class="op">=</span> <span class="va">termstring</span><span class="op">)</span></span></code></pre>
+<span><span class="va">search_results</span> <span class="op">&lt;-</span> <span class="fu">entrez_search</span><span class="op">(</span>db<span class="op">=</span><span class="st">"nucleotide"</span>, term <span class="op">=</span> <span class="va">termstring</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># take a quick look at all the possible things we could have added to term for this database - it includes [GENE] for looking for specific genes or [SLEN] for length of sequence</span></span>
+<span><span class="fu">entrez_db_searchable</span><span class="op">(</span>db<span class="op">=</span><span class="st">"nucleotide"</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="callout2" class="callout callout">
 <div class="callout-square">
@@ -597,7 +600,7 @@ string.</p>
 </h3>
 <div class="callout-content">
 <p>It is also possible to query for ranks higher than species in
-entrez_search()</p>
+entrez_search() also using the [ORGN] tag i.e. Tetragnatha[ORGN]</p>
 </div>
 </div>
 </div>
