@@ -309,7 +309,7 @@ was maintained, genetic diversity is reduced.
 In the context of summarizing species abundances,
 Hill numbers are the effective number of species
 in a community, where each exponent (q-value)
-increasingly weights rare species more heavily.
+increasingly weights common species more heavily.
 The interpretation is similar when summarizing
 genetic diversity. Hill numbers are the effective
 number of species in a community, where each
