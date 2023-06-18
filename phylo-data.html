@@ -747,7 +747,7 @@ will need to 1) find the position of the old name in labels in our tree;
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>We need to perform an assignment operation in the position where the
 old name is located inside <code>arthro_tree$tip.label</code>. To find
@@ -877,10 +877,10 @@ amount of evolutionary change is happening in these recent branches of
 the longer tree when compared to the shorter tree.</p>
 <p>Now, we will calculate phylogenetic hill numbers for both trees using
 both even and uneven communities. To store the calculated values, we’ll
-a data.frame called <code>even_comm_short_tree</code>. The first column
-will be our Hill numbers to be calculated; the second column will be the
-Hill number order from 0 to 3, to see how the order affects the values;
-the third and fourth column will be the description of our
+create a data.frame called <code>even_comm_short_tree</code>. The first
+column will be our Hill numbers to be calculated; the second column will
+be the Hill number order from 0 to 3, to see how the order affects the
+values; the third and fourth column will be the description of our
 components</p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1315,7 +1315,7 @@ allow you to infer regarding the history of each community.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>We can directly calculate Hill numbers using the
 <code>hill_phylo</code> function along with the objects
