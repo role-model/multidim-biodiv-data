@@ -8,7 +8,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,  results = TRUE, eval = TRUE)
+knitr::opts_chunk$set(echo = TRUE,  results = TRUE, eval = FALSE)
 ```
 
 ::: questions
@@ -94,6 +94,7 @@ library(spocc)
 library(rentrez)
 library(rotl) 
 library(taxize)
+library(dplyr)
 ```
 
 ### Getting consistent species names using `taxize`
