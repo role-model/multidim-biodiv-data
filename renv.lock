@@ -651,10 +651,10 @@
     },
     "cpp11": {
       "Package": "cpp11",
-      "Version": "0.4.3",
+      "Version": "0.4.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "ed588261931ee3be2c700d22e94a29ab"
+      "Hash": "3f7d8664d7324406cd10cd650ad85e5f"
     },
     "crayon": {
       "Package": "crayon",
@@ -706,7 +706,7 @@
     },
     "deSolve": {
       "Package": "deSolve",
-      "Version": "1.35",
+      "Version": "1.36",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -716,7 +716,7 @@
         "methods",
         "stats"
       ],
-      "Hash": "468dea1e0e888b9b0e43c555d088897c"
+      "Hash": "43f32f3a2406397aab76f9b0bcb153db"
     },
     "digest": {
       "Package": "digest",
@@ -1500,14 +1500,14 @@
     },
     "pbapply": {
       "Package": "pbapply",
-      "Version": "1.7-0",
+      "Version": "1.7-2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "parallel"
       ],
-      "Hash": "9e4fab5a4af145938025ac50803984e6"
+      "Hash": "68a2d681e10cf72f0afa1d84d45380e5"
     },
     "permute": {
       "Package": "permute",
